@@ -1,5 +1,7 @@
 package com.materialidentity.schemaservice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -7,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.transform.Result;
@@ -26,12 +28,6 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.apache.fop.apps.io.InternalResourceResolver;
-import org.apache.fop.fonts.EmbedFontInfo;
-import org.apache.fop.fonts.EmbeddingMode;
-import org.apache.fop.fonts.EncodingMode;
-import org.apache.fop.fonts.FontManager;
-import org.apache.fop.fonts.FontUris;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
@@ -75,9 +71,12 @@ public class SchemaController {
 
       String transformedXml = xsltTransform(certificateXml, xsltSource);
       var pdfBytes = generatePdfFromXslFo(transformedXml);
+
+      String certificateString = jsonToString(jsonMap);
+
       var pdfBytesWithAttachment = attachFileToPdf(
         pdfBytes,
-        "{\"lorem\": 4}",
+        certificateString,
         "certificate.json"
       );
 
@@ -94,6 +93,12 @@ public class SchemaController {
       e.printStackTrace();
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  public static String jsonToString(Map<String, Object> jsonMap)
+    throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    return objectMapper.writeValueAsString(jsonMap);
   }
 
   public static String jsonToXml(Map<String, Object> jsonMap) {
@@ -127,14 +132,9 @@ public class SchemaController {
       PDComplexFileSpecification fs = new PDComplexFileSpecification();
       fs.setFile(fileName);
 
-      // Encode the string to Base64 and create an InputStream from the encoded string
-      byte[] contentBytes = Base64
-        .getEncoder()
-        .encode(contentString.getBytes());
+      byte[] contentBytes = contentString.getBytes(StandardCharsets.UTF_8);
 
       try (InputStream is = new ByteArrayInputStream(contentBytes)) {
-        // PDStream stream = new PDStream(document, is, COSName.FLATE_DECODE);
-
         fs.setEmbeddedFile(new PDEmbeddedFile(document, is));
 
         PDEmbeddedFilesNameTreeNode efTree = new PDEmbeddedFilesNameTreeNode();
@@ -156,59 +156,11 @@ public class SchemaController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    // Return null or an empty ByteArrayOutputStream as a fallback in case of errors
     return null;
-  }
-
-  // List<String> fontPaths = Arrays.asList(
-  //   "/fonts/NotoSans-Bold.ttf",
-  //   "/fonts/NotoSans-Italic.ttf",
-  //   "/fonts/NotoSans-Light.ttf",
-  //   "/fonts/NotoSans-Regular.ttf",
-  //   "/fonts/NotoSansSC-Bold.ttf",
-  //   "/fonts/NotoSansSC-Light.ttf",
-  //   "/fonts/NotoSansSC-Regular.ttf"
-  // );
-
-  private static void addFont(
-    FopFactory fopFactory,
-    String fontFamilyName,
-    Map<String, String> stylesToPaths
-  ) {
-    try {
-      FontManager fontManager = fopFactory.getFontManager();
-      InternalResourceResolver resourceResolver = fopFactory.getHyphenationResourceResolver();
-      // FOUserAgent foUserAgent = new FOUserAgent(fopFactory, resourceResolver);
-
-      for (Map.Entry<String, String> styleAndPath : stylesToPaths.entrySet()) {
-        String pathWithinJar = styleAndPath.getValue();
-
-        java.net.URI fontUri = (new ClassPathResource(pathWithinJar)).getURI();
-        FontUris fontUris = new FontUris(fontUri, null);
-
-        EmbedFontInfo fontInfo = new EmbedFontInfo(
-          fontUris,
-          true,
-          false,
-          null,
-          fontFamilyName,
-          EncodingMode.AUTO,
-          EmbeddingMode.AUTO,
-          false,
-          false,
-          false
-        );
-
-        fontManager.getFontCache().addFont(fontInfo, resourceResolver);
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to load font collection", e);
-    }
   }
 
   public static byte[] generatePdfFromXslFo(String xslFoInput) {
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-
     Resource xconfResource = new ClassPathResource("fop.xconf");
 
     FopFactory fopFactory;
@@ -219,14 +171,6 @@ public class SchemaController {
       e.printStackTrace();
       return null;
     }
-
-    // Map<String, String> notoSansStyles = new HashMap<>();
-    // notoSansStyles.put("Regular", "/fonts/NotoSans-Regular.ttf");
-    // notoSansStyles.put("Bold", "/fonts/NotoSans-Bold.ttf");
-    // notoSansStyles.put("Italic", "/fonts/NotoSans-Italic.ttf");
-    // notoSansStyles.put("Light", "/fonts/NotoSans-Light.ttf");
-
-    // addFont(fopFactory, "NotoSans", notoSansStyles);
 
     FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
     try {

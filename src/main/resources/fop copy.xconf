@@ -4,6 +4,11 @@
     <renderer mime="application/pdf">
       <pdf-a-mode>PDF/A-3a</pdf-a-mode>
       <version>1.7</version>
+      <fonts>
+        <font embed-url="classpath:fonts/NotoSans-Regular.ttf">
+          <font-triplet name="NotoSans" style="normal" weight="normal"/>
+        </font>
+      </fonts>
     </renderer>
   </renderers>
 </fop>
