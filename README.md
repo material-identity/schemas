@@ -10,6 +10,9 @@
 ## Install packages
 `mvn install`
 
+## Compile
+`mvn compile`
+
 ## Endpoints
 - `curl localhost:8080/hello`
 - `curl localhost:8080/render`
