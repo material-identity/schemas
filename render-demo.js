@@ -10,7 +10,7 @@ const url = 'http://localhost:8080/render';
 
 axios.post(url, json_data, {
     responseType: 'arraybuffer',
-    params: { schemaType: 'CoA', schemaVersion: 'v1.1.0', languages: 'en, cn' },
+    params: { schemaType: 'CoA', schemaVersion: 'v1.1.0', languages: 'CN, EN, DE' },
 })
     .then(response => {
         if (response.status === 200) {
