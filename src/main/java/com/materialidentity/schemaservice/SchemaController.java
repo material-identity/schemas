@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,6 +29,7 @@ import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FopFactoryConfig;
 import org.apache.fop.apps.MimeConstants;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -42,6 +45,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +55,7 @@ import org.xml.sax.SAXException;
 @RestController
 public class SchemaController {
 
-  @PostMapping("/")
+  @GetMapping("/")
   public String index() {
     return "Schemas Service";
   }
@@ -164,18 +168,39 @@ public class SchemaController {
     return null;
   }
 
-  public static byte[] generatePdfFromXslFo(String xslFoInput) {
+  private static void copyInputStreamToFile(InputStream inputStream, File file)
+    throws IOException {
+    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+      int read;
+      byte[] bytes = new byte[1024];
+      while ((read = inputStream.read(bytes)) != -1) {
+        outputStream.write(bytes, 0, read);
+      }
+    }
+  }
+
+  public static byte[] generatePdfFromXslFo(String xslFoInput)
+    throws IOException, SAXException {
     ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     Resource xconfResource = new ClassPathResource("fop.xconf");
-
     FopFactory fopFactory;
-    try {
-      File xconf = xconfResource.getFile();
-      fopFactory = FopFactory.newInstance(xconf);
-    } catch (SAXException | IOException e) {
-      e.printStackTrace();
-      return null;
+
+    try (InputStream is = xconfResource.getInputStream()) {
+      File tempFile = File.createTempFile("fop", ".xconf");
+      tempFile.deleteOnExit();
+      copyInputStreamToFile(is, tempFile);
+      fopFactory = FopFactory.newInstance(tempFile);
     }
+
+    // try {
+    //   // TODO: just throw the exception
+
+    //   File xconf = xconfResource.getFile();
+    //   fopFactory = FopFactory.newInstance(xconf);
+    // } catch (SAXException | IOException e) {
+    //   e.printStackTrace();
+    //   return null;
+    // }
 
     FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
     try {

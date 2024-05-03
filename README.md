@@ -4,6 +4,9 @@
 ## Start the service
 `mvn exec:java -Dexec.mainClass="com.materialidentity.schemaservice.App"`
 
+## Run the jar
+`java -jar target/schema-service-1.0-SNAPSHOT.jar`
+
 ## Watch
 `mvn spring-boot:run`
 
