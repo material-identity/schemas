@@ -7,7 +7,7 @@ const json_data = require(filePath);
 
 
 const url = 'http://localhost:8080/render';
-// const url = 'https://schema-service-5af563d79403.herokuapp.com/render';
+// const url = 'https://schema-service-4451088b7fea.herokuapp.com/render';
 
 axios.post(url, json_data, {
     responseType: 'arraybuffer',
