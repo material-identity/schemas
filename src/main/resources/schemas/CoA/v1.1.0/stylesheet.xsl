@@ -50,18 +50,18 @@
                 </fo:table-row>
                 <fo:table-row>
                   <xsl:call-template name="PartyInfo">
-                    <xsl:with-param name="title" select="'Kunde / Customer'" />
+                    <xsl:with-param name="title" select="$i18n/Certificate/Customer" />
                     <xsl:with-param
                       name="party" select="$Parties/Customer" />
                   </xsl:call-template>
                   <xsl:call-template name="PartyInfo">
                     <xsl:with-param name="title"
-                      select="'Zertifikatsempfänger / Certificate recipient'" />
+                      select="$i18n/Certificate/Receiver" />
                     <xsl:with-param
                       name="party" select="$Parties/Receiver" />
                   </xsl:call-template>
                   <xsl:call-template name="PartyInfo">
-                    <xsl:with-param name="title" select="'Warenempfänger / Goods recipient'" />
+                    <xsl:with-param name="title" select="$i18n/Certificate/GoodsReceiver" />
                     <xsl:with-param
                       name="party" select="$Parties/GoodsReceiver" />
                   </xsl:call-template>
@@ -72,7 +72,7 @@
             <xsl:call-template
               name="SectionTitle">
               <xsl:with-param name="title"
-                select="concat('Certificate ', $Standard/Norm, ' ', $Standard/Type)" />
+                select="concat($i18n/Certificate/Certificate, ' ', $Standard/Norm, ' ', $Standard/Type)" />
             </xsl:call-template>
             <fo:table
               table-layout="fixed" width="100%">
@@ -84,13 +84,13 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Zertifikatsnummer / Certificate ID'" />
+                      select="$i18n/Certificate/Id" />
                     <xsl:with-param name="value"
                       select="Root/Certificate/Id" />
                   </xsl:call-template>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Datum / Date'" />
+                      select="$i18n/Certificate/Date" />
                     <xsl:with-param name="value"
                       select="Root/Certificate/Date" />
                   </xsl:call-template>
@@ -107,7 +107,7 @@
                   <fo:table-cell padding-right="12pt" padding-top="12pt">
                     <xsl:call-template name="SectionTitle">
                       <xsl:with-param name="title"
-                        select="'Bestellung / Order'" />
+                        select="$i18n/Certificate/Order" />
                     </xsl:call-template>
                     <fo:table table-layout="fixed" width="100%">
                       <fo:table-column column-width="70%" />
@@ -116,7 +116,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Nummer / ID'" />
+                              select="$i18n/Certificate/OrderId" />
                             <xsl:with-param name="value"
                               select="$Order/Id" />
                           </xsl:call-template>
@@ -124,7 +124,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Position / Item no.'" />
+                              select="$i18n/Certificate/OrderPosition" />
                             <xsl:with-param name="value"
                               select="$Order/Position" />
                           </xsl:call-template>
@@ -132,7 +132,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Menge / Quantity'" />
+                              select="$i18n/Certificate/OrderQuantity" />
                             <xsl:with-param name="value"
                               select="$Order/Quantity" />
                           </xsl:call-template>
@@ -140,7 +140,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Datum / Date'" />
+                              select="$i18n/Certificate/OrderDate" />
                             <xsl:with-param name="value"
                               select="$Order/Date" />
                           </xsl:call-template>
@@ -148,7 +148,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Produktnummer / Product ID'" />
+                              select="$i18n/Certificate/CustomerProductId" />
                             <xsl:with-param name="value"
                               select="$Order/CustomerProductId" />
                           </xsl:call-template>
@@ -156,7 +156,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Produktname / Product name'" />
+                              select="$i18n/Certificate/CustomerProductName" />
                             <xsl:with-param name="value"
                               select="$Order/CustomerProductName" />
                           </xsl:call-template>
@@ -164,8 +164,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Wareneingangsnummer / Goods 
-                              receipt ID'" />
+                              select="$i18n/Certificate/GoodsReceiptId" />
                             <xsl:with-param
                               name="value"
                               select="$Order/GoodsReceiptId" />
@@ -177,7 +176,7 @@
                   <fo:table-cell padding-top="12pt">
                     <xsl:call-template name="SectionTitle">
                       <xsl:with-param name="title"
-                        select="'Lieferung / Delivery'" />
+                        select="$i18n/Certificate/Delivery" />
                     </xsl:call-template>
                     <fo:table table-layout="fixed" width="100%">
                       <fo:table-column column-width="70%" />
@@ -186,7 +185,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Nummer / ID'" />
+                              select="$i18n/Certificate/DeliveryId" />
                             <xsl:with-param name="value"
                               select="$Delivery/Id" />
                           </xsl:call-template>
@@ -194,7 +193,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Position / Item no.'" />
+                              select="$i18n/Certificate/DeliveryPosition" />
                             <xsl:with-param name="value"
                               select="$Delivery/Position" />
                           </xsl:call-template>
@@ -202,7 +201,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Menge / Quantity'" />
+                              select="$i18n/Certificate/DeliveryQuantity" />
                             <xsl:with-param name="value"
                               select="$Delivery/Quantity" />
                           </xsl:call-template>
@@ -210,7 +209,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Datum / Date'" />
+                              select="$i18n/Certificate/DeliveryDate" />
                             <xsl:with-param name="value"
                               select="$Delivery/Date" />
                           </xsl:call-template>
@@ -218,7 +217,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Auftragsnummer / Order ID'" />
+                              select="$i18n/Certificate/InternalOrderId" />
                             <xsl:with-param name="value"
                               select="$Delivery/InternalOrderId" />
                           </xsl:call-template>
@@ -226,7 +225,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Auftragsposition / Order item no.'" />
+                              select="$i18n/Certificate/InternalOrderPosition" />
                             <xsl:with-param
                               name="value"
                               select="$Delivery/InternalOrderPosition" />
@@ -235,7 +234,7 @@
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
                             <xsl:with-param name="key"
-                              select="'Transport / Transport'" />
+                              select="$i18n/Certificate/Transport" />
                             <xsl:with-param name="value"
                               select="$Delivery/Transport" />
                           </xsl:call-template>
@@ -250,7 +249,7 @@
             <xsl:call-template
               name="SectionTitle">
               <xsl:with-param name="title"
-                select="'Produkt / Product'" />
+                select="$i18n/Certificate/Product" />
             </xsl:call-template>
             <fo:table
               table-layout="fixed" width="100%">
@@ -260,7 +259,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Produktnummer / Product ID'" />
+                      select="$i18n/Certificate/ProductId" />
                     <xsl:with-param name="value"
                       select="$Product/Id" />
                   </xsl:call-template>
@@ -268,7 +267,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Handelsbezeichnung / Product designation'" />
+                      select="$i18n/Certificate/ProductName" />
                     <xsl:with-param
                       name="value"
                       select="$Product/Name" />
@@ -277,7 +276,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Herkunftsland / Country of origin'" />
+                      select="$i18n/Certificate/CountryOfOrigin" />
                     <xsl:with-param name="value"
                       select="$Product/CountryOfOrigin" />
                   </xsl:call-template>
@@ -285,7 +284,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Herkunftsort / Place of origin'" />
+                      select="$i18n/Certificate/PlaceOfOrigin" />
                     <xsl:with-param name="value"
                       select="$Product/PlaceOfOrigin" />
                   </xsl:call-template>
@@ -293,7 +292,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Abfüllcharge / Filling batch ID'" />
+                      select="$i18n/Certificate/FillingBatchId" />
                     <xsl:with-param name="value"
                       select="$Product/FillingBatchId" />
                   </xsl:call-template>
@@ -301,7 +300,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Abfülldatum / Filling batch date'" />
+                      select="$i18n/Certificate/FillingBatchDate" />
                     <xsl:with-param name="value"
                       select="$Product/FillingBatchDate" />
                   </xsl:call-template>
@@ -309,7 +308,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Produktionscharge / Production batch ID'" />
+                      select="$i18n/Certificate/ProductionBatchId" />
                     <xsl:with-param
                       name="value"
                       select="$Product/ProductionBatchId" />
@@ -318,7 +317,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Produktionsdatum / Production date'" />
+                      select="$i18n/Certificate/ProductionDate" />
                     <xsl:with-param name="value"
                       select="$Product/ProductionDate" />
                   </xsl:call-template>
@@ -326,7 +325,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Ablaufdatum / Expiry date'" />
+                      select="$i18n/Certificate/ExpirationDate" />
                     <xsl:with-param name="value"
                       select="$Product/ExpirationDate" />
                   </xsl:call-template>
@@ -334,7 +333,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Normen / Standards'" />
+                      select="$i18n/Certificate/Standards" />
                     <xsl:with-param name="value"
                       select="string-join($Product/Standards, ', ')" />
                   </xsl:call-template>
@@ -342,7 +341,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Zusätzliche Informationen / Additional information'" />
+                      select="$i18n/Certificate/AdditionalInformation" />
                     <xsl:with-param
                       name="value"
                       select="string-join($Product/AdditionalInformation, ', ')" />
@@ -354,7 +353,7 @@
             <xsl:call-template
               name="SectionTitle">
               <xsl:with-param name="title"
-                select="'Prüfungen / Inspections'" />
+                select="$i18n/Certificate/Inspections" />
             </xsl:call-template>
             <fo:table
               table-layout="fixed" width="100%">
@@ -364,7 +363,7 @@
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
-                      select="'Prüflos / Lot ID'" />
+                      select="$i18n/Certificate/LotId" />
                     <xsl:with-param name="value"
                       select="$Analysis/LotId" />
                   </xsl:call-template>
@@ -384,37 +383,37 @@
                 <fo:table-row>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Eigenschaft / Property
+                      <xsl:value-of select="$i18n/Certificate/Property" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Methode / Method
+                      <xsl:value-of select="$i18n/Certificate/Method" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Einheit / Unit
+                      <xsl:value-of select="$i18n/Certificate/Unit" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Wert / Value
+                      <xsl:value-of select="$i18n/Certificate/Value" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Minimum / Minimum
+                      <xsl:value-of select="$i18n/Certificate/Minimum" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Maximum / Maximum
+                      <xsl:value-of select="$i18n/Certificate/Maximum" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Prüfbedingungen / Inspection conditions
+                      <xsl:value-of select="$i18n/Certificate/TestConditions" />
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
@@ -463,7 +462,7 @@
             <xsl:call-template
               name="SectionTitle">
               <xsl:with-param name="title"
-                select="'Erklärung / Declaration'" />
+                select="$i18n/Certificate/Declaration" />
             </xsl:call-template>
             <fo:block>
               <xsl:value-of select="Root/Certificate/DeclarationOfConformity/Declaration" />
@@ -472,7 +471,7 @@
             <xsl:call-template
               name="SectionTitle">
               <xsl:with-param name="title"
-                select="'Ansprechpartner / Contact persons'" />
+                select="$i18n/Certificate/Contacts" />
             </xsl:call-template>
             <fo:table
               width="100%">
@@ -485,27 +484,27 @@
                 <fo:table-row>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Name / Name
+                      <xsl:value-of select="$i18n/Certificate/ContactName" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Rolle / Post
+                      <xsl:value-of select="$i18n/Certificate/ContactRole" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Abteilung / Department
+                      <xsl:value-of select="$i18n/Certificate/ContactDepartment" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Email / Email
+                      <xsl:value-of select="$i18n/Certificate/ContactEmail" />
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block font-weight="bold">
-                      Telefon / Phone
+                      <xsl:value-of select="$i18n/Certificate/ContactPhone" />
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
@@ -523,17 +522,17 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="Department" />
+                        <xsl:value-of select="$i18n/ContactDepartment" />
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="Email" />
+                        <xsl:value-of select="$i18n/ContactEmail" />
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="Phone" />
+                        <xsl:value-of select="$i18n/ContactPhone" />
                       </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
@@ -542,16 +541,16 @@
             </fo:table>
             <!-- Disclaimer -->
             <fo:block border-top="solid 1pt black" margin-top="16pt" padding-top="6pt">
-              <xsl:value-of select="Root/Certificate/Disclaimer" />
+              <xsl:value-of select="$i18n/Disclaimer" />
             </fo:block>
             <!-- Attachments -->
             <xsl:call-template
-              name="SectionTitle">
+  name="SectionTitle">
               <xsl:with-param name="title"
-                select="'Anlagen / Attachments'" />
+    select="$i18n/Certificate/Attachments" />
             </xsl:call-template>
             <fo:table
-              width="100%">
+  width="100%">
               <fo:table-column column-width="100%" />
               <fo:table-body>
                 <xsl:for-each select="Root/Certificate/Attachments">
@@ -567,8 +566,8 @@
             </fo:table>
             <!-- Footer -->
             <fo:table
-              margin-top="16pt"
-              width="100%">
+  margin-top="16pt"
+  width="100%">
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
@@ -576,10 +575,10 @@
                   <fo:table-cell>
                     <fo:block> Data schema maintained by
                       <fo:basic-link
-                        external-destination="https://materialidentity.org">
+            external-destination="https://materialidentity.org">
                         <fo:inline text-decoration="underline">Material Identity</fo:inline>
                       </fo:basic-link>
-  .
+          .
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
@@ -596,19 +595,19 @@
             </fo:table>
             <!-- Used to get the last page number -->
             <fo:block
-              id="last-page" />
-          </fo:block>
+  id="last-page" />
+</fo:block>
         </fo:flow>
       </fo:page-sequence>
     </fo:root>
   </xsl:template>
   <xsl:template
-    name="SectionTitle">
+  name="SectionTitle">
     <xsl:param name="title" />
     <fo:block font-size="10pt" font-weight="bold"
-      text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
+    text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
       <xsl:value-of
-        select="$title" />
+      select="$title" />
     </fo:block>
   </xsl:template>
   <xsl:template name="KeyValue">
@@ -626,7 +625,7 @@
     </fo:table-cell>
   </xsl:template>
   <xsl:template
-    name="PartyInfo">
+  name="PartyInfo">
     <xsl:param name="title" />
     <xsl:param name="party" />
     <fo:table-cell>
