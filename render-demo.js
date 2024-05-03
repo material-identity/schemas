@@ -5,7 +5,6 @@ const path = require('path');
 const filePath = path.join(__dirname, 'src', 'main', 'resources', 'schemas', 'CoA', 'v1.1.0', 'valid-cert.json');
 const json_data = require(filePath);
 
-
 const url = 'http://localhost:8080/render';
 // const url = 'https://schema-service-4451088b7fea.herokuapp.com/render';
 

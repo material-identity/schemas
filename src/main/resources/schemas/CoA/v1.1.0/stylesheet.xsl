@@ -22,13 +22,17 @@
         </fo:static-content>
         <!-- Body -->
         <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
+          <fo:block font-family="NotoSans" font-style="italic">
+            Should be "Certificate recipient":
+            <xsl:value-of select="Root/Translations/EN/Certificate/Receiver" />
+          </fo:block>
           <!-- Global variables -->
-          <xsl:variable name="Parties" select="root/Certificate/Parties" />
-          <xsl:variable name="Standard" select="root/Certificate/Standard" />
-          <xsl:variable name="Order" select="root/Certificate/BusinessTransaction/Order" />
-          <xsl:variable name="Delivery" select="root/Certificate/BusinessTransaction/Delivery" />
-          <xsl:variable name="Product" select="root/Certificate/Product" />
-          <xsl:variable name="Analysis" select="root/Certificate/Analysis" />
+          <xsl:variable name="Parties" select="Root/Certificate/Parties" />
+          <xsl:variable name="Standard" select="Root/Certificate/Standard" />
+          <xsl:variable name="Order" select="Root/Certificate/BusinessTransaction/Order" />
+          <xsl:variable name="Delivery" select="Root/Certificate/BusinessTransaction/Delivery" />
+          <xsl:variable name="Product" select="Root/Certificate/Product" />
+          <xsl:variable name="Analysis" select="Root/Certificate/Analysis" />
           <fo:block font-size="8pt">
             <!-- Parties -->
             <fo:table table-layout="fixed" width="100%">
@@ -39,7 +43,7 @@
                 <fo:table-row>
                   <fo:table-cell number-columns-spanned="2" padding-bottom="8pt">
                     <fo:block>
-                      <fo:external-graphic src="{root/Certificate/Logo}" content-height="48px"
+                      <fo:external-graphic src="{Root/Certificate/Logo}" content-height="48px"
                         height="48px" />
                     </fo:block>
                   </fo:table-cell>
@@ -85,13 +89,13 @@
                     <xsl:with-param name="key"
                       select="'Zertifikatsnummer / Certificate ID'" />
                     <xsl:with-param name="value"
-                      select="root/Certificate/Id" />
+                      select="Root/Certificate/Id" />
                   </xsl:call-template>
                   <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key"
                       select="'Datum / Date'" />
                     <xsl:with-param name="value"
-                      select="root/Certificate/Date" />
+                      select="Root/Certificate/Date" />
                   </xsl:call-template>
                 </fo:table-row>
               </fo:table-body>
@@ -465,7 +469,7 @@
                 select="'Erklärung / Declaration'" />
             </xsl:call-template>
             <fo:block>
-              <xsl:value-of select="root/Certificate/DeclarationOfConformity/Declaration" />
+              <xsl:value-of select="Root/Certificate/DeclarationOfConformity/Declaration" />
             </fo:block>
             <!-- Contact persons -->
             <xsl:call-template
@@ -508,7 +512,7 @@
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
-                <xsl:for-each select="root/Certificate/Contacts">
+                <xsl:for-each select="Root/Certificate/Contacts">
                   <fo:table-row>
                     <fo:table-cell>
                       <fo:block font-family="NotoSans" font-style="italic">
@@ -541,7 +545,7 @@
             </fo:table>
             <!-- Disclaimer -->
             <fo:block border-top="solid 1pt black" margin-top="16pt" padding-top="6pt">
-              <xsl:value-of select="root/Certificate/Disclaimer" />
+              <xsl:value-of select="Root/Certificate/Disclaimer" />
             </fo:block>
             <!-- Attachments -->
             <xsl:call-template
@@ -553,7 +557,7 @@
               width="100%">
               <fo:table-column column-width="100%" />
               <fo:table-body>
-                <xsl:for-each select="root/Certificate/Attachments">
+                <xsl:for-each select="Root/Certificate/Attachments">
                   <fo:table-row>
                     <fo:table-cell>
                       <fo:block font-family="NotoSans" font-style="italic">
@@ -583,9 +587,9 @@
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block color="gray" text-align="right">
-                      <fo:basic-link external-destination="{root/RefSchemaUrl}">
+                      <fo:basic-link external-destination="{Root/RefSchemaUrl}">
                         <fo:inline text-decoration="underline">
-                          <xsl:value-of select="root/RefSchemaUrl" />
+                          <xsl:value-of select="Root/RefSchemaUrl" />
                         </fo:inline>
                       </fo:basic-link>
                     </fo:block>
