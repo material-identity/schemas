@@ -51,6 +51,11 @@ import org.xml.sax.SAXException;
 @RestController
 public class SchemaController {
 
+  @PostMapping("/")
+  public String index() {
+    return "Schemas Service";
+  }
+
   @PostMapping("/render")
   public ResponseEntity<byte[]> render(
     @RequestParam("schemaType") String schemaType,

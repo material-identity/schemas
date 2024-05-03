@@ -9,7 +9,7 @@
             "name": "Debug Maven Spring Boot API",
             "request": "launch",
             "mainClass": "com.materialidentity.schemaservice.App",
-            "projectName": "schemas-service",
+            "projectName": "schema-service",
             "args": []
         }
     ]
