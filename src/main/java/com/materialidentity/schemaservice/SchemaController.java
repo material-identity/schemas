@@ -41,7 +41,6 @@ public class SchemaController {
         .toString();
 
       String certificateJson = jsonToString(certificate);
-      // String certificateXml = jsonNodeToXml(certificate);
 
       String xsltPath = Paths
         .get("schemas", schemaType, schemaVersion, "stylesheet.xsl")

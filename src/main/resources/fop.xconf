@@ -8,6 +8,9 @@
         <font embed-url="classpath:fonts/NotoSans-Regular.ttf">
           <font-triplet name="NotoSans" style="normal" weight="normal"/>
         </font>
+        <font embed-url="classpath:fonts/NotoSansSC-Regular.ttf">
+          <font-triplet name="NotoSans" style="normal" weight="normal"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>

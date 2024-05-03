@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -14,8 +13,6 @@ public class TranslationLoader {
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
   private String translationFilePattern;
-
-  // TODO: implement language selector
   private String[] languages;
 
   public TranslationLoader(String translationFilePattern, String[] languages) {
@@ -25,34 +22,29 @@ public class TranslationLoader {
 
   public JsonNode load() throws IOException {
     PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-    JsonNode translations = objectMapper.createObjectNode();
+    ObjectNode translations = objectMapper.createObjectNode();
     Resource[] resources = resolver.getResources(
       "classpath*:" + translationFilePattern
     );
     for (Resource resource : resources) {
-      System.out.println(resource.getURL());
-
-      InputStream is = resource.getInputStream();
-      JsonNode node = objectMapper.readTree(is);
-      translations = merge(translations, node);
+      ObjectNode resourceTranslations = loadTranslationsFromResource(resource);
+      JsonMerger.deepMerge(resourceTranslations, translations, null);
     }
     return translations;
   }
 
-  public static JsonNode merge(JsonNode mainNode, JsonNode updateNode) {
-    Iterator<String> fieldNames = updateNode.fieldNames();
-    while (fieldNames.hasNext()) {
-      String fieldName = fieldNames.next();
-      JsonNode jsonNode = mainNode.get(fieldName);
-      if (jsonNode != null && jsonNode.isObject()) {
-        merge(jsonNode, updateNode.get(fieldName));
-      } else {
-        if (mainNode instanceof ObjectNode) {
-          JsonNode value = updateNode.get(fieldName);
-          ((ObjectNode) mainNode).set(fieldName, value);
-        }
-      }
+  private ObjectNode loadTranslationsFromResource(Resource resource)
+    throws IOException {
+    InputStream is = resource.getInputStream();
+    JsonNode node = objectMapper.readTree(is);
+    ObjectNode resourceTranslations = objectMapper.createObjectNode();
+
+    for (String language : languages) {
+      JsonNode languageNode = node.get(language);
+      if (languageNode == null) continue;
+      JsonMerger.deepMerge(languageNode, resourceTranslations, " / ");
     }
-    return mainNode;
+
+    return resourceTranslations;
   }
 }

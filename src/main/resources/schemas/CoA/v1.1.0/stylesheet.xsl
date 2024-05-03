@@ -22,11 +22,8 @@
         </fo:static-content>
         <!-- Body -->
         <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
-          <fo:block font-family="NotoSans" font-style="italic">
-            Should be "Certificate recipient":
-            <xsl:value-of select="Root/Translations/EN/Certificate/Receiver" />
-          </fo:block>
           <!-- Global variables -->
+          <xsl:variable name="i18n" select="Root/Translations" />
           <xsl:variable name="Parties" select="Root/Certificate/Parties" />
           <xsl:variable name="Standard" select="Root/Certificate/Standard" />
           <xsl:variable name="Order" select="Root/Certificate/BusinessTransaction/Order" />
