@@ -20,7 +20,6 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.xml.sax.SAXException;
 
 public class FoManager {
 
@@ -32,12 +31,12 @@ public class FoManager {
     this.xslFoInput = xslFoInput;
   }
 
-  public byte[] generatePdf() throws IOException, SAXException {
+  public byte[] generatePdf() throws Exception {
     return generatePdf(xslFoInput);
   }
 
   public byte[] generatePdf(String xslFoInput)
-    throws IOException, SAXException {
+    throws Exception {
     if (xslFoInput == null) {
       throw new IllegalArgumentException("XSL-FO input is required");
     }
@@ -71,13 +70,9 @@ public class FoManager {
       return outStream.toByteArray();
     } catch (FOPException | TransformerException e) {
       e.printStackTrace();
-      return null;
+      throw e;
     } finally {
-      try {
-        outStream.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      outStream.close();
     }
   }
 
