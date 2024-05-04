@@ -75,5 +75,4 @@ public class SchemaController {
     ObjectMapper objectMapper = new ObjectMapper();
     return objectMapper.writeValueAsString(jsonMap);
   }
-
 }
