@@ -6,6 +6,7 @@ import {
   effect,
   signal,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -18,7 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
       (drop)="onFileDrop($event)"
       (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave($event)"
-      class="flex flex-col rounded-md border border-slate-200 select-none"
+      class="flex flex-col rounded-md border border-slate-200 select-none ring-primary-500"
+      [class.ring]="dragging()"
     >
       <input
         class="hidden"
@@ -44,37 +46,40 @@ import { MatIconModule } from '@angular/material/icon';
         </button>
       </div>
       }
-
-      <!-- <div class="p-4 h-60 overflow-hidden">
-        <pre class="text-xs opacity-50"><code>{{ jsonPreview() }}</code></pre>
-      </div>
-      <div
-        class="bt-1 text-sm text-center py-4 text-gray-800 justify-center items-center flex gap-1"
-      >
-        <mat-icon inline fontIcon="arrow_circle_up"></mat-icon>
-        Drag Certificate JSON here
-      </div> -->
     </div>
   `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: UploaderComponent,
+      multi: true,
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UploaderComponent {
+export class UploaderComponent implements ControlValueAccessor {
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
   readonly file = signal<File | null>(null);
+  readonly dragging = signal<boolean>(false);
+
+  private onChange = (file: File | null) => {};
+  private onTouched = () => {};
 
   constructor() {
     effect(() => {
       if (this.file()) return;
       if (!this.fileInput) return;
       this.fileInput.nativeElement.value = '';
+      this.onChange(null);
+      this.onTouched();
     });
   }
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    // Do something with the selected file
-    console.log(file);
     this.file.set(file);
+    this.onChange(file);
+    this.onTouched();
   }
 
   onFileDrop(event: DragEvent): void {
@@ -82,23 +87,34 @@ export class UploaderComponent {
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       const file: File = files[0];
-      // Do something with the dropped file
-      console.log(file);
+      this.file.set(file);
+      this.onChange(file);
+      this.onTouched();
     }
+    this.dragging.set(false);
   }
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    // event.dataTransfer?.dropEffect = 'copy';
-    // Add CSS class to indicate drag over
-    // event.target['classList'].add('drag-over');
+    this.dragging.set(true);
   }
 
   onDragLeave(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    // Remove CSS class when dragging leaves the drop zone
-    // event.target['classList'].remove('drag-over');
+    this.dragging.set(false);
+  }
+
+  writeValue(file: File | null): void {
+    this.file.set(file);
+  }
+
+  registerOnChange(fn: (file: File | null) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 }

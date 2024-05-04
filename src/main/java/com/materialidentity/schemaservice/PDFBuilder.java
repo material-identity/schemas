@@ -2,9 +2,6 @@ package com.materialidentity.schemaservice;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.IOException;
-import javax.xml.transform.TransformerException;
-import org.xml.sax.SAXException;
 
 public class PDFBuilder {
 
@@ -36,13 +33,13 @@ public class PDFBuilder {
     return this;
   }
 
-  public byte[] build() throws TransformerException, IOException, SAXException {
+  public byte[] build() throws Exception {
     byte[] pdf = generatePdf();
     return attachmentManager == null ? pdf : attachmentManager.attach(pdf);
   }
 
   private byte[] generatePdf()
-    throws IOException, SAXException, TransformerException {
+    throws Exception {
     if (xsltTransformer != null) {
       // Attach translations to the certificate
       if (translationLoader != null) {
