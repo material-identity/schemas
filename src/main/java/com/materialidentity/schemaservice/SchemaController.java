@@ -9,18 +9,26 @@ import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,20 +79,26 @@ public class SchemaController {
   }
 
   @PostMapping("/validate")
-  public ResponseEntity<Boolean> validate(
+  public ResponseEntity<Map<String, Object>> validate(
       @RequestParam("schemaType") String schemaType,
       @RequestParam("schemaVersion") String schemaVersion,
-      @RequestBody JsonNode requestBody) {
+      @RequestBody JsonNode jsonCertificate) {
     try {
-      ObjectMapper objectMapper = new ObjectMapper();
-      String jsonCertificateString = objectMapper.writeValueAsString(requestBody.get("jsonData"));
-      String jsonSchemaString = objectMapper.writeValueAsString(requestBody.get("jsonSchema"));
+
+      String certificateString = jsonToString(jsonCertificate);
 
       // build schema validator with schema definition
       JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
-      JsonSchema schema = schemaFactory.getSchema(jsonSchemaString);
 
-      Set<ValidationMessage> validationResult = schema.validate(jsonCertificateString, InputFormat.JSON,
+      String schemaDefinitionPath = Paths
+          .get("schemas", schemaType, schemaVersion, "schema.json")
+          .toString();
+
+      String schemaDefinition = readResourceAsString(schemaDefinitionPath);
+
+      JsonSchema schema = schemaFactory.getSchema(schemaDefinition);
+
+      Set<ValidationMessage> validationResult = schema.validate(certificateString, InputFormat.JSON,
           executionContext -> {
             executionContext.getExecutionConfig().setFormatAssertionsEnabled(true);
           });
@@ -102,12 +116,52 @@ public class SchemaController {
       Map<String, Object> response = new HashMap<>();
       response.put("success", isValid);
 
-      return new ResponseEntity<>(validationResult.isEmpty(), HttpStatus.OK);
+      return new ResponseEntity<>(response, headers, HttpStatus.OK);
 
     } catch (Exception e) {
       e.printStackTrace();
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  @GetMapping("/schemas")
+  public ResponseEntity<Map<String, Object>> getSchemas() {
+    Map<String, Object> response = new HashMap<>();
+    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+
+    try {
+      Resource[] resources = resolver.getResources("classpath:schemas/*");
+
+      for (Resource resource : resources) {
+        if (resource.getFile().isDirectory()) {
+          String schemaName = resource.getFilename();
+          List<String> versions = getVersionsForResource(resolver, schemaName);
+          response.put(schemaName, Collections.singletonMap("versions", versions));
+        }
+      }
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+
+      return new ResponseEntity<>(response, headers, HttpStatus.OK);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  private List<String> getVersionsForResource(PathMatchingResourcePatternResolver resolver, String schemaName)
+      throws IOException {
+    List<String> versions = new ArrayList<>();
+    Resource[] versionResources = resolver.getResources("classpath:schemas/" + schemaName + "/*");
+
+    for (Resource versionResource : versionResources) {
+      if (versionResource.getFile().isDirectory()) {
+        versions.add(versionResource.getFilename());
+      }
+    }
+
+    return versions;
   }
 
   public static String jsonToString(JsonNode jsonMap)
@@ -116,4 +170,12 @@ public class SchemaController {
     return objectMapper.writeValueAsString(jsonMap);
   }
 
+  private String readResourceAsString(String resourcePath) throws IOException {
+    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+    Resource resource = resolver.getResource("classpath:" + resourcePath);
+    try (InputStream inputStream = resource.getInputStream()) {
+      byte[] bytes = inputStream.readAllBytes();
+      return new String(bytes, StandardCharsets.UTF_8);
+    }
+  }
 }
