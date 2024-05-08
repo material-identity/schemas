@@ -1,57 +1,68 @@
 package com.materialidentity.schemaservice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 import javax.xml.transform.TransformerException;
-import org.springframework.http.HttpHeaders;
+
+import org.apache.fop.apps.FOPException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.materialidentity.schemaservice.apiexception.ApiError;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(
-    { TransformerException.class, IOException.class, SAXException.class }
-  )
-  public ResponseEntity<byte[]> handleServerExceptions(Exception ex) {
-    // Log the exception
-    System.out.println(ex); // Use a proper logger in production environments
-
-    // Create error details map
-    Map<String, Object> errorDetails = new LinkedHashMap<>();
-    errorDetails.put("timestamp", System.currentTimeMillis());
-    errorDetails.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-    errorDetails.put("error", "Internal Server Error");
-    errorDetails.put("message", ex.getMessage());
-    errorDetails.put("type", ex.getClass().getSimpleName());
-
-    // Convert map to JSON then to byte array
-    byte[] responseBytes = convertMapToJsonBytes(errorDetails);
-
-    // Creating HttpHeaders
-    HttpHeaders headers = new HttpHeaders();
-    headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
-
-    return ResponseEntity
-      .status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .headers(headers)
-      .body(responseBytes);
-  }
-
-  private byte[] convertMapToJsonBytes(Map<String, Object> map) {
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-      String json = mapper.writeValueAsString(map);
-      return json.getBytes(StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      // In case of failure in converting to JSON
-      return new byte[0];
+    @ExceptionHandler(JsonProcessingException.class)
+    protected ResponseEntity<Object> handleJsonProcessingException(
+            JsonProcessingException e) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        log.error("Error processing json certificate", e);
+        apiError.setMessage(
+                "\"There was a problem processing the uploaded JSON certificate. Please check the JSON structure and try again.\"");
+        return new ResponseEntity<>(apiError, apiError.getStatus());
     }
-  }
+
+    @ExceptionHandler(IOException.class)
+    protected ResponseEntity<Object> handleIOException(IOException e) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        log.error("I/O error occurred", e);
+        apiError.setMessage("An I/O error occurred. Please try again.");
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(FOPException.class)
+    protected ResponseEntity<Object> handleFOPException(FOPException e) {
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error("Error during PDF generation", e);
+        apiError.setMessage("A PDF generation error occurred. Please try again.");
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(TransformerException.class)
+    protected ResponseEntity<Object> handleTransformerException(TransformerException e) {
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error("Error transforming XML", e);
+        apiError.setMessage("An error occurred while transforming XML. Please check the XML and try again.");
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(SAXException.class)
+    protected ResponseEntity<Object> handleSAXException(SAXException e) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        log.error("SAX error occurred", e);
+        apiError.setMessage("An error occurred while parsing XML. Please check the XML and try again.");
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 }

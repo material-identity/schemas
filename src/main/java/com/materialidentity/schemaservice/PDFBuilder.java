@@ -1,5 +1,12 @@
 package com.materialidentity.schemaservice;
 
+import java.io.IOException;
+
+import javax.xml.transform.TransformerException;
+
+import org.apache.fop.apps.FOPException;
+import org.xml.sax.SAXException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -33,21 +40,19 @@ public class PDFBuilder {
     return this;
   }
 
-  public byte[] build() throws Exception {
+  public byte[] build() throws FOPException, TransformerException, IOException, SAXException {
     byte[] pdf = generatePdf();
     return attachmentManager == null ? pdf : attachmentManager.attach(pdf);
   }
 
-  private byte[] generatePdf()
-    throws Exception {
+  private byte[] generatePdf() throws FOPException, TransformerException, IOException, SAXException {
     if (xsltTransformer != null) {
       // Attach translations to the certificate
       if (translationLoader != null) {
         JsonNode translations = translationLoader.load();
         ((ObjectNode) xsltTransformer.getSource()).set(
             "Translations",
-            translations
-          );
+            translations);
       }
 
       // Process the xslt input
