@@ -1,0 +1,17 @@
+<fop version="1.0">
+  <accessibility>true</accessibility>
+  <renderers>
+    <renderer mime="application/pdf">
+      <pdf-a-mode>PDF/A-3a</pdf-a-mode>
+      <version>1.7</version>
+      <fonts>
+        <font embed-url="fonts/NotoSans-Regular.ttf">
+          <font-triplet name="NotoSans" style="normal" weight="normal"/>
+        </font>
+        <font embed-url="fonts/NotoSansSC-Regular.ttf">
+          <font-triplet name="NotoSans" style="normal" weight="normal"/>
+        </font>
+      </fonts>
+    </renderer>
+  </renderers>
+</fop>

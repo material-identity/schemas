@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.10",
+    "pdfkit": "^0.15.0",
+    "saxon-js": "^2.6.0",
+    "xml2js": "^0.6.2",
+    "xslt3": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/pdfkit": "^0.13.4",
+    "@types/xml2js": "^0.4.14"
+  }
+}
