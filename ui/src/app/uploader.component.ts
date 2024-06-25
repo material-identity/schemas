@@ -30,21 +30,21 @@ import { MatIconModule } from '@angular/material/icon';
         #fileInput
       />
       @if (!file()) {
-      <div class="flex justify-between items-center p-4 pl-2">
-        <button mat-stroked-button (click)="fileInput.click()">
-          Select JSON File
-        </button>
+        <div class="flex justify-between items-center p-4 pl-2">
+          <button mat-stroked-button (click)="fileInput.click()">
+            Select JSON File
+          </button>
 
-        <span class="text-gray-700 text-sm">Drop file here to upload</span>
-      </div>
+          <span class="text-gray-700 text-sm">Drop file here to upload</span>
+        </div>
       } @else {
-      <div class="flex gap-2 items-center p-2">
-        <mat-icon fontIcon="text_snippet">description</mat-icon>
-        <span class="text-gray-800 flex-1">{{ file()?.name }}</span>
-        <button mat-icon-button (click)="file.set(null)">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
+        <div class="flex gap-2 items-center p-2">
+          <mat-icon fontIcon="text_snippet">description</mat-icon>
+          <span class="text-gray-800 flex-1">{{ file()?.name }}</span>
+          <button mat-icon-button (click)="file.set(null)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
       }
     </div>
   `,
