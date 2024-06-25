@@ -3,9 +3,7 @@ const { join } = require('path');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   important: true,
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-  ],
+  content: [join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}')],
   theme: {
     extend: {
       colors: {
