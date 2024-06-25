@@ -1,209 +1,305 @@
 {
-  "RefSchemaUrl": "https://schemas.s1seven.dev/coa-schemas/v1.1.0/schema.json",
+  "RefSchemaUrl": "https://schemas.s1seven.dev/en10168-schemas/v0.4.1/schema.json",
   "Certificate": {
-    "CertificateLanguages": ["DE", "EN"],
-    "Id": "43",
-    "Date": "2021-12-12",
-    "Standard": {
-      "Norm": "EN 10204:2004",
-      "Type": "3.1"
-    },
-    "Parties": {
-      "Manufacturer": {
-        "Name": "Green Plastics AG",
-        "Street": "Kunststoffgasse 1",
-        "ZipCode": "10003",
+    "CertificateLanguages": ["EN", "DE"],
+    "CommercialTransaction": {
+      "A01": {
+        "CompanyName": "Steel Mill SE",
+        "Street": "Stahlstrasse 1",
+        "ZipCode": "4040",
+        "City": "Linz",
+        "Country": "AT",
+        "Email": "sbs.steelfactory@gmail.com",
+        "Identifiers": {
+          "VAT": "AT123456789"
+        }
+      },
+      "A02": "Mill Certificate EN 10204 3.1",
+      "A03": "1866645/001",
+      "A04": "data:image/png;base64,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",
+      "A05": "Factory Production Control",
+      "A06.1": {
+        "CompanyName": "Steel Trading AG",
+        "Street": "Handelsgasse 1",
+        "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "s1seven.certificates@gmail.com",
+        "Email": "sbs.steeltrader@gmail.com",
         "Identifiers": {
-          "VAT": "AT123456789",
-          "DUNS": "",
-          "CageCode": ""
+          "VAT": "DE12234567890"
         }
       },
-      "Customer": {
-        "Name": "Plastic Processor SE",
-        "Street": "Plastik Street 1",
-        "ZipCode": "1230",
-        "City": "Wien",
-        "Country": "AT",
-        "Email": "s1seven.certificates@gmail.com",
+      "A06.3": {
+        "CompanyName": "Steel Warehouse AG",
+        "Street": "Handelsgasse 1",
+        "ZipCode": "10115",
+        "City": "Berlin",
+        "Country": "DE",
+        "Email": "sbs.steeltrader@gmail.com",
         "Identifiers": {
-          "VAT": "AT123456789"
+          "VAT": "DE12234567890"
         }
       },
-      "Receiver": {
-        "Name": "Plastic Processor SE",
-        "Street": ["Plastik Street 1", "Werk 1"],
-        "ZipCode": "1230",
-        "City": "Wien",
-        "Country": "AT",
-        "Email": "s1seven.certificates@gmail.com",
-        "Identifiers": {
-          "VAT": "AT123456789"
+      "A07": "0334/2019/ZZS",
+      "A08": "958722",
+      "A09": "TR-12456",
+      "A98": "DN-1583836",
+      "A99": "AV-87682933",
+      "SupplementaryInformation": {
+        "A10": {
+          "Key": "Buyer Reference Number",
+          "Value": "BRN-1583836",
+          "Type": "string"
+        },
+        "A11": {
+          "Key": "Reference Date",
+          "Value": "2018-10-23T09:30:10-01:00",
+          "Type": "date-time"
+        }
+      }
+    },
+    "ProductDescription": {
+      "B01": "Seamleass Steel Tubes Hot Roild",
+      "B02": {
+        "SteelDesignation": ["S355J2H", "P355NH/TC1", "E355+N"],
+        "ProductNorm": ["EN 10219-1:2006"],
+        "MassNorm": ["EN 10220"],
+        "MaterialNorm": ["EN 10297-1:2003-06"]
+      },
+      "B03": "Ausführung lt. EN 10219 Teil 1+2 /--/",
+      "B04": "normalized",
+      "B06": "SST 200x150x6",
+      "B07": "7282841",
+      "B08": 16,
+      "B09": {
+        "Form": "RectangularTube",
+        "Width": 200,
+        "Height": 150,
+        "WallThickness": 6.5,
+        "Unit": "mm"
+      },
+      "B10": {
+        "Property": "Length",
+        "Value": 12000,
+        "Unit": "mm"
+      },
+      "B11": {
+        "Property": "Corner radius",
+        "Value": 1.5,
+        "Unit": "mm"
+      },
+      "B12": {
+        "Property": "Theoretical mass",
+        "Value": 5738.3,
+        "Unit": "kg"
+      },
+      "B13": {
+        "Property": "Actual mass",
+        "Value": 5739.3,
+        "Unit": "kg"
+      },
+      "SupplementaryInformation": {
+        "B99": {
+          "Key": "B99",
+          "Value": "1607219/0001_20181023_1529",
+          "Type": "string"
+        }
+      }
+    },
+    "Inspection": {
+      "C00": "175508",
+      "C02": "0001 längs",
+      "C03": "-20 Celsius",
+      "SupplementaryInformation": {
+        "C04": {
+          "Key": "Sample Identifier",
+          "Value": "10001011/175508",
+          "Type": "string"
         }
       },
-      "GoodsReceiver": {
-        "Name": "Plastic Processor SE",
-        "Street": ["Plastik Street 1", "Werk 1"],
-        "ZipCode": "1230",
-        "City": "Wien",
-        "Country": "AT",
-        "Email": "s1seven.certificates@gmail.com"
-      }
-    },
-    "BusinessTransaction": {
-      "Order": {
-        "Id": "1000/12/12/2021",
-        "Position": "000010",
-        "Date": "2021-12-01",
-        "Quantity": 100,
-        "QuantityUnit": "kg",
-        "CustomerProductId": "10011",
-        "CustomerProductName": "Plastic",
-        "GoodsReceiptId": "1000_10_10"
-      },
-      "OrderConfirmation": {
-        "Id": "22",
-        "Date": "2021-12-01"
-      },
-      "Delivery": {
-        "Id": "3000/20",
-        "Position": "1",
-        "Date": "2021-12-13",
-        "Quantity": 90,
-        "QuantityUnit": "kg",
-        "InternalOrderId": "3384048234",
-        "InternalOrderPosition": "000020",
-        "Transport": ["W345678"]
-      }
-    },
-    "Product": {
-      "Id": "20000 01",
-      "Name": "Manufactured Product Name",
-      "CountryOfOrigin": "DE",
-      "PlaceOfOrigin": "Berlin",
-      "FillingBatchId": "210000",
-      "FillingBatchDate": "2021-12-12",
-      "Standards": ["ASTM D-4066 PA0111", "ASTM D-4066 PA0121"],
-      "ProductionBatchId": "100001",
-      "ProductionDate": "2017-12-01",
-      "ExpirationDate": "2021-12-12",
-      "AdditionalInformation": ["Information 1", "Information 2"]
-    },
-    "Analysis": {
-      "LotId": "123456789 10",
-      "PropertiesStandard": "CAMPUS",
-      "Inspections": [
-        {
-          "PropertyId": "1038",
-          "Property": "MFR",
-          "Method": "DIN EN ISO 1133",
-          "Unit": "g/10m_",
-          "Value": "31",
-          "ValueType": "number",
-          "Minimum": "15",
-          "Maximum": "35",
-          "TestConditions": "According customer specification"
+      "ChemicalComposition": {
+        "C71": {
+          "Actual": 0.15,
+          "Symbol": "C"
         },
-        {
-          "PropertyId": "1039",
-          "Property": "Density",
-          "Method": "DIN EN ISO 1183-1A",
-          "Unit": "g/cm³",
-          "Value": "85",
-          "ValueType": "number",
-          "Minimum": "85",
-          "Maximum": "89"
+        "C72": {
+          "Actual": 0.005,
+          "Symbol": "Si"
         },
-        {
-          "PropertyId": "11",
-          "Property": "Charpy impact strength",
-          "Method": "ISO 179/1eU",
-          "Unit": "kJ/m²",
-          "Value": "85",
-          "ValueType": "number"
+        "C73": {
+          "Actual": 1,
+          "Symbol": "Mn"
         },
-        {
-          "PropertyId": "239",
-          "Property": "Type of failure",
-          "Method": "ISO 179/1eU",
-          "Value": "C",
-          "ValueType": "string"
+        "C74": {
+          "Actual": 0.014,
+          "Symbol": "P"
         },
-        {
-          "Property": "Test Case 1",
-          "Method": "ISO 179/1eU",
-          "Value": "4.1",
-          "ValueType": "number",
-          "Maximum": "4.0"
+        "C75": {
+          "Actual": 0.007,
+          "Symbol": "S"
         },
-        {
-          "Property": "Test Case 2",
-          "Method": "ISO 179/1eU",
-          "Value": "4.1",
-          "ValueType": "number",
-          "Maximum": "4.0"
+        "C76": {
+          "Actual": 0.041,
+          "Symbol": "Al"
         },
-        {
-          "Property": "Test Case 3",
-          "Method": "ISO 179/1eU",
-          "Value": "4.0",
-          "ValueType": "number",
-          "Maximum": "4.9"
+        "C77": {
+          "Actual": 0.02,
+          "Symbol": "Cr"
         },
-        {
-          "Property": "Test Case 1 #57",
-          "Method": "ISO 179/1eU",
-          "Value": "0.08",
-          "ValueType": "number",
-          "Maximum": "0.15"
+        "C78": {
+          "Actual": 0.009,
+          "Symbol": "Ni"
         },
-        {
-          "Property": "Test Case 3 #57",
-          "Method": "ISO 179/1eU",
-          "Value": "49.7",
-          "ValueType": "number",
-          "Minimum": "48.0",
-          "Maximum": "52.0"
+        "C79": {
+          "Actual": 0.002,
+          "Symbol": "Mo"
+        },
+        "C80": {
+          "Actual": 0.01,
+          "Symbol": "Cu"
+        },
+        "C81": {
+          "Actual": 0.002,
+          "Symbol": "V"
+        },
+        "C82": {
+          "Actual": 0.001,
+          "Symbol": "Ti"
+        },
+        "C85": {
+          "Actual": 0.0047,
+          "Symbol": "N"
+        },
+        "C86": {
+          "Actual": 0.00001,
+          "Symbol": "B"
+        },
+        "C92": {
+          "Actual": 0.3227,
+          "Symbol": "CEV"
         }
-      ],
-      "AdditionalInformation": ["Information 1", "Information 2"]
-    },
-    "DeclarationOfConformity": {
-      "Declaration": "This document is valid without signature."
-    },
-    "Disclaimer": "The aforementioned data shall constitute the agreed contractual quality of the product at the time of passing of risk. The data are controlled at regular intervals as part of our quality assurance program. Neither these data nor the properties of product specimens shall imply any legally binding guarantee of certain properties or of fitness for a specific purpose. No liability of ours can be derived therefrom",
-    "Contacts": [
-      {
-        "Name": "Josef Manager",
-        "Role": "Quality Manager",
-        "Department": "Factory Production Control",
-        "Email": "contact1@email.com",
-        "Phone": "+31 6 12345678"
       },
-      {
-        "Name": "Joe Inspector",
-        "Role": "Inspector",
-        "Department": "Factory Production Control",
-        "Email": "contact2@email.com",
-        "Phone": "+31 6 12345678"
-      }
-    ],
-    "Attachments": [
-      {
-        "Hash": {
-          "Algorithm": "SHA256",
-          "Encoding": "base64",
-          "Value": "fa9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc48"
+      "TensileTest": {
+        "C11": {
+          "Property": "Streckgrenze ReH/RP0,2",
+          "Value": 377.12,
+          "Unit": "MPa"
         },
-        "FileName": "logo.png",
-        "MIME-Type": "image/png",
-        "Encoding": "UTF-8",
-        "Data": "data:image/png;base64, wolQTkcNChoKAAAADUlIRFIAAAFAAAAAw7AIBgAAAHEtwr1rAAAAAXNSR0IAwq7DjhzDqQAAAMKQZVhJZk1NACoAAAAIAAYBBgADAAAAAQACAAABEgADAAAAAQABAAABGgAFAAAAAQAAAFYBGwAFAAAAAQAAAF4BKAADAAAAAQACAADCh2kABAAAAAEAAABmAAAAAAAAAEgAAAABAAAASAAAAAEAA8KgAQADAAAAAQABAADCoAIABAAAAAEAAAFAwqADAAQAAAABAAAAw7AAAAAAAsKeLGIAAAAJcEhZcwAACxMAAAsTAQDCmsKcGAAAAgtpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpQaG90b21ldHJpY0ludGVycHJldGF0aW9uPjI8L3RpZmY6UGhvdG9tZXRyaWNJbnRlcnByZXRhdGlvbj4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgICAgPHRpZmY6Q29tcHJlc3Npb24+MTwvdGlmZjpDb21wcmVzc2lvbj4KICAgICAgICAgPHRpZmY6UmVzb2x1dGlvblVuaXQ+MjwvdGlmZjpSZXNvbHV0aW9uVW5pdD4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CsOtw4w+fwAAQABJREFUeAHDrH0HwoDDnUXCtcO"
+        "C12": {
+          "Property": "Zugfestigkeit Rm",
+          "Value": 456.18,
+          "Unit": "MPa"
+        },
+        "C13": {
+          "Property": "Bruchdehnung A5/A80",
+          "Value": 29.7,
+          "Unit": "%"
+        },
+        "SupplementaryInformation": {
+          "C14": {
+            "Key": "Re/Rm",
+            "Value": "0.83",
+            "Type": "number"
+          },
+          "C15": {
+            "Key": "Sample Identifier",
+            "Value": "10001011/175508",
+            "Type": "string"
+          }
+        }
+      },
+      "NotchedBarImpactTest": {
+        "C40": "0001 längs",
+        "C41": {
+          "Property": "Width",
+          "Value": 5,
+          "Unit": "mm"
+        },
+        "C42": [
+          {
+            "Value": 71.2,
+            "Unit": "J"
+          },
+          {
+            "Value": 84.2,
+            "Unit": "J"
+          },
+          {
+            "Value": 85.2,
+            "Unit": "J"
+          }
+        ],
+        "C43": {
+          "Value": 80.3,
+          "Unit": "J",
+          "Minimum": 78.5,
+          "Maximum": 90.6
+        },
+        "SupplementaryInformation": {
+          "C44": {
+            "Key": "Sample Identifier",
+            "Value": "10001011/175508",
+            "Type": "string"
+          }
+        }
       }
-    ],
-    "Logo": "data:image/png;base64,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"
+    },
+    "OtherTests": {
+      "D01": "Marking",
+      "NonDestructiveTests": {
+        "D02": {
+          "Key": "Visual En 10219-1",
+          "Value": "100",
+          "Unit": "%",
+          "Interpretation": "Positive",
+          "Type": "number"
+        },
+        "D03": {
+          "Key": "Non destructive test EN ISO 10893-2",
+          "Value": "100",
+          "Unit": "%",
+          "Interpretation": "Positive",
+          "Type": "number"
+        },
+        "D04": {
+          "Key": "Dimensional Inspection EN 10219-2",
+          "Value": "1",
+          "Unit": "Lot",
+          "Interpretation": "Positive",
+          "Type": "number"
+        }
+      },
+      "OtherProductTests": {
+        "D51": {
+          "Key": "Tensile flattening test",
+          "Value": "100",
+          "Unit": "%",
+          "Interpretation": "Positive",
+          "Type": "number"
+        }
+      }
+    },
+    "Validation": {
+      "Z01": "We hereby certify, that the material described above has been tested and complies with the terms of the order. This certificate has been created by a data processing system and does not contain a personal signature but the name and the offical address of the appointet department.",
+      "Z02": "2018-10-23",
+      "Z03": "Mr. Super Inspector",
+      "SupplementaryInformation": {
+        "Z05": {
+          "Key": "Quality Department Tel.",
+          "Value": "+43 732 1000 8888",
+          "Type": "string"
+        },
+        "Z06": {
+          "Key": "Quality Department Fax",
+          "Value": "+43 732 1000 8889",
+          "Type": "string"
+        },
+        "Z07": {
+          "Key": "Quality Department Email",
+          "Value": "sbs.steelfactory@gmail.com",
+          "Type": "string"
+        }
+      }
+    }
   }
 }

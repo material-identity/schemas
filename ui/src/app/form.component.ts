@@ -49,19 +49,19 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
       >
         <div class="grid grid-cols-4">
           @for (schema of visibleSchemaVersions(); track schema[0]) {
-          <div class="flex flex-col">
-            <span
-              class="ml-[var(--mdc-radio-state-layer-size)] text-sm text-gray-700 mb-2"
-              >{{ schema[0] }}</span
-            >
-            @for (version of schema[1]; track version) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="schema[0] + '.' + version"
-              >{{ version }}</mat-radio-button
-            >
-            }
-          </div>
+            <div class="flex flex-col">
+              <span
+                class="ml-[var(--mdc-radio-state-layer-size)] text-sm text-gray-700 mb-2"
+                >{{ schema[0] }}</span
+              >
+              @for (version of schema[1]; track version) {
+                <mat-radio-button
+                  class="example-radio-button"
+                  [value]="schema[0] + '.' + version"
+                  >{{ version }}</mat-radio-button
+                >
+              }
+            </div>
           }
         </div>
       </mat-radio-group>
