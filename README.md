@@ -32,3 +32,8 @@ curl -X POST 'http://localhost:8080/render?schemaType=CoA&schemaVersion=1.0' \
 ```
 
 source env/bin/activate
+
+## OpenAPI / Swagger
+
+http://localhost:8081/api-docs
+http://localhost:8081/swagger-ui/index.html
