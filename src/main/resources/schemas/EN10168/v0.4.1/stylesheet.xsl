@@ -11,15 +11,16 @@
           <fo:region-after extent="1.5cm" />
         </fo:simple-page-master>
       </fo:layout-master-set>
-      <fo:page-sequence master-reference="simple">
+      <fo:page-sequence master-reference="simple" id="last-page">
         <!-- Page number -->
         <fo:static-content flow-name="xsl-region-after">
           <fo:block font-size="8pt" text-align="center" margin-right="1cm" font-family="NotoSans">
-            <fo:page-number />/<fo:page-number-citation-last ref-id="last-page" />
+            <fo:page-number />
+/            <fo:page-number-citation-last ref-id="last-page" />
           </fo:block>
         </fo:static-content>
         <!-- Body -->
-        <fo:flow flow-name="xsl-region-body">
+        <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
           <!-- Global variables -->
           <xsl:variable name="i18n" select="Root/Translations" />
           <xsl:variable name="CommercialTransaction" select="Root/Certificate/CommercialTransaction" />
@@ -47,15 +48,49 @@
                     <xsl:with-param name="title" select="$i18n/Certificate/A01" />
                     <xsl:with-param name="party" select="$CommercialTransaction/A01" />
                   </xsl:call-template>
-                  <xsl:call-template name="PartyInfo">
-                    <xsl:with-param name="number" select="'A06 '" />
-                    <xsl:with-param name="title" select="$i18n/Certificate/A06" />
-                    <xsl:with-param name="party" select="$CommercialTransaction/A06" />
-                  </xsl:call-template>
+                  <xsl:choose>
+                    <xsl:when test="exists($CommercialTransaction/A06)">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="number" select="'A06 '" />
+                        <xsl:with-param name="title" select="$i18n/Certificate/A06" />
+                        <xsl:with-param name="party" select="$CommercialTransaction/A06" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="number" select="'A06.1 '" />
+                        <xsl:with-param name="title" select="$i18n/Certificate/A06.1" />
+                        <xsl:with-param name="party" select="$CommercialTransaction/A06.1" />
+                      </xsl:call-template>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
-            <!-- Certificate info -->
+
+            <xsl:if test="count($CommercialTransaction/A06.2) + count($CommercialTransaction/A06.3) > 0">
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="33%" />
+                <fo:table-column column-width="33%" />
+                <fo:table-column column-width="33%" />
+                <fo:table-body>
+                  <fo:table-row>
+                    <xsl:for-each select="2 to 3">
+                      <xsl:variable name="index" select="." />
+                      <xsl:variable name="elementName" select="concat('A06.', $index)" />
+                      <xsl:if test="exists($CommercialTransaction/*[name() = $elementName])">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="number" select="concat('A06.', $index, ' ')" />
+                          <xsl:with-param name="title" select="$i18n/Certificate/*[name() = $elementName]" />
+                          <xsl:with-param name="party" select="$CommercialTransaction/*[name() = $elementName]" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </fo:table-row>
+                </fo:table-body>
+              </fo:table>
+            </xsl:if>
+
             <!-- Commercial Transaction -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="$i18n/Certificate/CommercialTransaction" />
@@ -65,7 +100,7 @@
               <fo:table-column column-width="50%" />
               <fo:table-body>
                 <xsl:for-each select="$CommercialTransaction/*">
-                  <xsl:if test="starts-with(local-name(), 'A') and not(local-name() = 'A01' or local-name() = 'A04' or local-name() = 'A06')">
+                  <xsl:if test="starts-with(local-name(), 'A') and not(local-name() = 'A01' or local-name() = 'A04' or starts-with(local-name(), 'A06'))">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -99,6 +134,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
+
             <!-- Product Description -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="$i18n/Certificate/ProductDescription" />
@@ -161,8 +197,7 @@
                               </xsl:for-each>
                               <!-- Concatenate unit value if the key is not 'Form' -->
                               <xsl:if test="local-name() != 'Form' and $unitValue">
-                                <xsl:text></xsl:text>
-                                <xsl:value-of select="$unitValue" />
+                                <xsl:value-of select="concat(' ', $unitValue)" />
                               </xsl:if>
                             </xsl:with-param>
                           </xsl:call-template>
@@ -179,9 +214,7 @@
                         <xsl:choose>
                           <xsl:when test="local-name() = 'B10' or local-name() = 'B11' or local-name() = 'B12' or local-name() = 'B13'">
                             <xsl:variable name="concatenatedValue">
-                              <xsl:value-of select="./Value" />
-                              <xsl:text></xsl:text>
-                              <xsl:value-of select="./Unit" />
+                              <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
                             </xsl:variable>
                             <xsl:call-template name="KeyValue">
                               <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -223,6 +256,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
+
             <!-- Inspections -->
             <!-- loop through Inspections Array-->
             <xsl:for-each select="$Inspection">
@@ -276,11 +310,11 @@
                   <fo:table-body>
                     <!-- Header row for keys C70 to C92 -->
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell padding-bottom="6pt">
                         <fo:block></fo:block>
                       </fo:table-cell>
                       <xsl:for-each select="$keys">
-                        <fo:table-cell>
+                        <fo:table-cell padding-bottom="6pt">
                           <fo:block>
                             <xsl:value-of select="name()" />
                           </fo:block>
@@ -289,11 +323,11 @@
                     </fo:table-row>
                     <!-- Symbol row -->
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell padding-bottom="6pt">
                         <fo:block>Symbol</fo:block>
                       </fo:table-cell>
                       <xsl:for-each select="$keys">
-                        <fo:table-cell>
+                        <fo:table-cell padding-bottom="6pt">
                           <fo:block>
                             <xsl:value-of select="Symbol" />
                           </fo:block>
@@ -302,11 +336,11 @@
                     </fo:table-row>
                     <!-- Actual row -->
                     <fo:table-row>
-                      <fo:table-cell>
+                      <fo:table-cell padding-bottom="6pt">
                         <fo:block>Actual [%]</fo:block>
                       </fo:table-cell>
                       <xsl:for-each select="$keys">
-                        <fo:table-cell>
+                        <fo:table-cell padding-bottom="6pt">
                           <fo:block>
                             <xsl:value-of select="Actual" />
                           </fo:block>
@@ -315,24 +349,27 @@
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
-                <xsl:call-template name="SectionSubTitle">
-                  <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:for-each select="ChemicalComposition/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '110' and substring(local-name(), 2) &lt;= '120']">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                          <xsl:with-param name="key" select="./Key" />
-                          <xsl:with-param name="value" select="./Value" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:for-each>
-                  </fo:table-body>
-                </fo:table>
+
+                <xsl:if test="ChemicalComposition/SupplementaryInformation">
+                  <xsl:call-template name="SectionSubTitle">
+                    <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
+                  </xsl:call-template>
+                  <fo:table table-layout="fixed" width="100%">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-body>
+                      <xsl:for-each select="ChemicalComposition/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '110' and substring(local-name(), 2) &lt;= '120']">
+                        <fo:table-row>
+                          <xsl:call-template name="KeyValue">
+                            <xsl:with-param name="number" select="concat(local-name(), ' ')" />
+                            <xsl:with-param name="key" select="./Key" />
+                            <xsl:with-param name="value" select="./Value" />
+                          </xsl:call-template>
+                        </fo:table-row>
+                      </xsl:for-each>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
               </xsl:if>
 
               <xsl:if test="TensileTest">
@@ -347,39 +384,35 @@
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                          <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
+                          <xsl:with-param name="key" select="concat($i18n/Certificate/*[local-name() = local-name(current())], ' ', ./Property)" />
                           <xsl:with-param name="value" select="concat(./Value, ' ', ./Unit)" />
                         </xsl:call-template>
                       </fo:table-row>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="8pt">
-                          <fo:block>
-                            <xsl:value-of select="./Property" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </fo:table-row>
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
-                <xsl:call-template name="SectionSubTitle">
-                  <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:for-each select="TensileTest/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '14' and substring(local-name(), 2) &lt;= '29']">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                          <xsl:with-param name="key" select="./Key" />
-                          <xsl:with-param name="value" select="./Value" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:for-each>
-                  </fo:table-body>
-                </fo:table>
+                <xsl:if test="ChemicalComposition/SupplementaryInformation">
+                  <xsl:call-template name="SectionSubTitle">
+                    <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
+                  </xsl:call-template>
+                  <fo:table table-layout="fixed" width="100%">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-body>
+                      <xsl:for-each select="TensileTest/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '14' and substring(local-name(), 2) &lt;= '29']">
+                        <fo:table-row>
+                          <xsl:call-template name="KeyValue">
+                            <xsl:with-param name="number" select="concat(local-name(), ' ')" />
+                            <xsl:with-param name="key" select="./Key" />
+                            <xsl:with-param name="value" select="./Value" />
+                          </xsl:call-template>
+                        </fo:table-row>
+                      </xsl:for-each>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
               </xsl:if>
+
               <xsl:if test="HardnessTest">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/HardnessTest" />
@@ -412,8 +445,8 @@
                             <xsl:if test="position() != last()">
                               <xsl:text>, </xsl:text>
                             </xsl:if>
+                            <xsl:text></xsl:text>
                           </xsl:for-each>
-                          <xsl:text>, </xsl:text>
                           <xsl:value-of select="HardnessTest/C31[1]/Unit" />
                         </xsl:with-param>
                       </xsl:call-template>
@@ -511,7 +544,7 @@
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat('C41', ' ')" />
                         <xsl:with-param name="key" select="$i18n/Certificate/C41" />
-                        <xsl:with-param name="value" select="concat(NotchedBarImpactTest/C40/Value, ' ', NotchedBarImpactTest/C40/Unit)" />
+                        <xsl:with-param name="value" select="concat(NotchedBarImpactTest/C41/Value, ' ', NotchedBarImpactTest/C41/Unit)" />
                       </xsl:call-template>
                     </fo:table-row>
                   </fo:table-body>
@@ -530,8 +563,8 @@
                             <xsl:if test="position() != last()">
                               <xsl:text>, </xsl:text>
                             </xsl:if>
+                            <xsl:text></xsl:text>
                           </xsl:for-each>
-                          <xsl:text>, </xsl:text>
                           <xsl:value-of select="NotchedBarImpactTest/C42[1]/Unit" />
                         </xsl:with-param>
                       </xsl:call-template>
@@ -640,46 +673,209 @@
                   <xsl:for-each select="'D01'">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                        <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
-                        <xsl:with-param name="value" select="." />
+                        <xsl:with-param name="number" select="concat('D01', ' ')" />
+                        <xsl:with-param name="key" select="$i18n/Certificate/D01" />
+                        <xsl:with-param name="value" select="$OtherTests/D01" />
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:for-each>
                 </fo:table-body>
               </fo:table>
-              <!-- <xsl:if test="NonDestructiveTests">
-                <fo:table-column column-width="33.33%" />
-                <fo:table-column column-width="33.33%" />
-                <fo:table-column column-width="33.33%" />
+              <xsl:if test="NonDestructiveTests">
+                <xsl:call-template name="SectionTitleSmall">
+                  <xsl:with-param name="title" select="$i18n/Certificate/NonDestructiveTests" />
+                </xsl:call-template>
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-body>
+                    <xsl:for-each select="NonDestructiveTests/*[substring(local-name(), 2) &gt;= '02' and substring(local-name(), 2) &lt;= '50']">
+                      <fo:table-row>
+                        <fo:table-cell>
+                          <fo:block font-style="italic">
+                            <xsl:value-of select="concat(local-name(), ' ', ./Key)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block>
+                            <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block>
+                            <xsl:value-of select="./Interpretation" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+              <xsl:if test="OtherProductTests">
+                <xsl:call-template name="SectionTitleSmall">
+                  <xsl:with-param name="title" select="$i18n/Certificate/OtherProductTests" />
+                </xsl:call-template>
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="33.33%" />
+                  <fo:table-body>
+                    <xsl:for-each select="OtherProductTests/*[substring(local-name(), 2) &gt;= '51' and substring(local-name(), 2) &lt;= '99 ']">
+                      <fo:table-row>
+                        <fo:table-cell>
+                          <fo:block font-style="italic">
+                            <xsl:value-of select="concat(local-name(), ' ', ./Key)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block>
+                            <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block>
+                            <xsl:value-of select="./Interpretation" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+            </xsl:for-each>
+
+            <!--  Validation -->
+            <xsl:call-template name="SectionTitle">
+              <xsl:with-param name="title" select="$i18n/Certificate/Validation" />
+            </xsl:call-template>
+
+            <xsl:for-each select="$Validation/*[substring(local-name(), 2) &gt;= '01' and substring(local-name(), 2) &lt;= '03']">
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%" />
+                <fo:table-column column-width="50%" />
                 <fo:table-body>
-                  <xsl:for-each select="NonDestructiveTests/*[substring(local-name(), 2) &gt;= '02' and substring(local-name(), 2) &lt;= '50']">
+                  <fo:table-row>
+                    <fo:table-cell padding-bottom="6pt" font-style="italic">
+                      <fo:block>
+                        <xsl:value-of select="concat(local-name(), ' ', $i18n/Certificate/*[local-name() = local-name(current())])" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell padding-bottom="6pt">
+                      <fo:block>
+                        <fo:table table-layout="fixed" width="100%">
+                          <fo:table-column column-width="50%" />
+                          <fo:table-column column-width="50%" />
+                          <fo:table-body>
+                            <fo:table-row>
+                              <fo:table-cell padding-bottom="6pt">
+                                <fo:block>
+                                  <xsl:value-of select="." />
+                                </fo:block>
+                              </fo:table-cell>
+                              <xsl:choose>
+                                <xsl:when test="local-name()='Z01'">
+                                  <fo:table-cell padding-bottom="6pt">
+                                    <fo:block>
+                                      <fo:table table-layout="fixed" width="100% ">
+                                        <fo:table-column column-width="100%" />
+                                        <fo:table-body>
+                                          <fo:table-row>
+                                            <fo:table-cell padding-bottom="6pt" text-align="center">
+                                              <fo:block font-weight="bold">
+                                                <fo:external-graphic src="{$Validation/Z04/CE_Image}" content-height="48px" height="48px" />
+                                              </fo:block>
+                                            </fo:table-cell>
+                                          </fo:table-row>
+                                          <fo:table-row>
+                                            <fo:table-cell padding-bottom="6pt" text-align="center">
+                                              <fo:block font-weight="bold">
+                                                <xsl:value-of select="$Validation/Z04/NotifiedBodyNumber" />
+                                              </fo:block>
+                                            </fo:table-cell>
+                                          </fo:table-row>
+                                          <fo:table-row>
+                                            <fo:table-cell padding-bottom="6pt" text-align="center">
+                                              <fo:block font-weight="bold">
+                                                <xsl:value-of select="$Validation/Z04/DoCYear" />
+                                              </fo:block>
+                                            </fo:table-cell>
+                                          </fo:table-row>
+                                          <fo:table-row>
+                                            <fo:table-cell text-align="center">
+                                              <fo:block font-weight="bold">
+                                                <xsl:value-of select="$Validation/Z04/DoCNumber" />
+                                              </fo:block>
+                                            </fo:table-cell>
+                                          </fo:table-row>
+                                        </fo:table-body>
+                                      </fo:table>
+                                    </fo:block>
+                                  </fo:table-cell>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <fo:table-cell>
+                                    <fo:block>
+                                      <!-- EMPTY -->
+                                    </fo:block>
+                                  </fo:table-cell>
+                                </xsl:otherwise>
+                              </xsl:choose>
+                            </fo:table-row>
+                          </fo:table-body>
+                        </fo:table>
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                </fo:table-body>
+              </fo:table>
+            </xsl:for-each>
+            <xsl:if test="$Validation/SupplementaryInformation">
+              <xsl:call-template name="SectionSubTitle">
+                <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%" />
+                <fo:table-column column-width="50%" />
+                <fo:table-body>
+                  <xsl:for-each select="$Validation/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '05' and substring(local-name(), 2) &lt;= '19']">
                     <fo:table-row>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="concat(local-name(), ' ', $i18n/Certificate/*[local-name() = local-name(current())])" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="./Interpretation" />
-                        </fo:block>
-                      </fo:table-cell>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="number" select="concat(local-name(), ' ')" />
+                        <xsl:with-param name="key" select="./Key" />
+                        <xsl:with-param name="value" select="./Value" />
+                      </xsl:call-template>
                     </fo:table-row>
                   </xsl:for-each>
                 </fo:table-body>
-              </xsl:if> -->
-              <!-- <xsl:if test="OtherProductTests">
-                <fo:table-column column-width="33.33%" />
-                <fo:table-column column-width="33.33%" />
-                <fo:table-column column-width="33.33%" />
-              </xsl:if> -->
-            </xsl:for-each>
+              </fo:table>
+            </xsl:if>
+            <!-- Footer -->
+            <fo:table margin-top="16pt" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block> Data schema maintained by
+                      <fo:basic-link external-destination="https://materialidentity.org">
+                        <fo:inline text-decoration="underline">Material Identity</fo:inline>
+                      </fo:basic-link>
+          .
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block color="gray" text-align="right">
+                      <fo:basic-link external-destination="{Root/RefSchemaUrl}">
+                        <fo:inline text-decoration="underline">
+                          <xsl:value-of select="Root/RefSchemaUrl" />
+                        </fo:inline>
+                      </fo:basic-link>
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
           </fo:block>
         </fo:flow>
       </fo:page-sequence>
@@ -688,13 +884,13 @@
 
   <xsl:template name="SectionTitle">
     <xsl:param name="title" />
-    <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
+    <fo:block font-size="14pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 1pt black">
       <xsl:value-of select="$title" />
     </fo:block>
   </xsl:template>
   <xsl:template name="SectionTitleSmall">
     <xsl:param name="title" />
-    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 0.6pt black">
+    <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 0.8pt black">
       <xsl:value-of select="$title" />
     </fo:block>
   </xsl:template>
@@ -710,7 +906,7 @@
     <xsl:param name="key" />
     <xsl:param name="value" />
     <xsl:param name="type" select="'default'" />
-    <fo:table-cell padding-bottom="4pt">
+    <fo:table-cell padding-bottom="6pt">
       <fo:block font-style="italic">
         <xsl:value-of select="$number" />
         <xsl:value-of select="$key" />
@@ -733,8 +929,8 @@
   <xsl:template name="KeyValueSmall">
     <xsl:param name="key" />
     <xsl:param name="value" />
-    <fo:table-cell padding-bottom="4pt">
-      <fo:block font-size="6pt">
+    <fo:table-cell padding-bottom="6pt">
+      <fo:block font-size="7pt">
         <xsl:value-of select="$key" />
       </fo:block>
     </fo:table-cell>
