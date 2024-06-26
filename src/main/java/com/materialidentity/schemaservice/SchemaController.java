@@ -1,9 +1,10 @@
 package com.materialidentity.schemaservice;
 
-import com.ctc.wstx.shaded.msv_core.verifier.jarv.Const;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.materialidentity.schemaservice.config.EndpointParamConstants;
+import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 import com.networknt.schema.InputFormat;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
@@ -45,20 +46,20 @@ public class SchemaController {
 
   @PostMapping("/render")
   public ResponseEntity<byte[]> render(
-      @RequestParam("schemaType") String schemaType,
-      @RequestParam("schemaVersion") String schemaVersion,
-      @RequestParam("languages") String[] languages,
+      @RequestParam(EndpointParamConstants.SCHEMA_TYPE_PARAM) String schemaType,
+      @RequestParam(EndpointParamConstants.SCHEMA_VERSION_PARAM) String schemaVersion,
+      @RequestParam(EndpointParamConstants.LANGUAGES_PARAM) String[] languages,
       @RequestBody JsonNode certificate)
       throws JsonProcessingException, IOException, FOPException, TransformerException, IOException, SAXException {
 
     String translationsPattern = Paths
-        .get("schemas", schemaType, schemaVersion, Constants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
+        .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
         .toString();
 
     String certificateJson = jsonToString(certificate);
 
     String xsltPath = Paths
-        .get("schemas", schemaType, schemaVersion, Constants.XSLT_FILE_NAME)
+        .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
         .toString();
 
     Resource xsltResource = new ClassPathResource(xsltPath);
@@ -69,12 +70,12 @@ public class SchemaController {
         .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
         .withTranslations(new TranslationLoader(translationsPattern, languages))
         .withAttachment(
-            new AttachmentManager(certificateJson, Constants.PDF_ATTACHMENT_CERT_FILE_NAME))
+            new AttachmentManager(certificateJson, SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME))
         .build();
 
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION,
-            String.format("filename=\"%s\"", Constants.PDF_RENDERED_OUTPUT_FILE_NAME))
+            String.format("filename=\"%s\"", SchemaControllerConstants.PDF_RENDERED_OUTPUT_FILE_NAME))
         .contentType(MediaType.APPLICATION_PDF)
         .body(pdfBytes);
   }
@@ -91,7 +92,7 @@ public class SchemaController {
     JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
 
     String schemaDefinitionPath = Paths
-        .get(Constants.SCHEMAS_FOLDER_NAME, schemaType, schemaVersion, Constants.SCHEMA_DEFINITION_FILE_NAME)
+        .get(SchemaControllerConstants.SCHEMAS_FOLDER_NAME, schemaType, schemaVersion, SchemaControllerConstants.SCHEMA_DEFINITION_FILE_NAME)
         .toString();
 
     String schemaDefinition = readResourceAsString(schemaDefinitionPath);
@@ -125,7 +126,7 @@ public class SchemaController {
 
     // get 1st level resource tree from directory storing schema types
     Resource[] resources = resolver
-        .getResources(String.format("classpath:%s", Constants.SCHEMA_TYPES_FOLDER_NAME_PATTERN));
+        .getResources(String.format("classpath:%s", SchemaControllerConstants.SCHEMA_TYPES_FOLDER_NAME_PATTERN));
 
     for (Resource resource : resources) {
       if (resource.getFile().isDirectory()) {

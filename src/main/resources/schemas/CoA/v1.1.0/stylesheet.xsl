@@ -522,17 +522,17 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="$i18n/ContactDepartment" />
+                        <xsl:value-of select="Department" />
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="$i18n/ContactEmail" />
+                        <xsl:value-of select="Email" />
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                        <xsl:value-of select="$i18n/ContactPhone" />
+                        <xsl:value-of select="Phone" />
                       </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
