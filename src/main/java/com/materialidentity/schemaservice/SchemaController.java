@@ -5,11 +5,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.materialidentity.schemaservice.config.EndpointParamConstants;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
+import com.materialidentity.schemaservice.config.SchemasAndVersions;
+import com.materialidentity.schemaservice.config.SchemasAndVersions.SchemaTypes;
 import com.networknt.schema.InputFormat;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +31,15 @@ import java.util.Set;
 import javax.xml.transform.TransformerException;
 
 import org.apache.fop.apps.FOPException;
+import org.apache.fop.cli.Main;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,23 +51,52 @@ import org.xml.sax.SAXException;
 @RestController
 @RequestMapping("/api")
 public class SchemaController {
+  private static final Logger logger = LoggerFactory.getLogger(SchemaController.class);
+
+  // TODO: replace this with decorators
+  // TODO: move logic to services
+  public void validateSchemaTypeAndVersion(SchemaTypes schemaType, String version) {
+    // Check if schemaType is valid
+    if (!EnumSet.allOf(SchemaTypes.class).contains(schemaType)) {
+      throw new IllegalArgumentException("Invalid schemaType: " + schemaType);
+    }
+
+    // Retrieve the list of versions for the schemaType
+    List<String> versions = SchemasAndVersions.supportedSchemas.get(schemaType);
+    // Check if the provided version is in the list for the schemaType
+    if (!versions.contains(version)) {
+      throw new IllegalArgumentException("Invalid version: " + version + " for schemaType: " + schemaType);
+    }
+  }
 
   @PostMapping("/render")
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+    logger.error(ex.getMessage());
+    return ResponseEntity
+        .status(HttpStatus.BAD_REQUEST)
+        .body(ex.getMessage());
+  }
+
   public ResponseEntity<byte[]> render(
-      @RequestParam(EndpointParamConstants.SCHEMA_TYPE_PARAM) String schemaType,
+      @RequestParam(EndpointParamConstants.SCHEMA_TYPE_PARAM) SchemasAndVersions.SchemaTypes schemaType,
       @RequestParam(EndpointParamConstants.SCHEMA_VERSION_PARAM) String schemaVersion,
       @RequestParam(EndpointParamConstants.LANGUAGES_PARAM) String[] languages,
       @RequestBody JsonNode certificate)
       throws JsonProcessingException, IOException, FOPException, TransformerException, IOException, SAXException {
 
+    logger.info("Rendering certificate type: {}, version: {}", schemaType, schemaVersion);
+
+    validateSchemaTypeAndVersion(schemaType, schemaVersion);
+
     String translationsPattern = Paths
-        .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
+        .get("schemas", schemaType.name(), schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
         .toString();
 
     String certificateJson = jsonToString(certificate);
 
     String xsltPath = Paths
-        .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
+        .get("schemas", schemaType.name(), schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
         .toString();
 
     Resource xsltResource = new ClassPathResource(xsltPath);
@@ -86,13 +123,15 @@ public class SchemaController {
       @RequestParam("schemaVersion") String schemaVersion,
       @RequestBody JsonNode jsonCertificate) throws JsonProcessingException, IOException {
 
+    logger.info("Validating certificate type: {}, version: {}", schemaType, schemaVersion);
     String certificateString = jsonToString(jsonCertificate);
 
     // build schema validator with schema definition
     JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
 
     String schemaDefinitionPath = Paths
-        .get(SchemaControllerConstants.SCHEMAS_FOLDER_NAME, schemaType, schemaVersion, SchemaControllerConstants.SCHEMA_DEFINITION_FILE_NAME)
+        .get(SchemaControllerConstants.SCHEMAS_FOLDER_NAME, schemaType, schemaVersion,
+            SchemaControllerConstants.SCHEMA_DEFINITION_FILE_NAME)
         .toString();
 
     String schemaDefinition = readResourceAsString(schemaDefinitionPath);
@@ -121,6 +160,8 @@ public class SchemaController {
 
   @GetMapping("/schemas")
   private ResponseEntity<Map<String, Object>> getSchemas() throws IOException {
+    logger.info("Getting schemas");
+
     Map<String, Object> response = new HashMap<>();
     PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
@@ -135,6 +176,13 @@ public class SchemaController {
         response.put(schemaName, Collections.singletonMap("versions: ", versions));
       }
     }
+    // for (Resource resource : resources) {
+    //   if (resource.isReadable()) { // Check if the resource is readable
+    //     String schemaName = resource.getFilename();
+    //     List<String> versions = getVersionsForResource(resolver, schemaName);
+    //     response.put(schemaName, Collections.singletonMap("versions: ", versions));
+    //   }
+    // }
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
