@@ -1,9 +1,8 @@
 package com.materialidentity.schemaservice;
 
-import java.io.IOException;
-
-import javax.xml.transform.TransformerException;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.materialidentity.schemaservice.apiexception.ApiError;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.fop.apps.FOPException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -14,10 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.xml.sax.SAXException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.materialidentity.schemaservice.apiexception.ApiError;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -25,12 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(JsonProcessingException.class)
-    protected ResponseEntity<Object> handleJsonProcessingException(
-            JsonProcessingException e) {
+    protected ResponseEntity<Object> handleJsonProcessingException(JsonProcessingException e) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         log.error("Error processing json certificate", e);
-        apiError.setMessage(
-                "\"There was a problem processing the uploaded JSON certificate. Please check the JSON structure and try again.\"");
+        apiError.setMessage("\"There was a problem processing the uploaded JSON certificate. Please check the JSON structure and try again.\"");
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
