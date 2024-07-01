@@ -1,52 +1,29 @@
 package com.materialidentity.schemaservice;
 
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.sentry.Sentry;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 public class App {
 
-  @Parameter(
-    names = "--verify",
-    description = "Starts the verification process"
-  )
-  private boolean verify = false;
-
-  @Parameter(names = "--render", description = "Starts the rendering process")
-  private boolean render = false;
-
-  // You can also define parameters for additional options
-  // @Parameter(names = "--option", description = "Description")
+  private static final Logger log = LoggerFactory.getLogger(App.class);
 
   public static void main(String[] args) {
-    App app = new App();
-    JCommander.newBuilder().addObject(app).build().parse(args);
 
-    app.run();
-  }
+    ConfigurableApplicationContext applicationContext = SpringApplication.run(App.class, args);
+    Environment env = applicationContext.getBean(Environment.class);
+    String sentryDsn = env.getProperty("sentry.dsn");
+    String environment = env.getProperty("spring.profiles.active");
 
-  public void run() {
-    if (verify) {
-      startVerificationProcess();
-    } else if (render) {
-      startRenderingProcess();
-    } else {
-      startWebServer();
-    }
-  }
-
-  private void startVerificationProcess() {
-    System.out.println("Verification process started.");
-  }
-
-  private void startRenderingProcess() {
-    System.out.println("Rendering process started.");
-  }
-
-  private void startWebServer() {
-    System.out.println("Web server started.");
-    SpringApplication.run(App.class);
+    Sentry.init(options -> {
+      options.setDsn(sentryDsn);
+      options.setTracesSampleRate(1.0);
+      options.setEnvironment(environment);
+    });
   }
 }
