@@ -16,8 +16,8 @@ import org.apache.pdfbox.pdmodel.common.filespecification.PDEmbeddedFile;
 
 public class AttachmentManager {
 
-  private String contentString;
-  private String fileName;
+  private final String contentString;
+  private final String fileName;
 
   public AttachmentManager(String contentString, String fileName) {
     this.contentString = contentString;

@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.materialidentity.schemaservice</groupId>
   <artifactId>schema-service</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>schema-service</name>
-  <url>http://materialidentity.org</url>
+  <url>https://materialidentity.org</url>
   <properties>
     <java.version>19</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,17 +87,78 @@
       <version>1.4.0</version>
     </dependency>
     <dependency>
-		  <groupId>org.projectlombok</groupId>
-		  <artifactId>lombok</artifactId>
-		  <version>1.18.32</version>
-		<scope>provided</scope>
-	</dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.32</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.23.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.23.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>io.sentry</groupId>
+        <artifactId>sentry-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- for showing output of sentry-cli -->
+          <debugSentryCli>true</debugSentryCli>
+
+          <!--  Disable the plugin -->
+          <skip>false</skip>
+
+          <!--  Disable source-context -->
+          <skipSourceBundle>false</skipSourceBundle>
+
+          <!--  Disable auto-install of SDK and Integrations -->
+          <skipAutoInstall>false</skipAutoInstall>
+
+          <org>s1seven</org>
+
+          <project>new-schemas-service</project>
+
+          <!-- in case you're self-hosting, provide the URL here -->
+          <!--<url>http://localhost:8000/</url>-->
+
+          <!-- provide your auth token via SENTRY_AUTH_TOKEN environment variable -->
+          <authToken>${env.SENTRY_AUTH_TOKEN}</authToken>
+        </configuration>
+        <executions>
+          <execution>
+            <?m2e execute onConfiguration,onIncremental?>
+            <goals>
+              <!--
+              Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
+              This enables source context, allowing you to see your source
+              code as part of your stack traces in Sentry.
+              -->
+              <goal>uploadSourceBundle</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
