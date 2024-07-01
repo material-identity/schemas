@@ -66,4 +66,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage("An error occurred while parsing XML. Please check the XML and try again.");
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e) {
+        Sentry.captureException(e);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        log.error("IllegalArgumentException occurred", e);
+        apiError.setMessage(e.getMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 }
