@@ -1,5 +1,6 @@
 <fop version="1.0">
   <accessibility>true</accessibility>
+  <complex-scripts disabled="true" />
   <renderers>
     <renderer mime="application/pdf">
       <pdf-a-mode>PDF/A-3a</pdf-a-mode>
