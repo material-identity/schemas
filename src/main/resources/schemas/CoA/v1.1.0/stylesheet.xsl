@@ -2,7 +2,8 @@
 <xsl:stylesheet version="3.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  xmlns:fo="http://www.w3.org/1999/XSL/Format"
+  xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
   <xsl:template match="/">
     <fo:root>
       <fo:layout-master-set>
@@ -45,7 +46,7 @@
                     <fo:table-row>
                       <fo:table-cell number-columns-spanned="2" padding-bottom="8pt">
                         <fo:block>
-                          <fo:external-graphic src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
+                          <fo:external-graphic fox:alt-text="Company Logo" src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
                         </fo:block>
                       </fo:table-cell>
                       <xsl:call-template name="PartyInfo">
@@ -76,7 +77,7 @@
                     <fo:table-row>
                       <fo:table-cell number-columns-spanned="1" padding-bottom="8pt">
                         <fo:block>
-                          <fo:external-graphic src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
+                          <fo:external-graphic fox:alt-text="Company Logo" src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
                         </fo:block>
                       </fo:table-cell>
                       <xsl:call-template name="PartyInfo">
@@ -335,7 +336,7 @@
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
-            <fo:table margin-top="12pt" width="100%">
+            <fo:table table-layout="fixed" margin-top="12pt" width="100%">
               <fo:table-column column-width="15%" />
               <fo:table-column column-width="15%" />
               <fo:table-column column-width="14%" />
@@ -434,7 +435,7 @@
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="$i18n/Certificate/Contacts" />
               </xsl:call-template>
-              <fo:table width="100%">
+              <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="20%" />
                 <fo:table-column column-width="20%" />
                 <fo:table-column column-width="20%" />
@@ -513,7 +514,7 @@
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="$i18n/Certificate/Attachments" />
               </xsl:call-template>
-              <fo:table width="100%">
+              <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="100%" />
                 <fo:table-body>
                   <xsl:for-each select="$Attachments">
@@ -529,7 +530,7 @@
               </fo:table>
             </xsl:if>
             <!-- Footer -->
-            <fo:table margin-top="16pt" width="100%">
+            <fo:table table-layout="fixed" margin-top="16pt" width="100%">
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
