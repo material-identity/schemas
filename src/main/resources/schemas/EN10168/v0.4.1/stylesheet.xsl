@@ -5,7 +5,7 @@
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
   <xsl:template match="/">
-    <fo:root>
+    <fo:root xml:lang="en">
       <fo:layout-master-set>
         <fo:simple-page-master master-name="simple" page-height="29.7cm" page-width="21cm" margin="1cm">
           <fo:region-body margin="0.25cm" margin-bottom="1.8cm" />
