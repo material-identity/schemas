@@ -18,13 +18,18 @@ public class AttachmentManager {
 
   private final String contentString;
   private final String fileName;
+  private final Boolean attachJson;
 
-  public AttachmentManager(String contentString, String fileName) {
+  public AttachmentManager(String contentString, String fileName, Boolean attachJson) {
     this.contentString = contentString;
     this.fileName = fileName;
+    this.attachJson = attachJson;
   }
 
   public byte[] attach(byte[] pdfData) throws IOException {
+    if (!attachJson) {
+      return pdfData;
+    }
     PDDocument document = Loader.loadPDF(pdfData);
     PDComplexFileSpecification fs = new PDComplexFileSpecification();
     fs.setFile(fileName);
@@ -40,8 +45,7 @@ public class AttachmentManager {
     efTree.setNames(efMap);
 
     PDDocumentNameDictionary names = new PDDocumentNameDictionary(
-      document.getDocumentCatalog()
-    );
+        document.getDocumentCatalog());
     names.setEmbeddedFiles(efTree);
     document.getDocumentCatalog().setNames(names);
 
