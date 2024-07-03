@@ -36,9 +36,9 @@ public class SchemasServiceImpl implements SchemasService {
 
     @Override
     public ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion, String[] languages, JsonNode certificate) throws IOException, TransformerException, SAXException {
-        logger.info("Rendering certificate type: {}, version: {}", schemaType, schemaVersion);
+        logger.info("Rendering certificate type: {}, version: {}, languages: {}", schemaType, schemaVersion, languages);
 
-        validateSchemaTypeAndVersion(schemaType, schemaVersion);
+       validateSchemaTypeAndVersion(schemaType, schemaVersion);
 
         String translationsPattern = Paths
                 .get("schemas", schemaType.name(), schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
