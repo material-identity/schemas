@@ -1,0 +1,660 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://schemas.s1seven.com/tkr-schemas/v0.0.4/schema.json",
+  "definitions": {
+    "RefSchemaUrl": {
+      "allOf": [
+        {
+          "type": "string",
+          "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
+        }
+      ]
+    },
+    "KeyValueObject": {
+      "allOf": [
+        {
+          "title": "KeyValueObject",
+          "type": "object",
+          "properties": {
+            "Key": {
+              "type": "string"
+            },
+            "Value": {
+              "type": "string"
+            },
+            "Unit": {
+              "type": "string"
+            },
+            "Interpretation": {
+              "type": "string"
+            },
+            "Type": {
+              "enum": ["string", "number", "date", "date-time", "boolean"],
+              "default": "string"
+            }
+          },
+          "required": ["Key"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "CertificateLanguages": {
+      "allOf": [
+        {
+          "title": "CertificateLanguages",
+          "description": "For a JSON document one or two translations used in the rendering of HTML and PDF documents can be specificed.",
+          "type": "array",
+          "items": {
+            "enum": ["EN", "DE", "FR", "ES", "PL", "CN", "TR", "IT"]
+          },
+          "minItems": 1,
+          "maxItems": 2,
+          "default": ["EN"],
+          "uniqueItems": true
+        }
+      ]
+    },
+    "CompanyBase": {
+      "type": "object",
+      "properties": {
+        "ZipCode": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "PL", "CN"]
+        },
+        "Email": {
+          "type": "string",
+          "format": "email"
+        },
+        "AdditionalInformation": {
+          "description": "An array of additional free text information on the company.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": ["Name"]
+        },
+        {
+          "properties": {
+            "CompanyName": {
+              "type": "string"
+            }
+          },
+          "required": ["CompanyName"]
+        }
+      ],
+      "required": ["ZipCode", "City", "Country"],
+      "additionalProperties": true
+    },
+    "CompanyAddress": {
+      "type": "object",
+      "properties": {
+        "Street": {
+          "description": "Address of the company",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": ["Street"]
+    },
+    "CompanyIdentifiers": {
+      "type": "object",
+      "properties": {
+        "CageCode": {
+          "description": "The Commercial and Government Entity Code (short CAG), is a unique identifier assigned to suppliers to various government or defense agencies, https://en.wikipedia.org/wiki/Commercial_and_Government_Entity_code",
+          "type": "string",
+          "examples": ["N1950#"]
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "VAT": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 15
+            }
+          },
+          "required": ["VAT"]
+        },
+        {
+          "properties": {
+            "DUNS": {
+              "type": "string",
+              "minLength": 9,
+              "maxLength": 9
+            }
+          },
+          "required": ["DUNS"]
+        }
+      ]
+    },
+    "Company": {
+      "title": "Company",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/CompanyBase"
+        },
+        {
+          "$ref": "#/definitions/CompanyAddress"
+        },
+        {
+          "properties": {
+            "Identifiers": {
+              "$ref": "#/definitions/CompanyIdentifiers"
+            }
+          }
+        }
+      ]
+    },
+    "CommercialTransactionExtended": {
+      "title": "CommercialTransactionReceivers",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "A07.1": {
+          "description": "Purchase order number",
+          "type": "string"
+        },
+        "A07.2": {
+          "description": "Purchase order date",
+          "type": "string"
+        },
+        "A10": {
+          "description": "Contact information of the issuer",
+          "type": "object",
+          "properties": {
+            "Phone": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Fax": {
+              "type": "string"
+            }
+          },
+          "required": ["Phone", "Email", "Fax"],
+          "additionalProperties": false
+        },
+        "A10.1": {
+          "description": "The issuing date of the inspection",
+          "type": "string"
+        },
+        "A10.2": {
+          "description": "Customer number:",
+          "type": "string"
+        }
+      },
+      "required": []
+    },
+    "CommercialTransactionBase": {
+      "title": "CommercialTransactionBase",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "A01": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Company"
+            }
+          ],
+          "description": "The manufacturer's works which delivers the certificate along the product"
+        },
+        "A02": {
+          "description": "The type of inspection document, e.g. 'EN 10204 3.1 Certificate'",
+          "type": "string"
+        },
+        "A03": {
+          "description": "The document number of the certifcate",
+          "type": "string"
+        },
+        "A04": {
+          "description": "The mark of the manufacturer as base64 png file. The maximum size is <TBD>",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "A05": {
+          "description": "The originator of the document, not necessarily equal to A01",
+          "type": "string",
+          "default": "Factory Production Control"
+        },
+        "A08": {
+          "description": "Manufacturer's work number",
+          "type": "string"
+        },
+        "A09": {
+          "description": "The article number used by the purchaser",
+          "type": "string"
+        }
+      },
+      "required": ["A01", "A02", "A03", "A04", "A05"]
+    },
+    "CommercialTransactionReceivers": {
+      "title": "CommercialTransactionReceivers",
+      "description": "",
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "A06": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Company"
+                }
+              ],
+              "description": "The purchaser of the product and receiver of the certificate"
+            }
+          },
+          "required": ["A06"]
+        },
+        {
+          "properties": {
+            "A06.1": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Company"
+                }
+              ],
+              "description": "The purchaser of the product"
+            },
+            "A06.2": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Company"
+                }
+              ],
+              "description": "The consignee of the product"
+            },
+            "A06.3": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Company"
+                }
+              ],
+              "description": "The receiver/consignee of the certificate"
+            }
+          },
+          "required": ["A06.1"]
+        }
+      ]
+    },
+    "CommercialTransaction": {
+      "allOf": [
+        {
+          "title": "CommercialTransaction",
+          "description": "List parties and details involved in the transaction",
+          "allOf": [
+            {
+              "$ref": "#/definitions/CommercialTransactionBase"
+            },
+            {
+              "$ref": "#/definitions/CommercialTransactionReceivers"
+            }
+          ]
+        },
+        {
+          "$ref": "#/definitions/CommercialTransactionExtended"
+        }
+      ]
+    },
+    "Measurement": {
+      "allOf": [
+        {
+          "title": "Measurement",
+          "type": "object",
+          "description": "Measured Values in a structured fashion for easy processing and rendering of data",
+          "properties": {
+            "Property": {
+              "description": "The property measured",
+              "type": "string"
+            },
+            "Value": {
+              "description": "A measured or calculated Value (e.g. mean of individual measurements).",
+              "type": "number"
+            },
+            "Minimum": {
+              "description": "The lower limit according product specification. If not provided it is 0.",
+              "type": "number"
+            },
+            "Maximum": {
+              "description": "The upper limit according product specification. If not provided it is ∞.",
+              "type": "number"
+            },
+            "Unit": {
+              "description": "The Unit of Value.",
+              "type": "string"
+            }
+          },
+          "required": ["Value"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Matrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "Table": {
+      "title": "Table",
+      "type": "object",
+      "description": "A table with a title, a header and subheader row and many data rows",
+      "properties": {
+        "Title": {
+          "description": "The title of the table",
+          "type": "string"
+        },
+        "Header": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "SubHeader": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "Rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["Header", "SubHeader", "Rows"],
+      "additionalProperties": false
+    },
+    "ProductDescription": {
+      "title": "ProductDescription",
+      "type": "object",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "B01": {
+              "description": "The product",
+              "type": "string"
+            },
+            "B03": {
+              "description": "Any supplementary requirements",
+              "type": "string"
+            },
+            "B04": {
+              "description": "The delivery conditions for the product",
+              "type": "string"
+            },
+            "B05": {
+              "description": "Reference heat treatment of samples",
+              "type": "string"
+            },
+            "B06": {
+              "description": "Marking of the product",
+              "type": "string"
+            },
+            "B07": {
+              "description": "Identification of the product, usually batch, charge or lot number",
+              "type": "string"
+            },
+            "B08": {
+              "description": "Number of pieces of the product.",
+              "type": "number"
+            }
+          }
+        },
+        {
+          "properties": {
+            "B02": {
+              "type": "string"
+            },
+            "B09xB10xB11": {
+              "description": "Product dimensions [mm]",
+              "type": "string"
+            },
+            "B13.1": {
+              "description": "Net weight",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Measurement"
+                }
+              ]
+            },
+            "B13.2": {
+              "description": "Gross weight",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Measurement"
+                }
+              ]
+            },
+            "B14": {
+              "description": "Material number",
+              "type": "string"
+            },
+            "B15": {
+              "description": "Customer reference",
+              "type": "string"
+            }
+          },
+          "required": ["B02", "B09xB10xB11", "B13.1", "B13.2", "B14", "B15"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "ChemicalComposition": {
+      "title": "ChemicalComposition",
+      "type": "object",
+      "properties": {
+        "C70": {
+          "description": "The steel making process",
+          "type": "string"
+        },
+        "Analysis": {
+          "description": "Location of the sample",
+          "type": "object",
+          "$ref": "#/definitions/Table"
+        }
+      },
+      "required": ["C70", "Analysis"],
+      "additionalProperties": false
+    },
+    "BaseValidation": {
+      "title": "Validation",
+      "type": "object",
+      "properties": {
+        "Z01": {
+          "description": "Statement of compliance",
+          "type": "string"
+        },
+        "Z03": {
+          "description": "Stamp of the inspection representative",
+          "type": "string"
+        }
+      }
+    },
+    "Validation": {
+      "allOf": [
+        {
+          "title": "ProductDescription",
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/BaseValidation"
+            },
+            {
+              "anyOf": [
+                {
+                  "properties": {
+                    "Z02": {
+                      "description": "Date of issue and validation",
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "Z04": {
+                      "description": "CE marking",
+                      "type": "object",
+                      "properties": {
+                        "CE_Image": {
+                          "description": "The CE image as base64 encoded png file. A default with size 90x65 is provided by example",
+                          "type": "string",
+                          "contentEncoding": "base64",
+                          "contentMediaType": "image/png"
+                        },
+                        "NotifiedBodyNumber": {
+                          "description": "The identification number of the Notified body. Refer to https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31993L0068:en:HTML and https://ec.europa.eu/growth/tools-databases/nando/index.cfm?fuseaction=notifiedbody.main",
+                          "type": "string"
+                        },
+                        "DoCYear": {
+                          "description": "The year when the declaration of conformance was issued",
+                          "type": "string"
+                        },
+                        "DoCNumber": {
+                          "description": "The declaration of conformance document number ",
+                          "type": "string"
+                        }
+                      },
+                      "required": ["CE_Image", "NotifiedBodyNumber", "DoCYear", "DoCNumber"]
+                    },
+                    "SupplementaryInformation": {
+                      "title": "ValidationSupplementaryInformation",
+                      "type": "object",
+                      "propertyNames": {
+                        "pattern": "^Z0[5-9]|^Z[1-9][0-9]"
+                      },
+                      "patternProperties": {
+                        "^Z0[5-9]|^Z[1-9][0-9]": {
+                          "$ref": "#/definitions/KeyValueObject"
+                        }
+                      }
+                    }
+                  },
+                  "required": ["Z01", "Z02"]
+                },
+                {
+                  "properties": {
+                    "Z02": {
+                      "description": "Title of inspection representative",
+                      "type": "string"
+                    },
+                    "Z04": {
+                      "description": "Disclaimer",
+                      "type": "string"
+                    },
+                    "Z05": {
+                      "description": "Standard",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["Z01", "Z02", "Z03"]
+                }
+              ]
+            }
+          ],
+          "unevaluatedProperties": false
+        }
+      ]
+    }
+  },
+  "title": "Certificate",
+  "type": "object",
+  "properties": {
+    "RefSchemaUrl": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/RefSchemaUrl"
+        }
+      ]
+    },
+    "Certificate": {
+      "description": "",
+      "type": "object",
+      "required": ["CertificateLanguages", "CommercialTransaction", "ProductDescription", "Validation"],
+      "properties": {
+        "CertificateLanguages": {
+          "$ref": "#/definitions/CertificateLanguages"
+        },
+        "CommercialTransaction": {
+          "$ref": "#/definitions/CommercialTransaction"
+        },
+        "ProductDescription": {
+          "$ref": "#/definitions/ProductDescription"
+        },
+        "MaterialIdentifiers": {
+          "description": "List of Material Identifiers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Table"
+          },
+          "minItems": 1
+        },
+        "ChemicalComposition": {
+          "type": "object",
+          "$ref": "#/definitions/ChemicalComposition"
+        },
+        "Inspection": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Table"
+          },
+          "minItems": 1
+        },
+        "Validation": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Validation"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["Certificate", "RefSchemaUrl"],
+  "additionalProperties": false
+}
