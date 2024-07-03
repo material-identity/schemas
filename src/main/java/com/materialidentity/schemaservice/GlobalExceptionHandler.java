@@ -7,10 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.fop.apps.FOPException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.xml.sax.SAXException;
 
@@ -27,7 +32,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         Sentry.captureException(e);
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         log.error("Error processing json certificate", e);
-        apiError.setMessage("\"There was a problem processing the uploaded JSON certificate. Please check the JSON structure and try again.\"");
+        apiError.setMessage(
+                "\"There was a problem processing the uploaded JSON certificate. Please check the JSON structure and try again.\"");
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
@@ -74,5 +80,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("IllegalArgumentException occurred", e);
         apiError.setMessage(e.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(
+            @NonNull Exception ex,
+            @Nullable Object body,
+            @NonNull HttpHeaders headers,
+            @NonNull HttpStatusCode status,
+            @NonNull WebRequest request) {
+        Sentry.captureException(ex);
+        log.error("handleExceptionInternal: {}", ex.getMessage());
+        return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 }
