@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface SchemasService {
-    ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion, String[] languages, JsonNode certificate) throws IOException, TransformerException, SAXException;
+    ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion, String[] languages, Boolean attachJson, JsonNode certificate) throws IOException, TransformerException, SAXException;
 
     ResponseEntity<Map<String, Object>> validate(String schemaType, String schemaVersion, JsonNode jsonCertificate) throws IOException;
 

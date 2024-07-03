@@ -35,13 +35,18 @@ public class SchemasServiceImpl implements SchemasService {
     private static final Logger logger = LoggerFactory.getLogger(SchemasServiceImpl.class);
 
     @Override
-    public ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion, String[] languages, JsonNode certificate) throws IOException, TransformerException, SAXException {
-        logger.info("Rendering certificate type: {}, version: {}, languages: {}", schemaType, schemaVersion, languages);
+    public ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion,
+            String[] languages, Boolean attachJson, JsonNode certificate)
+            throws IOException, TransformerException, SAXException {
+        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
+                schemaVersion, languages, attachJson);
 
-       validateSchemaTypeAndVersion(schemaType, schemaVersion);
+        // TODO: throw error if language is not supported
+        validateSchemaTypeAndVersion(schemaType, schemaVersion);
 
         String translationsPattern = Paths
-                .get("schemas", schemaType.name(), schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
+                .get("schemas", schemaType.name(), schemaVersion,
+                        SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
                 .toString();
 
         String certificateJson = jsonToString(certificate);
@@ -58,7 +63,8 @@ public class SchemasServiceImpl implements SchemasService {
                 .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(
-                        new AttachmentManager(certificateJson, SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME))
+                        new AttachmentManager(certificateJson, SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME,
+                                attachJson))
                 .build();
 
         return ResponseEntity.ok()
@@ -69,7 +75,8 @@ public class SchemasServiceImpl implements SchemasService {
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> validate(String schemaType, String schemaVersion, JsonNode jsonCertificate) throws IOException {
+    public ResponseEntity<Map<String, Object>> validate(String schemaType, String schemaVersion,
+            JsonNode jsonCertificate) throws IOException {
         logger.info("Validating certificate type: {}, version: {}", schemaType, schemaVersion);
         String certificateString = jsonToString(jsonCertificate);
 
@@ -112,7 +119,8 @@ public class SchemasServiceImpl implements SchemasService {
 
         // get 1st level resource tree from directory storing schema types
         Resource[] resources = resolver
-                .getResources(String.format("classpath:%s", SchemaControllerConstants.SCHEMA_TYPES_FOLDER_NAME_PATTERN));
+                .getResources(
+                        String.format("classpath:%s", SchemaControllerConstants.SCHEMA_TYPES_FOLDER_NAME_PATTERN));
 
         for (Resource resource : resources) {
             if (resource.getFile().isDirectory()) {
@@ -122,21 +130,20 @@ public class SchemasServiceImpl implements SchemasService {
             }
         }
         // for (Resource resource : resources) {
-        //   if (resource.isReadable()) { // Check if the resource is readable
-        //     String schemaName = resource.getFilename();
-        //     List<String> versions = getVersionsForResource(resolver, schemaName);
-        //     response.put(schemaName, Collections.singletonMap("versions: ", versions));
-        //   }
+        // if (resource.isReadable()) { // Check if the resource is readable
+        // String schemaName = resource.getFilename();
+        // List<String> versions = getVersionsForResource(resolver, schemaName);
+        // response.put(schemaName, Collections.singletonMap("versions: ", versions));
+        // }
         // }
 
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.setContentType(MediaType.APPLICATION_JSON);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
-
 
     /**
      * Retrieves a list of version directories for a given schema name from the
@@ -155,10 +162,10 @@ public class SchemasServiceImpl implements SchemasService {
      *                   should correspond to a subdirectory under the 'schemas'
      *                   directory.
      * @return A list of strings, where each string is the name of a subdirectory
-     * that represents
-     * a version of the schema. The list will be empty if no versions are
-     * found or if the
-     * specified schemaName does not exist.
+     *         that represents
+     *         a version of the schema. The list will be empty if no versions are
+     *         found or if the
+     *         specified schemaName does not exist.
      * @throws IOException If an I/O error occurs when accessing the file system.
      */
     private List<String> getVersionsForResource(PathMatchingResourcePatternResolver resolver, String schemaName)
@@ -185,7 +192,7 @@ public class SchemasServiceImpl implements SchemasService {
      *                     as "classpath:" is already prefixed when resolving the
      *                     resource.
      * @return A string containing the contents of the resource, decoded using UTF-8
-     * encoding.
+     *         encoding.
      * @throws IOException If an error occurs during I/O operations, such as if the
      *                     resource does not exist
      *                     or an error occurs while reading the resource.
