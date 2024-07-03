@@ -4,8 +4,9 @@ const path = require('path');
 
 const certificatePath = path.join(
   __dirname,
-  // "src/main/resources/schemas/EN10168/v0.4.1/valid-cert.json",
-  '../src/main/resources/schemas/CoA/v1.1.0/valid-cert.json'
+  // "../src/main/resources/schemas/EN10168/v0.4.1/valid-cert1.json",
+  // '../src/main/resources/schemas/CoA/v1.1.0/valid-cert.json',
+   '../src/main/resources/schemas/TKR/v0.0.4/valid-cert3.json',
 );
 const certificate = fs.readFileSync(certificatePath);
 
@@ -20,9 +21,9 @@ const url = 'http://localhost:8081/api/render';
       },
       responseType: 'arraybuffer',
       params: {
-        schemaType: 'CoA',
-        schemaVersion: 'v1.1.0',
-        languages: 'DE, EN',
+        schemaType: 'TKR',
+        schemaVersion: 'v0.0.4',
+        languages: 'EN',
       },
     });
     
