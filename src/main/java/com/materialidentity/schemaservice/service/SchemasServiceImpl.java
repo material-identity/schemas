@@ -38,6 +38,9 @@ public class SchemasServiceImpl implements SchemasService {
     public ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion,
             String[] languages, Boolean attachJson, JsonNode certificate)
             throws IOException, TransformerException, SAXException {
+        if (!schemaVersion.startsWith("v")) {
+            schemaVersion = "v" + schemaVersion;
+        }
         logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
                 schemaVersion, languages, attachJson);
 
