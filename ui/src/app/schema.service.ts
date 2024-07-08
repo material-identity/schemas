@@ -15,15 +15,23 @@ export class SchemaService {
     languages = 'CN, EN'
   ) {
     const url = 'http://localhost:8080/api/render';
-    const res = await firstValueFrom(
-      this.http.post(url, certificate, {
-        params: {
-          schemaType,
-          schemaVersion,
-          languages,
-        },
-      })
-    );
-    console.log({ res });
+    try {
+      const res = await firstValueFrom(
+        this.http.post(url, certificate, {
+          params: {
+            schemaType,
+            schemaVersion,
+            languages,
+          },
+          responseType: 'blob',
+        })
+      );
+      console.log({ res });
+      const blob = new Blob([res], { type: 'application/pdf' });
+      const blobUrl = window.URL.createObjectURL(blob);
+      window.open(blobUrl);
+    } catch (error) {
+      console.error('Error rendering PDF:', error);
+    }
   }
 }
