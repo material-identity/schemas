@@ -156,6 +156,25 @@
       </plugin>
 
       <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <?m2e execute onConfiguration?>
+            <id>Run Script</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>copy-resources.sh</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>io.sentry</groupId>
         <artifactId>sentry-maven-plugin</artifactId>
         <version>0.0.8</version>
