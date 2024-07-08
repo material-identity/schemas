@@ -46,6 +46,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
       <mat-radio-group
         class="rounded-md border border-slate-200 block px-2 py-4"
+        [formControl]="schemaControl"
       >
         <div class="grid grid-cols-4">
           @for (schema of visibleSchemaVersions(); track schema[0]) {
@@ -74,19 +75,15 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
       <div
         class="grid grid-cols-4 rounded-md border border-slate-200 px-2 py-4"
       >
-        <mat-checkbox>English</mat-checkbox>
-        <mat-checkbox>German</mat-checkbox>
-        <mat-checkbox>Chinese</mat-checkbox>
+      <mat-checkbox [formControl]="languagesControl['EN']">English</mat-checkbox>
+        <mat-checkbox [formControl]="languagesControl['DE']">German</mat-checkbox>
+        <!-- <mat-checkbox [formControl]="languagesControl['CN']">Chinese</mat-checkbox> -->
       </div>
     </section>
 
     <span class="flex-1"></span>
 
     <div class="flex gap-2 justify-start">
-      <button mat-raised-button color="primary">
-        <mat-icon>verified</mat-icon>
-        Validate
-      </button>
       <button mat-stroked-button color="primary" (click)="render()">
         <mat-icon>picture_as_pdf</mat-icon>
         Generate PDF
@@ -98,10 +95,9 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class FormComponent {
   @HostBinding('class') class = 'flex flex-col gap-8';
   readonly schemaVersions = signal<[string, string[]][]>([
-    ['CoA', ['1.0.0']],
-    ['TRK', ['1.0.0', '1.2.0']],
-    ['EN10168', ['1.0.0', '1.2.0']],
-    ['EN10168', ['1.0.0', '1.2.0']],
+    ['CoA', ['v1.1.0']],
+    ['TKR', ['v0.0.4']],
+    ['EN10168', ['v0.4.1']],
   ]);
   readonly showAllVersions = signal(true);
   readonly visibleSchemaVersions = computed<[string, string[]][]>(() =>
@@ -114,19 +110,30 @@ export class FormComponent {
   );
 
   readonly certificateControl = new FormControl<File | null>(null);
+  readonly schemaControl = new FormControl<string | null>(null);
+  readonly languagesControl: { [key: string]: FormControl<boolean | null> } = {
+    EN: new FormControl(false),
+    DE: new FormControl(false),
+    CN: new FormControl(false),
+  };
 
   private readonly schemaService = inject(SchemaService);
 
   render() {
     const file = this.certificateControl.value;
-    if (!file) return;
+    const selectedSchema = this.schemaControl.value;
+    const selectedLanguages = Object.keys(this.languagesControl)
+      .filter((key) => this.languagesControl[key].value)
+      .join(', ');
+    if (!file || !selectedSchema || !selectedLanguages) return;
     const reader = new FileReader();
 
     reader.onload = (e: any) => {
       const text = e.target.result; // This is the content of the file as a string
       console.log('File content:', text, JSON.parse(text));
       const certificate = JSON.parse(text);
-      this.schemaService.render(certificate);
+      const [schemaType, schemaVersion] = selectedSchema.split(/(?<=^[^.]+)\./);
+      this.schemaService.render(certificate, schemaType, schemaVersion, selectedLanguages);
     };
 
     reader.onerror = () => {
