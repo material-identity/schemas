@@ -8,17 +8,21 @@
   <version>1.0-SNAPSHOT</version>
   <name>schema-service</name>
   <url>https://materialidentity.org</url>
+
   <properties>
     <java.version>19</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jackson.version>2.14.1</jackson.version>
+    <sentry.skip>true</sentry.skip>
   </properties>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.2.3</version>
   </parent>
+
   <dependencies>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -111,13 +115,46 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.sentry</groupId>
+      <artifactId>sentry</artifactId>
+      <version>7.11.0</version>
+    </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>sentry-auth-present</id>
+      <activation>
+        <property>
+          <name>env.SENTRY_AUTH_TOKEN</name>
+        </property>
+      </activation>
+      <properties>
+        <sentry.skip>false</sentry.skip>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>sentry-auth-absent</id>
+      <activation>
+        <property>
+          <name>!env.SENTRY_AUTH_TOKEN</name>
+        </property>
+      </activation>
+      <properties>
+        <sentry.skip>true</sentry.skip>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>io.sentry</groupId>
         <artifactId>sentry-maven-plugin</artifactId>
@@ -125,10 +162,13 @@
         <extensions>true</extensions>
         <configuration>
           <!-- for showing output of sentry-cli -->
-          <debugSentryCli>true</debugSentryCli>
+          <debugSentryCli>false</debugSentryCli>
+
+          <!-- provide your auth token via SENTRY_AUTH_TOKEN environment variable -->
+          <authToken>${env.SENTRY_AUTH_TOKEN}</authToken>
 
           <!--  Disable the plugin -->
-          <skip>false</skip>
+          <skip>${sentry.skip}</skip>
 
           <!--  Disable source-context -->
           <skipSourceBundle>false</skipSourceBundle>
@@ -143,8 +183,6 @@
           <!-- in case you're self-hosting, provide the URL here -->
           <!--<url>http://localhost:8000/</url>-->
 
-          <!-- provide your auth token via SENTRY_AUTH_TOKEN environment variable -->
-          <authToken>${env.SENTRY_AUTH_TOKEN}</authToken>
         </configuration>
         <executions>
           <execution>
