@@ -14,7 +14,10 @@ export class SchemaService {
     schemaVersion = 'v1.1.0',
     languages = 'CN, EN'
   ) {
-    const url = 'http://localhost:8080/api/render';
+    // Retrieve port from environment variables with a default value
+    const port = '8081';
+    const url = `http://localhost:${port}/api/render`;
+
     try {
       const res = await firstValueFrom(
         this.http.post(url, certificate, {
