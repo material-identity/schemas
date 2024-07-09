@@ -20,11 +20,6 @@
 
 `mvn compile`
 
-## Endpoints
-
-- `curl localhost:8081/hello`
-- `curl localhost:8081/render`
-
 ```
 curl -X POST 'http://localhost:8081/render?schemaType=CoA&schemaVersion=1.0' \
      -H 'Content-Type: application/json' \
