@@ -12,9 +12,19 @@
 
 `mvn spring-boot:run`
 
+## Run tests
+```shell
+mvn tests
+```
+
 ## Install packages
 
-`mvn install`
+From root directory, run:
+
+```shell
+chmod +x copy-resources.sh && \
+mvn clean install
+```
 
 ## Compile
 
