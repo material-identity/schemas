@@ -1,10 +1,16 @@
 package com.materialidentity.schemaservice;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
+import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -15,6 +21,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -24,7 +31,7 @@ class HttpRequestTest {
 	private WebTestClient webClient;
 
 	@Test
-	void renderEndpointTestCoA() throws Exception {
+	void CoA_renderEndpointTest_WithJsonAttachment() throws Exception {
 		Path resourceDirectory = Paths.get("src", "test", "resources");
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
@@ -50,6 +57,8 @@ class HttpRequestTest {
 					assert responseBody != null;
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
+						assertPdfContainsEmbeddedFile(responseBody,
+								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), true);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
@@ -57,7 +66,7 @@ class HttpRequestTest {
 	}
 
 	@Test
-	void renderEndpointTestEN10168() throws Exception {
+	void EN10168_renderEndpointTest_WithoutJsonAttachment() throws Exception {
 		Path resourceDirectory = Paths.get("src", "test", "resources");
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
@@ -83,6 +92,8 @@ class HttpRequestTest {
 					assert responseBody != null;
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
+						assertPdfContainsEmbeddedFile(responseBody,
+								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
@@ -90,7 +101,7 @@ class HttpRequestTest {
 	}
 
 	@Test
-	void renderEndpointTestTKR() throws Exception {
+	void TKR_renderEndpointTest_WithJsonAttachment() throws Exception {
 		Path resourceDirectory = Paths.get("src", "test", "resources");
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
@@ -116,6 +127,8 @@ class HttpRequestTest {
 					assert responseBody != null;
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
+						assertPdfContainsEmbeddedFile(responseBody,
+								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), true);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
@@ -131,4 +144,36 @@ class HttpRequestTest {
 
 		assert expectedText.equals(actualText) : "PDF content does not match";
 	}
+
+	private void assertPdfContainsEmbeddedFile(byte[] pdfContent, String embeddedFileName,
+			byte[] expectedEmbeddedFileContent, boolean shouldExist) throws IOException {
+		try (PDDocument document = Loader.loadPDF(pdfContent)) {
+			PDDocumentNameDictionary names = new PDDocumentNameDictionary(document.getDocumentCatalog());
+
+			if (names.getEmbeddedFiles() == null) {
+				if (shouldExist) {
+					throw new AssertionError("No embedded files found in the PDF, but one was expected");
+				}
+				return;
+			}
+
+			Map<String, PDComplexFileSpecification> embeddedFiles = names.getEmbeddedFiles().getNames();
+
+			if (embeddedFiles.containsKey(embeddedFileName)) {
+				if (!shouldExist) {
+					throw new AssertionError(
+							"Embedded file '" + embeddedFileName + "' found in the PDF, but it was not expected");
+				}
+
+				byte[] embeddedFileContent = embeddedFiles.get(embeddedFileName).getEmbeddedFile().toByteArray();
+				if (!java.util.Arrays.equals(expectedEmbeddedFileContent, embeddedFileContent)) {
+					throw new AssertionError("Embedded file content does not match the expected content");
+				}
+			} else if (shouldExist) {
+				throw new AssertionError(
+						"Embedded file '" + embeddedFileName + "' not found in the PDF, but it was expected");
+			}
+		}
+	}
+
 }
