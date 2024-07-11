@@ -10,6 +10,7 @@ import com.materialidentity.schemaservice.XsltTransformer;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 import com.materialidentity.schemaservice.config.SchemasAndVersions;
 import com.networknt.schema.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -28,11 +29,58 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class SchemasServiceImpl implements SchemasService {
 
     private static final Logger logger = LoggerFactory.getLogger(SchemasServiceImpl.class);
+    private static final Pattern schemaPattern = Pattern.compile(".*/([^/]+)/v[\\d.]+/schema\\.json$");
+    private static final Pattern versionPattern = Pattern.compile("(v\\d+\\.\\d+\\.\\d+)");
+
+    public static String[] extractLanguages(JsonNode jsonContent) {
+        return Optional.ofNullable(jsonContent.path("Certificate").path("CertificateLanguages"))
+                .filter(JsonNode::isArray)
+                .map(languagesNode -> {
+                    List<String> languages = new ArrayList<>();
+                    languagesNode.forEach(node -> languages.add(node.asText()));
+                    return languages.toArray(new String[0]);
+                })
+                .orElse(new String[0]); // Return an empty array if "CertificateLanguages" is not an array or is missing
+    }
+
+    private static final Map<String, String> certificateTypeMap = new HashMap<>();
+    static {
+        certificateTypeMap.put("coa", "CoA");
+        certificateTypeMap.put("en10168", "EN10168");
+        certificateTypeMap.put("tkr", "TKR");
+    }
+
+    public static String extractCertificateType(JsonNode jsonContent) {
+        String refSchemaUrl = jsonContent.path("RefSchemaUrl").asText();
+        Matcher matcher = schemaPattern.matcher(refSchemaUrl);
+
+        if (matcher.find()) {
+            // Extract the certificate type and remove "-schemas" from the result
+            String certificateType = matcher.group(1).replace("-schemas", "");
+            return certificateTypeMap.getOrDefault(certificateType, certificateType);
+        }
+
+        return "Unknown"; // Return "Unknown" if the certificate type cannot be found
+    }
+
+    public static String extractCertificateVersion(JsonNode jsonContent) {
+        String refSchemaUrl = jsonContent.path("RefSchemaUrl").asText();
+        Matcher matcher = versionPattern.matcher(refSchemaUrl);
+
+        if (matcher.find()) {
+            // Return the version number
+            return matcher.group(1);
+        }
+
+        return "Unknown"; // Return "Unknown" if the version number cannot be found
+    }
 
     @Override
     public ResponseEntity<byte[]> renderPdf(SchemasAndVersions.SchemaTypes schemaType, String schemaVersion,
@@ -56,6 +104,48 @@ public class SchemasServiceImpl implements SchemasService {
 
         String xsltPath = Paths
                 .get("schemas", schemaType.name(), schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
+                .toString();
+
+        Resource xsltResource = new ClassPathResource(xsltPath);
+        String xsltSource = new String(
+                Files.readAllBytes(Paths.get(xsltResource.getURI())));
+
+        byte[] pdfBytes = new PDFBuilder()
+                .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
+                .withTranslations(new TranslationLoader(translationsPattern, languages))
+                .withAttachment(
+                        new AttachmentManager(certificateJson, SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME,
+                                attachJson))
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        String.format("filename=\"%s\"", SchemaControllerConstants.PDF_RENDERED_OUTPUT_FILE_NAME))
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+
+    @Override
+    public ResponseEntity<byte[]> renderCertificateAsPdf(Boolean attachJson, JsonNode certificate)
+            throws IOException, TransformerException, SAXException {
+        String[] languages = extractLanguages(certificate);
+        String schemaType = extractCertificateType(certificate);
+        String schemaVersion = extractCertificateVersion(certificate);
+        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
+                schemaVersion, languages, attachJson);
+
+        // TODO: throw error if language is not supported
+        // validateSchemaTypeAndVersion(schemaType, schemaVersion);
+
+        String translationsPattern = Paths
+                .get("schemas", schemaType, schemaVersion,
+                        SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
+                .toString();
+
+        String certificateJson = jsonToString(certificate);
+
+        String xsltPath = Paths
+                .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
                 .toString();
 
         Resource xsltResource = new ClassPathResource(xsltPath);
