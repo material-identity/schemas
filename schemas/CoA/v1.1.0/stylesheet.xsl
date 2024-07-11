@@ -15,14 +15,14 @@
       <fo:page-sequence master-reference="simple">
         <!-- Page number -->
         <fo:static-content flow-name="xsl-region-after">
-          <fo:block font-size="8pt" text-align="center" margin-right="1cm" font-family="NotoSans">
+          <fo:block font-size="8pt" text-align="center" margin-right="1cm" font-family="NotoSans, NotoSansSC">
             <fo:page-number />
 /
             <fo:page-number-citation-last ref-id="last-page" />
           </fo:block>
         </fo:static-content>
         <!-- Body -->
-        <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
+        <fo:flow flow-name="xsl-region-body" font-family="NotoSans, NotoSansSC">
           <!-- Global variables -->
           <xsl:variable name="i18n" select="Root/Translations" />
           <xsl:variable name="Parties" select="Root/Certificate/Parties" />
@@ -385,7 +385,7 @@
                 <xsl:for-each select="$Analysis/Inspections">
                   <fo:table-row>
                     <fo:table-cell>
-                      <fo:block font-family="NotoSans" font-style="italic">
+                      <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
                         <xsl:value-of select="Property" />
                       </fo:block>
                     </fo:table-cell>
@@ -472,7 +472,7 @@
                   <xsl:for-each select="$Contacts">
                     <fo:table-row>
                       <fo:table-cell>
-                        <fo:block font-family="NotoSans" font-style="italic">
+                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
                           <xsl:value-of select="Name" />
                         </fo:block>
                       </fo:table-cell>
@@ -520,7 +520,7 @@
                   <xsl:for-each select="$Attachments">
                     <fo:table-row>
                       <fo:table-cell>
-                        <fo:block font-family="NotoSans" font-style="italic">
+                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
                           <xsl:value-of select="FileName" />
                         </fo:block>
                       </fo:table-cell>
@@ -572,7 +572,7 @@
     <xsl:param name="key" />
     <xsl:param name="value" />
     <fo:table-cell>
-      <fo:block font-family="NotoSans" font-style="italic">
+      <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
         <xsl:value-of select="$key" />
       </fo:block>
     </fo:table-cell>

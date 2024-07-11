@@ -18,6 +18,9 @@
         <font embed-url="classpath:fonts/NotoSans-Bold.ttf">
           <font-triplet name="NotoSans" style="normal" weight="bold"/>
         </font>
+       <font embed-url="classpath:fonts/NotoSansSC-Regular.ttf">
+          <font-triplet name="NotoSansSC" style="italic" weight="normal"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>
