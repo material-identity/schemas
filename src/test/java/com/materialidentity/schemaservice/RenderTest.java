@@ -46,7 +46,7 @@ class HttpRequestTest {
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
-						.path("/api/render-certificate")
+						.path("/api/render")
 						.queryParam("attachJson", "true")
 						.build())
 				.contentType(MediaType.APPLICATION_JSON)
@@ -79,7 +79,7 @@ class HttpRequestTest {
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
-						.path("/api/render-certificate")
+						.path("/api/render")
 						.queryParam("attachJson", false)
 						.build())
 				.contentType(MediaType.APPLICATION_JSON)
