@@ -2,7 +2,6 @@ package com.materialidentity.schemaservice.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.materialidentity.schemaservice.config.EndpointParamConstants;
-import com.materialidentity.schemaservice.config.SchemasAndVersions;
 import com.materialidentity.schemaservice.service.SchemasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +13,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -49,7 +49,7 @@ public class SchemaController {
     @GetMapping("/schemas")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "List the supported schemas and versions")
-    private ResponseEntity<Map<String, Object>> getSchemas() throws IOException {
+    private ResponseEntity<Map<String, List<String>>> getSchemas() throws IOException {
         return schemasService.getSchemas();
     }
 

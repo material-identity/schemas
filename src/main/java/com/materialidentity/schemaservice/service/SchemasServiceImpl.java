@@ -26,10 +26,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class SchemasServiceImpl implements SchemasService {
@@ -38,6 +41,7 @@ public class SchemasServiceImpl implements SchemasService {
     private static final Pattern schemaPattern = Pattern.compile(".*/([^/]+)/v[\\d.]+/schema\\.json$");
     private static final Pattern versionPattern = Pattern.compile("(v\\d+\\.\\d+\\.\\d+)");
     private static final Map<String, String> certificateTypeMap = new HashMap<>();
+    private ResponseEntity<Map<String, List<String>>> schemasCache = null;
 
     static {
         certificateTypeMap.put("coa", "CoA");
@@ -141,7 +145,7 @@ public class SchemasServiceImpl implements SchemasService {
 
     @Override
     public ResponseEntity<Map<String, Object>> validate(String schemaType, String schemaVersion,
-                                                        JsonNode jsonCertificate) throws IOException {
+            JsonNode jsonCertificate) throws IOException {
         logger.info("Validating certificate type: {}, version: {}", schemaType, schemaVersion);
         String certificateString = jsonToString(jsonCertificate);
 
@@ -177,76 +181,34 @@ public class SchemasServiceImpl implements SchemasService {
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> getSchemas() throws IOException {
-        logger.info("Getting schemas");
-
-        Map<String, Object> response = new HashMap<>();
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-
-        // get 1st level resource tree from directory storing schema types
-        Resource[] resources = resolver
-                .getResources(
-                        String.format("classpath:%s",
-                                SchemaControllerConstants.SCHEMA_TYPES_FOLDER_NAME_PATTERN));
-
-        for (Resource resource : resources) {
-            if (resource.getFile().isDirectory()) {
-                String schemaName = resource.getFilename();
-                List<String> versions = getVersionsForResource(resolver, schemaName);
-                response.put(schemaName, Collections.singletonMap("versions: ", versions));
-            }
+    public ResponseEntity<Map<String, List<String>>> getSchemas() throws IOException {
+        logger.info("Retrieving supported schemas and versions");
+        if (schemasCache != null) {
+            return schemasCache;
         }
-        // for (Resource resource : resources) {
-        // if (resource.isReadable()) { // Check if the resource is readable
-        // String schemaName = resource.getFilename();
-        // List<String> versions = getVersionsForResource(resolver, schemaName);
-        // response.put(schemaName, Collections.singletonMap("versions: ", versions));
-        // }
-        // }
+        Path schemasBasePath = Paths.get("src/main/resources/schemas");
+        Map<String, List<String>> schemaVersions = new HashMap<>();
 
-        // HttpHeaders headers = new HttpHeaders();
-        // headers.setContentType(MediaType.APPLICATION_JSON);
-
-        return ResponseEntity.ok()
+        try (Stream<Path> schemaTypes = Files.list(schemasBasePath)) {
+            schemaTypes.forEach(schemaTypePath -> {
+                String schemaTypeName = schemaTypePath.getFileName().toString();
+                try (Stream<Path> versions = Files.list(schemaTypePath)) {
+                    List<String> versionNames = versions
+                            .map(Path::getFileName)
+                            .map(Path::toString)
+                            .collect(Collectors.toList());
+                    schemaVersions.put(schemaTypeName, versionNames);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        // Populate cache before returning
+        schemasCache = ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(response);
-    }
+                .body(schemaVersions);
 
-    /**
-     * Retrieves a list of version directories for a given schema name from the
-     * classpath.
-     * This method searches within the 'schemas' directory, specifically in the
-     * subdirectory
-     * corresponding to the provided schema name, to find all subdirectories which
-     * represent
-     * different versions of the schema.
-     *
-     * @param resolver   The {@link PathMatchingResourcePatternResolver} used to
-     *                   find resources
-     *                   on the classpath.
-     * @param schemaName The name of the schema for which versions are to be
-     *                   retrieved. This
-     *                   should correspond to a subdirectory under the 'schemas'
-     *                   directory.
-     * @return A list of strings, where each string is the name of a subdirectory
-     * that represents
-     * a version of the schema. The list will be empty if no versions are
-     * found or if the
-     * specified schemaName does not exist.
-     * @throws IOException If an I/O error occurs when accessing the file system.
-     */
-    private List<String> getVersionsForResource(PathMatchingResourcePatternResolver resolver, String schemaName)
-            throws IOException {
-        List<String> versions = new ArrayList<>();
-        Resource[] versionResources = resolver.getResources("classpath:schemas/" + schemaName + "/*");
-
-        for (Resource versionResource : versionResources) {
-            if (versionResource.getFile().isDirectory()) {
-                versions.add(versionResource.getFilename());
-            }
-        }
-
-        return versions;
+        return schemasCache;
     }
 
     /**
@@ -259,7 +221,7 @@ public class SchemasServiceImpl implements SchemasService {
      *                     as "classpath:" is already prefixed when resolving the
      *                     resource.
      * @return A string containing the contents of the resource, decoded using UTF-8
-     * encoding.
+     *         encoding.
      * @throws IOException If an error occurs during I/O operations, such as if the
      *                     resource does not exist
      *                     or an error occurs while reading the resource.
