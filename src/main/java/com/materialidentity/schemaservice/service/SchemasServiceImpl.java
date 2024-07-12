@@ -46,15 +46,20 @@ public class SchemasServiceImpl implements SchemasService {
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
-        return Optional.ofNullable(jsonContent.path("Certificate").path("CertificateLanguages"))
+        String[] languages = Optional.ofNullable(jsonContent.path("Certificate").path("CertificateLanguages"))
                 .filter(JsonNode::isArray)
                 .map(languagesNode -> {
-                    List<String> languages = new ArrayList<>();
-                    languagesNode.forEach(node -> languages.add(node.asText()));
-                    return languages.toArray(new String[0]);
+                    List<String> languageList = new ArrayList<>();
+                    languagesNode.forEach(node -> languageList.add(node.asText()));
+                    return languageList.toArray(new String[0]);
                 })
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "No languages found in the certificate"));
+                .orElseThrow(() -> new IllegalArgumentException("No languages property found in the certificate"));
+
+        if (languages.length == 0) {
+            throw new IllegalArgumentException("CertificateLanguages array is empty");
+        }
+
+        return languages;
     }
 
     public static String extractCertificateType(JsonNode jsonContent) {
