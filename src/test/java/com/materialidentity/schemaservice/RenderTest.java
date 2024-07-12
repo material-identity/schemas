@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -97,6 +98,66 @@ class HttpRequestTest {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
 				});
+	}
+
+	@Test
+	void CoA_renderEndpointTest_WithoutLanguages() throws Exception {
+		Path resourceDirectory = Paths.get("src", "test", "resources");
+		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
+
+		String jsonContent = new String(
+				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/missing_languages.json")));
+
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("attachJson", true)
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").isEqualTo("CertificateLanguages array is empty");
+	}
+
+	@Test
+	void CoA_renderEndpointTest_WithoutLanguagesProperty() throws Exception {
+		Path resourceDirectory = Paths.get("src", "test", "resources");
+		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
+
+		String jsonContent = new String(
+				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/missing_languages_property.json")));
+
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("attachJson", true)
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").isEqualTo("No languages property found in the certificate");
+	}
+
+	@Test
+	void CoA_renderEndpointTest_InvalidSchemaType() throws Exception {
+		Path resourceDirectory = Paths.get("src", "test", "resources");
+		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
+
+		String jsonContent = new String(
+				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/invalid_schema_type.json")));
+
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("attachJson", true)
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").isEqualTo("Certificate type 'invalid' is not supported.");
 	}
 
 	private void assertPdfContentEquals(byte[] expectedPdfContent, byte[] actualPdfContent) throws Exception {
