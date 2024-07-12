@@ -53,8 +53,8 @@ public class SchemasServiceImpl implements SchemasService {
                     languagesNode.forEach(node -> languages.add(node.asText()));
                     return languages.toArray(new String[0]);
                 })
-                .orElse(new String[0]); // Return an empty array if "CertificateLanguages" is not an
-        // array or is missing
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No languages found in the certificate"));
     }
 
     public static String extractCertificateType(JsonNode jsonContent) {
@@ -64,10 +64,13 @@ public class SchemasServiceImpl implements SchemasService {
         if (matcher.find()) {
             // Extract the certificate type and remove "-schemas" from the result
             String certificateType = matcher.group(1).replace("-schemas", "");
-            return certificateTypeMap.getOrDefault(certificateType, certificateType);
+            if (!certificateTypeMap.containsKey(certificateType)) {
+                throw new IllegalArgumentException(
+                        "Certificate type '" + certificateType + "' is not supported.");
+            }
+            return certificateTypeMap.get(certificateType);
         }
-
-        return "Unknown"; // Return "Unknown" if the certificate type cannot be found
+        throw new IllegalArgumentException("Unsupported certificate type in RefSchemaUrl");
     }
 
     public static String extractCertificateVersion(JsonNode jsonContent) {
@@ -78,8 +81,7 @@ public class SchemasServiceImpl implements SchemasService {
             // Return the version number
             return matcher.group(1);
         }
-
-        return "Unknown"; // Return "Unknown" if the version number cannot be found
+        throw new IllegalArgumentException("Unsupported certificate version in RefSchemaUrl");
     }
 
     public static String jsonToString(JsonNode jsonMap)
@@ -266,7 +268,6 @@ public class SchemasServiceImpl implements SchemasService {
         }
     }
 
-    // TODO: replace this with decorators
     public void validateSchemaTypeAndVersion(String schemaType, String version) {
         // Check if schemaType is valid
         if (!EnumSet.allOf(SchemasAndVersions.SchemaTypes.class)
