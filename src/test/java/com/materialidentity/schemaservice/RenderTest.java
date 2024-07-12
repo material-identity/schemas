@@ -38,26 +38,6 @@ class HttpRequestTest {
 	@Autowired
 	private WebTestClient webClient;
 
-	static class JsonPdfArgumentsProvider implements ArgumentsProvider {
-		@Override
-		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
-			Path basePath = Paths.get("src", "test", "resources", "schemas");
-
-			// Ensure the directory exists
-			if (!Files.exists(basePath)) {
-				throw new FileNotFoundException("Directory not found: " + basePath.toAbsolutePath());
-			}
-
-			// Use Files.walk to traverse directories recursively
-			return Files.walk(basePath)
-					.filter(path -> path.getFileName().toString().matches("valid_certificate_.*\\.json"))
-					.map(path -> {
-						Path pdfPath = Paths.get(path.toString().replace(".json", ".pdf"));
-						return Arguments.of(path, pdfPath);
-					});
-		}
-	}
-
 	@ParameterizedTest
 	@ArgumentsSource(JsonPdfArgumentsProvider.class)
 	void renderEndpointTest(Path jsonFilePath, Path pdfFilePath) throws Exception {
@@ -88,57 +68,19 @@ class HttpRequestTest {
 	}
 
 	@Test
-	void CoA_renderEndpointTest_WithJsonAttachment() throws Exception {
+	void CoA_renderEndpointTest_WithoutJsonAttachment() throws Exception {
 		Path resourceDirectory = Paths.get("src", "test", "resources");
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
 		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid-cert.json")));
+				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_without_attachment.json")));
 		byte[] expectedPdfContent = Files
-				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid-cert.pdf"));
+				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_without_attachment.pdf"));
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
-						.path("/api/render")
-						.queryParam("schemaType", "CoA")
-						.queryParam("schemaVersion", "v1.1.0")
-						.queryParam("languages", "EN, FR")
-						.queryParam("attachJson", "true")
-						.build())
-				.contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(jsonContent).exchange()
-				.expectStatus().isOk()
-				.expectBody()
-				.consumeWith(response -> {
-					byte[] responseBody = response.getResponseBody();
-					assert responseBody != null;
-					try {
-						assertPdfContentEquals(expectedPdfContent, responseBody);
-						assertPdfContainsEmbeddedFile(responseBody,
-								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), true);
-					} catch (Exception e) {
-						throw new RuntimeException("PDF comparison failed", e);
-					}
-				});
-	}
-
-	@Test
-	void EN10168_renderEndpointTest_WithoutJsonAttachment() throws Exception {
-		Path resourceDirectory = Paths.get("src", "test", "resources");
-		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
-
-		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/EN10168/v0.4.1/valid-cert.json")));
-		byte[] expectedPdfContent = Files
-				.readAllBytes(Paths.get(testResourcesPath + "/schemas/EN10168/v0.4.1/valid-cert.pdf"));
-
-		webClient
-				.post().uri(uriBuilder -> uriBuilder
-						.path("/api/render")
-						.queryParam("schemaType", "EN10168")
-						.queryParam("schemaVersion", "v0.4.1")
-						.queryParam("languages", "EN")
-						.queryParam("attachJson", "false")
+						.path("/api/render-certificate")
+						.queryParam("attachJson", false)
 						.build())
 				.contentType(MediaType.APPLICATION_JSON)
 				.bodyValue(jsonContent).exchange()
@@ -151,41 +93,6 @@ class HttpRequestTest {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
 						assertPdfContainsEmbeddedFile(responseBody,
 								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
-					} catch (Exception e) {
-						throw new RuntimeException("PDF comparison failed", e);
-					}
-				});
-	}
-
-	@Test
-	void TKR_renderEndpointTest_WithJsonAttachment() throws Exception {
-		Path resourceDirectory = Paths.get("src", "test", "resources");
-		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
-
-		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/TKR/v0.0.4/valid-cert.json")));
-		byte[] expectedPdfContent = Files
-				.readAllBytes(Paths.get(testResourcesPath + "/schemas/TKR/v0.0.4/valid-cert.pdf"));
-
-		webClient
-				.post().uri(uriBuilder -> uriBuilder
-						.path("/api/render")
-						.queryParam("schemaType", "TKR")
-						.queryParam("schemaVersion", "v0.0.4")
-						.queryParam("languages", "EN")
-						.queryParam("attachJson", "true")
-						.build())
-				.contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(jsonContent).exchange()
-				.expectStatus().isOk()
-				.expectBody()
-				.consumeWith(response -> {
-					byte[] responseBody = response.getResponseBody();
-					assert responseBody != null;
-					try {
-						assertPdfContentEquals(expectedPdfContent, responseBody);
-						assertPdfContainsEmbeddedFile(responseBody,
-								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), true);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
@@ -240,6 +147,26 @@ class HttpRequestTest {
 				throw new AssertionError(
 						"Embedded file '" + embeddedFileName + "' not found in the PDF, but it was expected");
 			}
+		}
+	}
+
+	static class JsonPdfArgumentsProvider implements ArgumentsProvider {
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
+			Path basePath = Paths.get("src", "test", "resources", "schemas");
+
+			// Ensure the directory exists
+			if (!Files.exists(basePath)) {
+				throw new FileNotFoundException("Directory not found: " + basePath.toAbsolutePath());
+			}
+
+			// Use Files.walk to traverse directories recursively
+			return Files.walk(basePath)
+					.filter(path -> path.getFileName().toString().matches("valid_certificate_.*\\.json"))
+					.map(path -> {
+						Path pdfPath = Paths.get(path.toString().replace(".json", ".pdf"));
+						return Arguments.of(path, pdfPath);
+					});
 		}
 	}
 }
