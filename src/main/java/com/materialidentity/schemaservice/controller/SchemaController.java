@@ -32,21 +32,9 @@ public class SchemaController {
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Render a JSON certificate as a PDF")
     public ResponseEntity<byte[]> render(
-            @RequestParam(EndpointParamConstants.SCHEMA_TYPE_PARAM) SchemasAndVersions.SchemaTypes schemaType,
-            @RequestParam(EndpointParamConstants.SCHEMA_VERSION_PARAM) String schemaVersion,
-            @RequestParam(EndpointParamConstants.LANGUAGES_PARAM) String[] languages,
             @RequestParam(value = EndpointParamConstants.ATTACH_JSON, defaultValue = "true") Boolean attachJson,
             @RequestBody JsonNode certificate) throws TransformerException, IOException, SAXException {
-        return schemasService.renderPdf(schemaType, schemaVersion, languages, attachJson, certificate);
-    }
-
-    @PostMapping("/render-certificate")
-    @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Render a JSON certificate as a PDF")
-    public ResponseEntity<byte[]> render(
-            @RequestParam(value = EndpointParamConstants.ATTACH_JSON, defaultValue = "true") Boolean attachJson,
-            @RequestBody JsonNode certificate) throws TransformerException, IOException, SAXException {
-        return schemasService.renderCertificateAsPdf(attachJson, certificate);
+        return schemasService.renderPdf(attachJson, certificate);
     }
 
     @PostMapping("/validate")
