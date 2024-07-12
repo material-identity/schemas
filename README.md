@@ -30,13 +30,8 @@ mvn clean install
 
 `mvn compile`
 
-## Endpoints
-
-- `curl localhost:8080/hello`
-- `curl localhost:8080/render`
-
 ```
-curl -X POST 'http://localhost:8080/render?schemaType=CoA&schemaVersion=1.0' \
+curl -X POST 'http://localhost:8081/render?schemaType=CoA&schemaVersion=1.0' \
      -H 'Content-Type: application/json' \
      -d '{"key":"value", "anotherKey": {"nestedKey":"nestedValue"}}'
 ```
