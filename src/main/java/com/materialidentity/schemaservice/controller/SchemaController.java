@@ -1,20 +1,29 @@
 package com.materialidentity.schemaservice.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.materialidentity.schemaservice.config.EndpointParamConstants;
-import com.materialidentity.schemaservice.service.SchemasService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
-
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.transform.TransformerException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.materialidentity.schemaservice.config.EndpointParamConstants;
+import com.materialidentity.schemaservice.service.SchemasService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api")
@@ -51,6 +60,12 @@ public class SchemaController {
     @Operation(summary = "List the supported schemas and versions")
     private ResponseEntity<Map<String, List<String>>> getSchemas() throws IOException {
         return schemasService.getSchemas();
+    }
+
+    @GetMapping("/health")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> checkHealth() {
+        return new ResponseEntity<>("API is running", HttpStatus.OK);
     }
 
 }
