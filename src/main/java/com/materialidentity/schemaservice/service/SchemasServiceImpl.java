@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 @Service
 public class SchemasServiceImpl implements SchemasService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SchemasServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchemasServiceImpl.class.getName());
     private static final Pattern schemaPattern = Pattern.compile(".*/([^/]+)/v[\\d.]+/schema\\.json$");
     private static final Pattern versionPattern = Pattern.compile("(v\\d+\\.\\d+\\.\\d+)");
     private static final Map<String, String> certificateTypeMap = new HashMap<>();
@@ -108,7 +108,7 @@ public class SchemasServiceImpl implements SchemasService {
         logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
                 schemaVersion, languages, attachJson);
 
-        // TODO: throw error if language is not supported
+                // TODO: throw error if language is not supported
         validateSchemaTypeAndVersion(schemaType, schemaVersion);
 
         String translationsPattern = Paths
@@ -149,7 +149,10 @@ public class SchemasServiceImpl implements SchemasService {
         logger.info("Validating certificate type: {}, version: {}", schemaType, schemaVersion);
         String certificateString = jsonToString(jsonCertificate);
 
-        // build schema validator with schema definition
+        if (!jsonCertificate.has("RefSchemaUrl") || jsonCertificate.get("RefSchemaUrl").isNull()) {
+            throw new IllegalArgumentException("Missing RefSchemaUrl in loaded schema");
+        }
+
         JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
 
         String schemaDefinitionPath = Paths
@@ -173,7 +176,7 @@ public class SchemasServiceImpl implements SchemasService {
             }
 
         Map<String, Object> response = new HashMap<>();
-        response.put("success", isValid);
+        response.put("isValid", isValid);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
