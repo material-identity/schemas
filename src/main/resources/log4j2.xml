@@ -3,7 +3,7 @@
 
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <JSONLayout complete="true" compact="true" eventEol="true" properties="true"
+            <JSONLayout complete="false" compact="true" eventEol="true" properties="true"
                 stacktraceAsString="true">
                 <KeyValuePair key="appName" value="schemas-service" />
             </JSONLayout>
