@@ -1,0 +1,44 @@
+server:
+  port: ${PORT:8081}
+  shutdown: graceful
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: never
+    include-exception: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 1m
+  cache:
+    jcache:
+      provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+    caffeine:
+      spec: maximumSize=1000000,expireAfterAccess=600s
+    cache-names:
+      - rate-limit-bucket
+
+sentry:
+  dsn: ${SENTRY_DSN:}
+
+debug: true
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-key: getRemoteAddr()
+      cache-name: rate-limit-bucket
+      url: .*
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted the API usage limits \" }"
+      rate-limits:
+        - bandwidths:
+            - capacity: 20
+              time: 60
+              unit: seconds
+
+log4j:
+  debug: false
