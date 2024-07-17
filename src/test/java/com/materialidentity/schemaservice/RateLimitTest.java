@@ -43,11 +43,11 @@ public class RateLimitTest {
             int repetition = i;
             DynamicTest dynamicTest = DynamicTest.dynamicTest("Test repetition " + repetition, () -> {
                 if (repetition <= rateLimitCapacity) {
-                    webClient.get().uri("/api/health")
+                    webClient.get().uri("/actuator/health")
                             .exchange()
                             .expectStatus().isOk();
                 } else {
-                    webClient.get().uri("/api/health")
+                    webClient.get().uri("/actuator/health")
                             .exchange()
                             .expectStatus().isEqualTo(429);
                 }
