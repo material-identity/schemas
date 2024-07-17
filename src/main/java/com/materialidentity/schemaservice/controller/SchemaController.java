@@ -61,11 +61,4 @@ public class SchemaController {
     private ResponseEntity<Map<String, List<String>>> getSchemas() throws IOException {
         return schemasService.getSchemas();
     }
-
-    @GetMapping("/health")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> checkHealth() {
-        return new ResponseEntity<>("API is running", HttpStatus.OK);
-    }
-
 }
