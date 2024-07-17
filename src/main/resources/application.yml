@@ -39,3 +39,6 @@ bucket4j:
             - capacity: 20
               time: 60
               unit: seconds
+
+log4j:
+  debug: false
