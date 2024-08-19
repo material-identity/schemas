@@ -346,7 +346,11 @@
         <xsl:value-of select="$party/CompanyName" />
       </fo:block>
       <fo:block>
-        <xsl:value-of select="$party/Street" />
+        <xsl:for-each select="$party/Street">
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
+        </xsl:for-each>
       </fo:block>
       <fo:block>
         <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />

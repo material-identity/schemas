@@ -192,14 +192,22 @@
                           <xsl:call-template name="KeyValueSmall">
                             <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                             <xsl:with-param name="value">
-                              <xsl:for-each select=".">
-                                <xsl:value-of select="." />
-                                <xsl:if test="position() != last()">, </xsl:if>
-                              </xsl:for-each>
-                              <!-- Concatenate unit value if the key is not 'Form' -->
-                              <xsl:if test="local-name() != 'Form' and $unitValue">
-                                <xsl:value-of select="concat(' ', $unitValue)" />
-                              </xsl:if>
+                              <xsl:choose>
+                                <xsl:when test="local-name() = 'Form'">
+                                  <xsl:value-of select="$i18n/Certificate/*[local-name() = current()]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <!-- Concatenate the values as you were doing originally -->
+                                  <xsl:for-each select=".">
+                                    <xsl:value-of select="." />
+                                    <xsl:if test="position() != last()">, </xsl:if>
+                                  </xsl:for-each>
+                                  <!-- Concatenate unit value if the key is not 'Form' -->
+                                  <xsl:if test="local-name() != 'Form' and $unitValue">
+                                    <xsl:value-of select="concat(' ', $unitValue)" />
+                                  </xsl:if>
+                                </xsl:otherwise>
+                              </xsl:choose>
                             </xsl:with-param>
                           </xsl:call-template>
                         </fo:table-row>
@@ -686,22 +694,23 @@
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="$i18n/Certificate/OtherTests" />
               </xsl:call-template>
-
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="50%" />
-                <fo:table-column column-width="50%" />
-                <fo:table-body>
-                  <xsl:for-each select="'D01'">
-                    <fo:table-row>
-                      <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="number" select="concat('D01', ' ')" />
-                        <xsl:with-param name="key" select="$i18n/Certificate/D01" />
-                        <xsl:with-param name="value" select="$OtherTests/D01" />
-                      </xsl:call-template>
-                    </fo:table-row>
-                  </xsl:for-each>
-                </fo:table-body>
-              </fo:table>
+              <xsl:if test="$OtherTests/D01">
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-body>
+                    <xsl:for-each select="'D01'">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="number" select="concat('D01', ' ')" />
+                          <xsl:with-param name="key" select="$i18n/Certificate/D01" />
+                          <xsl:with-param name="value" select="$OtherTests/D01" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
               <xsl:if test="NonDestructiveTests">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/NonDestructiveTests" />
@@ -933,7 +942,7 @@
     <xsl:param name="key" />
     <xsl:param name="value" />
     <xsl:param name="type" select="'default'" />
-    <fo:table-cell padding-bottom="6pt">
+    <fo:table-cell padding-bottom="6pt" padding-right="4pt">
       <fo:block font-style="italic">
         <xsl:value-of select="$number" />
         <xsl:value-of select="$key" />
@@ -980,7 +989,11 @@
         <xsl:value-of select="$party/CompanyName" />
       </fo:block>
       <fo:block>
-        <xsl:value-of select="$party/Street" />
+        <xsl:for-each select="$party/Street">
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
+        </xsl:for-each>
       </fo:block>
       <fo:block>
         <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />
