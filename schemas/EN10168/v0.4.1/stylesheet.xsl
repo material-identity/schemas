@@ -186,7 +186,6 @@
 
                       <!-- Capture the unit value -->
                       <xsl:variable name="unitValue" select="$ProductDescription/B09/Unit" />
-
                       <xsl:for-each select="$ProductDescription/B09/*[local-name() != 'Unit']">
                         <fo:table-row>
                           <xsl:call-template name="KeyValueSmall">
@@ -197,12 +196,10 @@
                                   <xsl:value-of select="$i18n/Certificate/*[local-name() = current()]" />
                                 </xsl:when>
                                 <xsl:otherwise>
-                                  <!-- Concatenate the values as you were doing originally -->
                                   <xsl:for-each select=".">
                                     <xsl:value-of select="." />
                                     <xsl:if test="position() != last()">, </xsl:if>
                                   </xsl:for-each>
-                                  <!-- Concatenate unit value if the key is not 'Form' -->
                                   <xsl:if test="local-name() != 'Form' and $unitValue">
                                     <xsl:value-of select="concat(' ', $unitValue)" />
                                   </xsl:if>
