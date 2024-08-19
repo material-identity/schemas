@@ -149,13 +149,16 @@
               </fo:table-body>
             </fo:table>
             <!-- Business data -->
+            <xsl:call-template name="SectionTitle">
+              <xsl:with-param name="title" select="$i18n/Certificate/BusinessTransaction" />
+            </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell padding-right="12pt" padding-top="12pt">
-                    <xsl:call-template name="SectionTitle">
+                    <xsl:call-template name="SectionTitleSmall">
                       <xsl:with-param name="title" select="$i18n/Certificate/Order" />
                     </xsl:call-template>
                     <fo:table table-layout="fixed" width="100%">
@@ -208,7 +211,7 @@
                     </fo:table>
                   </fo:table-cell>
                   <fo:table-cell padding-top="12pt">
-                    <xsl:call-template name="SectionTitle">
+                    <xsl:call-template name="SectionTitleSmall">
                       <xsl:with-param name="title" select="$i18n/Certificate/Delivery" />
                     </xsl:call-template>
                     <fo:table table-layout="fixed" width="100%">
@@ -271,177 +274,223 @@
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/ProductId" />
-                    <xsl:with-param name="value" select="$Product/Id" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/ProductName" />
-                    <xsl:with-param name="value" select="$Product/Name" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/CountryOfOrigin" />
-                    <xsl:with-param name="value" select="$Product/CountryOfOrigin" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/PlaceOfOrigin" />
-                    <xsl:with-param name="value" select="$Product/PlaceOfOrigin" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/FillingBatchId" />
-                    <xsl:with-param name="value" select="$Product/FillingBatchId" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/FillingBatchDate" />
-                    <xsl:with-param name="value" select="$Product/FillingBatchDate" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/ProductionBatchId" />
-                    <xsl:with-param name="value" select="$Product/ProductionBatchId" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/ProductionDate" />
-                    <xsl:with-param name="value" select="$Product/ProductionDate" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/ExpirationDate" />
-                    <xsl:with-param name="value" select="$Product/ExpirationDate" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/Standards" />
-                    <xsl:with-param name="value" select="string-join($Product/Standards, ', ')" />
-                  </xsl:call-template>
-                </fo:table-row>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/AdditionalInformation" />
-                    <xsl:with-param name="value" select="string-join($Product/AdditionalInformation, ', ')" />
-                  </xsl:call-template>
-                </fo:table-row>
+                <xsl:if test="$Product/Id">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/ProductId" />
+                      <xsl:with-param name="value" select="$Product/Id" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/Name">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/Name" />
+                      <xsl:with-param name="value" select="$Product/Name" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/CountryOfOrigin">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/CountryOfOrigin" />
+                      <xsl:with-param name="value" select="$Product/CountryOfOrigin" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/PlaceOfOrigin">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/PlaceOfOrigin" />
+                      <xsl:with-param name="value" select="$Product/PlaceOfOrigin" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/FillingBatchId">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/FillingBatchId" />
+                      <xsl:with-param name="value" select="$Product/FillingBatchId" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/FillingBatchDate">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/FillingBatchDate" />
+                      <xsl:with-param name="value" select="$Product/FillingBatchDate" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/ProductionBatchId">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/ProductionBatchId" />
+                      <xsl:with-param name="value" select="$Product/ProductionBatchId" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/ProductionDate">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/ProductionDate" />
+                      <xsl:with-param name="value" select="$Product/ProductionDate" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/ExpirationDate">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/ExpirationDate" />
+                      <xsl:with-param name="value" select="$Product/ExpirationDate" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/Standards">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/Standards" />
+                      <xsl:with-param name="value" select="string-join($Product/Standards, ', ')" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$Product/AdditionalInformation">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/Certificate/AdditionalInformation" />
+                      <xsl:with-param name="value" select="string-join($Product/AdditionalInformation, ', ')" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
             <!-- Inspections -->
-            <xsl:call-template name="SectionTitle">
-              <xsl:with-param name="title" select="$i18n/Certificate/Inspections" />
-            </xsl:call-template>
-            <fo:table table-layout="fixed" width="100%">
-              <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
-              <fo:table-body>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/Certificate/LotId" />
-                    <xsl:with-param name="value" select="$Analysis/LotId" />
-                  </xsl:call-template>
-                </fo:table-row>
-              </fo:table-body>
-            </fo:table>
-            <fo:table table-layout="fixed" margin-top="12pt" width="100%">
-              <fo:table-column column-width="15%" />
-              <fo:table-column column-width="15%" />
-              <fo:table-column column-width="14%" />
-              <fo:table-column column-width="14%" />
-              <fo:table-column column-width="14%" />
-              <fo:table-column column-width="14%" />
-              <fo:table-column column-width="14%" />
-              <fo:table-body>
-                <fo:table-row>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Property" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Method" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Unit" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Value" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Minimum" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/Maximum" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block font-weight="bold">
-                      <xsl:value-of select="$i18n/Certificate/TestConditions" />
-                    </fo:block>
-                  </fo:table-cell>
-                </fo:table-row>
-                <xsl:for-each select="$Analysis/Inspections">
+            <xsl:if test="$Analysis/Inspections">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/Certificate/Inspections" />
+              </xsl:call-template>
+              <xsl:if test="$Analysis/LotId">
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-body>
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="$i18n/Certificate/LotId" />
+                        <xsl:with-param name="value" select="$Analysis/LotId" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+              <fo:table table-layout="fixed" margin-top="12pt" width="100%">
+                <fo:table-column column-width="15%" />
+                <fo:table-column column-width="15%" />
+                <fo:table-column column-width="14%" />
+                <fo:table-column column-width="14%" />
+                <fo:table-column column-width="14%" />
+                <fo:table-column column-width="14%" />
+                <fo:table-column column-width="14%" />
+                <fo:table-body>
                   <fo:table-row>
-                    <fo:table-cell>
-                      <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
-                        <xsl:value-of select="Property" />
+                    <fo:table-cell padding-right="4pt">
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Property" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="Method" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Method" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="Unit" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Unit" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="Value" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Value" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="Minimum" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Minimum" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="Maximum" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic">
+                        <xsl:value-of select="$i18n/Certificate/Maximum" />
                       </fo:block>
                     </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="TestConditions" />
+                    <fo:table-cell >
+                      <fo:block font-style="italic" margin-bottom="4pt">
+                        <xsl:value-of select="$i18n/Certificate/TestConditions" />
                       </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
-                </xsl:for-each>
-              </fo:table-body>
-            </fo:table>
+                  <xsl:for-each select="$Analysis/Inspections">
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
+                          <xsl:value-of select="Property" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Method" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Unit" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Value" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Minimum" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Maximum" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="TestConditions" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
+              <!-- Inspections - Additional Information -->
+              <xsl:if test="$Analysis/AdditionalInformation">
+                <xsl:call-template name="SectionTitleSmall">
+                  <xsl:with-param name="title" select="$i18n/Certificate/AdditionalInformation" />
+                </xsl:call-template>
+                <fo:table table-layout="fixed" margin-top="8pt" width="100%">
+                  <fo:table-column column-width="100%" />
+                  <fo:table-body>
+                    <xsl:for-each select="$Analysis/AdditionalInformation">
+                      <fo:table-row>
+                        <fo:table-cell>
+                          <fo:block>
+                            <xsl:value-of select="." />
+                          </fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+            </xsl:if>
             <!-- Declaration -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="$i18n/Certificate/DeclarationOfConformity" />
@@ -587,6 +636,12 @@
       <xsl:value-of select="$title" />
     </fo:block>
   </xsl:template>
+  <xsl:template name="SectionTitleSmall">
+    <xsl:param name="title" />
+    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
+      <xsl:value-of select="$title" />
+    </fo:block>
+  </xsl:template>
   <xsl:template name="KeyValue">
     <xsl:param name="key" />
     <xsl:param name="value" />
@@ -608,11 +663,15 @@
       <fo:block padding-bottom="4pt" font-weight="bold">
         <xsl:value-of select="$title" />
       </fo:block>
-      <fo:block>
+      <fo:block font-weight="bold">
         <xsl:value-of select="$party/Name" />
       </fo:block>
       <fo:block>
-        <xsl:value-of select="$party/Street" />
+        <xsl:for-each select="$party/Street">
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
+        </xsl:for-each>
       </fo:block>
       <xsl:for-each select="$party/Streets/Street">
         <fo:block>
