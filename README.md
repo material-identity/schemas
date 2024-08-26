@@ -1,22 +1,7 @@
 # Schemas Service
 
-## Start the service
-
-`mvn exec:java -Dexec.mainClass="com.materialidentity.schemaservice.App"`
-
-## Run the jar
-
-`java -jar target/schema-service-1.0-SNAPSHOT.jar`
-
-## Watch
-
-`mvn spring-boot:run`
-
-## Run tests
-
-```shell
-mvn tests
-```
+## System Requirements
+- Java version: 21
 
 ## Install packages
 
@@ -35,6 +20,41 @@ mvn clean install
 curl -X POST 'http://localhost:8081/render?schemaType=CoA&schemaVersion=1.0' \
      -H 'Content-Type: application/json' \
      -d '{"key":"value", "anotherKey": {"nestedKey":"nestedValue"}}'
+```
+
+## Start the service
+
+`mvn exec:java -Dexec.mainClass="com.materialidentity.schemaservice.App"`
+
+## Run the jar
+
+`java -jar target/schema-service-1.0-SNAPSHOT.jar`
+
+## Watch
+
+`mvn spring-boot:run`
+
+## Run tests
+
+```shell
+mvn tests
+```
+
+## UI
+To use the UI, run command:
+```shell
+cd ui && npm install
+npm start
+```
+
+## Run with node script
+```shell
+node scripts/render-demo.js --certificatePath path_to_certificate --schemaType type --schemaVersion version
+```  
+
+**Example:**
+```shell
+node scripts/render-demo.js --certificatePath ../fixtures/EN10168/v0.4.1/valid_certificate_2.json --schemaType EN10168 --schemaVersion v4.0.1
 ```
 
 ## OpenAPI / Swagger
