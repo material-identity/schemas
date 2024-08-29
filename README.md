@@ -37,11 +37,12 @@ curl -X POST 'http://localhost:8081/render?schemaType=CoA&schemaVersion=1.0' \
 ## Run tests
 
 ```shell
-mvn tests
+mvn test
 ```
 
 ## UI
-To use the UI, run command:
+
+To use the UI to interact with the service, run command:
 ```shell
 cd ui && npm install
 npm start
