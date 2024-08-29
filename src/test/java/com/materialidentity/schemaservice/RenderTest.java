@@ -85,9 +85,9 @@ class HttpRequestTest {
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
 		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_without_attachment.json")));
+				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attachment.json")));
 		byte[] expectedPdfContent = Files
-				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_without_attachment.pdf"));
+				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attachment.pdf"));
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
