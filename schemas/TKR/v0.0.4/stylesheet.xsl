@@ -23,6 +23,9 @@
         <!-- Body -->
         <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
           <!-- Global variables -->
+          <xsl:variable name="cellPaddingBottom" select="'6pt'" />
+          <xsl:variable name="partyPaddingBottom" select="'4pt'" />
+
           <xsl:variable name="i18n" select="Root/Translations" />
           <xsl:variable name="CommercialTransaction" select="Root/Certificate/CommercialTransaction" />
           <xsl:variable name="ProductDescription" select="Root/Certificate/ProductDescription" />
@@ -39,7 +42,7 @@
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
-                    <fo:block padding-bottom="4pt" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
+                    <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
                     </fo:block>
                     <fo:block>
                       <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
@@ -49,6 +52,7 @@
                     <xsl:with-param name="number" select="'A01 '" />
                     <xsl:with-param name="title" select="$i18n/Certificate/A01" />
                     <xsl:with-param name="party" select="$CommercialTransaction/A01" />
+                    <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
                   <xsl:choose>
                     <xsl:when test="exists($CommercialTransaction/A06)">
@@ -56,6 +60,7 @@
                         <xsl:with-param name="number" select="'A06 '" />
                         <xsl:with-param name="title" select="$i18n/Certificate/A06" />
                         <xsl:with-param name="party" select="$CommercialTransaction/A06" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                       </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
@@ -63,6 +68,7 @@
                         <xsl:with-param name="number" select="'A06.1 '" />
                         <xsl:with-param name="title" select="$i18n/Certificate/A06.1" />
                         <xsl:with-param name="party" select="$CommercialTransaction/A06.1" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                       </xsl:call-template>
                     </xsl:otherwise>
                   </xsl:choose>
@@ -108,6 +114,7 @@
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                         <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                         <xsl:with-param name="value" select="." />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
@@ -128,6 +135,7 @@
                         <xsl:with-param name="number" select="''" />
                         <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                         <xsl:with-param name="value" select="." />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         <!-- Pass the type as a parameter -->
                       </xsl:call-template>
                     </fo:table-row>
@@ -155,6 +163,7 @@
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                           <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                           <xsl:with-param name="value" select="$concatenatedValue" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         </xsl:call-template>
                       </xsl:when>
                       <xsl:otherwise>
@@ -162,6 +171,7 @@
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                           <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                           <xsl:with-param name="value" select="." />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         </xsl:call-template>
                       </xsl:otherwise>
                     </xsl:choose>
@@ -183,6 +193,7 @@
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                         <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                         <xsl:with-param name="value" select="./Value" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:for-each>
@@ -197,6 +208,7 @@
             <xsl:call-template name="generateTable">
               <xsl:with-param name="headerCount" select="count($MaterialIdentifiers/Header)" />
               <xsl:with-param name="Section" select="$MaterialIdentifiers" />
+              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
             </xsl:call-template>
 
             <!-- Chemical Composition -->
@@ -212,6 +224,7 @@
                     <xsl:with-param name="number" select="concat('C70', ' ')" />
                     <xsl:with-param name="key" select="$i18n/Certificate/C70" />
                     <xsl:with-param name="value" select="$ChemicalComposition/C70" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
               </fo:table-body>
@@ -219,6 +232,7 @@
             <xsl:call-template name="generateTable">
               <xsl:with-param name="headerCount" select="count($ChemicalComposition/Analysis/Header)" />
               <xsl:with-param name="Section" select="$ChemicalComposition/Analysis" />
+              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
             </xsl:call-template>
 
             <!-- Inspection -->
@@ -232,6 +246,7 @@
               <xsl:call-template name="generateTable">
                 <xsl:with-param name="headerCount" select="count(Header)" />
                 <xsl:with-param name="Section" select="." />
+                <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
               </xsl:call-template>
             </xsl:for-each>
 
@@ -249,6 +264,7 @@
                       <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                       <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
                       <xsl:with-param name="value" select="." />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:for-each>
@@ -313,7 +329,8 @@
     <xsl:param name="key" />
     <xsl:param name="value" />
     <xsl:param name="type" select="'default'" />
-    <fo:table-cell padding-bottom="6pt">
+    <xsl:param name="paddingBottom" select="'default'" />
+    <fo:table-cell padding-bottom="{$paddingBottom}">
       <fo:block font-style="italic">
         <xsl:value-of select="$number" />
         <xsl:value-of select="$key" />
@@ -337,8 +354,9 @@
     <xsl:param name="number" />
     <xsl:param name="title" />
     <xsl:param name="party" />
+    <xsl:param name="paddingBottom" />
     <fo:table-cell>
-      <fo:block padding-bottom="4pt" font-style="italic">
+      <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
         <xsl:value-of select="$number" />
         <xsl:value-of select="$title" />
       </fo:block>
@@ -346,7 +364,11 @@
         <xsl:value-of select="$party/CompanyName" />
       </fo:block>
       <fo:block>
-        <xsl:value-of select="$party/Street" />
+        <xsl:for-each select="$party/Street">
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
+        </xsl:for-each>
       </fo:block>
       <fo:block>
         <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />
@@ -364,6 +386,7 @@
   <xsl:template name="generateTable">
     <xsl:param name="headerCount" />
     <xsl:param name="Section" />
+    <xsl:param name="paddingBottom" />
 
     <fo:table table-layout="fixed" width="100%">
       <!-- Dynamically generate table columns based on the number of headers -->
@@ -375,7 +398,7 @@
         <fo:table-row>
           <xsl:for-each select="$Section/Header">
             <fo:table-cell>
-              <fo:block font-size="10pt" padding-bottom="4pt">
+              <fo:block padding-bottom="{$paddingBottom}">
                 <xsl:value-of select="." />
               </fo:block>
             </fo:table-cell>
@@ -385,7 +408,7 @@
         <fo:table-row>
           <xsl:for-each select="$Section/SubHeader">
             <fo:table-cell>
-              <fo:block font-size="10pt" padding-bottom="4pt">
+              <fo:block padding-bottom="{$paddingBottom}">
                 <xsl:value-of select="." />
               </fo:block>
             </fo:table-cell>
@@ -398,7 +421,7 @@
             <xsl:if test="($pos - 1) mod $headerCount = 0">
               <fo:table-row>
                 <xsl:for-each select=".|following-sibling::*[position() &lt; $headerCount]">
-                  <fo:table-cell>
+                  <fo:table-cell padding-bottom="{$paddingBottom}">
                     <fo:block>
                       <xsl:value-of select="." />
                     </fo:block>

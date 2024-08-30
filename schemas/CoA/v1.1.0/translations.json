@@ -23,7 +23,7 @@
       "Transport": "Transport",
       "GoodsReceiptId": "Goods receipt ID",
       "Product": "Product",
-      "ProductName": "Product designation",
+      "Name": "Product designation",
       "ProductId": "Product ID",
       "CustomerProductId": "Product ID",
       "CustomerProductName": "Product name",
