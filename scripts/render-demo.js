@@ -1,16 +1,26 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { parseArgs } = require('node:util');
 
-function getArgumentValue(flag) {
-  const index = process.argv.indexOf(flag);
-  return (index !== -1 && process.argv[index + 1]) ? process.argv[index + 1] : null;
-}
-const certificatePathArg = getArgumentValue('--certificatePath');
-const schemaTypeArg = getArgumentValue('--schemaType');
-const schemaVersionArg = getArgumentValue('--schemaVersion');
-const certificatePath = path.resolve(__dirname, certificatePathArg);
-const certificate = fs.readFileSync(certificatePath);
+const options = {
+  certificatePath: {
+    type: 'string',
+  },
+  schemaType: {
+    type: 'string',
+    default: ''
+  },
+  schemaVersion: {
+    type: 'string',
+    default: ''
+  },
+};
+
+const { values } = parseArgs({ options });
+console.log('Values:', values);
+const { certificatePath, schemaType, schemaVersion } = values;
+const certificate = fs.readFileSync(path.resolve(__dirname, certificatePath));
 const url = 'http://localhost:8081/api/render';
 (async () => {
   try {
@@ -20,8 +30,8 @@ const url = 'http://localhost:8081/api/render';
       },
       responseType: 'arraybuffer',
       params: {
-        schemaType: schemaTypeArg,
-        schemaVersion: schemaVersionArg,
+        ...(schemaType && { schemaType }),
+        ...(schemaVersion && { schemaVersion }),
       },
     });
     if (response.status === 200) {
