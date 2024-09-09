@@ -11,7 +11,9 @@ springdoc:
   api-docs:
     path: /api-docs
 
-spring:
+spring: 
+  codec:
+    max-in-memory-size: 8MB
   lifecycle:
     timeout-per-shutdown-phase: 1m
   cache:
