@@ -17,22 +17,22 @@ public class EmbedManager {
   }
 
   public byte[] embed(byte[] data) throws IOException {
-    PDDocument document1 = Loader.loadPDF(data);
-    PDDocument document2 = null;
+    PDDocument originalDocument = Loader.loadPDF(data);
+    PDDocument embedDocument = null;
     try {
       byte[] decodedData = Base64.getDecoder().decode((this.base64Data.split(",")[1]).trim());
-      document2 = Loader.loadPDF(decodedData);
+      embedDocument = Loader.loadPDF(decodedData);
       PDFMergerUtility merger = new PDFMergerUtility();
-      merger.appendDocument(document1, document2);
+      merger.appendDocument(originalDocument, embedDocument);
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      document1.save(output);
+      originalDocument.save(output);
       return output.toByteArray();
     } finally {
-      if (document1 != null) {
-        document1.close();
+      if (originalDocument != null) {
+        originalDocument.close();
       }
-      if (document2 != null) {
-        document2.close();
+      if (embedDocument != null) {
+        embedDocument.close();
       }
     }
   }
