@@ -26,6 +26,7 @@
           <!-- Global variables -->
           <xsl:variable name="cellPaddingBottom" select="'6pt'" />
           <xsl:variable name="partyPaddingBottom" select="'4pt'" />
+          <xsl:variable name="fontSizeSmall" select="'6pt'" />
 
           <xsl:variable name="i18n" select="Root/Translations" />
           <xsl:variable name="Parties" select="Root/Certificate/Parties" />
@@ -532,6 +533,14 @@
             <fo:block>
               <xsl:value-of select="Root/Certificate/DeclarationOfConformity/Declaration" />
             </fo:block>
+
+            <!-- Disclaimer -->
+            <xsl:if test="exists($Disclaimer)">
+              <fo:block border-top="solid 1pt black" margin-top="16pt" padding-top="6pt" font-size="{$fontSizeSmall}">
+                <xsl:value-of select="Root/Certificate/Disclaimer" />
+              </fo:block>
+            </xsl:if>
+            
             <!-- Contact persons -->
             <xsl:if test="exists($Contacts)">
               <xsl:call-template name="SectionTitle">
@@ -603,14 +612,6 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-
-            <!-- Disclaimer -->
-            <xsl:if test="exists($Disclaimer)">
-              <fo:block border-top="solid 1pt black" margin-top="16pt" padding-top="6pt">
-                <xsl:value-of select="$i18n/Disclaimer" />
-              </fo:block>
-            </xsl:if>
-
             <!-- Attachments -->
             <xsl:if test="exists($Attachments)">
               <xsl:call-template name="SectionTitle">
