@@ -35,19 +35,19 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = App.class)
 @AutoConfigureWebTestClient
-class HttpRequestTest {
+class RenderTest {
 
 	@Autowired
 	private WebTestClient webClient;
 
 	@Autowired
-    private CacheManager cacheManager;
+	private CacheManager cacheManager;
 
 	@BeforeEach
 	void setUp() {
-	  cacheManager.getCache("rate-limit-bucket").clear();
+		cacheManager.getCache("rate-limit-bucket").clear();
 	}
 
 	@ParameterizedTest
@@ -85,9 +85,43 @@ class HttpRequestTest {
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
 		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attachment.json")));
+				Files.readAllBytes(
+						Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attachment.json")));
 		byte[] expectedPdfContent = Files
 				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attachment.pdf"));
+
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("attachJson", false)
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.consumeWith(response -> {
+					byte[] responseBody = response.getResponseBody();
+					assert responseBody != null;
+					try {
+						assertPdfContentEquals(expectedPdfContent, responseBody);
+						assertPdfContainsEmbeddedFile(responseBody,
+								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
+					} catch (Exception e) {
+						throw new RuntimeException("PDF comparison failed", e);
+					}
+				});
+	}
+
+	@Test
+	void CoA_renderEndpointTest_WithoutEmbeddedPDF() throws Exception {
+		Path resourceDirectory = Paths.get("src", "test", "resources");
+		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
+
+		String jsonContent = new String(
+				Files.readAllBytes(
+						Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attached_pdf.json")));
+		byte[] expectedPdfContent = Files
+				.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/valid_cert_with_attached_pdf.pdf"));
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
@@ -137,7 +171,8 @@ class HttpRequestTest {
 		String testResourcesPath = resourceDirectory.toFile().getAbsolutePath();
 
 		String jsonContent = new String(
-				Files.readAllBytes(Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/missing_languages_property.json")));
+				Files.readAllBytes(
+						Paths.get(testResourcesPath + "/schemas/CoA/v1.1.0/missing_languages_property.json")));
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
