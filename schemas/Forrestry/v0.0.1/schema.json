@@ -504,6 +504,38 @@
         "required": ["type", "features"],
         "additionalProperties": false
       }
+    },
+    "Species": {
+      "type": "object",
+      "properties": {
+        "Species": {
+          "type": "object",
+          "properties": {
+            "CommonName": {
+              "type": "string"
+            },
+            "ScientificName": {
+              "type": "object",
+              "properties": {
+                "Genus": {
+                  "description": "The genus of the species.",
+                  "type": "string"
+                },
+                "Species": {
+                  "description": "The species of the genus.",
+                  "type": "string"
+                }
+              },
+              "required": ["Genus", "Species"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["CommonName", "ScientificName"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["Species"],
+      "additionalProperties": false
     }
   },
   "title": "Digital Material Passport - Forestry and Wood Industry",
