@@ -74,6 +74,32 @@
         "additionalProperties": false
       }
     },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "HarvestingPermit",
+            "ChainOfCustodyCertificate",
+            "ForestConcession",
+            "DeforestationFreeDeclaration",
+            "DegradationFreeDeclaration",
+            "LegalHarvestCertificate",
+            "ImportPermit",
+            "ExportPermit",
+            "PhytosanitaryCertificate",
+            "TSCACertificate",
+            "CANFERCertificate"
+          ]
+        },
+        "Attachment": {
+          "$ref": "#/definitions/Attachment"
+        }
+      },
+      "required": ["Type", "Attachment"],
+      "additionalProperties": false
+    },
     "Company": {
       "type": "object",
       "properties": {
@@ -535,6 +561,15 @@
           "type": "string",
           "contentEncoding": "base64",
           "contentMediaType": "image/png"
+        },
+        "Documents": {
+          "description": "The documents attached to the DMP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
+          },
+          "uniqueItems": true,
+          "minItems": 1
         },
         "Disclaimer": {
           "title": "Disclaimer",
