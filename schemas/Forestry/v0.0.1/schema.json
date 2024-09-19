@@ -1,7 +1,7 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
   "$schema": "https://json-schema.org/draft/2020-12",
-  "$id": "https://schemas.materialidentity.org/forrestry-schemas/v0.0.1/schema.json",
+  "$id": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
   "definitions": {
     "Languages": {
       "allOf": [
@@ -505,37 +505,76 @@
         "additionalProperties": false
       }
     },
-    "Species": {
+    "Product": {
+      "title": "Product",
       "type": "object",
       "properties": {
-        "Species": {
+        "ProductType": {
+          "type": "string",
+          "description": "The general type of the product"
+        },
+        "DescriptionOfProduct": {
+          "type": "string",
+          "description": "A detailed description of the product"
+        },
+        "HTSCode": {
+          "type": "string",
+          "description": "The Harmonized Tariff Schedule code for the product",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+        },
+        "ProductionPeriod": {
           "type": "object",
           "properties": {
-            "CommonName": {
-              "type": "string"
+            "StartDate": {
+              "type": "string",
+              "format": "date",
+              "description": "The date when production began"
             },
-            "ScientificName": {
-              "type": "object",
-              "properties": {
-                "Genus": {
-                  "description": "The genus of the species.",
-                  "type": "string"
-                },
-                "Species": {
-                  "description": "The species of the genus.",
-                  "type": "string"
-                }
-              },
-              "required": ["Genus", "Species"],
-              "additionalProperties": false
+            "EndDate": {
+              "type": "string",
+              "format": "date",
+              "description": "The date when production ended"
             }
           },
-          "required": ["CommonName", "ScientificName"],
-          "additionalProperties": false
+          "required": ["StartDate", "EndDate"]
+        },
+        "Species": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "CommonName": {
+                "type": "string"
+              },
+              "ScientificName": {
+                "type": "object",
+                "properties": {
+                  "Genus": {
+                    "description": "The genus of the species.",
+                    "type": "string"
+                  },
+                  "Species": {
+                    "description": "The species of the genus.",
+                    "type": "string"
+                  }
+                },
+                "required": ["Genus", "Species"],
+                "additionalProperties": false
+              }
+            },
+            "Quantity": {
+              "type": "number",
+              "description": "The quantity of the species in the product"
+            },
+            "QuantityUnit": {
+              "type": "string",
+              "description": "The unit of the quantity",
+              "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+            }
+          },
+          "minItems": 1
         }
-      },
-      "required": ["Species"],
-      "additionalProperties": false
+      }
     }
   },
   "title": "Digital Material Passport - Forestry and Wood Industry",
@@ -574,6 +613,12 @@
           "format": "date",
           "examples": ["2018-12-12"]
         },
+        "Logo": {
+          "description": "The logo of the issuing company as base64 png file.",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
         "Contacts": {
           "description": "Contact persons",
           "type": "array",
@@ -595,11 +640,14 @@
           "description": "A statement on the due diligence of the company.",
           "type": "string"
         },
-        "Logo": {
-          "description": "The logo of the issuing company as base64 png file.",
-          "type": "string",
-          "contentEncoding": "base64",
-          "contentMediaType": "image/png"
+        "Products": {
+          "description": "The products in the DMP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          },
+          "uniqueItems": true,
+          "minItems": 1
         },
         "Documents": {
           "description": "The documents attached to the DMP.",
