@@ -158,7 +158,14 @@
           "minItems": 1
         }
       },
-      "required": ["CompanyName", "Street", "ZipCode", "City", "Country", "Identifiers"],
+      "required": [
+        "CompanyName",
+        "Street",
+        "ZipCode",
+        "City",
+        "Country",
+        "Identifiers"
+      ],
       "additionalProperties": true
     },
     "CompanyIdentifiers": {
