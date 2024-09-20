@@ -283,8 +283,8 @@
       "required": ["Customer"],
       "additionalProperties": false
     },
-    "BusinessTransaction": {
-      "title": "BusinessTransaction",
+    "Transaction": {
+      "title": "Transaction",
       "description": "All information about the underlying commercial transaction such as the order and the delivery.",
       "type": "object",
       "properties": {
@@ -570,6 +570,14 @@
               "type": "string",
               "description": "The unit of the quantity",
               "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+            },
+            "ProductionPlace": {
+              "description": "The location of the production",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              },
+              "minItems": 1
             }
           },
           "minItems": 1
@@ -613,32 +621,14 @@
           "format": "date",
           "examples": ["2018-12-12"]
         },
-        "Logo": {
-          "description": "The logo of the issuing company as base64 png file.",
-          "type": "string",
-          "contentEncoding": "base64",
-          "contentMediaType": "image/png"
-        },
-        "Contacts": {
-          "description": "Contact persons",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Person"
-          },
-          "uniqueItems": true,
-          "minItems": 0
-        },
+
         "Parties": {
           "description": "The companies involved in the transaction.",
           "$ref": "#/definitions/Parties"
         },
-        "BusinessTransaction": {
+        "Transaction": {
           "description": "References to order and delivery.",
           "$ref": "#/definitions/BusinessTransaction"
-        },
-        "DueDiligenceStatement": {
-          "description": "A statement on the due diligence of the company.",
-          "type": "string"
         },
         "Products": {
           "description": "The products in the DMP.",
@@ -648,6 +638,20 @@
           },
           "uniqueItems": true,
           "minItems": 1
+        },
+        "DueDiligenceStatement": {
+          "title": "DueDiligenceStatement",
+          "description": "A statement on the due diligence of the company.",
+          "type": "string"
+        },
+        "Contacts": {
+          "description": "Contact persons within the company, their roles and contact information.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          },
+          "uniqueItems": true,
+          "minItems": 0
         },
         "Documents": {
           "description": "The documents attached to the DMP.",
@@ -662,6 +666,12 @@
           "title": "Disclaimer",
           "description": "A general disclaimer for the entire document",
           "type": "string"
+        },
+        "Logo": {
+          "description": "The logo of the issuing company as base64 png file.",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
         }
       },
       "required": [
@@ -671,8 +681,8 @@
         "Date",
         "Parties",
         "BusinessTransaction",
-        "DueDiligenceStatement",
-        "Logo"
+        "Products",
+        "DueDiligenceStatement"
       ],
       "additionalProperties": false
     }
