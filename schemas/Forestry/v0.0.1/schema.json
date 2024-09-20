@@ -69,10 +69,10 @@
         "Data": {
           "description": "The data encoded as defined in `Encoding`",
           "type": "string"
-        },
+        }
+      },
         "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
         "additionalProperties": false
-      }
     },
     "Document": {
       "type": "object",
@@ -621,14 +621,13 @@
           "format": "date",
           "examples": ["2018-12-12"]
         },
-
         "Parties": {
           "description": "The companies involved in the transaction.",
           "$ref": "#/definitions/Parties"
         },
         "Transaction": {
           "description": "References to order and delivery.",
-          "$ref": "#/definitions/BusinessTransaction"
+          "$ref": "#/definitions/Transaction"
         },
         "Products": {
           "description": "The products in the DMP.",
@@ -680,7 +679,7 @@
         "UserDefinedId",
         "Date",
         "Parties",
-        "BusinessTransaction",
+        "Transaction",
         "Products",
         "DueDiligenceStatement"
       ],
