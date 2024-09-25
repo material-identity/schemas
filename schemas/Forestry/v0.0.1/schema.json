@@ -71,8 +71,8 @@
           "type": "string"
         }
       },
-        "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
-        "additionalProperties": false
+      "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
+      "additionalProperties": false
     },
     "Document": {
       "type": "object",
@@ -317,7 +317,7 @@
               "examples": ["kg", "l", "m", "m²", "m³", "t"]
             },
             "CustomerProductId": {
-              "description": "The internal product identifer of the Customer",
+              "description": "The internal product identifer of the customer",
               "type": "string"
             },
             "CustomerProductName": {
@@ -710,6 +710,11 @@
           "uniqueItems": true,
           "minItems": 0
         },
+        "Disclaimer": {
+          "title": "Disclaimer",
+          "description": "A general disclaimer for the entire document",
+          "type": "string"
+        },
         "Documents": {
           "description": "The documents attached to the DMP.",
           "type": "array",
@@ -718,11 +723,6 @@
           },
           "uniqueItems": true,
           "minItems": 1
-        },
-        "Disclaimer": {
-          "title": "Disclaimer",
-          "description": "A general disclaimer for the entire document",
-          "type": "string"
         },
         "Logo": {
           "description": "The logo of the issuing company as base64 png file.",
