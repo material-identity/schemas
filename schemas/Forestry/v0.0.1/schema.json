@@ -505,6 +505,21 @@
         "additionalProperties": false
       }
     },
+    "DMPReference": {
+      "title": "DMPReference",
+      "description": "A reference to another DMP.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The unique identifier of the DMP.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "Hash": {
+          "$ref": "#/definitions/Hash"
+        }
+      }
+    },
     "Product": {
       "title": "Product",
       "type": "object",
