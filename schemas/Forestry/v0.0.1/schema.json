@@ -374,12 +374,12 @@
               "type": "string",
               "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
             },
-            "InternalOrderId": {
-              "description": "The internal order number issued at the manufacturer.",
+            "SalesOrderId": {
+              "description": "The sales order number issued at the manufacturer.",
               "type": "string"
             },
-            "InternalOrderPosition": {
-              "description": "The position on the internal order issued at the manufacturer.",
+            "SalesOrderPosition": {
+              "description": "The position on the sales order issued at the manufacturer.",
               "type": "string"
             },
             "Transport": {
