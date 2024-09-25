@@ -323,6 +323,24 @@
             "CustomerProductName": {
               "description": "The product name of the Customer",
               "type": "string"
+            },
+            "Incoterms": {
+              "title": "Incoterms",
+              "description": "Enumeration of Incoterms 2020",
+              "type": "string",
+              "enum": [
+                "EXW",
+                "FCA",
+                "CPT",
+                "CIP",
+                "DAP",
+                "DPU",
+                "DDP",
+                "FAS",
+                "FOB",
+                "CFR",
+                "CIF"
+              ]
             }
           },
           "required": ["Id"],
@@ -380,24 +398,6 @@
       },
       "required": ["Order", "Delivery"],
       "additionalProperties": false
-    },
-    "Incoterms": {
-      "title": "Incoterms",
-      "description": "Enumeration of Incoterms 2020",
-      "type": "string",
-      "enum": [
-        "EXW",
-        "FCA",
-        "CPT",
-        "CIP",
-        "DAP",
-        "DPU",
-        "DDP",
-        "FAS",
-        "FOB",
-        "CFR",
-        "CIF"
-      ]
     },
     "Coordinates": {
       "type": "array",
