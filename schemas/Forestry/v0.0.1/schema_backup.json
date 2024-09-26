@@ -524,9 +524,9 @@
       "title": "Product",
       "type": "object",
       "properties": {
-        "ProductType": {
+        "Name": {
           "type": "string",
-          "description": "The general type of the product"
+          "description": "The name of the product"
         },
         "DescriptionOfProduct": {
           "type": "string",
