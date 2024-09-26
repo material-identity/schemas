@@ -46,7 +46,7 @@
     ],
     "Products": [
       {
-        "Name": "Pine Logs",
+        "ProductType": "Pine Logs",
         "DescriptionOfProduct": "Freshly cut pine logs",
         "HTSCode": "4403.21.00",
         "ProductionPeriod": {
