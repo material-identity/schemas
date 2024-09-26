@@ -560,92 +560,13 @@
           },
           "required": ["StartDate", "EndDate"]
         },
-        "Species": {
+        "SpeciesList": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "CommonName": {
-                "type": "string"
-              },
-              "ScientificName": {
-                "type": "object",
-                "properties": {
-                  "Genus": {
-                    "description": "The genus of the species.",
-                    "type": "string"
-                  },
-                  "Species": {
-                    "description": "The species of the genus.",
-                    "type": "string"
-                  }
-                },
-                "required": ["Genus", "Species"],
-                "additionalProperties": false
-              }
-            },
-            "Quantity": {
-              "type": "number",
-              "description": "The quantity of the species in the product"
-            },
-            "QuantityUnit": {
-              "type": "string",
-              "description": "The unit of the quantity",
-              "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
-            },
-            "Source": {
-              "oneOf": [
-                {
-                  "Locations": {
-                    "description": "The location of the source of the species.",
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/Location"
-                    },
-                    "minItems": 1
-                  },
-                  "Certificates": {
-                    "description": "The certificates attached to the location.",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "Name": {
-                          "type": "string"
-                        },
-                        "Number": {
-                          "type": "string"
-                        },
-                        "ValidFrom": {
-                          "type": "string",
-                          "format": "date"
-                        },
-                        "ValidTo": {
-                          "type": "string",
-                          "format": "date"
-                        },
-                        "Document": {
-                          "$ref": "#/definitions/Document"
-                        }
-                      },
-                      "required": ["Name", "Document"]                
-                    },
-                    "uniqueItems": true
-                  }
-                },
-                {
-                  "DMPs": {
-                    "description": "The reference to other DMPs.",
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/DMPReference"
-                    },
-                    "minItems": 1
-                  }
-                }
-              ]
-            }
-          }
+            "$ref": "#/definitions/Species"
+          },
+          "uniqueItems": true,
+          "minItems": 1
         }
       }
     }
@@ -687,7 +608,6 @@
           "examples": ["2018-12-12"]
         },
         "Parties": {
-          "description": "The companies involved in the transaction.",
           "$ref": "#/definitions/Parties"
         },
         "Transaction": {
