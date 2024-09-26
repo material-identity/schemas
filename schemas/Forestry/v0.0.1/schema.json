@@ -380,6 +380,29 @@
           "description": "The unique identifier of the DMP.",
           "type": "string",
           "format": "uuid"
+    "Species": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "CommonName": {
+            "type": "string"
+          },
+          "ScientificName": {
+            "type": "object",
+            "properties": {
+              "Genus": {
+                "description": "The genus of the species.",
+                "type": "string"
+              },
+              "Species": {
+                "description": "The species of the genus.",
+                "type": "string"
+              }
+            },
+            "required": ["Genus", "Species"],
+            "additionalProperties": false
+          }
         },
         "Hash": {
           "$ref": "#/definitions/Hash"
@@ -467,11 +490,26 @@
           "examples": ["2018-12-12"]
         },
         "Parties": {
-          "$ref": "#/definitions/Parties"
+          "description": "The parties involved in the DMP.",
+          "type": "object",
+          "properties": {
+            "Supplier": {
+              "$ref": "#/definitions/Company"
+            },
+            "Producer": {
+              "$ref": "#/definitions/Company"
+            }
+          },
+          "required": ["Supplier", "Producer"]
         },
-        "Transaction": {
-          "description": "References to order and delivery.",
-          "$ref": "#/definitions/Transaction"
+        "ForestPlots": {
+          "description": "The locations of the harvesting.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Plot"
+          },
+          "uniqueItems": true,
+          "minItems": 1
         },
         "Products": {
           "description": "The products in the DMP.",
@@ -496,25 +534,23 @@
           "uniqueItems": true,
           "minItems": 0
         },
-        "Disclaimer": {
-          "title": "Disclaimer",
-          "description": "A general disclaimer for the entire document",
-          "type": "string"
-        },
         "Documents": {
           "description": "The documents attached to the DMP.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Document"
-          },
-          "uniqueItems": true,
-          "minItems": 1
-        },
-        "Logo": {
-          "description": "The logo of the issuing company as base64 png file.",
-          "type": "string",
-          "contentEncoding": "base64",
-          "contentMediaType": "image/png"
+          "type": "object",
+          "properties": {
+            "ForestConcession": {
+              "$ref": "#/definitions/Document"
+            },
+            "HarvestingAuthorization": {
+              "$ref": "#/definitions/Document"
+            },
+            "CertificateOfOrigin": {
+              "$ref": "#/definitions/Document"
+            },
+            "HarvestPlotMap": {
+              "$ref": "#/definitions/Document"
+            }
+          }
         }
       },
       "required": [
@@ -523,7 +559,7 @@
         "UserDefinedId",
         "Date",
         "Parties",
-        "Transaction",
+        "ForestPlots",
         "Products",
         "DueDiligenceStatement"
       ],
