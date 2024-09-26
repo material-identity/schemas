@@ -426,8 +426,12 @@
           "type": "string",
           "enum": ["Point"]
         },
-        "$ref": "#/definitions/Coordinates"
-      }
+        "coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        }
+      },
+      "required": ["type", "coordinates"],
+      "additionalProperties": false
     },
     "Polygon": {
       "type": "object",
@@ -436,73 +440,76 @@
           "type": "string",
           "enum": ["Polygon"]
         },
-        "items": {
-          "$ref": "#/definitions/Coordinates"
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "$ref": "#/definitions/Coordinates"
+            }
+          }
         },
         "required": ["type", "coordinates"],
         "additionalProperties": false
       }
     },
-    "Location": {
+    "Plot": {
+      "description": "A harvesting plot, either a point or a polygon.",
       "type": "object",
       "properties": {
-        "description": "A harvesting location, either a point or a polygon.",
-        "type": "object",
-        "properties": {
-          "ProducerName": {
-            "description": "Optional producer name for the corresponding geometry type, defined by EU geoJSON format definition.",
-            "type": "string"
-          },
-          "ProducerCountry": {
-            "description": "Optional country of the producer, defined by EU geoJSON format definition.",
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
-          },
-          "ProductionPlace": {
-            "description": "Optional production place of the producer, defined by EU geoJSON format definition.",
-            "type": "string"
-          },
-          "Area": {
-            "description": "Optional area of the producer for geometry element 'Point', defined by EU geoJSON format definition. EU defaults to 4.0 for 'Point' if not provided.",
-            "type": "number",
-            "minimum": 0
-          },
-          "Map": {
-            "description": "A map as png file, optional",
-            "type": "string",
-            "contentEncoding": "base64",
-            "contentMediaType": "image/png"
-          },
-          "Name": {
-            "description": "A name freely definable.",
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["FeatureCollection"]
-          },
-          "features": {
+        "type": {
+          "type": "string",
+          "enum": ["FeatureCollection"]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
             "properties": {
               "type": {
                 "type": "string",
                 "enum": ["Feature"]
               },
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Point"
-                },
-                {
-                  "$ref": "#/definitions/Polygon"
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "description": "A name freely definable."
+                  },
+                  "ProducerName": {
+                    "type": "string",
+                    "description": "Optional producer name for the corresponding geometry type, defined by EU geoJSON format definition."
+                  },
+                  "ProducerCountry": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2,
+                    "description": "Optional country of the producer, defined by EU geoJSON format definition."
+                  },
+                  "ProductionPlace": {
+                    "type": "string",
+                    "description": "Optional production place of the producer, defined by EU geoJSON format definition."
+                  },
+                  "Area": {
+                    "type": "number",
+                    "minimum": 0,
+                    "default": 4.0,
+                    "description": "Optional area of the producer for geometry element 'Point', defined by EU geoJSON format definition. EU defaults to 4.0 for 'Point' if not provided."
+                  }
                 }
-              ]
+              },
+              "geometry": {
+                "oneOf": [
+                  { "$ref": "#/definitions/Point" },
+                  { "$ref": "#/definitions/Polygon" }
+                ]
+              }
             },
-            "required": ["type"],
-            "additionalProperties": false
+            "required": ["type", "properties", "geometry"]
           }
-        },
-        "required": ["type", "features"],
-        "additionalProperties": false
+        }
       }
     },
     "DMPReference": {
