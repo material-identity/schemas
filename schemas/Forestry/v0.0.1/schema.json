@@ -371,15 +371,6 @@
         }
       }
     },
-    "DMPReference": {
-      "title": "DMPReference",
-      "description": "A reference to another DMP.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "The unique identifier of the DMP.",
-          "type": "string",
-          "format": "uuid"
     "Species": {
       "type": "array",
       "items": {
@@ -404,18 +395,25 @@
             "additionalProperties": false
           }
         },
-        "Hash": {
-          "$ref": "#/definitions/Hash"
+        "Quantity": {
+          "type": "number",
+          "description": "The quantity of the species in the product"
+        },
+        "QuantityUnit": {
+          "type": "string",
+          "description": "The unit of the quantity",
+          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
         }
       }
     },
     "Product": {
       "title": "Product",
+      "description": "A product made from the harvested wood.",
       "type": "object",
       "properties": {
-        "ProductType": {
+        "Name": {
           "type": "string",
-          "description": "The general type of the product"
+          "description": "The name of the product"
         },
         "DescriptionOfProduct": {
           "type": "string",
