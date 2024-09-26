@@ -20,11 +20,7 @@
           "MID": "USFORSUPP1",
           "SystemId": "98765432-10ab-cdef-1234-567890abcdef"
         },
-        "Email": "info@forestsuppliers.com",
-        "AdditionalInformation": [
-          "Certified sustainable forestry practices",
-          "100% renewable energy use in operations"
-        ]
+        "Email": "info@forestsuppliers.com"
       },
       "Producer": {
         "CompanyName": "Lumber Productions Ltd.",
@@ -37,11 +33,7 @@
           "CBN": "987654321",
           "VAT": "CA987654321"
         },
-        "Email": "contact@lumberproductions.ca",
-        "AdditionalInformation": [
-          "Specializing in hardwood processing",
-          "Zero-waste facility"
-        ]
+        "Email": "contact@lumberproductions.ca"
       }
     },
     "ForestPlots": [
