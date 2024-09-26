@@ -80,7 +80,7 @@
     ],
     "Products": [
       {
-        "Name": "Pine Logs",
+        "ProductType": "Pine Logs",
         "DescriptionOfProduct": "Freshly cut pine logs, sustainably harvested",
         "HTSCode": "4403.21.00",
         "ProductionPeriod": {
@@ -109,7 +109,7 @@
         ]
       },
       {
-        "Name": "Oak Planks",
+        "ProductType": "Oak Planks",
         "DescriptionOfProduct": "Processed oak planks for furniture making",
         "HTSCode": "4407.91.00",
         "ProductionPeriod": {
