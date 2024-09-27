@@ -378,6 +378,36 @@
                         </fo:table-cell>
                       </xsl:for-each>
                     </fo:table-row>
+                    <!-- Minimum row -->
+                    <xsl:if test="count($keys[Minimum != '']) > 0">
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Min [%]</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Minimum" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </xsl:if>
+                    <!-- Maximum row -->
+                    <xsl:if test="count($keys[Maximum != '']) > 0">
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Max [%]</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Maximum" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </xsl:if>
                     <!-- Actual row -->
                     <fo:table-row>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
