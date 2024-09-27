@@ -188,11 +188,6 @@
       },
       "NotchedBarImpactTest": {
         "C40": "0001 längs",
-        "C41": {
-          "Property": "Width",
-          "Value": 5,
-          "Unit": "mm"
-        },
         "C42": [
           {
             "Value": 71,
