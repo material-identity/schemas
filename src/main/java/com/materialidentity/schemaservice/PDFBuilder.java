@@ -1,11 +1,13 @@
 package com.materialidentity.schemaservice;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.xml.sax.SAXException;
+import java.io.IOException;
 
 import javax.xml.transform.TransformerException;
-import java.io.IOException;
+
+import org.xml.sax.SAXException;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class PDFBuilder {
 
@@ -13,6 +15,7 @@ public class PDFBuilder {
     private TranslationLoader translationLoader;
     private AttachmentManager attachmentManager;
     private XsltTransformer xsltTransformer;
+    private EmbedManager embedManager;
 
     public PDFBuilder(FoManager foManager) {
         this.foManager = foManager;
@@ -37,9 +40,20 @@ public class PDFBuilder {
         return this;
     }
 
+    public PDFBuilder withEmbeddedPdf(EmbedManager embedManager) {
+        this.embedManager = embedManager;
+        return this;
+    }
+
     public byte[] build() throws TransformerException, IOException, SAXException {
         byte[] pdf = generatePdf();
-        return attachmentManager == null ? pdf : attachmentManager.attach(pdf);
+        if (embedManager != null) {
+            pdf = embedManager.embed(pdf);
+        }
+        if (attachmentManager != null) {
+            pdf = attachmentManager.attach(pdf);
+        }
+        return pdf;
     }
 
     private byte[] generatePdf() throws TransformerException, IOException, SAXException {
