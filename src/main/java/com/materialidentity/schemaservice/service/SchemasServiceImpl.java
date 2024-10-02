@@ -82,7 +82,7 @@ public class SchemasServiceImpl implements SchemasService {
         if (attachmentsNode != null && attachmentsNode.isArray()) {
             for (JsonNode attachmentNode : attachmentsNode) {
                 String data = attachmentNode.path("Data").asText(null);
-                if (data != null && data.startsWith("data:image/pdf;base64")) {
+                if (data != null && data.startsWith("data:application/pdf;base64")) {
                     pdfDataList.add(data);
                 }
             }
@@ -98,7 +98,7 @@ public class SchemasServiceImpl implements SchemasService {
                     JsonNode documentNode = entry.getValue();
                     JsonNode attachmentNode = documentNode.path("Attachment");
                     String data = attachmentNode.path("Data").asText(null);
-                    if (data != null && data.startsWith("data:image/pdf;base64")) {
+                    if (data != null && data.startsWith("data:application/pdf;base64")) {
                         pdfDataList.add(data);
                     }
                 }
