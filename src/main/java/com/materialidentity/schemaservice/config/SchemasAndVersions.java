@@ -5,11 +5,12 @@ import java.util.Map;
 
 public class SchemasAndVersions {
   public enum SchemaTypes {
-    EN10168, CoA, TKR
+    EN10168, CoA, TKR, Forestry
   }
 
   public static final Map<SchemaTypes, List<String>> supportedSchemas = Map.of(
       SchemaTypes.CoA, List.of("v1.1.0"),
       SchemaTypes.TKR, List.of("v0.0.4"),
-      SchemaTypes.EN10168, List.of("v0.4.1"));
+      SchemaTypes.EN10168, List.of("v0.4.1"),
+      SchemaTypes.Forestry, List.of("v0.0.1"));
 }
