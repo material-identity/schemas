@@ -8,6 +8,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,10 +48,17 @@ public class SchemasServiceImpl implements SchemasService {
         certificateTypeMap.put("coa", "CoA");
         certificateTypeMap.put("en10168", "EN10168");
         certificateTypeMap.put("tkr", "TKR");
+        certificateTypeMap.put("forestry", "Forestry");
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
-        String[] languages = Optional.ofNullable(jsonContent.path("Certificate").path("CertificateLanguages"))
+        // From Forestry DMP existence onwards, the languages are stored in Languages
+        String[] languages = Optional.ofNullable(jsonContent.get("Certificate"))
+                .map(certificateNode -> certificateNode.get("CertificateLanguages"))
+                .filter(Objects::nonNull)
+                .or(() -> Optional.ofNullable(jsonContent.get("DigitalMaterialPassport"))
+                        .map(passportNode -> passportNode.get("Languages"))
+                        .filter(Objects::nonNull))
                 .filter(JsonNode::isArray)
                 .map(languagesNode -> {
                     List<String> languageList = new ArrayList<>();
