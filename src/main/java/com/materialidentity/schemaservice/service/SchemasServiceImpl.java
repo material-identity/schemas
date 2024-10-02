@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -74,18 +75,38 @@ public class SchemasServiceImpl implements SchemasService {
         return languages;
     }
 
-    public static String extractPdfData(JsonNode jsonContent) {
-        JsonNode firstAttachment = jsonContent.path("Certificate").path("Attachments").get(0);
-    
-        String pdfData = firstAttachment != null ? firstAttachment.path("Data").asText(null) : null;
-    
-        if (pdfData != null && pdfData.startsWith("data:image/pdf;base64")) {
-            return pdfData;
+    public static String[] extractPdfData(JsonNode jsonContent) {
+        List<String> pdfDataList = new ArrayList<>();
+
+        JsonNode attachmentsNode = jsonContent.path("Certificate").path("Attachments");
+        if (attachmentsNode != null && attachmentsNode.isArray()) {
+            for (JsonNode attachmentNode : attachmentsNode) {
+                String data = attachmentNode.path("Data").asText(null);
+                if (data != null && data.startsWith("data:image/pdf;base64")) {
+                    pdfDataList.add(data);
+                }
+            }
         }
-    
-        return null;
+
+        // For timber DMPs onwards, the path will now be under DigitalMaterialPassport
+        if (pdfDataList.isEmpty()) {
+            JsonNode documentsNode = jsonContent.path("DigitalMaterialPassport").path("Documents");
+            if (documentsNode != null && documentsNode.isObject()) {
+                Iterator<Map.Entry<String, JsonNode>> fields = documentsNode.fields();
+                while (fields.hasNext()) {
+                    Map.Entry<String, JsonNode> entry = fields.next();
+                    JsonNode documentNode = entry.getValue();
+                    JsonNode attachmentNode = documentNode.path("Attachment");
+                    String data = attachmentNode.path("Data").asText(null);
+                    if (data != null && data.startsWith("data:image/pdf;base64")) {
+                        pdfDataList.add(data);
+                    }
+                }
+            }
+        }
+
+        return pdfDataList.toArray(new String[0]);
     }
-    
 
     public static String extractCertificateType(JsonNode jsonContent) {
         String refSchemaUrl = jsonContent.path("RefSchemaUrl").asText();
@@ -124,7 +145,7 @@ public class SchemasServiceImpl implements SchemasService {
     public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate)
             throws IOException, TransformerException, SAXException {
         String[] languages = extractLanguages(certificate);
-        String encodedData = extractPdfData(certificate);
+        String[] encodedData = extractPdfData(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
         logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
