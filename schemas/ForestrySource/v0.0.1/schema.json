@@ -492,7 +492,8 @@
           "HarvestUnitMap": {
             "description": "The map of the harvest unit.",
             "$ref": "#/definitions/DocumentReference"
-          }
+          },
+          "required": ["HarvestAuthorization"]
         }
       },
       "required": [
