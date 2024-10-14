@@ -442,6 +442,24 @@
           "description": "",
           "$ref": "#/definitions/GeneralInformation"
         },
+        "HarvestUnits": {
+          "description": "The harvest units of the source.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Products": {
+          "description": "The products made from the harvested wood.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
         "Supplier": {
           "description": "The landowner, concession or tenure holder that has the right to harvest the timber.",
           "$ref": "#/definitions/Company"
@@ -453,15 +471,6 @@
         "Creator": {
           "description": "The party creating the source DMP.",
           "$ref": "#/definitions/Company"
-        },
-        "Products": {
-          "description": "The products made from the harvested wood.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Product"
-          },
-          "minItems": 1,
-          "uniqueItems": true
         },
         "DueDiligenceStatement": {
           "description": "A statement on the due diligence of the company.",
@@ -490,6 +499,7 @@
         "Languages",
         "Id",
         "GeneralInformation",
+        "HarvestUnits",
         "Supplier",
         "Producer",
         "Creator",
