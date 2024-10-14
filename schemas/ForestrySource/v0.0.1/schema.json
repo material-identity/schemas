@@ -1,7 +1,7 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
   "$schema": "https://json-schema.org/draft/2020-12",
-  "$id": "https://schemas.materialidentity.org/forestry-source-schemas/v0.0.1/schema.json",
+  "$id": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
   "definitions": {
     "Languages": {
       "title": "Languages",
