@@ -1,7 +1,7 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
   "$schema": "https://json-schema.org/draft/2020-12",
-  "$id": "https://schemas.materialidentity.org/forrestry-schemas/v0.0.1/schema.json",
+  "$id": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
   "definitions": {
     "Languages": {
       "allOf": [
@@ -69,10 +69,36 @@
         "Data": {
           "description": "The data encoded as defined in `Encoding`",
           "type": "string"
+        }
+      },
+      "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
+      "additionalProperties": false
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "enum": [
+            "HarvestingPermit",
+            "ChainOfCustodyCertificate",
+            "ForestConcession",
+            "DeforestationFreeDeclaration",
+            "DegradationFreeDeclaration",
+            "LegalHarvestCertificate",
+            "ImportPermit",
+            "ExportPermit",
+            "PhytosanitaryCertificate",
+            "TSCACertificate",
+            "CANFERCertificate"
+          ]
         },
-        "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
-        "additionalProperties": false
-      }
+        "Attachment": {
+          "$ref": "#/definitions/Attachment"
+        }
+      },
+      "required": ["Type", "Attachment"],
+      "additionalProperties": false
     },
     "Company": {
       "type": "object",
@@ -132,7 +158,14 @@
           "minItems": 1
         }
       },
-      "required": ["CompanyName", "Street", "ZipCode", "City", "Country", "Identifiers"],
+      "required": [
+        "CompanyName",
+        "Street",
+        "ZipCode",
+        "City",
+        "Country",
+        "Identifiers"
+      ],
       "additionalProperties": true
     },
     "CompanyIdentifiers": {
@@ -250,8 +283,8 @@
       "required": ["Customer"],
       "additionalProperties": false
     },
-    "BusinessTransaction": {
-      "title": "BusinessTransaction",
+    "Transaction": {
+      "title": "Transaction",
       "description": "All information about the underlying commercial transaction such as the order and the delivery.",
       "type": "object",
       "properties": {
@@ -284,12 +317,30 @@
               "examples": ["kg", "l", "m", "m²", "m³", "t"]
             },
             "CustomerProductId": {
-              "description": "The internal product identifer of the Customer",
+              "description": "The internal product identifer of the customer",
               "type": "string"
             },
             "CustomerProductName": {
               "description": "The product name of the Customer",
               "type": "string"
+            },
+            "Incoterms": {
+              "title": "Incoterms",
+              "description": "Enumeration of Incoterms 2020",
+              "type": "string",
+              "enum": [
+                "EXW",
+                "FCA",
+                "CPT",
+                "CIP",
+                "DAP",
+                "DPU",
+                "DDP",
+                "FAS",
+                "FOB",
+                "CFR",
+                "CIF"
+              ]
             }
           },
           "required": ["Id"],
@@ -323,12 +374,12 @@
               "type": "string",
               "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
             },
-            "InternalOrderId": {
-              "description": "The internal order number issued at the manufacturer.",
+            "SalesOrderId": {
+              "description": "The sales order number issued at the manufacturer.",
               "type": "string"
             },
-            "InternalOrderPosition": {
-              "description": "The position on the internal order issued at the manufacturer.",
+            "SalesOrderPosition": {
+              "description": "The position on the sales order issued at the manufacturer.",
               "type": "string"
             },
             "Transport": {
@@ -347,24 +398,6 @@
       },
       "required": ["Order", "Delivery"],
       "additionalProperties": false
-    },
-    "Incoterms": {
-      "title": "Incoterms",
-      "description": "Enumeration of Incoterms 2020",
-      "type": "string",
-      "enum": [
-        "EXW",
-        "FCA",
-        "CPT",
-        "CIP",
-        "DAP",
-        "DPU",
-        "DDP",
-        "FAS",
-        "FOB",
-        "CFR",
-        "CIF"
-      ]
     },
     "Coordinates": {
       "type": "array",
@@ -471,6 +504,143 @@
         "required": ["type", "features"],
         "additionalProperties": false
       }
+    },
+    "DMPReference": {
+      "title": "DMPReference",
+      "description": "A reference to another DMP.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The unique identifier of the DMP.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "Hash": {
+          "$ref": "#/definitions/Hash"
+        }
+      }
+    },
+    "Product": {
+      "title": "Product",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The name of the product"
+        },
+        "DescriptionOfProduct": {
+          "type": "string",
+          "description": "A detailed description of the product"
+        },
+        "HTSCode": {
+          "type": "string",
+          "description": "The Harmonized Tariff Schedule code for the product",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+        },
+        "ProductionPeriod": {
+          "type": "object",
+          "properties": {
+            "StartDate": {
+              "type": "string",
+              "format": "date",
+              "description": "The date when production began"
+            },
+            "EndDate": {
+              "type": "string",
+              "format": "date",
+              "description": "The date when production ended"
+            }
+          },
+          "required": ["StartDate", "EndDate"]
+        },
+        "Species": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "CommonName": {
+                "type": "string"
+              },
+              "ScientificName": {
+                "type": "object",
+                "properties": {
+                  "Genus": {
+                    "description": "The genus of the species.",
+                    "type": "string"
+                  },
+                  "Species": {
+                    "description": "The species of the genus.",
+                    "type": "string"
+                  }
+                },
+                "required": ["Genus", "Species"],
+                "additionalProperties": false
+              }
+            },
+            "Quantity": {
+              "type": "number",
+              "description": "The quantity of the species in the product"
+            },
+            "QuantityUnit": {
+              "type": "string",
+              "description": "The unit of the quantity",
+              "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+            },
+            "Source": {
+              "oneOf": [
+                {
+                  "Locations": {
+                    "description": "The location of the source of the species.",
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Location"
+                    },
+                    "minItems": 1
+                  },
+                  "Certificates": {
+                    "description": "The certificates attached to the location.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "string"
+                        },
+                        "Number": {
+                          "type": "string"
+                        },
+                        "ValidFrom": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "ValidTo": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "Document": {
+                          "$ref": "#/definitions/Document"
+                        }
+                      },
+                      "required": ["Name", "Document"]                
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                {
+                  "DMPs": {
+                    "description": "The reference to other DMPs.",
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/DMPReference"
+                    },
+                    "minItems": 1
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   },
   "title": "Digital Material Passport - Forestry and Wood Industry",
@@ -509,8 +679,30 @@
           "format": "date",
           "examples": ["2018-12-12"]
         },
+        "Parties": {
+          "description": "The companies involved in the transaction.",
+          "$ref": "#/definitions/Parties"
+        },
+        "Transaction": {
+          "description": "References to order and delivery.",
+          "$ref": "#/definitions/Transaction"
+        },
+        "Products": {
+          "description": "The products in the DMP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "DueDiligenceStatement": {
+          "title": "DueDiligenceStatement",
+          "description": "A statement on the due diligence of the company.",
+          "type": "string"
+        },
         "Contacts": {
-          "description": "Contact persons",
+          "description": "Contact persons within the company, their roles and contact information.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Person"
@@ -518,28 +710,25 @@
           "uniqueItems": true,
           "minItems": 0
         },
-        "Parties": {
-          "description": "The companies involved in the transaction.",
-          "$ref": "#/definitions/Parties"
-        },
-        "BusinessTransaction": {
-          "description": "References to order and delivery.",
-          "$ref": "#/definitions/BusinessTransaction"
-        },
-        "DueDiligenceStatement": {
-          "description": "A statement on the due diligence of the company.",
+        "Disclaimer": {
+          "title": "Disclaimer",
+          "description": "A general disclaimer for the entire document",
           "type": "string"
+        },
+        "Documents": {
+          "description": "The documents attached to the DMP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
+          },
+          "uniqueItems": true,
+          "minItems": 1
         },
         "Logo": {
           "description": "The logo of the issuing company as base64 png file.",
           "type": "string",
           "contentEncoding": "base64",
           "contentMediaType": "image/png"
-        },
-        "Disclaimer": {
-          "title": "Disclaimer",
-          "description": "A general disclaimer for the entire document",
-          "type": "string"
         }
       },
       "required": [
@@ -548,9 +737,9 @@
         "UserDefinedId",
         "Date",
         "Parties",
-        "BusinessTransaction",
-        "DueDiligenceStatement",
-        "Logo"
+        "Transaction",
+        "Products",
+        "DueDiligenceStatement"
       ],
       "additionalProperties": false
     }
