@@ -269,7 +269,7 @@ class RenderTest {
 
 			// Use Files.walk to traverse directories recursively
 			return Files.walk(basePath)
-					.filter(path -> path.getFileName().toString().matches("valid_certificate_.*\\.json"))
+					.filter(path -> path.getFileName().toString().matches("valid_.*\\.json"))
 					.map(path -> {
 						Path pdfPath = Paths.get(path.toString().replace(".json", ".pdf"));
 						return Arguments.of(path, pdfPath);
