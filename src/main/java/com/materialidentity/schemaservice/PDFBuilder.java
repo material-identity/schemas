@@ -47,18 +47,12 @@ public class PDFBuilder {
 
     public byte[] build() throws TransformerException, IOException, SAXException {
         byte[] pdf = generatePdf();
-        if (embedManager != null) {
-            pdf = embedManager.embed(pdf);
-        }
-        if (attachmentManager != null) {
-            pdf = attachmentManager.attach(pdf);
-        }
         return pdf;
     }
 
     private byte[] generatePdf() throws TransformerException, IOException, SAXException {
         if (xsltTransformer != null) {
-            // Attach translations to the certificate
+            // Attach translations to the dmp
             if (translationLoader != null) {
                 JsonNode translations = translationLoader.load();
                 ((ObjectNode) xsltTransformer.getSource()).set("Translations", translations);
@@ -66,7 +60,17 @@ public class PDFBuilder {
 
             // Process the xslt input
             String xslFoInput = xsltTransformer.transform();
-            return foManager.generatePdf(xslFoInput);
+
+            byte[] pdf = foManager.generatePdf(xslFoInput);
+
+            if (embedManager != null) {
+                pdf = embedManager.embed(pdf);
+            }
+
+            if (attachmentManager != null) {
+                pdf = attachmentManager.attach(pdf);
+            }
+            return pdf;
         }
 
         return foManager.generatePdf();

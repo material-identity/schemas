@@ -50,6 +50,7 @@ public class SchemasServiceImpl implements SchemasService {
         certificateTypeMap.put("en10168", "EN10168");
         certificateTypeMap.put("tkr", "TKR");
         certificateTypeMap.put("forestry", "Forestry");
+        certificateTypeMap.put("forestry-source", "ForestrySource");
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
@@ -64,7 +65,7 @@ public class SchemasServiceImpl implements SchemasService {
                 .map(languagesNode -> {
                     List<String> languageList = new ArrayList<>();
                     languagesNode.forEach(node -> languageList.add(node.asText()));
-                    return languageList.toArray(new String[0]);
+                    return languageList.toArray(String[]::new);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("No languages property found in the certificate"));
 
@@ -86,26 +87,34 @@ public class SchemasServiceImpl implements SchemasService {
                     pdfDataList.add(data);
                 }
             }
+        } else {
+            return null;
         }
+
+        return pdfDataList.toArray(String[]::new);
+    }
+
+    public static String[] extractPdfDataFromS3(JsonNode jsonContent) {
+        List<String> pdfDataList = new ArrayList<>();
 
         // For timber DMPs onwards, the path will now be under DigitalMaterialPassport
-        if (pdfDataList.isEmpty()) {
-            JsonNode documentsNode = jsonContent.path("DigitalMaterialPassport").path("Documents");
-            if (documentsNode != null && documentsNode.isObject()) {
-                Iterator<Map.Entry<String, JsonNode>> fields = documentsNode.fields();
-                while (fields.hasNext()) {
-                    Map.Entry<String, JsonNode> entry = fields.next();
-                    JsonNode documentNode = entry.getValue();
-                    JsonNode attachmentNode = documentNode.path("Attachment");
-                    String data = attachmentNode.path("Data").asText(null);
-                    if (data != null && data.startsWith("data:application/pdf;base64")) {
-                        pdfDataList.add(data);
-                    }
+
+        JsonNode documentsNode = jsonContent.path("DigitalMaterialPassport").path("Documents");
+        if (documentsNode != null && documentsNode.isObject()) {
+            Iterator<Map.Entry<String, JsonNode>> fields = documentsNode.fields();
+            while (fields.hasNext()) {
+                Map.Entry<String, JsonNode> entry = fields.next();
+                JsonNode documentNode = entry.getValue();
+                String s3Url = documentNode.path("URL").asText(null);
+                if (s3Url != null) {
+                    pdfDataList.add(s3Url);
                 }
             }
+        } else {
+            return null;
         }
 
-        return pdfDataList.toArray(new String[0]);
+        return pdfDataList.toArray(String[]::new);
     }
 
     public static String extractCertificateType(JsonNode jsonContent) {
@@ -146,6 +155,7 @@ public class SchemasServiceImpl implements SchemasService {
             throws IOException, TransformerException, SAXException {
         String[] languages = extractLanguages(certificate);
         String[] encodedData = extractPdfData(certificate);
+        String[] dataFromS3 = extractPdfDataFromS3(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
         logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
@@ -177,8 +187,8 @@ public class SchemasServiceImpl implements SchemasService {
                                 SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME,
                                 attachJson));
 
-        if (encodedData != null) {
-            pdfBuilder.withEmbeddedPdf(new EmbedManager(encodedData));
+        if (encodedData != null || dataFromS3 != null) {
+            pdfBuilder.withEmbeddedPdf(new EmbedManager(encodedData, dataFromS3));
         }
 
         byte[] pdfBytes = pdfBuilder.build();

@@ -99,6 +99,7 @@ export class FormComponent {
     ['TKR', ['v0.0.4']],
     ['EN10168', ['v0.4.1']],
     ['Forestry', ['v0.0.1']],
+    ['ForestrySource', ['v0.0.1']],
   ]);
   readonly showAllVersions = signal(true);
   readonly visibleSchemaVersions = computed<[string, string[]][]>(() =>

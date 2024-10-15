@@ -5,7 +5,7 @@ public final class SchemaControllerConstants {
     public static final String SCHEMAS_FOLDER_NAME = "schemas";
     public static final String JSON_TRANSLATIONS_FILE_NAME_PATTERN = "translations*.json";
     public static final String XSLT_FILE_NAME = "stylesheet.xsl";
-    public static final String PDF_ATTACHMENT_CERT_FILE_NAME = "certificate.json";
+    public static final String PDF_ATTACHMENT_CERT_FILE_NAME = "dmp.json";
     public static final String PDF_RENDERED_OUTPUT_FILE_NAME = "output.pdf";
 
     // validate endpoint constants

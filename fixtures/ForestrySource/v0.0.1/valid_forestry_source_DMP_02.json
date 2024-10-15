@@ -1,0 +1,185 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "GeneralInformation": {
+      "UserDefinedId": "BCTS-2024-08-01",
+      "Country": "CA",
+      "State": "British Columbia",
+      "District": "Coastal",
+      "CertificationClaim": "SFI 100% from a Certified Forest",
+      "CertificationPercentage": 100,
+      "HarvestAuthorizationNameOrNumber": "TSL TA2115",
+      "HarvestingPeriod": {
+        "StartDate": "2024-09-01",
+        "EndDate": "2026-08-31"
+      }
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "British Columbia Timber Sales",
+              "ProducerCountry": "CA",
+              "ProductionPlace": "Coastal District",
+              "Area": 29.3,
+              "Name": "Harvest Unit 1"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-125.3320128, 50.123282]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "British Columbia Timber Sales",
+              "ProducerCountry": "CA",
+              "ProductionPlace": "Coastal District",
+              "Name": "Harvest Unit 2"
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [-125.3320128, 50.123282],
+                  [-125.3320128, 50.124282],
+                  [-125.3330128, 50.124282],
+                  [-125.3330128, 50.123282],
+                  [-125.3320128, 50.123282]
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Logs (Saw)",
+        "DescriptionOfProduct": "Douglas-fir saw logs",
+        "HTSCode": "4403.24.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-09-01",
+          "EndDate": "2025-04-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Douglas-fir",
+            "ScientificName": {
+              "Genus": "Pseudotsuga",
+              "Species": "menziesii"
+            },
+            "Quantity": 500,
+            "QuantityUnit": "m³"
+          }
+        ]
+      },
+      {
+        "ProductType": "Logs (Pulp)",
+        "DescriptionOfProduct": "Western Hemlock pulp logs",
+        "HTSCode": "4403.25.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-09-01",
+          "EndDate": "2025-04-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Western Hemlock",
+            "ScientificName": {
+              "Genus": "Tsuga",
+              "Species": "heterophylla"
+            },
+            "Quantity": 200,
+            "QuantityUnit": "m³"
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "British Columbia Timber Sales",
+      "Street": ["370 S. Dogwood Street"],
+      "ZipCode": "V9W 6Y7",
+      "City": "Campbell River",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "VAT": "123456789BC",
+        "CBN": "987654321"
+      },
+      "Email": "StraitofGeorgiaTimberSalesOffice@gov.bc.ca",
+      "PhoneNumber": "250-286-9300"
+    },
+    "Producer": {
+      "Name": "Zimmermann Forest Products Ltd.",
+      "Street": ["2218 D Airport Drive"],
+      "ZipCode": "V9H 0E2",
+      "City": "Campbell River",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789",
+        "DUNS": "987654321"
+      },
+      "Email": "info@zimmermann-forestry.com",
+      "PhoneNumber": "250-287-9259"
+    },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue", "Suite 500"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "246813579",
+        "DUNS": "135792468"
+      },
+      "Email": "info@forestmanagement.com",
+      "PhoneNumber": "250-123-4567"
+    },
+    "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence in accordance with Regulation (EU) 2023/1115 was carried out and that no or only a negligible risk was found that the relevant products do not comply with Article 3, point (a) or (b), of that Regulation. All relevant legislation of the country of harvest has been complied with, and all necessary permits and authorizations have been obtained. The operator has implemented robust traceability measures to ensure the origin of the timber can be verified throughout the supply chain.",
+    "Documents": {
+      "ForestConcession": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "ZDkzOTljNWFkNzUzNTJjYTc1NzdkNjE1NTdiMmJkZTNlNzc2ZjUxMWVkNWU4YzJlNDQyZGQxYmM0ZjkyZDVjNg=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "files/forest_concession.pdf"
+      },
+      "HarvestAuthorization": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "files/harvest_authorization.pdf"
+      },
+      "Certificate": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OTYwYjAxNzE4MzI0ZTEyNjEyOWQ5YzRiZmY4NGE1MjQ3ODE1MjM2ODM3ZDIwZDA4NTFmMzRmNGE1ODZlY2E4MQ=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "files/sfi_certificate.pdf"
+      },
+      "HarvestUnitMap": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "NWE0YzEyZTM1M2YyZjgwOGEzYjUxN2JhMzg4MGRmYmYwOGRlOWM2NTNjMjMzZmY5YTMwZjJkYWU2OGEwNzg0OA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "files/harvest_unit_map.pdf"
+      }
+    }
+  }
+}
