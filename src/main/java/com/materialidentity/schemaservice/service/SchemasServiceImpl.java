@@ -50,6 +50,7 @@ public class SchemasServiceImpl implements SchemasService {
         certificateTypeMap.put("en10168", "EN10168");
         certificateTypeMap.put("tkr", "TKR");
         certificateTypeMap.put("forestry", "Forestry");
+        certificateTypeMap.put("forestry-source", "ForestrySource");
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
