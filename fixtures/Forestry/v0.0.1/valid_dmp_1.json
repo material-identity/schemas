@@ -1,0 +1,71 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "123e4567-e89b-12d3-a456-426614174000",
+    "UserDefinedId": "DMP-001",
+    "Date": "2024-03-21",
+    "Parties": {
+      "Supplier": {
+        "CompanyName": "Forest Suppliers Inc.",
+        "Street": ["123 Wood Street"],
+        "ZipCode": "12345",
+        "City": "Treetown",
+        "Country": "US",
+        "Identifiers": {
+          "DUNS": "123456789"
+        }
+      },
+      "Producer": {
+        "CompanyName": "Lumber Productions Ltd.",
+        "Street": ["456 Timber Lane"],
+        "ZipCode": "67890",
+        "City": "Logville",
+        "Country": "CA",
+        "Identifiers": {
+          "CBN": "987654321"
+        }
+      }
+    },
+    "ForestPlots": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "Name": "Plot 1"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-123.45, 45.67]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Pine Logs",
+        "DescriptionOfProduct": "Freshly cut pine logs",
+        "HTSCode": "4403.21.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-03-01",
+          "EndDate": "2024-03-15"
+        },
+        "SpeciesList": [
+          {
+            "CommonName": "Pine",
+            "ScientificName": {
+              "Genus": "Pinus",
+              "Species": "sylvestris"
+            },
+            "Quantity": 100,
+            "QuantityUnit": "m³"
+          }
+        ]
+      }
+    ],
+    "DueDiligenceStatement": "This DMP complies with all applicable regulations and standards."
+  }
+}
