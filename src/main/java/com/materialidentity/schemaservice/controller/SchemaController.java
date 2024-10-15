@@ -36,10 +36,10 @@ public class SchemaController {
 
     @PostMapping("/render")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Render a JSON certificate as a PDF")
+    @Operation(summary = "Render a JSON DMP as a PDF")
     public ResponseEntity<byte[]> render(
             @RequestParam(value = EndpointParamConstants.ATTACH_JSON, defaultValue = "true") Boolean attachJson,
-            @RequestBody JsonNode certificate) throws TransformerException, IOException, SAXException {
-        return schemasService.renderPdf(attachJson, certificate);
+            @RequestBody JsonNode dmp) throws TransformerException, IOException, SAXException {
+        return schemasService.renderPdf(attachJson, dmp);
     }
 }
