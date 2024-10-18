@@ -90,7 +90,7 @@
           "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
         },
         "MIME-Type": "application/pdf",
-        "URL": "files/harvest_authorization.pdf"
+        "URL": "https://schema-service-attachments-dev.s3.eu-north-1.amazonaws.com/files/this_is_just_a_test.pdf"
       }
     }
   }
