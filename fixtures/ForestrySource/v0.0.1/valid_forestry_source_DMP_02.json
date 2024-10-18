@@ -151,7 +151,7 @@
           "Value": "ZDkzOTljNWFkNzUzNTJjYTc1NzdkNjE1NTdiMmJkZTNlNzc2ZjUxMWVkNWU4YzJlNDQyZGQxYmM0ZjkyZDVjNg=="
         },
         "MIME-Type": "application/pdf",
-        "URL": "files/forest_concession.pdf"
+        "URL": "https://schema-service-attachments-dev.s3.eu-north-1.amazonaws.com/files/1729255197743-image.pdf"
       },
       "HarvestAuthorization": {
         "Hash": {
@@ -160,7 +160,7 @@
           "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
         },
         "MIME-Type": "application/pdf",
-        "URL": "files/harvest_authorization.pdf"
+        "URL": "https://schema-service-attachments-dev.s3.eu-north-1.amazonaws.com/files/this_is_just_a_test.pdf"
       },
       "Certificate": {
         "Hash": {
@@ -169,7 +169,7 @@
           "Value": "OTYwYjAxNzE4MzI0ZTEyNjEyOWQ5YzRiZmY4NGE1MjQ3ODE1MjM2ODM3ZDIwZDA4NTFmMzRmNGE1ODZlY2E4MQ=="
         },
         "MIME-Type": "application/pdf",
-        "URL": "files/sfi_certificate.pdf"
+        "URL": "https://schema-service-attachments-dev.s3.eu-north-1.amazonaws.com/files/this_is_just_a_test.pdf"
       },
       "HarvestUnitMap": {
         "Hash": {
@@ -178,7 +178,7 @@
           "Value": "NWE0YzEyZTM1M2YyZjgwOGEzYjUxN2JhMzg4MGRmYmYwOGRlOWM2NTNjMjMzZmY5YTMwZjJkYWU2OGEwNzg0OA=="
         },
         "MIME-Type": "application/pdf",
-        "URL": "files/harvest_unit_map.pdf"
+        "URL": "https://schema-service-attachments-dev.s3.eu-north-1.amazonaws.com/files/this_is_just_a_test.pdf"
       }
     }
   }
