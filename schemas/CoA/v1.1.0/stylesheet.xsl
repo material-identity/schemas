@@ -309,8 +309,8 @@
                 <xsl:if test="$Product/Name">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/Certificate/Name" />
-                      <xsl:with-param name="value" select="$Product/Name" />
+                      <xsl:with-param name="key" select="$i18n/Certificate/ProductName" />
+                      <xsl:with-param name="value" select="$Product/ProductName" />
                       <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                     </xsl:call-template>
                   </fo:table-row>
