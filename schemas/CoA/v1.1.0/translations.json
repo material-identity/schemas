@@ -52,7 +52,8 @@
       "ContactDepartment": "Department",
       "ContactEmail": "Email",
       "ContactPhone": "Phone",
-      "Attachments": "Attachments"
+      "Attachments": "Attachments",
+      "Disclaimer": "Disclaimer"
     }
   },
   "DE": {
@@ -108,7 +109,8 @@
       "ContactDepartment": "Abteilung",
       "ContactEmail": "Email",
       "ContactPhone": "Telefon",
-      "Attachments": "Anlagen"
+      "Attachments": "Anlagen",
+      "Disclaimer": "Disclaimer"
     }
   },
   "CN": {
@@ -164,7 +166,8 @@
       "ContactDepartment": "部门",
       "ContactEmail": "电子邮件",
       "ContactPhone": "电话",
-      "Attachments": "附件"
+      "Attachments": "附件",
+      "Disclaimer": "免责声明"
     }
   },
   "ES": {
@@ -220,7 +223,8 @@
       "ContactDepartment": "Departamento",
       "ContactEmail": "Correo electrónico",
       "ContactPhone": "Teléfono",
-      "Attachments": "Adjuntos"
+      "Attachments": "Adjuntos",
+      "Disclaimer": "Descargo de responsabilidad"
     }
   },
   "IT": {
@@ -276,7 +280,8 @@
       "ContactDepartment": "Reparto",
       "ContactEmail": "E-mail",
       "ContactPhone": "Telefono",
-      "Attachments": "Allegati"
+      "Attachments": "Allegati",
+      "Disclaimer": "Disclaimer"  
     }
   },
   "FR": {
@@ -332,7 +337,8 @@
       "ContactDepartment": "Département",
       "ContactEmail": "E-mail",
       "ContactPhone": "Téléphone",
-      "Attachments": "Pièces jointes"
+      "Attachments": "Pièces jointes",
+      "Disclaimer": "Clause de non-responsabilité"
     }
   },
   "PL": {
@@ -388,7 +394,8 @@
       "ContactDepartment": "Dział",
       "ContactEmail": "E-mail",
       "ContactPhone": "Telefon",
-      "Attachments": "Załączniki"
+      "Attachments": "Załączniki",
+      "Disclaimer": "Oświadczenie"
     }
   },
   "TR": {
@@ -444,7 +451,8 @@
       "ContactDepartment": "Bölüm",
       "ContactEmail": "E-posta",
       "ContactPhone": "Telefon",
-      "Attachments": "Ekler"
+      "Attachments": "Ekler",
+      "Disclaimer": "Sorumluluk reddi"
     }
   }
 }
