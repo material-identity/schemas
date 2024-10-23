@@ -12,6 +12,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "test": "jest"
   }
 }
