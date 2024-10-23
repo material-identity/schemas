@@ -3,18 +3,14 @@ package com.materialidentity.schemaservice;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
 import java.util.Base64;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
-
-import com.materialidentity.schemaservice.config.AwsConstants;
-
-import software.amazon.awssdk.auth.credentials.AnonymousCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 
 public class EmbedManager {
 
@@ -68,29 +64,18 @@ public class EmbedManager {
 
   public byte[] embedFromS3Url(byte[] data) throws IOException {
     PDDocument originalDocument = Loader.loadPDF(data);
-    String bucketName = AwsConstants.DMP_PDF_BUCKET;
-    String bucketRegion = AwsConstants.AWS_REGION;
-    S3Client s3 = S3Client.builder()
-        .credentialsProvider(AnonymousCredentialsProvider.create())
-        .region(Region.of(bucketRegion))
-        .build();
 
     try {
       PDFMergerUtility merger = new PDFMergerUtility();
 
       for (String s3Url : this.s3Urls) {
-        String objectKey = s3Url;
-        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-            .bucket(bucketName)
-            .key(objectKey)
-            .build();
-        InputStream s3InputStream = s3.getObject(getObjectRequest);
-        byte[] s3Data = s3InputStream.readAllBytes();
+        byte[] s3Data = downloadFileFromUrl(s3Url);
 
         try (PDDocument embedDocument = Loader.loadPDF(s3Data)) {
           merger.appendDocument(originalDocument, embedDocument);
         }
       }
+
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       originalDocument.save(output);
 
@@ -105,4 +90,23 @@ public class EmbedManager {
       }
     }
   }
+  
+  private byte[] downloadFileFromUrl(String s3Url) throws IOException {
+        URL url = URI.create(s3Url).toURL();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        try (InputStream inputStream = connection.getInputStream();
+             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+            }
+
+            return byteArrayOutputStream.toByteArray();
+        }
+    }
 }
