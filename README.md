@@ -55,7 +55,7 @@ node scripts/render-demo.js --certificatePath path_to_certificate --schemaType t
 
 **Example:**
 ```shell
-node scripts/render-demo.js --certificatePath ../fixtures/EN10168/v0.4.1/valid_certificate_2.json --schemaType EN10168 --schemaVersion v4.0.1
+node scripts/render-demo.js --certificatePath ../test/fixtures/EN10168/v0.4.1/valid_certificate_2.json --schemaType EN10168 --schemaVersion v4.0.1
 ```
 
 ## OpenAPI / Swagger
@@ -73,4 +73,4 @@ the script `copy-resources.sh` will be run automatically and will copy across th
 
 The file `schema.json` is obligatory, and for PDF validation valid `stylesheet.xsl` and `translations.json` files.
 
-Rendering text fixtures should be added using the same file structure in the `fixtures` folder. Any `valid_certificate_*.json` files will be rendered and the result checked against the corrosponding `valid_certificate_*.pdf` file.
+Rendering text fixtures should be added using the same file structure in the `fixtures` folder. Any `valid_certificate_*.json` files will be rendered and the result checked against the corresponding `valid_certificate_*.pdf` file.
