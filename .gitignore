@@ -2,6 +2,7 @@ env
 node_modules
 output.pdf
 target
-.DS_Store
+**/.DS_Store
 src/main/resources/schemas/*
 src/test/resources/schemas/*
+**/target_test-classes/*
