@@ -325,9 +325,7 @@
       "required": ["features"]
     },
     "Species": {
-      "type": "array",
-      "items": {
-        "type": "object",
+      "type": "object",
         "properties": {
           "CommonName": {
             "type": "string"
@@ -404,8 +402,7 @@
           "minItems": 1
         }
       }
-    }
-  },
+    },
   "title": "Digital Material Passport for Forestry Sources",
   "description": "",
   "type": "object",
