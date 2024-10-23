@@ -168,7 +168,7 @@
                           </xsl:when>
                           <xsl:when test="local-name() = 'properties'">
                             <fo:table-cell>
-                              <fo:table>
+                              <fo:table table-layout="fixed" width="100%">
                                 <fo:table-column column-width="55%"/>
                                 <fo:table-column column-width="45%"/>
                                 <fo:table-body>
