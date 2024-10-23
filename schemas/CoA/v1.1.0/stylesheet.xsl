@@ -26,6 +26,7 @@
           <!-- Global variables -->
           <xsl:variable name="cellPaddingBottom" select="'6pt'" />
           <xsl:variable name="partyPaddingBottom" select="'4pt'" />
+          <xsl:variable name="logoPaddingBottom" select="'10pt'" />
           <xsl:variable name="fontSizeSmall" select="'6pt'" />
 
           <xsl:variable name="i18n" select="Root/Translations" />
@@ -48,7 +49,7 @@
                   <fo:table-column column-width="33%" />
                   <fo:table-body>
                     <fo:table-row>
-                      <fo:table-cell number-columns-spanned="2">
+                      <fo:table-cell number-columns-spanned="2" padding-bottom="{$logoPaddingBottom}">
                         <fo:block>
                           <fo:external-graphic fox:alt-text="Company Logo" src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
                         </fo:block>
@@ -309,7 +310,7 @@
                 <xsl:if test="$Product/Name">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/Certificate/Name" />
+                      <xsl:with-param name="key" select="$i18n/Certificate/ProductName" />
                       <xsl:with-param name="value" select="$Product/Name" />
                       <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                     </xsl:call-template>
@@ -536,11 +537,14 @@
 
             <!-- Disclaimer -->
             <xsl:if test="exists($Disclaimer)">
-              <fo:block border-top="solid 1pt black" margin-top="16pt" padding-top="6pt" font-size="{$fontSizeSmall}">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/Certificate/Disclaimer" />
+              </xsl:call-template>
+              <fo:block font-size="{$fontSizeSmall}">
                 <xsl:value-of select="Root/Certificate/Disclaimer" />
               </fo:block>
             </xsl:if>
-            
+
             <!-- Contact persons -->
             <xsl:if test="exists($Contacts)">
               <xsl:call-template name="SectionTitle">
