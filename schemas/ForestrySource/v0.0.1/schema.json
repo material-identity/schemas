@@ -384,51 +384,51 @@
         }
       },
       "required": ["CommonName", "ScientificName", "Quantity", "QuantityUnit"]
-    }
-  },
-  "Product": {
-    "title": "Product",
-    "description": "A product made from the harvested wood.",
-    "type": "object",
-    "properties": {
-      "ProductType": {
-        "type": "string",
-        "description": "The type of product"
-      },
-      "DescriptionOfProduct": {
-        "type": "string",
-        "description": "A detailed description of the product"
-      },
-      "HTSCode": {
-        "type": "string",
-        "description": "The Harmonized Tariff Schedule code for the product",
-        "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
-      },
-      "ProductionPeriod": {
-        "description": "The period when the product was produced",
-        "type": "object",
-        "properties": {
-          "StartDate": {
-            "description": "The date when production began",
-            "type": "string",
-            "format": "date"
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A product made from the harvested wood.",
+      "type": "object",
+      "properties": {
+        "ProductType": {
+          "type": "string",
+          "description": "The type of product"
+        },
+        "DescriptionOfProduct": {
+          "type": "string",
+          "description": "A detailed description of the product"
+        },
+        "HTSCode": {
+          "type": "string",
+          "description": "The Harmonized Tariff Schedule code for the product",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+        },
+        "ProductionPeriod": {
+          "description": "The period when the product was produced",
+          "type": "object",
+          "properties": {
+            "StartDate": {
+              "description": "The date when production began",
+              "type": "string",
+              "format": "date"
+            },
+            "EndDate": {
+              "description": "The date when production ended",
+              "type": "string",
+              "format": "date"
+            }
           },
-          "EndDate": {
-            "description": "The date when production ended",
-            "type": "string",
-            "format": "date"
-          }
+          "required": ["StartDate", "EndDate"]
         },
-        "required": ["StartDate", "EndDate"]
-      },
-      "ListOfSpecies": {
-        "description": "The species used in the product",
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/Species"
-        },
-        "uniqueItems": true,
-        "minItems": 1
+        "ListOfSpecies": {
+          "description": "The species used in the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Species"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
       }
     }
   },
