@@ -1,6 +1,6 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
-  "$schema": "https://json-schema.org/draft/2020-12",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
   "$id": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
   "definitions": {
     "Languages": {
@@ -52,14 +52,14 @@
           "description": "The MIME/Type of the data file.",
           "type": "string",
           "examples": ["application/json", "application/pdf", "image/png"]
-        },  
+        },
         "URL": {
           "description": "The URL of the document.",
           "type": "string"
         },
-        "required": ["Hash", "MIME-Type", "URL"],
         "additionalProperties": false
-      }
+      },
+      "required": ["Hash", "MIME-Type", "URL"]
     },
     "Company": {
       "type": "object",
@@ -116,14 +116,7 @@
           "examples": ["123-456-7890"]
         }
       },
-      "required": [
-        "Name",
-        "Street",
-        "ZipCode",
-        "City",
-        "Country",
-        "Identifiers"
-      ],
+      "required": ["Name", "Street", "ZipCode", "City", "Country", "Identifiers"],
       "additionalProperties": true
     },
     "CompanyIdentifiers": {
@@ -182,50 +175,56 @@
       "additionalProperties": false
     },
     "GeneralInformation": {
-      "UserDefinedId": {
-        "description": "An optional user defined identifier.",
-        "type": "string"
-      },
-      "Country": {
-        "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
-        "type": "string",
-        "minLength": 2,
-        "maxLength": 2,
-        "pattern": "^[A-Z]{2}$",
-        "examples": ["AT", "DE", "FR", "ES", "US", "CN"]
-      },
-      "State": {
-        "description": "The state or province of the company.",
-        "type": "string"
-      },
-      "District": {
-        "description": "The district of the harvesting unit.",
-        "type": "string"
-      },
-      "CertificationClaim": {
-        "description": "The certification claim of the company.",
-        "type": "string"
-      },
-      "CertificationPercentage": {
-        "description": "The certification percentage of the company.",
-        "type": "number",
-        "minimum": 0,
-        "maximum": 100
-      },
-      "HarvestAuthorizationNameOrNumber": {
-        "description": "The name or number of the harvest authorization.",
-        "type": "string"
-      },
-      "HarvestingPeriod": {
-        "StartDate": {
-          "description": "The start date of the harvesting period.",
-          "type": "string",
-          "format": "date"
+      "type": "object",
+      "properties": {
+        "UserDefinedId": {
+          "description": "An optional user defined identifier.",
+          "type": "string"
         },
-        "EndDate": {
-          "description": "The start date of the harvesting period.",
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
           "type": "string",
-          "format": "date"
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "US", "CN"]
+        },
+        "State": {
+          "description": "The state or province of the company.",
+          "type": "string"
+        },
+        "District": {
+          "description": "The district of the harvesting unit.",
+          "type": "string"
+        },
+        "CertificationClaim": {
+          "description": "The certification claim of the company.",
+          "type": "string"
+        },
+        "CertificationPercentage": {
+          "description": "The certification percentage of the company.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "HarvestAuthorizationNameOrNumber": {
+          "description": "The name or number of the harvest authorization.",
+          "type": "string"
+        },
+        "HarvestingPeriod": {
+          "type": "object",
+          "properties": {
+            "StartDate": {
+              "description": "The start date of the harvesting period.",
+              "type": "string",
+              "format": "date"
+            },
+            "EndDate": {
+              "description": "The start date of the harvesting period.",
+              "type": "string",
+              "format": "date"
+            }
+          }
         }
       }
     },
@@ -256,7 +255,9 @@
           "type": "string",
           "enum": ["Point"]
         },
-        "$ref": "#/definitions/Coordinates"
+        "Coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        }
       }
     },
     "Polygon": {
@@ -269,66 +270,59 @@
         "items": {
           "$ref": "#/definitions/Coordinates"
         },
-        "required": ["type", "coordinates"],
         "additionalProperties": false
-      }
+      },
+      "required": ["type"]
     },
     "Location": {
       "type": "object",
+      "description": "A harvesting location, either a point or a polygon.",
       "properties": {
-        "description": "A harvesting location, either a point or a polygon.",
-        "type": "object",
-        "properties": {
-          "ProducerName": {
-            "description": "Optional producer name for the corresponding geometry type, defined by EU geoJSON format definition.",
-            "type": "string"
-          },
-          "ProducerCountry": {
-            "description": "Optional country of the producer, defined by EU geoJSON format definition.",
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
-          },
-          "ProductionPlace": {
-            "description": "Optional production place of the producer, defined by EU geoJSON format definition.",
-            "type": "string"
-          },
-          "Area": {
-            "description": "Optional area of the producer for geometry element 'Point', defined by EU geoJSON format definition. EU defaults to 4.0 for 'Point' if not provided.",
-            "type": "number",
-            "minimum": 0
-          },
-          "Name": {
-            "description": "A name freely definable.",
-            "type": "string"
-          },
-          "type": {
-            "description": "The type of the location.",
-            "type": "string",
-            "enum": ["FeatureCollection"]
-          },
-          "features": {
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": ["Feature"]
-              },
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/Point"
-                },
-                {
-                  "$ref": "#/definitions/Polygon"
-                }
-              ]
-            },
-            "required": ["type"],
-            "additionalProperties": false
-          }
+        "ProducerName": {
+          "description": "Optional producer name for the corresponding geometry type, defined by EU geoJSON format definition.",
+          "type": "string"
         },
-        "required": ["type", "features"],
+        "ProducerCountry": {
+          "description": "Optional country of the producer, defined by EU geoJSON format definition.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "ProductionPlace": {
+          "description": "Optional production place of the producer, defined by EU geoJSON format definition.",
+          "type": "string"
+        },
+        "Area": {
+          "description": "Optional area of the producer for geometry element 'Point', defined by EU geoJSON format definition. EU defaults to 4.0 for 'Point' if not provided.",
+          "type": "number",
+          "minimum": 0
+        },
+        "Name": {
+          "description": "A name freely definable.",
+          "type": "string"
+        },
+        "features": {
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Point"
+            },
+            {
+              "$ref": "#/definitions/Polygon"
+            }
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["Feature"]
+            }
+          },
+          "required": ["type"],
+          "additionalProperties": false
+        },
         "additionalProperties": false
-      }
+      },
+      "required": ["features"]
     },
     "Species": {
       "type": "array",
@@ -352,16 +346,16 @@
             },
             "required": ["Genus", "Species"],
             "additionalProperties": false
+          },
+          "Quantity": {
+            "type": "number",
+            "description": "The quantity of the species in the product"
+          },
+          "QuantityUnit": {
+            "type": "string",
+            "description": "The unit of the quantity",
+            "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
           }
-        },
-        "Quantity": {
-          "type": "number",
-          "description": "The quantity of the species in the product"
-        },
-        "QuantityUnit": {
-          "type": "string",
-          "description": "The unit of the quantity",
-          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
         }
       }
     },
@@ -477,21 +471,24 @@
           "type": "string"
         },
         "Documents": {
-          "ForestConcession": {
-            "description": "The forest concession document.",
-            "$ref": "#/definitions/DocumentReference"
-          },
-          "HarvestAuthorization": {
-            "description": "The harvest authorization document.",
-            "$ref": "#/definitions/DocumentReference"
-          },
-          "Certificate": {
-            "description": "The certificate document.",
-            "$ref": "#/definitions/DocumentReference"
-          },
-          "HarvestUnitMap": {
-            "description": "The map of the harvest unit.",
-            "$ref": "#/definitions/DocumentReference"
+          "type": "object",
+          "properties": {
+            "ForestConcession": {
+              "description": "The forest concession document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "HarvestAuthorization": {
+              "description": "The harvest authorization document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "Certificate": {
+              "description": "The certificate document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "HarvestUnitMap": {
+              "description": "The map of the harvest unit.",
+              "$ref": "#/definitions/DocumentReference"
+            }
           },
           "required": ["HarvestAuthorization"]
         }
