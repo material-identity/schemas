@@ -95,6 +95,9 @@ describe('Validate valid certificates against schema files', function() {
         const validator = await createAjvInstance().compileAsync(localSchema);
         //
         const isValid = await validator(certificate);
+        if (!isValid) {
+          console.error(`${dir} - ${certificateName} errors:`, validator.errors);
+        }
         expect(isValid).toBe(true);
         expect(validator.errors).toBeNull();
       });
