@@ -6,6 +6,25 @@ const fs = require('fs');
 const { resolve, join } = require('path');
 const { loadExternalFile } = require('./helpers');
 
+// add new certs and versions here
+const fixtureVersions = {
+  CoA: ['v1.1.0'],
+  EN10168: ['v0.4.1'],
+  Forestry: ['v0.0.1'],
+  ForestrySource: ['v0.0.1'],
+  TKR: ['v0.0.4'],
+}
+
+function getCertPaths() {
+  const validCerts = [];
+  Object.keys(fixtureVersions).forEach((cert) => {
+    fixtureVersions[cert].forEach((version) => {
+      validCerts.push(`${cert}/${version}`);
+    });
+  });
+  return validCerts;
+}
+
 const createAjvInstance = () => {
   const ajv = new Ajv2019({
     loadSchema: (uri) => loadExternalFile(uri, 'json'),
@@ -43,7 +62,9 @@ function getAllSchemaPaths(dir) {
   return schemaPaths;
 }
 
-describe('Validate', function() {
+
+describe('Validate schemas', function() {
+  // get the schema name and versions
   const paths = getAllSchemaPaths(resolve(__dirname, '../schemas'));
 
   paths.forEach((schemaPath) => {
@@ -52,6 +73,31 @@ describe('Validate', function() {
 
       const validateSchema = await createAjvInstance().compileAsync(localSchema);
       expect(() => validateSchema()).not.toThrow();
+    });
+  });
+});
+
+describe('Validate valid certificates against schema files', function() {
+  // e.g. ["CoA/v1.1.0", "EN10168/v0.4.1", "Forestry/v0.0.1", "ForestrySource/v0.0.1", "TKR/v0.0.4"]
+  const certAndVersionPaths = getCertPaths();
+
+  certAndVersionPaths.forEach((dir) => {
+    const fullDirPath = resolve(__dirname, `../test/fixtures/${dir}/`);
+    const regex = /valid_.+\.json/
+    const validCerts = fs.readdirSync(fullDirPath).filter((file) => regex.test(file));
+    const schemaPath = resolve(__dirname, '../schemas', dir, 'schema.json');
+    const localSchema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
+
+    validCerts.forEach((certificateName) => {
+      it(`${dir} - ${certificateName} should be a valid certificate`, async () => {
+        const certificatePath = resolve(__dirname, `./fixtures/`, dir, certificateName);
+        const certificate = JSON.parse(fs.readFileSync(certificatePath, 'utf8'));
+        const validator = await createAjvInstance().compileAsync(localSchema);
+        //
+        const isValid = await validator(certificate);
+        expect(isValid).toBe(true);
+        expect(validator.errors).toBeNull();
+      });
     });
   });
 });
