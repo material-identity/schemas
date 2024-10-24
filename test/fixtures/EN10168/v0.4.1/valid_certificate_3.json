@@ -105,10 +105,17 @@
         "Unit": "kg"
       },
       "SupplementaryInformation": {
+        "B14": {
+          "Key": "More Possible Properties",
+          "Value": "169.999",
+          "Unit": "Unit",
+          "Type": "number"
+        },
         "B99": {
-          "Key": "B99",
-          "Value": "1607219/0001_20181023_1529",
-          "Type": "string"
+          "Key": "CO₂-Äquivalent / CO₂ equivalent",
+          "Value": "0.999",
+          "Unit": "tons CO2e/tons",
+          "Type": "number"
         }
       }
     },
