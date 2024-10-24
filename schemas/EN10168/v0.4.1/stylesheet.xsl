@@ -266,10 +266,13 @@
                 <fo:table-body>
                   <xsl:for-each select="$ProductDescription/SupplementaryInformation/*">
                     <fo:table-row>
+                      <xsl:variable name="concatenatedValue">
+                        <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
+                      </xsl:variable>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                        <xsl:with-param name="key" select="$i18n/Certificate/*[local-name() = local-name(current())]" />
-                        <xsl:with-param name="value" select="./Value" />
+                        <xsl:with-param name="key" select="Key" />
+                        <xsl:with-param name="value" select="$concatenatedValue" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
