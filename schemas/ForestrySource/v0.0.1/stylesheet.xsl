@@ -84,42 +84,84 @@
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
-                <xsl:for-each select="$GeneralInformation/*">
-                  <xsl:choose>
-                    <xsl:when test="local-name() = 'HarvestingPeriod'">
-                      <fo:table-row>
-                        <fo:table-cell>
-                          <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
-                            <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestingPeriod" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/StartDate" />
-                          <xsl:with-param name="value" select="StartDate" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/EndDate" />
-                          <xsl:with-param name="value" select="EndDate" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
-                          <xsl:with-param name="value" select="." />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:for-each>
+                <xsl:if test="exists($GeneralInformation/Country)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Country" />
+                      <xsl:with-param name="value" select="$GeneralInformation/Country" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/State)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/State" />
+                      <xsl:with-param name="value" select="$GeneralInformation/State" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/District)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/District" />
+                      <xsl:with-param name="value" select="$GeneralInformation/District" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/CertificationClaim)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/CertificationClaim" />
+                      <xsl:with-param name="value" select="$GeneralInformation/CertificationClaim" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/CertificationPercentage)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/CertificationPercentage" />
+                      <xsl:with-param name="value" select="$GeneralInformation/CertificationPercentage" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/HarvestAuthorizationNameOrNumber)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/HarvestAuthorizationNameOrNumber" />
+                      <xsl:with-param name="value" select="$GeneralInformation/HarvestAuthorizationNameOrNumber" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <!-- Harvesting Period -->
+                <xsl:if test="exists($GeneralInformation/HarvestAuthorizationNameOrNumber)">
+                  <fo:table-row>
+                    <fo:table-cell>
+                      <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestingPeriod" />
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/StartDate" />
+                      <xsl:with-param name="value" select="$GeneralInformation/HarvestingPeriod/StartDate" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/EndDate" />
+                      <xsl:with-param name="value" select="$GeneralInformation/HarvestingPeriod/EndDate" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
 
@@ -157,62 +199,52 @@
                       </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
-                      <xsl:for-each select="*">
-                        <xsl:choose>
-                          <xsl:when test="local-name() = 'type'">
-                            <fo:table-cell >
-                              <fo:block >
-                                <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = current()]" />
-                              </fo:block>
-                            </fo:table-cell>
-                          </xsl:when>
-                          <xsl:when test="local-name() = 'properties'">
-                            <fo:table-cell>
-                              <fo:table table-layout="fixed" width="100%">
-                                <fo:table-column column-width="55%"/>
-                                <fo:table-column column-width="45%"/>
-                                <fo:table-body>
-                                  <xsl:for-each select="*">
-                                    <fo:table-row>
-                                      <xsl:call-template name="KeyValue">
-                                        <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
-                                        <xsl:with-param name="value" select="." />
-                                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                      </xsl:call-template>
-                                    </fo:table-row>
-                                  </xsl:for-each>
-                                </fo:table-body>
-                              </fo:table>
-                            </fo:table-cell>
-                          </xsl:when>
-                          <xsl:when test="local-name() = 'geometry'">
-                            <fo:table-cell>
-                              <fo:block>
-                                <fo:table>
-                                  <fo:table-column column-width="50%"/>
-                                  <fo:table-column column-width="50%"/>
-                                  <fo:table-body>
-                                    <fo:table-row>
-                                      <xsl:call-template name="KeyValue">
-                                        <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Type" />
-                                        <xsl:with-param name="value" select="current()/type" />
-                                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                      </xsl:call-template>
-                                    </fo:table-row>
-                                  </fo:table-body>
-                                </fo:table>
-                              </fo:block>
-                              <xsl:call-template name="GenerateCoordinatesTable">
-                                <xsl:with-param name="headerCount" select="2" />
-                                <xsl:with-param name="Section" select="current()/coordinates" />
-                                <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                                <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                                <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                              </xsl:call-template>
-                            </fo:table-cell>
-                          </xsl:when>
-                        </xsl:choose>
-                      </xsl:for-each>
+                      <fo:table-cell >
+                        <fo:block >
+                          <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = current()/type]" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:table table-layout="fixed" width="100%">
+                          <fo:table-column column-width="55%"/>
+                          <fo:table-column column-width="45%"/>
+                          <fo:table-body>
+                            <xsl:for-each select="properties/*">
+                              <fo:table-row>
+                                <xsl:call-template name="KeyValue">
+                                  <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
+                                  <xsl:with-param name="value" select="." />
+                                  <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                                </xsl:call-template>
+                              </fo:table-row>
+                            </xsl:for-each>
+                          </fo:table-body>
+                        </fo:table>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <fo:table>
+                            <fo:table-column column-width="50%"/>
+                            <fo:table-column column-width="50%"/>
+                            <fo:table-body>
+                              <fo:table-row>
+                                <xsl:call-template name="KeyValue">
+                                  <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Type" />
+                                  <xsl:with-param name="value" select="geometry/type" />
+                                  <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                                </xsl:call-template>
+                              </fo:table-row>
+                            </fo:table-body>
+                          </fo:table>
+                        </fo:block>
+                        <xsl:call-template name="GenerateCoordinatesTable">
+                          <xsl:with-param name="headerCount" select="2" />
+                          <xsl:with-param name="Section" select="geometry/coordinates" />
+                          <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
+                          <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-cell>
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
