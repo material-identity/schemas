@@ -6,3 +6,4 @@ target
 src/main/resources/schemas/*
 src/test/resources/schemas/*
 **/target_test-classes/*
+.DS_Store
