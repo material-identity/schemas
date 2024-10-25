@@ -111,6 +111,24 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <xsl:if test="exists($GeneralInformation/ForestConcessionNameOrNumber)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/ForestConcessionNameOrNumber" />
+                      <xsl:with-param name="value" select="$GeneralInformation/ForestConcessionNameOrNumber" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="exists($GeneralInformation/CertificationNumber)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/CertificationNumber" />
+                      <xsl:with-param name="value" select="$GeneralInformation/CertificationNumber" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
                 <xsl:if test="exists($GeneralInformation/CertificationClaim)">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
