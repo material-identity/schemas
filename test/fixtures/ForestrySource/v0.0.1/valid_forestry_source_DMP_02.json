@@ -8,6 +8,8 @@
       "Country": "CA",
       "State": "British Columbia",
       "District": "Coastal",
+      "ForestConcessionNameOrNumber": "FC TA2115",
+      "CertificationNumber": "FSC-C123456",
       "CertificationClaim": "SFI 100% from a Certified Forest",
       "CertificationPercentage": 100,
       "HarvestAuthorizationNameOrNumber": "TSL TA2115",
