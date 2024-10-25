@@ -6,6 +6,8 @@
     "GeneralInformation": {
       "Country": "CA",
       "State": "British Columbia",
+      "ForestConcessionNameOrNumber": "FC TA2115",
+      "CertificationNumber": "FSC-C123456",
       "HarvestAuthorizationNameOrNumber": "TSL TA2115",
       "HarvestingPeriod": {
         "StartDate": "2024-09-01",

@@ -204,6 +204,14 @@
           "description": "The district of the harvesting unit.",
           "type": "string"
         },
+        "ForestConcessionNameOrNumber": {
+          "description": "The name or number of the forest concession.",
+          "type": "string"
+        },
+        "CertificationNumber": {
+          "description": "The certification number of the company.",
+          "type": "string"
+        },
         "CertificationClaim": {
           "description": "The certification claim of the company.",
           "type": "string"
@@ -233,7 +241,13 @@
             }
           }
         }
-      }
+      },
+      "required": [
+        "Country",
+        "State",
+        "ForestConcessionNameOrNumber",
+        "HarvestAuthorizationNameOrNumber"
+      ]
     },
     "Coordinates": {
       "type": "array",
@@ -262,7 +276,7 @@
         "items": {
           "$ref": "#/definitions/Coordinates"
         },
-        "minItems": 4
+        "minItems": 3
       },
       "minItems": 1
     },
@@ -525,7 +539,6 @@
         "GeneralInformation",
         "HarvestUnits",
         "Supplier",
-        "Producer",
         "Creator",
         "Products",
         "DueDiligenceStatement",
