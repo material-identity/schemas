@@ -240,14 +240,14 @@
               "format": "date"
             }
           }
-        },
-        "required": [
-          "Country",
-          "State",
-          "ForestConcessionNameOrNumber",
-          "HarvestAuthorizationNameOrNumber"
-        ]
-      }
+        }
+      },
+      "required": [
+        "Country",
+        "State",
+        "ForestConcessionNameOrNumber",
+        "HarvestAuthorizationNameOrNumber"
+      ]
     },
     "Coordinates": {
       "type": "array",
