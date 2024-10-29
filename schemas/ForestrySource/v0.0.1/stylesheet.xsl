@@ -61,10 +61,12 @@
                     <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Supplier" />
                     <xsl:with-param name="party" select="$Supplier" />
                   </xsl:call-template>
-                  <xsl:call-template name="PartyInfo">
-                    <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Producer" />
-                    <xsl:with-param name="party" select="$Producer" />
-                  </xsl:call-template>
+                  <xsl:if test="exists($Producer)">
+                    <xsl:call-template name="PartyInfo">
+                      <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Producer" />
+                      <xsl:with-param name="party" select="$Producer" />
+                    </xsl:call-template>
+                  </xsl:if>
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
