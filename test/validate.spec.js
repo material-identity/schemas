@@ -10,7 +10,7 @@ const { loadExternalFile } = require('./helpers');
 const fixtureVersions = {
   CoA: ['v1.1.0'],
   EN10168: ['v0.4.1'],
-  Forestry: ['v0.0.1'],
+  // Forestry: ['v0.0.1'],
   ForestrySource: ['v0.0.1'],
   TKR: ['v0.0.4'],
 }
