@@ -111,7 +111,7 @@
       "Country": "CA",
       "Identifiers": {
         "VAT": "123456789BC",
-        "CBN": "987654321"
+        "CBN": "123456789RT0001"
       },
       "Email": "StraitofGeorgiaTimberSalesOffice@gov.bc.ca",
       "PhoneNumber": "250-286-9300"
@@ -124,7 +124,7 @@
       "State": "British Columbia",
       "Country": "CA",
       "Identifiers": {
-        "CBN": "123456789",
+        "CBN": "123456700RT0001",
         "DUNS": "987654321"
       },
       "Email": "info@zimmermann-forestry.com",
@@ -138,7 +138,7 @@
       "State": "British Columbia",
       "Country": "CA",
       "Identifiers": {
-        "CBN": "246813579",
+        "CBN": "123456789RT0001",
         "DUNS": "135792468"
       },
       "Email": "info@forestmanagement.com",
