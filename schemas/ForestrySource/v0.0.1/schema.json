@@ -168,8 +168,9 @@
         "CBN": {
           "description": "The Commercial Business Number (CBN) is a unique identifier assigned to Canadian companies.",
           "type": "string",
-          "minLength": 9,
-          "maxLength": 9
+          "minLength": 15,
+          "maxLength": 15,
+          "pattern": "^[0-9]{9}[A-Z]{2}[0-9]{4}$"
         },
         "SystemId": {
           "description": "The unique identifier assigned by the system creating a DMP for the case that a company is not registered in any of the above systems.",
