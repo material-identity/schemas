@@ -197,6 +197,9 @@
       "minProperties": 1,
       "additionalProperties": false
     },
+    "Incoterms": {
+      "title": "Incoterms",
+      "description": "Schema for Incoterms 2020",
       "type": "object",
       "properties": {
         "incoterm": {
