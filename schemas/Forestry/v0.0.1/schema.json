@@ -296,8 +296,8 @@
       }
     }
   },
-  "title": "Digital Material Passport - Forestry and Wood Industry",
-  "description": "Digital Material Passport, short DMP, for the forestry and wood industry.",
+  "title": "Digital Material Passport for Forestry and Wood Products",
+  "description": "",
   "type": "object",
   "properties": {
     "RefSchemaUrl": {
