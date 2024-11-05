@@ -210,8 +210,9 @@
         "CBN": {
           "description": "The Commercial Business Number (CBN) is a unique identifier assigned to Canadian companies.",
           "type": "string",
-          "minLength": 9,
-          "maxLength": 9
+          "minLength": 15,
+          "maxLength": 15,
+          "pattern": "^[0-9]{9}[A-Z]{2}[0-9]{4}$"
         },
         "SystemId": {
           "description": "The unique identifier assigned by the system creating a DMP for the case that a company is not registered in any of the above systems.",
@@ -325,101 +326,40 @@
           ]
         }
       },
-      "required": ["type", "coordinates"],
-      "additionalProperties": false
-    },
-    "Plot": {
-      "description": "A harvesting plot, either a point or a polygon.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": ["FeatureCollection"]
-        },
-        "features": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": ["Feature"]
-              },
-              "properties": {
-                "type": "object",
-                "properties": {
-                  "Name": {
-                    "type": "string",
-                    "description": "A name freely definable."
-                  },
-                  "ProducerName": {
-                    "type": "string",
-                    "description": "Optional producer name for the corresponding geometry type, defined by EU geoJSON format definition."
-                  },
-                  "ProducerCountry": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 2,
-                    "description": "Optional country of the producer, defined by EU geoJSON format definition."
-                  },
-                  "ProductionPlace": {
-                    "type": "string",
-                    "description": "Optional production place of the producer, defined by EU geoJSON format definition."
-                  },
-                  "Area": {
-                    "type": "number",
-                    "minimum": 0,
-                    "default": 4.0,
-                    "description": "Optional area of the producer for geometry element 'Point', defined by EU geoJSON format definition. EU defaults to 4.0 for 'Point' if not provided."
-                  }
-                }
-              },
-              "geometry": {
-                "oneOf": [
-                  { "$ref": "#/definitions/Point" },
-                  { "$ref": "#/definitions/Polygon" }
-                ]
-              }
-            },
-            "required": ["type", "properties", "geometry"]
-          }
-        }
-      }
+      "required": ["incoterm"]
     },
     "Species": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "CommonName": {
-            "type": "string"
-          },
-          "ScientificName": {
-            "type": "object",
-            "properties": {
-              "Genus": {
-                "description": "The genus of the species.",
-                "type": "string"
-              },
-              "Species": {
-                "description": "The species of the genus.",
-                "type": "string"
-              }
+      "type": "object",
+      "properties": {
+        "CommonName": {
+          "type": "string"
+        },
+        "ScientificName": {
+          "type": "object",
+          "properties": {
+            "Genus": {
+              "description": "The genus of the species.",
+              "type": "string"
             },
-            "required": ["Genus", "Species"],
-            "additionalProperties": false
+            "Species": {
+              "description": "The species of the genus.",
+              "type": "string"
+            }
           },
-          "Quantity": {
-            "type": "number",
-            "description": "The quantity of the species in the product"
-          },
-          "QuantityUnit": {
-            "type": "string",
-            "description": "The unit of the quantity",
-            "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
-          }
+          "required": ["Genus", "Species"],
+          "additionalProperties": false
+        },
+        "Quantity": {
+          "type": "number",
+          "description": "The quantity of the species in the product"
+        },
+        "QuantityUnit": {
+          "type": "string",
+          "description": "The unit of the quantity",
+          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
         }
-      }
+      },
+      "required": ["CommonName", "ScientificName", "Quantity", "QuantityUnit"]
     },
     "Product": {
       "title": "Product",
