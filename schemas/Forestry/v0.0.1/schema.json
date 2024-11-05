@@ -308,6 +308,21 @@
               "$ref": "#/definitions/Coordinates"
             }
           }
+        "incoterm": {
+          "type": "object",
+          "enum": [
+            { "code": "EXW", "description": "Ex Works" },
+            { "code": "FCA", "description": "Free Carrier" },
+            { "code": "CPT", "description": "Carriage Paid To" },
+            { "code": "CIP", "description": "Carriage and Insurance Paid To" },
+            { "code": "DAP", "description": "Delivered at Place" },
+            { "code": "DPU", "description": "Delivered at Place Unloaded" },
+            { "code": "DDP", "description": "Delivered Duty Paid" },
+            { "code": "FAS", "description": "Free Alongside Ship" },
+            { "code": "FOB", "description": "Free on Board" },
+            { "code": "CFR", "description": "Cost and Freight" },
+            { "code": "CIF", "description": "Cost, Insurance and Freight" }
+          ]
         }
       },
       "required": ["type", "coordinates"],
