@@ -111,10 +111,10 @@
       "Country": "CA",
       "Identifiers": {
         "VAT": "123456789BC",
-        "CBN": "987654321"
+        "CBN": "123456789RT0001"
       },
       "Email": "StraitofGeorgiaTimberSalesOffice@gov.bc.ca",
-      "PhoneNumber": "250-286-9300"
+      "PhoneNumber": "+12502869300"
     },
     "Creator": {
       "Name": "Forest Management Services Inc.",
@@ -124,7 +124,7 @@
       "State": "British Columbia",
       "Country": "CA",
       "Identifiers": {
-        "CBN": "246813579",
+        "CBN": "123456700RT0001",
         "DUNS": "135792468"
       },
       "Email": "info@forestmanagement.com",
