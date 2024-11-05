@@ -43,62 +43,20 @@
       },
       "required": ["Algorithm", "Encoding", "Value"]
     },
-    "Attachment": {
-      "title": "Attachment",
       "description": "Additional data in any kind of format attached to JSON document.",
       "type": "object",
       "properties": {
         "Hash": {
           "$ref": "#/definitions/Hash"
         },
-        "FileName": {
-          "description": "The name of the file.",
-          "type": "string",
-          "examples": ["file.pdf"]
-        },
         "MIME-Type": {
           "description": "The MIME/Type of the data file.",
           "type": "string",
           "examples": ["application/json", "application/pdf", "image/png"]
         },
-        "Encoding": {
-          "description": "The format in which the hash value is encoded.",
-          "type": "string",
-          "examples": ["base64", "hex"]
-        },
-        "Data": {
-          "description": "The data encoded as defined in `Encoding`",
           "type": "string"
-        }
-      },
-      "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
-      "additionalProperties": false
-    },
-    "Document": {
-      "type": "object",
-      "properties": {
-        "Type": {
-          "type": "string",
-          "enum": [
-            "HarvestingPermit",
-            "ChainOfCustodyCertificate",
-            "ForestConcession",
-            "DeforestationFreeDeclaration",
-            "DegradationFreeDeclaration",
-            "LegalHarvestCertificate",
-            "ImportPermit",
-            "ExportPermit",
-            "PhytosanitaryCertificate",
-            "TSCACertificate",
-            "CANFERCertificate"
-          ]
         },
-        "Attachment": {
-          "$ref": "#/definitions/Attachment"
-        }
       },
-      "required": ["Type", "Attachment"],
-      "additionalProperties": false
     },
     "Company": {
       "type": "object",
