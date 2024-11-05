@@ -258,7 +258,7 @@
       "properties": {
         "ProductType": {
           "type": "string",
-          "description": "The name of the product"
+          "description": "The type of product"
         },
         "DescriptionOfProduct": {
           "type": "string",
@@ -270,22 +270,24 @@
           "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
         },
         "ProductionPeriod": {
+          "description": "The period when the product was produced",
           "type": "object",
           "properties": {
             "StartDate": {
+              "description": "The date when production began",
               "type": "string",
-              "format": "date",
-              "description": "The date when production began"
+              "format": "date"
             },
             "EndDate": {
+              "description": "The date when production ended",
               "type": "string",
-              "format": "date",
-              "description": "The date when production ended"
+              "format": "date"
             }
           },
           "required": ["StartDate", "EndDate"]
         },
-        "SpeciesList": {
+        "ListOfSpecies": {
+          "description": "The species used in the product",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Species"
