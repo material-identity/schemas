@@ -43,6 +43,8 @@
       },
       "required": ["Algorithm", "Encoding", "Value"]
     },
+    "DocumentReference": {
+      "title": "DocumentReference",
       "description": "Additional data in any kind of format attached to JSON document.",
       "type": "object",
       "properties": {
@@ -54,9 +56,13 @@
           "type": "string",
           "examples": ["application/json", "application/pdf", "image/png"]
         },
+        "URL": {
+          "description": "The URL of the document.",
           "type": "string"
         },
+        "additionalProperties": false
       },
+      "required": ["Hash", "MIME-Type", "URL"]
     },
     "Company": {
       "type": "object",
@@ -476,13 +482,11 @@
           "$ref": "#/definitions/Delivery"
         },
         "Products": {
-          "description": "The products in the DMP.",
+          "description": "The products made from the harvested wood.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Product"
           },
-          "uniqueItems": true,
-          "minItems": 1
           "minItems": 1,
           "uniqueItems": true
         },
@@ -539,9 +543,9 @@
         "UserDefinedId",
         "Date",
         "Products",
-        "DueDiligenceStatement"
         "Supplier",
         "Customer",
+        "DueDiligenceStatement",
         "Documents",
         "DMPReferences"
       ],
