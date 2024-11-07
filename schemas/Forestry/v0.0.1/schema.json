@@ -221,6 +221,28 @@
       },
       "required": ["incoterm"]
     },
+    "GeneralInformation": {
+      "type": "object",
+      "properties": {
+        "UserDefinedId": {
+          "description": "A user defined identifier.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "US", "CN"]
+        },
+        "State": {
+          "description": "The state or province of the company.",
+          "type": "string"
+        }
+      },
+      "required": ["UserDefinedId", "Country"]
+    },
     "Species": {
       "type": "object",
       "properties": {
@@ -301,6 +323,113 @@
       }
     }
   },
+  "Order": {
+    "title": "Order",
+    "description": "The information from the order.",
+    "type": "object",
+    "properties": {
+      "Id": {
+        "description": "The identifier of the order.",
+        "type": "string"
+      },
+      "Position": {
+        "description": "The position on the order.",
+        "type": "string"
+      },
+      "Quantity": {
+        "description": "The ordered quantity.",
+        "type": "number"
+      },
+      "QuantityUnit": {
+        "description": "The unit of the ordered quantity.",
+        "type": "string",
+        "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+      },
+      "CustomerProductId": {
+        "description": "The product identifier of the customer.",
+        "type": "string"
+      },
+      "CustomerProductName": {
+        "description": "The product name of the customer.",
+        "type": "string"
+      },
+      "Incoterms": {
+        "description": "The Incoterms of the order",
+        "$ref": "#/definitions/Incoterms"
+      }
+    },
+    "additionalProperties": false
+  },
+  "Delivery": {
+    "title": "Delivery",
+    "description": "The information from the delivery note.",
+    "type": "object",
+    "properties": {
+      "Id": {
+        "description": "The identifier of the delivery note.",
+        "type": "string"
+      },
+      "Position": {
+        "description": "The position on the delivery note.",
+        "type": "string"
+      },
+      "Date": {
+        "description": "The date of issuing the delivery note.",
+        "type": "string",
+        "format": "date",
+        "examples": ["2018-01-01"]
+      },
+      "SalesOrderId": {
+        "description": "The identifier of the sales order.",
+        "type": "string"
+      },
+      "SalesOrderPosition": {
+        "description": "The position on the sales order.",
+        "type": "string"
+      },
+      "PackingList": {
+        "description": "The packing list of the delivery.",
+        "type": "string"
+      },
+      "BillOfLading": {
+        "description": "The billss of lading of the delivery.",
+        "type": "string"
+      },
+      "Booking": {
+        "description": "The booking number of the delivery.",
+        "type": "string"
+      },
+      "Container": {
+        "description": "The container number of the delivery.",
+        "type": "string"
+      },
+      "Carrier": {
+        "description": "The carrier of the delivery.",
+        "type": "string"
+      },
+      "Packages": {
+        "description": "The package number of the delivery.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Lots": {
+        "description": "The lot numbers of the delivery.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Batches": {
+        "description": "The batches of the delivery.",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
   "title": "Digital Material Passport for Forestry and Wood Products",
   "description": "",
   "type": "object",
@@ -349,6 +478,8 @@
             }
           },
           "required": ["Supplier", "Producer"]
+        "GeneralInformation": {
+          "$ref": "#/definitions/GeneralInformation"
         },
         "ForestPlots": {
           "description": "The locations of the harvesting.",
@@ -358,6 +489,11 @@
           },
           "uniqueItems": true,
           "minItems": 1
+        "Order": {
+          "$ref": "#/definitions/Order"
+        },
+        "Delivery": {
+          "$ref": "#/definitions/Delivery"
         },
         "Products": {
           "description": "The products in the DMP.",
@@ -367,6 +503,20 @@
           },
           "uniqueItems": true,
           "minItems": 1
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Supplier": {
+          "description": "The seller.",
+          "$ref": "#/definitions/Company"
+        },
+        "Producer": {
+          "description": "The party selling or harvesting the goods.",
+          "$ref": "#/definitions/Company"
+        },
+        "Customer": {
+          "description": "The buyer.",
+          "$ref": "#/definitions/Company"
         },
         "DueDiligenceStatement": {
           "title": "DueDiligenceStatement",
