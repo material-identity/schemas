@@ -466,29 +466,9 @@
           "format": "date",
           "examples": ["2018-12-12"]
         },
-        "Parties": {
-          "description": "The parties involved in the DMP.",
-          "type": "object",
-          "properties": {
-            "Supplier": {
-              "$ref": "#/definitions/Company"
-            },
-            "Producer": {
-              "$ref": "#/definitions/Company"
-            }
-          },
-          "required": ["Supplier", "Producer"]
         "GeneralInformation": {
           "$ref": "#/definitions/GeneralInformation"
         },
-        "ForestPlots": {
-          "description": "The locations of the harvesting.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Plot"
-          },
-          "uniqueItems": true,
-          "minItems": 1
         "Order": {
           "$ref": "#/definitions/Order"
         },
@@ -523,15 +503,6 @@
           "description": "A statement on the due diligence of the company.",
           "type": "string"
         },
-        "Contacts": {
-          "description": "Contact persons within the company, their roles and contact information.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Person"
-          },
-          "uniqueItems": true,
-          "minItems": 0
-        },
         "Documents": {
           "description": "The documents attached to the DMP.",
           "type": "object",
@@ -556,8 +527,6 @@
         "Id",
         "UserDefinedId",
         "Date",
-        "Parties",
-        "ForestPlots",
         "Products",
         "DueDiligenceStatement"
       ],
