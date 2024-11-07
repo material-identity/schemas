@@ -327,114 +327,114 @@
           "minItems": 1
         }
       }
+    },
+    "Order": {
+      "title": "Order",
+      "description": "The information from the order.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The identifier of the order.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position on the order.",
+          "type": "string"
+        },
+        "Quantity": {
+          "description": "The ordered quantity.",
+          "type": "number"
+        },
+        "QuantityUnit": {
+          "description": "The unit of the ordered quantity.",
+          "type": "string",
+          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+        },
+        "CustomerProductId": {
+          "description": "The product identifier of the customer.",
+          "type": "string"
+        },
+        "CustomerProductName": {
+          "description": "The product name of the customer.",
+          "type": "string"
+        },
+        "Incoterms": {
+          "description": "The Incoterms of the order",
+          "$ref": "#/definitions/Incoterms"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Delivery": {
+      "title": "Delivery",
+      "description": "The information from the delivery note.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The identifier of the delivery note.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position on the delivery note.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of issuing the delivery note.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2018-01-01"]
+        },
+        "SalesOrderId": {
+          "description": "The identifier of the sales order.",
+          "type": "string"
+        },
+        "SalesOrderPosition": {
+          "description": "The position on the sales order.",
+          "type": "string"
+        },
+        "PackingList": {
+          "description": "The packing list of the delivery.",
+          "type": "string"
+        },
+        "BillOfLading": {
+          "description": "The billss of lading of the delivery.",
+          "type": "string"
+        },
+        "Booking": {
+          "description": "The booking number of the delivery.",
+          "type": "string"
+        },
+        "Container": {
+          "description": "The container number of the delivery.",
+          "type": "string"
+        },
+        "Carrier": {
+          "description": "The carrier of the delivery.",
+          "type": "string"
+        },
+        "Packages": {
+          "description": "The package number of the delivery.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Lots": {
+          "description": "The lot numbers of the delivery.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Batches": {
+          "description": "The batches of the delivery.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     }
-  },
-  "Order": {
-    "title": "Order",
-    "description": "The information from the order.",
-    "type": "object",
-    "properties": {
-      "Id": {
-        "description": "The identifier of the order.",
-        "type": "string"
-      },
-      "Position": {
-        "description": "The position on the order.",
-        "type": "string"
-      },
-      "Quantity": {
-        "description": "The ordered quantity.",
-        "type": "number"
-      },
-      "QuantityUnit": {
-        "description": "The unit of the ordered quantity.",
-        "type": "string",
-        "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
-      },
-      "CustomerProductId": {
-        "description": "The product identifier of the customer.",
-        "type": "string"
-      },
-      "CustomerProductName": {
-        "description": "The product name of the customer.",
-        "type": "string"
-      },
-      "Incoterms": {
-        "description": "The Incoterms of the order",
-        "$ref": "#/definitions/Incoterms"
-      }
-    },
-    "additionalProperties": false
-  },
-  "Delivery": {
-    "title": "Delivery",
-    "description": "The information from the delivery note.",
-    "type": "object",
-    "properties": {
-      "Id": {
-        "description": "The identifier of the delivery note.",
-        "type": "string"
-      },
-      "Position": {
-        "description": "The position on the delivery note.",
-        "type": "string"
-      },
-      "Date": {
-        "description": "The date of issuing the delivery note.",
-        "type": "string",
-        "format": "date",
-        "examples": ["2018-01-01"]
-      },
-      "SalesOrderId": {
-        "description": "The identifier of the sales order.",
-        "type": "string"
-      },
-      "SalesOrderPosition": {
-        "description": "The position on the sales order.",
-        "type": "string"
-      },
-      "PackingList": {
-        "description": "The packing list of the delivery.",
-        "type": "string"
-      },
-      "BillOfLading": {
-        "description": "The billss of lading of the delivery.",
-        "type": "string"
-      },
-      "Booking": {
-        "description": "The booking number of the delivery.",
-        "type": "string"
-      },
-      "Container": {
-        "description": "The container number of the delivery.",
-        "type": "string"
-      },
-      "Carrier": {
-        "description": "The carrier of the delivery.",
-        "type": "string"
-      },
-      "Packages": {
-        "description": "The package number of the delivery.",
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "Lots": {
-        "description": "The lot numbers of the delivery.",
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "Batches": {
-        "description": "The batches of the delivery.",
-        "items": {
-          "type": "string"
-        }
-      }
-    },
-    "additionalProperties": false
   },
   "title": "Digital Material Passport for Forestry and Wood Products",
   "description": "",
