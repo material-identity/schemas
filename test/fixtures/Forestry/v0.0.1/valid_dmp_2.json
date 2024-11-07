@@ -161,7 +161,7 @@
           "Value": "fa9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc48"
         },
         "MIME-Type": "application/pdf",
-        "URL": "https://example.com/certificates/origin.pdf"
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
       },
       "PhytosanitaryCertificate": {
         "Hash": {
@@ -170,7 +170,7 @@
           "Value": "eb9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc49"
         },
         "MIME-Type": "application/pdf",
-        "URL": "https://example.com/certificates/phyto.pdf"
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/phytosanitary_certificate.pdf"
       },
       "CoCCertificate": {
         "Hash": {
@@ -179,7 +179,7 @@
           "Value": "dc9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc50"
         },
         "MIME-Type": "application/pdf",
-        "URL": "https://example.com/certificates/coc.pdf"
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/fm_certificate.pdf"
       },
       "TSCA/CARB/CANFERCertificate": {
         "Hash": {
@@ -188,7 +188,7 @@
           "Value": "cd9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc51"
         },
         "MIME-Type": "application/pdf",
-        "URL": "https://example.com/certificates/tsca.pdf"
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
       }
     },
     "DMPReferences": [
