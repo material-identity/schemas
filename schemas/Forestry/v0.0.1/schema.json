@@ -536,17 +536,17 @@
           "description": "The documents attached to the DMP.",
           "type": "object",
           "properties": {
-            "ForestConcession": {
-              "$ref": "#/definitions/Document"
-            },
-            "HarvestingAuthorization": {
-              "$ref": "#/definitions/Document"
-            },
             "CertificateOfOrigin": {
-              "$ref": "#/definitions/Document"
+              "$ref": "#/definitions/DocumentReference"
             },
-            "HarvestPlotMap": {
-              "$ref": "#/definitions/Document"
+            "PhytosanitaryCertificate": {
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "CoCCertificate": {
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "TSCA/CARB/CANFERCertificate": {
+              "$ref": "#/definitions/DocumentReference"
             }
           }
         }
