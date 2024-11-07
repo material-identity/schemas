@@ -520,6 +520,17 @@
               "$ref": "#/definitions/DocumentReference"
             }
           }
+        },
+        "DMPReferences": {
+          "title": "DMPReferences",
+          "description": "References to other DMPs",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 1,
+          "uniqueItems": true
         }
       },
       "required": [
@@ -529,6 +540,10 @@
         "Date",
         "Products",
         "DueDiligenceStatement"
+        "Supplier",
+        "Customer",
+        "Documents",
+        "DMPReferences"
       ],
       "additionalProperties": false
     }
