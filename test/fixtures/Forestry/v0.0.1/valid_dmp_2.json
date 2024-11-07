@@ -158,7 +158,7 @@
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
-          "Value": "fa9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc48"
+          "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
         },
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
@@ -167,7 +167,7 @@
         "Hash": {
           "Algorithm": "SHA3-256",
           "Encoding": "hex",
-          "Value": "eb9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc49"
+          "Value": "143d5ac94704be851c501590cdf755e853ca9197790961eee40ef56223264d33"
         },
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/phytosanitary_certificate.pdf"
@@ -176,7 +176,7 @@
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
-          "Value": "dc9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc50"
+          "Value": "cdac836bc09234bbba4784a74bb5aca0805bbc9bfc7bd3d2c18b143a8933b839"
         },
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/fm_certificate.pdf"
@@ -185,7 +185,7 @@
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
-          "Value": "cd9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc51"
+          "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
         },
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
