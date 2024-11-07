@@ -2,63 +2,24 @@
   "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
-    "Id": "123e4567-e89b-12d3-a456-426614174000",
-    "UserDefinedId": "DMP-001",
-    "Date": "2024-03-21",
-    "Parties": {
-      "Supplier": {
-        "CompanyName": "Forest Suppliers Inc.",
-        "Street": ["123 Wood Street"],
-        "ZipCode": "12345",
-        "City": "Treetown",
-        "Country": "US",
-        "Identifiers": {
-          "DUNS": "123456789"
-        }
-      },
-      "Producer": {
-        "CompanyName": "Lumber Productions Ltd.",
-        "Street": ["456 Timber Lane"],
-        "ZipCode": "67890",
-        "City": "Logville",
-        "Country": "CA",
-        "Identifiers": {
-          "CBN": "987654321"
-        }
-      }
-    },
-    "ForestPlots": [
-      {
-        "type": "FeatureCollection",
-        "features": [
-          {
-            "type": "Feature",
-            "properties": {
-              "Name": "Plot 1"
-            },
-            "geometry": {
-              "type": "Point",
-              "coordinates": [-123.45, 45.67]
-            }
-          }
-        ]
-      }
-    ],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "UserDefinedId": "DMP-2024-001",
+    "Date": "2024-07-15",
     "Products": [
       {
-        "ProductType": "Pine Logs",
-        "DescriptionOfProduct": "Freshly cut pine logs",
-        "HTSCode": "4403.21.00",
+        "ProductType": "Logs",
+        "DescriptionOfProduct": "Oak Logs",
+        "HTSCode": "4403.11.00",
         "ProductionPeriod": {
-          "StartDate": "2024-03-01",
-          "EndDate": "2024-03-15"
+          "StartDate": "2024-07-01",
+          "EndDate": "2024-07-15"
         },
-        "SpeciesList": [
+        "ListOfSpecies": [
           {
-            "CommonName": "Pine",
+            "CommonName": "English Oak",
             "ScientificName": {
-              "Genus": "Pinus",
-              "Species": "sylvestris"
+              "Genus": "Quercus",
+              "Species": "robur"
             },
             "Quantity": 100,
             "QuantityUnit": "m³"
@@ -66,6 +27,40 @@
         ]
       }
     ],
-    "DueDiligenceStatement": "This DMP complies with all applicable regulations and standards."
+    "Supplier": {
+      "CompanyName": "Green Forest Products Inc.",
+      "Street": ["456 Woodland Road"],
+      "ZipCode": "12345",
+      "City": "Forestville",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "123456789"
+      }
+    },
+    "Customer": {
+      "CompanyName": "Wood Importers GmbH",
+      "Street": ["Holzstrasse 5"],
+      "ZipCode": "10115",
+      "City": "Berlin",
+      "Country": "DE",
+      "Identifiers": {
+        "VAT": "DE987654321"
+      }
+    },
+    "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence was carried out.",
+    "Documents": {
+      "CertificateOfOrigin": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "fa9e2171dbcf4c73e96fefed7be1582cebc3d42859df423afcea0b4439c4cc48"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://example.com/certificates/origin.pdf"
+      }
+    },
+    "DMPReferences": [
+      "550e8400-e29b-41d4-a716-446655440000"
+    ]
   }
 }
