@@ -428,6 +428,7 @@
         },
         "Batches": {
           "description": "The batches of the delivery.",
+          "type": "array",
           "items": {
             "type": "string"
           }
