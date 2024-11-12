@@ -502,11 +502,11 @@
         "GeneralInformation": {
           "$ref": "#/definitions/GeneralInformation"
         },
-        "PurchaseOrder": { 
-          "$ref": "#/definitions/PurchaseOrder" 
+        "PurchaseOrder": {
+          "$ref": "#/definitions/PurchaseOrder"
         },
-        "SalesOrder": { 
-          "$ref": "#/definitions/SalesOrder" 
+        "SalesOrder": {
+          "$ref": "#/definitions/SalesOrder"
         },
         "Delivery": {
           "$ref": "#/definitions/Delivery"
