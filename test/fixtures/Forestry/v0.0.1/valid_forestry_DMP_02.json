@@ -10,13 +10,14 @@
       "Country": "US",
       "State": "Washington"
     },
-    "Order": {
-      "Id": "ORD-2024-001",
+    "PurchaseOrder": {
+      "Id": "PO-2024-001",
       "Position": "1",
-      "Quantity": 500,
+      "Date": "2024-07-01",
+      "Quantity": 1000,
       "QuantityUnit": "m³",
-      "CustomerProductId": "OAK-001",
-      "CustomerProductName": "Premium Oak Logs",
+      "CustomerProductId": "WOOD-001",
+      "CustomerProductName": "Premium Hardwood Mix",
       "Incoterms": {
         "incoterm": {
           "code": "CIF",
@@ -24,15 +25,21 @@
         }
       }
     },
+    "SalesOrder": {
+      "Id": "SO-2024-001",
+      "Position": "1",
+      "Date": "2024-07-05",
+      "CertificationNumber": "FSC-C123456",
+      "CertificationClaim": "FSC 100%",
+      "CertificationPercentage": 100
+    },
     "Delivery": {
       "Id": "DEL-2024-001",
       "Position": "1",
       "Date": "2024-07-20",
-      "SalesOrderId": "SO-2024-001",
-      "SalesOrderPosition": "1",
       "PackingList": "PL-2024-001",
       "BillOfLading": "BOL-2024-001",
-      "Booking": "BK-2024-001",
+      "Booking": "VSL-ASIA-EXPRESS-V042",
       "Container": "CNTR123456",
       "Carrier": "Ocean Shipping Lines",
       "Packages": [
@@ -54,7 +61,7 @@
     "Products": [
       {
         "ProductType": "Logs (Saw)",
-        "DescriptionOfProduct": "Premium English Oak Saw Logs - Grade A",
+        "DescriptionOfProduct": "Premium Oak Saw Logs - Grade A",
         "HTSCode": "4403.11.00",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
@@ -83,7 +90,7 @@
       },
       {
         "ProductType": "Lumber",
-        "DescriptionOfProduct": "Oak Lumber - Kiln Dried",
+        "DescriptionOfProduct": "Mixed Hardwood Lumber - Kiln Dried",
         "HTSCode": "4407.91.00",
         "ProductionPeriod": {
           "StartDate": "2024-07-16",
@@ -91,19 +98,28 @@
         },
         "ListOfSpecies": [
           {
-            "CommonName": "English Oak",
+            "CommonName": "American Black Cherry",
             "ScientificName": {
-              "Genus": "Quercus",
-              "Species": "robur"
+              "Genus": "Prunus",
+              "Species": "serotina"
             },
-            "Quantity": 150,
+            "Quantity": 250,
+            "QuantityUnit": "m³"
+          },
+          {
+            "CommonName": "Hard Maple",
+            "ScientificName": {
+              "Genus": "Acer",
+              "Species": "saccharum"
+            },
+            "Quantity": 250,
             "QuantityUnit": "m³"
           }
         ]
       }
     ],
     "Supplier": {
-      "CompanyName": "Green Forest Products Inc.",
+      "CompanyName": "Global Forest Products Inc.",
       "Street": [
         "456 Woodland Road",
         "Building A",
@@ -113,7 +129,7 @@
       "City": "Forestville",
       "State": "Washington",
       "Country": "US",
-      "Email": "contact@greenforestproducts.com",
+      "Email": "contact@globalforestproducts.com",
       "PhoneNumber": "+1-555-321-6789",
       "Identifiers": {
         "DUNS": "123456789",
@@ -122,30 +138,35 @@
       }
     },
     "Producer": {
-      "CompanyName": "Forest Harvesting Co.",
-      "Street": ["789 Forest Lane"],
+      "CompanyName": "Northwest Harvesting Co.",
+      "Street": [
+        "789 Forest Lane",
+        "Industrial Park Zone B"
+      ],
       "ZipCode": "12346",
       "City": "Woodtown",
       "State": "Washington",
       "Country": "US",
-      "Email": "operations@forestharvesting.com",
+      "Email": "operations@northwestharvesting.com",
       "PhoneNumber": "+1-555-987-6543",
       "Identifiers": {
         "DUNS": "987654321",
-        "MID": "USFHC5678"
+        "MID": "USNWH5678",
+        "CBN": "123456789RC0001"
       }
     },
     "Customer": {
-      "CompanyName": "Wood Importers GmbH",
+      "CompanyName": "European Wood Importers GmbH",
       "Street": [
         "Holzstrasse 5",
-        "Industriegebiet Ost"
+        "Industriegebiet Ost",
+        "Gebäude 7"
       ],
       "ZipCode": "10115",
       "City": "Berlin",
       "State": "Berlin",
       "Country": "DE",
-      "Email": "info@woodimporters.de",
+      "Email": "orders@europeanwood.de",
       "PhoneNumber": "+49-30-12345678",
       "Identifiers": {
         "VAT": "DE987654321",
