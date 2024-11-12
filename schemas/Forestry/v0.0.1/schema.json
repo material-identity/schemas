@@ -328,18 +328,24 @@
         }
       }
     },
-    "Order": {
-      "title": "Order",
-      "description": "The information from the order.",
+    "PurchaseOrder": {
+      "title": "PurchaseOrder",
+      "description": "The information from the purchase order.",
       "type": "object",
       "properties": {
         "Id": {
-          "description": "The identifier of the order.",
+          "description": "The identifier of the purchase order.",
           "type": "string"
         },
         "Position": {
-          "description": "The position on the order.",
+          "description": "The position on the purchase order.",
           "type": "string"
+        },
+        "Date": {
+          "description": "The date of issuing the purchase order.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2018-01-01"]
         },
         "Quantity": {
           "description": "The ordered quantity.",
@@ -361,6 +367,42 @@
         "Incoterms": {
           "description": "The Incoterms of the order",
           "$ref": "#/definitions/Incoterms"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SalesOrder": {
+      "title": "SalesOrder",
+      "description": "The information from the sales order.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The identifier of the sales order.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position on the sales order.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of issuing the sales order.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2018-01-01"]
+        },
+        "CertificationNumber": {
+          "description": "The certification number of the sales order.",
+          "type": "string"
+        },
+        "CertificationClaim": {
+          "description": "The certification claim of the sales order.",
+          "type": "string"
+        },
+        "CertificationPercentage": {
+          "description": "The certification percentage of the sales order.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
         }
       },
       "additionalProperties": false
