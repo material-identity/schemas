@@ -347,15 +347,6 @@
           "format": "date",
           "examples": ["2018-01-01"]
         },
-        "Quantity": {
-          "description": "The ordered quantity.",
-          "type": "number"
-        },
-        "QuantityUnit": {
-          "description": "The unit of the ordered quantity.",
-          "type": "string",
-          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
-        },
         "CustomerProductId": {
           "description": "The product identifier of the customer.",
           "type": "string"
