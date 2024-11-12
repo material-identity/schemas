@@ -14,8 +14,6 @@
       "Id": "PO-2024-001",
       "Position": "1",
       "Date": "2024-07-01",
-      "Quantity": 1000,
-      "QuantityUnit": "m³",
       "CustomerProductId": "WOOD-001",
       "CustomerProductName": "Premium Hardwood Mix",
       "Incoterms": {
