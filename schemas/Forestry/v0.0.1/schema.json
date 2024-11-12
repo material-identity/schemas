@@ -560,8 +560,19 @@
           "description": "References to other DMPs",
           "type": "array",
           "items": {
-            "type": "string",
-            "format": "uuid"
+            "type": "object",
+            "properties": {
+              "Id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The unique identifier of the referenced DMP"
+              },
+              "UserDefinedId": {
+                "type": "string",
+                "description": "The user defined identifier of the referenced DMP"
+              }
+            },
+            "required": ["Id", "UserDefinedId"]
           },
           "minItems": 1,
           "uniqueItems": true
