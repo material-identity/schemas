@@ -426,14 +426,7 @@
           "format": "date",
           "examples": ["2018-01-01"]
         },
-        "SalesOrderId": {
-          "description": "The identifier of the sales order.",
-          "type": "string"
-        },
-        "SalesOrderPosition": {
-          "description": "The position on the sales order.",
-          "type": "string"
-        },
+
         "PackingList": {
           "description": "The packing list of the delivery.",
           "type": "string"
@@ -443,7 +436,7 @@
           "type": "string"
         },
         "Booking": {
-          "description": "The booking number of the delivery.",
+          "description": "The booking number vessel or carrier.",
           "type": "string"
         },
         "Container": {
@@ -518,8 +511,11 @@
         "GeneralInformation": {
           "$ref": "#/definitions/GeneralInformation"
         },
-        "Order": {
-          "$ref": "#/definitions/Order"
+        "PurchaseOrder": { 
+          "$ref": "#/definitions/PurchaseOrder" 
+        },
+        "SalesOrder": { 
+          "$ref": "#/definitions/SalesOrder" 
         },
         "Delivery": {
           "$ref": "#/definitions/Delivery"
