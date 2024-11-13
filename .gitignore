@@ -1,6 +1,6 @@
 env
 node_modules
-output.pdf
+scripts/output
 target
 **/.DS_Store
 src/main/resources/schemas/*
