@@ -79,13 +79,15 @@
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
-                <fo:table-row>
-                  <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
-                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Id" />
-                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                  </xsl:call-template>
-                </fo:table-row>
+                <xsl:if test="exists($GeneralInformation/UserDefinedId)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
+                      <xsl:with-param name="value" select="$GeneralInformation/UserDefinedId" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
                 <xsl:if test="exists($GeneralInformation/Country)">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
