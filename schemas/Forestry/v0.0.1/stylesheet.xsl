@@ -76,8 +76,8 @@
               <fo:table-body>
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
-                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
-                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Id" />
+                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
+                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/UserDefinedId" />
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                   <xsl:call-template name="KeyValue">
