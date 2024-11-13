@@ -54,29 +54,11 @@
                           <fo:external-graphic fox:alt-text="Company Logo" src="{Root/Certificate/Logo}" content-height="48px" height="48px" />
                         </fo:block>
                       </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block padding-bottom="{$partyPaddingBottom}" font-weight="bold">
-                          <xsl:value-of select="$Parties/Manufacturer/Name" />
-                        </fo:block>
-                        <fo:block>
-                          <xsl:value-of select="$Parties/Manufacturer/Street" />
-                        </fo:block>
-                        <xsl:for-each select="$Parties/Manufacturer/Streets/Street">
-                          <fo:block>
-                            <xsl:value-of select="." />
-                          </fo:block>
-                        </xsl:for-each>
-                        <fo:block>
-                          <xsl:value-of select="concat($Parties/Manufacturer/ZipCode, ' ', $Parties/Manufacturer/City, ', ', $Parties/Manufacturer/Country)" />
-                        </fo:block>
-                        <fo:block>
-                          <fo:basic-link external-destination="{concat('mailto:', $Parties/Manufacturer/Email)}">
-                            <fo:inline text-decoration="underline">
-                              <xsl:value-of select="$Parties/Manufacturer/Email" />
-                            </fo:inline>
-                          </fo:basic-link>
-                        </fo:block>
-                      </fo:table-cell>
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="$i18n/Certificate/Manufacturer" />
+                        <xsl:with-param name="party" select="$Parties/Manufacturer" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
                     </fo:table-row>
                     <fo:table-row>
                       <xsl:call-template name="PartyInfo">
