@@ -1,0 +1,270 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "Date": "2024-07-15",
+    "GeneralInformation": {
+      "UserDefinedId": "DMP-2024-001",
+      "Country": "US",
+      "State": "Washington"
+    },
+    "PurchaseOrder": {
+      "Id": "PO-2024-001",
+      "Position": "1",
+      "Date": "2024-07-01",
+      "CustomerProductId": "WOOD-001",
+      "CustomerProductName": "Premium Hardwood Mix"
+    },
+    "SalesOrder": {
+      "Id": "SO-2024-001",
+      "Position": "1",
+      "Date": "2024-07-05",
+      "CertificationNumber": "FSC-C123456",
+      "CertificationClaim": "FSC 100%",
+      "CertificationPercentage": 100,
+      "Incoterms": {
+        "incoterm": {
+          "code": "CIF",
+          "description": "Cost, Insurance and Freight"
+        }
+      }
+    },
+    "Delivery": {
+      "Id": "DEL-2024-001",
+      "Position": "1",
+      "Date": "2024-07-20",
+      "PackingList": "PL-2024-001",
+      "BillOfLading": "BOL-2024-001",
+      "Booking": "VSL-ASIA-EXPRESS-V042",
+      "Container": "CNTR123456",
+      "Carrier": "Ocean Shipping Lines",
+      "Packages": [
+        "PKG-001",
+        "PKG-002",
+        "PKG-003"
+      ],
+      "Lots": [
+        "LOT-A001",
+        "LOT-A002",
+        "LOT-A003"
+      ],
+      "Batches": [
+        "BATCH-001",
+        "BATCH-002",
+        "BATCH-003"
+      ]
+    },
+    "Products": [
+      {
+        "ProductType": "Logs (Saw)",
+        "DescriptionOfProduct": "Premium Oak Saw Logs - Grade A",
+        "HTSCode": "4403.11.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-07-01",
+          "EndDate": "2024-07-15"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "English Oak",
+            "ScientificName": {
+              "Genus": "Quercus",
+              "Species": "robur"
+            },
+            "Quantity": 300,
+            "QuantityUnit": "m³"
+          },
+          {
+            "CommonName": "Sessile Oak",
+            "ScientificName": {
+              "Genus": "Quercus",
+              "Species": "petraea"
+            },
+            "Quantity": 200,
+            "QuantityUnit": "m³"
+          }
+        ]
+      },
+      {
+        "ProductType": "Lumber",
+        "DescriptionOfProduct": "Mixed Hardwood Lumber - Kiln Dried",
+        "HTSCode": "4407.91.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-07-16",
+          "EndDate": "2024-07-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "American Black Cherry",
+            "ScientificName": {
+              "Genus": "Prunus",
+              "Species": "serotina"
+            },
+            "Quantity": 250,
+            "QuantityUnit": "m³"
+          },
+          {
+            "CommonName": "Hard Maple",
+            "ScientificName": {
+              "Genus": "Acer",
+              "Species": "saccharum"
+            },
+            "Quantity": 250,
+            "QuantityUnit": "m³"
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Global Forest Products Inc.",
+      "Street": [
+        "456 Woodland Road",
+        "Building A",
+        "Suite 100"
+      ],
+      "ZipCode": "12345",
+      "City": "Forestville",
+      "State": "Washington",
+      "Country": "US",
+      "Email": "contact@globalforestproducts.com",
+      "PhoneNumber": "+1-555-321-6789",
+      "Identifiers": {
+        "DUNS": "123456789",
+        "MID": "USGFP1234",
+        "SystemId": "550e8400-e29b-41d4-a716-446655440000"
+      }
+    },
+    "Producer": {
+      "Name": "Northwest Harvesting Co.",
+      "Street": [
+        "789 Forest Lane",
+        "Industrial Park Zone B"
+      ],
+      "ZipCode": "12346",
+      "City": "Woodtown",
+      "State": "Washington",
+      "Country": "US",
+      "Email": "operations@northwestharvesting.com",
+      "PhoneNumber": "+1-555-987-6543",
+      "Identifiers": {
+        "DUNS": "987654321",
+        "MID": "USNWH5678",
+        "CBN": "123456789RC0001"
+      }
+    },
+    "Customer": {
+      "Name": "European Wood Importers GmbH",
+      "Street": [
+        "Holzstrasse 5",
+        "Industriegebiet Ost",
+        "Gebäude 7"
+      ],
+      "ZipCode": "10115",
+      "City": "Berlin",
+      "State": "Berlin",
+      "Country": "DE",
+      "Email": "orders@europeanwood.de",
+      "PhoneNumber": "+49-30-12345678",
+      "Identifiers": {
+        "VAT": "DE987654321",
+        "EORI": "DE123456789012"
+      }
+    },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue", "Suite 500"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789RT0001",
+        "DUNS": "135792468"
+      },
+      "Email": "info@forestmanagement.com",
+      "PhoneNumber": "250-123-4567"
+    },
+    "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence in accordance with Regulation (EU) 2023/1115 was carried out and that no or only a negligible risk was found. All products have been verified for compliance with applicable regulations including EUDR, UKTR, and Lacey Act requirements. Chain of custody has been maintained throughout the supply chain, and all necessary documentation is available for verification.",
+    "Documents": {
+      "CertificateOfOrigin": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
+      },
+      "PhytosanitaryCertificate": {
+        "Hash": {
+          "Algorithm": "SHA3-256",
+          "Encoding": "hex",
+          "Value": "143d5ac94704be851c501590cdf755e853ca9197790961eee40ef56223264d33"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/phytosanitary_certificate.pdf"
+      },
+      "LaceyDeclaration(PPQ_505)": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "0ae78ef7f4a188228ea662b8d2588e625203caec1b621ffebdd0a7d85cd7f5ab"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/lacey_declaration.pdf"
+      },
+      "CoCCertificate": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "cdac836bc09234bbba4784a74bb5aca0805bbc9bfc7bd3d2c18b143a8933b839"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/fm_certificate.pdf"
+      },
+      "TSCA/CARB/CANFERCertificate": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
+      },
+      "Others": [
+        {
+          "Hash": {
+            "Algorithm": "SHA256",
+            "Encoding": "hex",
+            "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
+          },
+          "MIME-Type": "application/pdf",
+          "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
+        },
+        {
+          "Hash": {
+            "Algorithm": "SHA256",
+            "Encoding": "hex",
+            "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
+          },
+          "MIME-Type": "application/pdf",
+          "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
+        }
+      ]
+    },
+    "DMPReferences": [
+      {
+        "Id": "550e8400-e29b-41d4-a716-446655440000",
+        "UserDefinedId": "DMP-2024-001"
+      },
+      {
+        "Id": "660e8400-e29b-41d4-a716-446655440000",
+        "UserDefinedId": "DMP-2024-002"
+      },
+      {
+        "Id": "770e8400-e29b-41d4-a716-446655440000",
+        "UserDefinedId": "DMP-2024-003"
+      }
+    ]
+  }
+}
