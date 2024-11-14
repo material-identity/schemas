@@ -3,7 +3,6 @@
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
     "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "UserDefinedId": "DMP-2024-001",
     "Date": "2024-07-15",
     "Products": [
       {
@@ -28,7 +27,7 @@
       }
     ],
     "Supplier": {
-      "CompanyName": "Green Forest Products Inc.",
+      "Name": "Green Forest Products Inc.",
       "Street": ["456 Woodland Road"],
       "ZipCode": "12345",
       "City": "Forestville",
@@ -38,7 +37,7 @@
       }
     },
     "Customer": {
-      "CompanyName": "Wood Importers GmbH",
+      "Name": "Wood Importers GmbH",
       "Street": ["Holzstrasse 5"],
       "ZipCode": "10115",
       "City": "Berlin",
@@ -46,6 +45,20 @@
       "Identifiers": {
         "VAT": "DE987654321"
       }
+    },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue", "Suite 500"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789RT0001",
+        "DUNS": "135792468"
+      },
+      "Email": "info@forestmanagement.com",
+      "PhoneNumber": "250-123-4567"
     },
     "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence was carried out.",
     "Documents": {
