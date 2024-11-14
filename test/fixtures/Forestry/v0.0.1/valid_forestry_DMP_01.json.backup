@@ -1,0 +1,82 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "Date": "2024-07-15",
+    "Products": [
+      {
+        "ProductType": "Logs",
+        "DescriptionOfProduct": "Oak Logs",
+        "HTSCode": "4403.11.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-07-01",
+          "EndDate": "2024-07-15"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "English Oak",
+            "ScientificName": {
+              "Genus": "Quercus",
+              "Species": "robur"
+            },
+            "Quantity": 100,
+            "QuantityUnit": "m³"
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Green Forest Products Inc.",
+      "Street": ["456 Woodland Road"],
+      "ZipCode": "12345",
+      "City": "Forestville",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "123456789"
+      }
+    },
+    "Customer": {
+      "Name": "Wood Importers GmbH",
+      "Street": ["Holzstrasse 5"],
+      "ZipCode": "10115",
+      "City": "Berlin",
+      "Country": "DE",
+      "Identifiers": {
+        "VAT": "DE987654321"
+      }
+    },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue", "Suite 500"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789RT0001",
+        "DUNS": "135792468"
+      },
+      "Email": "info@forestmanagement.com",
+      "PhoneNumber": "250-123-4567"
+    },
+    "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence was carried out.",
+    "Documents": {
+      "CertificateOfOrigin": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
+      }
+    },
+    "DMPReferences": [
+      {
+        "Id": "550e8400-e29b-41d4-a716-446655440000",
+        "UserDefinedId": "DMP-2024-001"
+      }
+    ]
+  }
+}
