@@ -528,6 +528,10 @@
           "description": "The buyer.",
           "$ref": "#/definitions/Company"
         },
+        "Creator": {
+          "description": "The creator of the DMP.",
+          "$ref": "#/definitions/Company"
+        },
         "DueDiligenceStatement": {
           "title": "DueDiligenceStatement",
           "description": "A statement on the due diligence of the company.",
@@ -581,6 +585,7 @@
         "Products",
         "Supplier",
         "Customer",
+        "Creator",
         "DueDiligenceStatement",
         "Documents",
         "DMPReferences"
