@@ -354,10 +354,6 @@
         "CustomerProductName": {
           "description": "The product name of the customer.",
           "type": "string"
-        },
-        "Incoterms": {
-          "description": "The Incoterms of the order",
-          "$ref": "#/definitions/Incoterms"
         }
       },
       "additionalProperties": false
@@ -394,6 +390,10 @@
           "type": "number",
           "minimum": 0,
           "maximum": 100
+        },
+        "Incoterms": {
+          "description": "The Incoterms of the order",
+          "$ref": "#/definitions/Incoterms"
         }
       },
       "additionalProperties": false
