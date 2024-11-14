@@ -67,7 +67,7 @@
     "Company": {
       "type": "object",
       "properties": {
-        "CompanyName": {
+        "Name": {
           "description": "The name of the company.",
           "type": "string"
         },
@@ -138,7 +138,7 @@
         }
       },
       "required": [
-        "CompanyName",
+        "Name",
         "Street",
         "ZipCode",
         "City",
