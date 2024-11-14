@@ -3,7 +3,6 @@
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
     "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "UserDefinedId": "DMP-2024-001",
     "Date": "2024-07-15",
     "GeneralInformation": {
       "UserDefinedId": "DMP-2024-001",
@@ -15,13 +14,7 @@
       "Position": "1",
       "Date": "2024-07-01",
       "CustomerProductId": "WOOD-001",
-      "CustomerProductName": "Premium Hardwood Mix",
-      "Incoterms": {
-        "incoterm": {
-          "code": "CIF",
-          "description": "Cost, Insurance and Freight"
-        }
-      }
+      "CustomerProductName": "Premium Hardwood Mix"
     },
     "SalesOrder": {
       "Id": "SO-2024-001",
@@ -29,7 +22,13 @@
       "Date": "2024-07-05",
       "CertificationNumber": "FSC-C123456",
       "CertificationClaim": "FSC 100%",
-      "CertificationPercentage": 100
+      "CertificationPercentage": 100,
+      "Incoterms": {
+        "incoterm": {
+          "code": "CIF",
+          "description": "Cost, Insurance and Freight"
+        }
+      }
     },
     "Delivery": {
       "Id": "DEL-2024-001",
@@ -117,7 +116,7 @@
       }
     ],
     "Supplier": {
-      "CompanyName": "Global Forest Products Inc.",
+      "Name": "Global Forest Products Inc.",
       "Street": [
         "456 Woodland Road",
         "Building A",
@@ -136,7 +135,7 @@
       }
     },
     "Producer": {
-      "CompanyName": "Northwest Harvesting Co.",
+      "Name": "Northwest Harvesting Co.",
       "Street": [
         "789 Forest Lane",
         "Industrial Park Zone B"
@@ -154,7 +153,7 @@
       }
     },
     "Customer": {
-      "CompanyName": "European Wood Importers GmbH",
+      "Name": "European Wood Importers GmbH",
       "Street": [
         "Holzstrasse 5",
         "Industriegebiet Ost",
@@ -171,12 +170,26 @@
         "EORI": "DE123456789012"
       }
     },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue", "Suite 500"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789RT0001",
+        "DUNS": "135792468"
+      },
+      "Email": "info@forestmanagement.com",
+      "PhoneNumber": "250-123-4567"
+    },
     "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence in accordance with Regulation (EU) 2023/1115 was carried out and that no or only a negligible risk was found. All products have been verified for compliance with applicable regulations including EUDR, UKTR, and Lacey Act requirements. Chain of custody has been maintained throughout the supply chain, and all necessary documentation is available for verification.",
     "Documents": {
       "CertificateOfOrigin": {
         "Hash": {
           "Algorithm": "SHA256",
-          "Encoding": "base64",
+          "Encoding": "hex",
           "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
         },
         "MIME-Type": "application/pdf",
@@ -191,10 +204,19 @@
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/phytosanitary_certificate.pdf"
       },
+      "LaceyDeclaration(PPQ_505)": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "0ae78ef7f4a188228ea662b8d2588e625203caec1b621ffebdd0a7d85cd7f5ab"
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/lacey_declaration.pdf"
+      },
       "CoCCertificate": {
         "Hash": {
           "Algorithm": "SHA256",
-          "Encoding": "base64",
+          "Encoding": "hex",
           "Value": "cdac836bc09234bbba4784a74bb5aca0805bbc9bfc7bd3d2c18b143a8933b839"
         },
         "MIME-Type": "application/pdf",
@@ -203,12 +225,32 @@
       "TSCA/CARB/CANFERCertificate": {
         "Hash": {
           "Algorithm": "SHA256",
-          "Encoding": "base64",
+          "Encoding": "hex",
           "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
         },
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
-      }
+      },
+      "Others": [
+        {
+          "Hash": {
+            "Algorithm": "SHA256",
+            "Encoding": "hex",
+            "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
+          },
+          "MIME-Type": "application/pdf",
+          "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
+        },
+        {
+          "Hash": {
+            "Algorithm": "SHA256",
+            "Encoding": "hex",
+            "Value": "6189fa960fd107c27e5c78d9a823db3ca2b4fddf9ffa65a7dd5dd69b7b143670"
+          },
+          "MIME-Type": "application/pdf",
+          "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/tcsa_certificate.pdf"
+        }
+      ]
     },
     "DMPReferences": [
       {
