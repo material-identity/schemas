@@ -550,10 +550,10 @@
             "CoCCertificate": {
               "$ref": "#/definitions/DocumentReference"
             },
-            "LaceyDeclaration(PPQ_505)": {
+            "LaceyDeclaration_PPQ_505": {
               "$ref": "#/definitions/DocumentReference"
             },
-            "TSCA/CARB/CANFERCertificate": {
+            "TSCA_CARB_CANFERCertificate": {
               "$ref": "#/definitions/DocumentReference"
             },
             "Others": {
