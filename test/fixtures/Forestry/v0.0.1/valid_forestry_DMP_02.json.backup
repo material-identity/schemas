@@ -204,7 +204,7 @@
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/phytosanitary_certificate.pdf"
       },
-      "LaceyDeclaration(PPQ_505)": {
+      "LaceyDeclaration_PPQ_505": {
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "hex",
@@ -222,7 +222,7 @@
         "MIME-Type": "application/pdf",
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/fm_certificate.pdf"
       },
-      "TSCA/CARB/CANFERCertificate": {
+      "TSCA_CARB_CANFERCertificate": {
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "hex",
