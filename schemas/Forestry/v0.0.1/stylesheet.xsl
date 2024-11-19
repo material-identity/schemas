@@ -352,240 +352,242 @@
             </xsl:if>
 
             <!-- DMP References -->
-              <xsl:call-template name="SectionTitle">
-                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DMPReferences" />
-              </xsl:call-template>
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="30%" />
-                <fo:table-column column-width="20%" />
-                <fo:table-column column-width="30%" />
-                <fo:table-column column-width="20%" />
-                <fo:table-body>
-                  <xsl:for-each select="$DMPReferences">
-                    <fo:table-row>
-                      <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
-                        <xsl:with-param name="value" select="Id" />
-                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                      </xsl:call-template>
-                      <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
-                        <xsl:with-param name="value" select="UserDefinedId" />
-                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                      </xsl:call-template>
-                    </fo:table-row>
-                  </xsl:for-each>
-                </fo:table-body>
-              </fo:table>
-
-              <!-- Due Diligence Statement -->
-              <xsl:if test="exists($DueDiligenceStatement)">
-                <xsl:call-template name="SectionTitle">
-                  <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DueDiligenceStatement" />
-                </xsl:call-template>
-                <fo:block>
-                  <xsl:value-of select="$DueDiligenceStatement" />
-                </fo:block>
-              </xsl:if>
-
-              <!-- Footer -->
-              <fo:table table-layout="fixed" margin-top="16pt" width="100%">
-                <fo:table-column column-width="50%" />
-                <fo:table-column column-width="50%" />
-                <fo:table-body>
+            <xsl:call-template name="SectionTitle">
+              <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DMPReferences" />
+            </xsl:call-template>
+            <fo:table table-layout="fixed" width="100%">
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-body>
+                <xsl:for-each select="$DMPReferences">
                   <fo:table-row>
-                    <fo:table-cell>
-                      <fo:block> Data schema maintained by
-                        <fo:basic-link external-destination="https://materialidentity.org">
-                          <fo:inline text-decoration="underline">Material Identity</fo:inline>
-                        </fo:basic-link>
-          .
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block color="gray" text-align="right">
-                        <fo:basic-link external-destination="{Root/RefSchemaUrl}">
-                          <fo:inline text-decoration="underline">
-                            <xsl:value-of select="Root/RefSchemaUrl" />
-                          </fo:inline>
-                        </fo:basic-link>
-                      </fo:block>
-                    </fo:table-cell>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
+                      <xsl:with-param name="value" select="Id" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
+                      <xsl:with-param name="value" select="UserDefinedId" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
                   </fo:table-row>
-                </fo:table-body>
-              </fo:table>
-              <!-- Used to get the last page number -->
-              <fo:block id="last-page" />
-            </fo:block>
-          </fo:flow>
-        </fo:page-sequence>
-      </fo:root>
-    </xsl:template>
+                </xsl:for-each>
+              </fo:table-body>
+            </fo:table>
 
-    <!-- TEMPLATES -->
-    <xsl:template name="SectionTitle">
-      <xsl:param name="title" />
-      <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
+            <!-- Due Diligence Statement -->
+            <xsl:if test="exists($DueDiligenceStatement)">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DueDiligenceStatement" />
+              </xsl:call-template>
+              <xsl:for-each select="tokenize($DueDiligenceStatement, '&#10;')">
+                <fo:block>
+                  <xsl:value-of select="." />
+                </fo:block>
+              </xsl:for-each>
+            </xsl:if>
+
+            <!-- Footer -->
+            <fo:table table-layout="fixed" margin-top="16pt" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block> Data schema maintained by
+                      <fo:basic-link external-destination="https://materialidentity.org">
+                        <fo:inline text-decoration="underline">Material Identity</fo:inline>
+                      </fo:basic-link>
+          .
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block color="gray" text-align="right">
+                      <fo:basic-link external-destination="{Root/RefSchemaUrl}">
+                        <fo:inline text-decoration="underline">
+                          <xsl:value-of select="Root/RefSchemaUrl" />
+                        </fo:inline>
+                      </fo:basic-link>
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+            <!-- Used to get the last page number -->
+            <fo:block id="last-page" />
+          </fo:block>
+        </fo:flow>
+      </fo:page-sequence>
+    </fo:root>
+  </xsl:template>
+
+  <!-- TEMPLATES -->
+  <xsl:template name="SectionTitle">
+    <xsl:param name="title" />
+    <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
+      <xsl:value-of select="$title" />
+    </fo:block>
+  </xsl:template>
+  <xsl:template name="SectionTitleSmall">
+    <xsl:param name="title" />
+    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
+      <xsl:value-of select="$title" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template name="KeyValue">
+    <xsl:param name="key" />
+    <xsl:param name="value" />
+    <xsl:param name="paddingBottom" />
+    <fo:table-cell>
+      <fo:block padding-bottom="{$paddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
+        <xsl:value-of select="$key" />
+      </fo:block>
+    </fo:table-cell>
+    <fo:table-cell>
+      <fo:block padding-bottom="{$paddingBottom}">
+        <xsl:value-of select="$value" />
+      </fo:block>
+    </fo:table-cell>
+  </xsl:template>
+
+  <xsl:template name="PartyInfo">
+    <xsl:param name="title" />
+    <xsl:param name="party" />
+    <xsl:param name="paddingBottom" />
+    <fo:table-cell padding-top="{$paddingBottom}">
+      <fo:block font-weight="bold">
         <xsl:value-of select="$title" />
       </fo:block>
-    </xsl:template>
-    <xsl:template name="SectionTitleSmall">
-      <xsl:param name="title" />
-      <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
-        <xsl:value-of select="$title" />
+      <fo:block font-weight="bold" padding-bottom="{$paddingBottom}">
+        <xsl:value-of select="$party/Name" />
       </fo:block>
-    </xsl:template>
-
-    <xsl:template name="KeyValue">
-      <xsl:param name="key" />
-      <xsl:param name="value" />
-      <xsl:param name="paddingBottom" />
-      <fo:table-cell>
-        <fo:block padding-bottom="{$paddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
-          <xsl:value-of select="$key" />
-        </fo:block>
-      </fo:table-cell>
-      <fo:table-cell>
-        <fo:block padding-bottom="{$paddingBottom}">
-          <xsl:value-of select="$value" />
-        </fo:block>
-      </fo:table-cell>
-    </xsl:template>
-
-    <xsl:template name="PartyInfo">
-      <xsl:param name="title" />
-      <xsl:param name="party" />
-      <xsl:param name="paddingBottom" />
-      <fo:table-cell padding-top="{$paddingBottom}">
-        <fo:block font-weight="bold">
-          <xsl:value-of select="$title" />
-        </fo:block>
-        <fo:block font-weight="bold" padding-bottom="{$paddingBottom}">
-          <xsl:value-of select="$party/Name" />
-        </fo:block>
-        <fo:block>
-          <xsl:for-each select="$party/Street">
-            <fo:block>
-              <xsl:value-of select="." />
-            </fo:block>
-          </xsl:for-each>
-        </fo:block>
-        <xsl:for-each select="$party/Streets/Street">
+      <fo:block>
+        <xsl:for-each select="$party/Street">
           <fo:block>
             <xsl:value-of select="." />
           </fo:block>
         </xsl:for-each>
+      </fo:block>
+      <xsl:for-each select="$party/Streets/Street">
         <fo:block>
-          <xsl:value-of select="concat($party/ZipCode, ' ', $party/City, ', ', $party/Country)" />
+          <xsl:value-of select="." />
         </fo:block>
-        <fo:block>
-          <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
-            <fo:inline text-decoration="underline">
-              <xsl:value-of select="$party/Email" />
-            </fo:inline>
-          </fo:basic-link>
-        </fo:block>
-      </fo:table-cell>
-    </xsl:template>
-    <xsl:template name="GenerateCoordinatesTable">
-      <xsl:param name="headerCount" />
-      <xsl:param name="Section" />
-      <xsl:param name="latitudeTranslation" />
-      <xsl:param name="longitudeTranslation" />
-      <xsl:param name="paddingBottom" />
+      </xsl:for-each>
+      <fo:block>
+        <xsl:value-of select="concat($party/ZipCode, ' ', $party/City, ', ', $party/Country)" />
+      </fo:block>
+      <fo:block>
+        <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
+          <fo:inline text-decoration="underline">
+            <xsl:value-of select="$party/Email" />
+          </fo:inline>
+        </fo:basic-link>
+      </fo:block>
+    </fo:table-cell>
+  </xsl:template>
+  <xsl:template name="GenerateCoordinatesTable">
+    <xsl:param name="headerCount" />
+    <xsl:param name="Section" />
+    <xsl:param name="latitudeTranslation" />
+    <xsl:param name="longitudeTranslation" />
+    <xsl:param name="paddingBottom" />
 
-      <fo:table table-layout="fixed" width="100%">
-        <!-- Dynamically generate table columns based on the number of headers -->
-        <xsl:for-each select="$Section/Header">
-          <fo:table-column column-width="{100 div $headerCount}%"/>
-        </xsl:for-each>
-        <fo:table-body>
-          <!-- Headers -->
-          <fo:table-row>
-            <fo:table-cell font-style="italic">
-              <fo:block padding-bottom="{$paddingBottom}">
-                <xsl:value-of select="$latitudeTranslation" />
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell font-style="italic">
-              <fo:block padding-bottom="{$paddingBottom}">
-                <xsl:value-of select="$longitudeTranslation" />
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-          <!-- Rows -->
-          <xsl:if test="$headerCount > 0">
-            <xsl:for-each select="$Section">
-              <xsl:variable name="pos" select="position()" />
-              <xsl:if test="($pos - 1) mod $headerCount = 0">
-                <fo:table-row>
-                  <xsl:for-each select=".|following-sibling::*[position() &lt; $headerCount]">
-                    <fo:table-cell>
-                      <fo:block>
-                        <xsl:value-of select="." />
-                      </fo:block>
-                    </fo:table-cell>
-                  </xsl:for-each>
-                </fo:table-row>
-              </xsl:if>
-            </xsl:for-each>
-          </xsl:if>
-        </fo:table-body>
-      </fo:table>
-    </xsl:template>
-    <xsl:template name="GenerateSpeciesTable">
-      <xsl:param name="Section" />
-      <xsl:param name="CommonNameTranslation" />
-      <xsl:param name="ScientificNameTranslation" />
-      <xsl:param name="GenusTranslation" />
-      <xsl:param name="QuantityTranslation" />
-      <xsl:param name="SpeciesTranslation" />
-      <xsl:param name="paddingBottom" />
-
-      <fo:table table-layout="fixed" width="100%">
-        <fo:table-column column-width="33.3%" />
-        <fo:table-column column-width="33.3%" />
-        <fo:table-column column-width="33.3%" />
-        <fo:table-body>
-          <!-- Headers -->
-          <fo:table-row>
-            <fo:table-cell>
-              <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
-                <xsl:value-of select="$CommonNameTranslation" />
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-              <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
-                <xsl:value-of select="$ScientificNameTranslation" />
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell>
-              <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
-                <xsl:value-of select="$QuantityTranslation" />
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-          <!-- Rows -->
+    <fo:table table-layout="fixed" width="100%">
+      <!-- Dynamically generate table columns based on the number of headers -->
+      <xsl:for-each select="$Section/Header">
+        <fo:table-column column-width="{100 div $headerCount}%"/>
+      </xsl:for-each>
+      <fo:table-body>
+        <!-- Headers -->
+        <fo:table-row>
+          <fo:table-cell font-style="italic">
+            <fo:block padding-bottom="{$paddingBottom}">
+              <xsl:value-of select="$latitudeTranslation" />
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell font-style="italic">
+            <fo:block padding-bottom="{$paddingBottom}">
+              <xsl:value-of select="$longitudeTranslation" />
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <!-- Rows -->
+        <xsl:if test="$headerCount > 0">
           <xsl:for-each select="$Section">
-            <fo:table-row>
-              <fo:table-cell>
-                <fo:block>
-                  <xsl:value-of select="CommonName" />
-                </fo:block>
-              </fo:table-cell>
-              <fo:table-cell>
-                <fo:block>
-                  <xsl:value-of select="concat(ScientificName/Genus, ' ', ScientificName/Species)" />
-                </fo:block>
-              </fo:table-cell>
-              <fo:table-cell>
-                <fo:block>
-                  <xsl:value-of select="concat(Quantity, ' ', QuantityUnit)" />
-                </fo:block>
-              </fo:table-cell>
-            </fo:table-row>
+            <xsl:variable name="pos" select="position()" />
+            <xsl:if test="($pos - 1) mod $headerCount = 0">
+              <fo:table-row>
+                <xsl:for-each select=".|following-sibling::*[position() &lt; $headerCount]">
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="." />
+                    </fo:block>
+                  </fo:table-cell>
+                </xsl:for-each>
+              </fo:table-row>
+            </xsl:if>
           </xsl:for-each>
-        </fo:table-body>
-      </fo:table>
-    </xsl:template>
-  </xsl:stylesheet>
+        </xsl:if>
+      </fo:table-body>
+    </fo:table>
+  </xsl:template>
+  <xsl:template name="GenerateSpeciesTable">
+    <xsl:param name="Section" />
+    <xsl:param name="CommonNameTranslation" />
+    <xsl:param name="ScientificNameTranslation" />
+    <xsl:param name="GenusTranslation" />
+    <xsl:param name="QuantityTranslation" />
+    <xsl:param name="SpeciesTranslation" />
+    <xsl:param name="paddingBottom" />
+
+    <fo:table table-layout="fixed" width="100%">
+      <fo:table-column column-width="33.3%" />
+      <fo:table-column column-width="33.3%" />
+      <fo:table-column column-width="33.3%" />
+      <fo:table-body>
+        <!-- Headers -->
+        <fo:table-row>
+          <fo:table-cell>
+            <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
+              <xsl:value-of select="$CommonNameTranslation" />
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell>
+            <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
+              <xsl:value-of select="$ScientificNameTranslation" />
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell>
+            <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
+              <xsl:value-of select="$QuantityTranslation" />
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+        <!-- Rows -->
+        <xsl:for-each select="$Section">
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block>
+                <xsl:value-of select="CommonName" />
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>
+                <xsl:value-of select="concat(ScientificName/Genus, ' ', ScientificName/Species)" />
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+              <fo:block>
+                <xsl:value-of select="concat(Quantity, ' ', QuantityUnit)" />
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </xsl:for-each>
+      </fo:table-body>
+    </fo:table>
+  </xsl:template>
+</xsl:stylesheet>
