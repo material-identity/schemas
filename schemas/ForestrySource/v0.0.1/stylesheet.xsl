@@ -341,9 +341,11 @@
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DueDiligenceStatement" />
               </xsl:call-template>
-              <fo:block>
-                <xsl:value-of select="$DueDiligenceStatement" />
-              </fo:block>
+              <xsl:for-each select="tokenize($DueDiligenceStatement, '&#10;')">
+                <fo:block>
+                  <xsl:value-of select="." />
+                </fo:block>
+              </xsl:for-each>
             </xsl:if>
 
             <!-- Contacts -->
