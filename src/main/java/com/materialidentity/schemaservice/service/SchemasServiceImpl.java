@@ -98,9 +98,8 @@ public class SchemasServiceImpl implements SchemasService {
         List<String> pdfDataList = new ArrayList<>();
 
         // For timber DMPs onwards, the path will now be under DigitalMaterialPassport
-
         JsonNode documentsNode = jsonContent.path("DigitalMaterialPassport").path("Documents");
-        if (documentsNode != null && documentsNode.isObject()) {
+        if (documentsNode.isObject()) {
             Iterator<Map.Entry<String, JsonNode>> fields = documentsNode.fields();
             while (fields.hasNext()) {
                 Map.Entry<String, JsonNode> entry = fields.next();
@@ -108,6 +107,16 @@ public class SchemasServiceImpl implements SchemasService {
                 String s3Url = documentNode.path("URL").asText(null);
                 if (s3Url != null) {
                     pdfDataList.add(s3Url);
+                }
+            }
+            
+            JsonNode othersNode = documentsNode.path("Others");
+            if (othersNode != null && othersNode.isArray()) {
+                for (JsonNode otherNode : othersNode) {
+                    String s3Url = otherNode.path("URL").asText(null);
+                    if (s3Url != null) {
+                        pdfDataList.add(s3Url);
+                    }
                 }
             }
         } else {
