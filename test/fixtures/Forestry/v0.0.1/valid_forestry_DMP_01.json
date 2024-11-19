@@ -60,7 +60,7 @@
       "Email": "info@forestmanagement.com",
       "PhoneNumber": "250-123-4567"
     },
-    "DueDiligenceStatement": "By submitting this due diligence statement, the operator confirms that due diligence was carried out.",
+    "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities: \n\n1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n\n2. Country of Production\n\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n\n4. Genus/Species and Common name\n\n5. Quantity (volume)\n\n6. Geolocation of all harvest units / forest plots",
     "Documents": {
       "CertificateOfOrigin": {
         "Hash": {
