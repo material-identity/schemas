@@ -61,17 +61,6 @@
       "PhoneNumber": "250-123-4567"
     },
     "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities: \n\n1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n\n2. Country of Production\n\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n\n4. Genus/Species and Common name\n\n5. Quantity (volume)\n\n6. Geolocation of all harvest units / forest plots",
-    "Documents": {
-      "CertificateOfOrigin": {
-        "Hash": {
-          "Algorithm": "SHA256",
-          "Encoding": "base64",
-          "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
-        },
-        "MIME-Type": "application/pdf",
-        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
-      }
-    },
     "DMPReferences": [
       {
         "Id": "550e8400-e29b-41d4-a716-446655440000",
