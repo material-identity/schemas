@@ -596,7 +596,6 @@
         "Customer",
         "Creator",
         "DueDiligenceStatement",
-        "Documents",
         "DMPReferences"
       ],
       "additionalProperties": false
