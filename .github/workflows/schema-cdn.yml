@@ -29,7 +29,7 @@ jobs:
         run: |
           aws s3 sync . s3://schema-cdn-service-bucket \
             --exclude "*" \
-            --include "**/schema.json" \
+            --include "schemas/**/schema.json" \
             --delete
 
       - name: Invalidate CloudFront Cache
