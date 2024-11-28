@@ -1,0 +1,34 @@
+name: Deploy to Schema CDN service # (updates the S3 Bucket and clears cache of CloudFront distribution)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to S3
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::155736826933:role/GITHUB_ACTION
+          role-session-name: githubactions
+          aws-region: eu-north-1
+
+      - name: Sync Files to S3
+        run: |
+          aws s3 sync . s3://schema-cdn-service-bucket --exclude ".git/*" --delete
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id E245X12JC5HFGM --paths "/*"
