@@ -10,9 +10,7 @@ export class SchemaService {
 
   async render(
     certificate: Record<string, unknown>,
-    schemaType = 'CoA',
-    schemaVersion = 'v1.1.0',
-    languages = 'CN, EN'
+    attachJson: boolean = true
   ) {
     // Retrieve port from environment variables with a default value
     const port = '8081';
@@ -21,11 +19,7 @@ export class SchemaService {
     try {
       const res = await firstValueFrom(
         this.http.post(url, certificate, {
-          params: {
-            schemaType,
-            schemaVersion,
-            languages,
-          },
+          params: { attachJson: attachJson.toString() },
           responseType: 'blob',
         })
       );
