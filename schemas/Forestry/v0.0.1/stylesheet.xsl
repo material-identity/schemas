@@ -356,10 +356,11 @@
               <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DMPReferences" />
             </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
-              <fo:table-column column-width="30%" />
-              <fo:table-column column-width="20%" />
-              <fo:table-column column-width="30%" />
-              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="22.5%" />
+              <fo:table-column column-width="22.5%" />
+              <fo:table-column column-width="10%" />
+              <fo:table-column column-width="22.5%" />
+              <fo:table-column column-width="22.5%" />
               <fo:table-body>
                 <xsl:for-each select="$DMPReferences">
                   <fo:table-row>
@@ -368,6 +369,9 @@
                       <xsl:with-param name="value" select="Id" />
                       <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                     </xsl:call-template>
+                    <fo:table-cell>
+                      <fo:block />
+                    </fo:table-cell>
                     <xsl:call-template name="KeyValue">
                       <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
                       <xsl:with-param name="value" select="UserDefinedId" />
@@ -444,12 +448,12 @@
     <xsl:param name="paddingBottom" />
     <fo:table-cell>
       <fo:block padding-bottom="{$paddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
-        <xsl:value-of select="$key" />
+        <xsl:value-of select="$key"/>
       </fo:block>
     </fo:table-cell>
     <fo:table-cell>
       <fo:block padding-bottom="{$paddingBottom}">
-        <xsl:value-of select="$value" />
+        <xsl:value-of select="$value"/>
       </fo:block>
     </fo:table-cell>
   </xsl:template>
