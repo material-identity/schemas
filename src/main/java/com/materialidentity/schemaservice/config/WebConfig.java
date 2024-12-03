@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
     registry
         .addMapping("/api/**")
-        .allowedOrigins("http://localhost:4200", "https://schemas-service.development.s1seven.com", "https://schemas-service.staging.s1seven.com", "https://schemas-service.s1seven.com", "https://dmp.development.s1seven.com", "https://dmp.staging.s1seven.com", "https://dmp.s1seven.com") // Angular development server
+        .allowedOrigins("http://localhost:4200", "http://localhost:8081", "https://schemas-service.development.s1seven.com", "https://schemas-service.staging.s1seven.com", "https://schemas-service.s1seven.com", "https://dmp.development.s1seven.com", "https://dmp.staging.s1seven.com", "https://dmp.s1seven.com") // Angular development server
         .allowedMethods("GET", "POST", "PUT", "DELETE")
         .allowedHeaders("*")
         .allowCredentials(false);
