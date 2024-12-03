@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "schemas/**/schema.json"
 
 jobs:
   deploy:
@@ -21,9 +23,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::155736826933:role/GITHUB_ACTION
+          role-to-assume: arn:aws:iam::${{ secret.AWS_ACCOUNT_ID }}:role/GITHUB_ACTION
           role-session-name: githubactions
-          aws-region: eu-north-1
+          aws-region: eu-north-1${{ secrets.AWS_REGION }}
 
       - name: Sync Files to S3
         run: |
@@ -34,4 +36,4 @@ jobs:
 
       - name: Invalidate CloudFront Cache
         run: |
-          aws cloudfront create-invalidation --distribution-id E245X12JC5HFGM --paths "/*"
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
