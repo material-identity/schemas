@@ -347,20 +347,21 @@
                   </fo:table-body>
                 </fo:table>
                 <xsl:variable name="keys" select="ChemicalComposition/*[not(name() = 'SupplementaryInformation' or name() = 'C70')]" />
-                <xsl:variable name="columnCount" select="count($keys)+1" />
-                <!-- Count ChemicalComposition keys (excluding SupplementaryInformation) and divide columns
-                  accordingly, equal spread -->
+                <xsl:variable name="columnCount" select="count($keys)" />
+                <xsl:variable name="maxColumns" select="13" />
+
+                <!-- First table -->
+                <xsl:variable name="keys1" select="subsequence($keys, 1, $maxColumns)" />
                 <fo:table table-layout="fixed" width="100%">
-                  <xsl:for-each select="1 to $columnCount">
-                    <fo:table-column column-width="{100 div $columnCount}%" />
+                  <xsl:for-each select="1 to ($maxColumns + 1)">
+                    <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
                   </xsl:for-each>
                   <fo:table-body>
-                    <!-- Header row for keys C70 to C92 -->
                     <fo:table-row>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                         <fo:block></fo:block>
                       </fo:table-cell>
-                      <xsl:for-each select="$keys">
+                      <xsl:for-each select="$keys1">
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>
                             <xsl:value-of select="name()" />
@@ -368,12 +369,11 @@
                         </fo:table-cell>
                       </xsl:for-each>
                     </fo:table-row>
-                    <!-- Symbol row -->
                     <fo:table-row>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                         <fo:block>Symbol</fo:block>
                       </fo:table-cell>
-                      <xsl:for-each select="$keys">
+                      <xsl:for-each select="$keys1">
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>
                             <xsl:value-of select="Symbol" />
@@ -381,13 +381,12 @@
                         </fo:table-cell>
                       </xsl:for-each>
                     </fo:table-row>
-                    <!-- Minimum row -->
-                    <xsl:if test="count($keys[Minimum != '']) > 0">
+                    <xsl:if test="count($keys1[Minimum != '']) &gt; 0">
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>Min [%]</fo:block>
                         </fo:table-cell>
-                        <xsl:for-each select="$keys">
+                        <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
                               <xsl:value-of select="Minimum" />
@@ -396,13 +395,12 @@
                         </xsl:for-each>
                       </fo:table-row>
                     </xsl:if>
-                    <!-- Maximum row -->
-                    <xsl:if test="count($keys[Maximum != '']) > 0">
+                    <xsl:if test="count($keys1[Maximum != '']) &gt; 0">
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>Max [%]</fo:block>
                         </fo:table-cell>
-                        <xsl:for-each select="$keys">
+                        <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
                               <xsl:value-of select="Maximum" />
@@ -411,12 +409,11 @@
                         </xsl:for-each>
                       </fo:table-row>
                     </xsl:if>
-                    <!-- Actual row -->
                     <fo:table-row>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                         <fo:block>Actual [%]</fo:block>
                       </fo:table-cell>
-                      <xsl:for-each select="$keys">
+                      <xsl:for-each select="$keys1">
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>
                             <xsl:value-of select="Actual" />
@@ -427,6 +424,158 @@
                   </fo:table-body>
                 </fo:table>
 
+                <!-- Second table (if applicable)-->
+                <xsl:variable name="keys2" select="subsequence($keys, $maxColumns + 1, $maxColumns)" />
+                <xsl:if test="$columnCount &gt; $maxColumns">
+                  <fo:table table-layout="fixed" width="100%" margin-top="10pt">
+                    <xsl:for-each select="1 to ($maxColumns + 1)">
+                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
+                    </xsl:for-each>
+                    <fo:table-body>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block></fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="name()" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Symbol</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <xsl:if test="count($keys2[Minimum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>Min [%]</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys2">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="Minimum" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <xsl:if test="count($keys2[Maximum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>Max [%]</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys2">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="Maximum" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Actual [%]</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Actual" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+                <!-- Third table (if applicable)-->
+                <xsl:if test="$columnCount &gt; $maxColumns*2">
+                  <xsl:variable name="keys3" select="subsequence($keys, 2*$maxColumns + 1, $maxColumns)" />
+                  <fo:table table-layout="fixed" width="100%" margin-top="10pt">
+                    <xsl:for-each select="1 to ($maxColumns + 1)">
+                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
+                    </xsl:for-each>
+                    <fo:table-body>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block></fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="name()" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Symbol</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <xsl:if test="count($keys3[Minimum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>Min [%]</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys3">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="Minimum" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <xsl:if test="count($keys3[Maximum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>Max [%]</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys3">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="Maximum" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Actual [%]</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Actual" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+
+                <!-- Supplementary Information -->
                 <xsl:if test="ChemicalComposition/SupplementaryInformation">
                   <xsl:call-template name="SectionSubTitle">
                     <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
