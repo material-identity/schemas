@@ -32,6 +32,7 @@
           <xsl:variable name="Inspection" select="Root/Certificate/Inspection" />
           <xsl:variable name="OtherTests" select="Root/Certificate/OtherTests" />
           <xsl:variable name="Validation" select="Root/Certificate/Validation" />
+          <xsl:variable name="Attachments" select="Root/Certificate/Attachments" />
           <fo:block font-size="8pt">
             <!-- Parties -->
             <fo:table table-layout="fixed" width="100%">
@@ -1096,6 +1097,28 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
+
+                        <!-- Attachments -->
+            <xsl:if test="exists($Attachments)">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/Certificate/Attachments" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="100%" />
+                <fo:table-body>
+                  <xsl:for-each select="$Attachments">
+                    <fo:table-row>
+                      <fo:table-cell>
+                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
+                          <xsl:value-of select="FileName" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
+            </xsl:if>
+            
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
               <fo:table-column column-width="50%" />
