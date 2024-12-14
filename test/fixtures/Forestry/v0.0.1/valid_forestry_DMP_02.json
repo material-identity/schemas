@@ -39,21 +39,9 @@
       "Booking": "VSL-ASIA-EXPRESS-V042",
       "Container": "CNTR123456",
       "Carrier": "Ocean Shipping Lines",
-      "Packages": [
-        "PKG-001",
-        "PKG-002",
-        "PKG-003"
-      ],
-      "Lots": [
-        "LOT-A001",
-        "LOT-A002",
-        "LOT-A003"
-      ],
-      "Batches": [
-        "BATCH-001",
-        "BATCH-002",
-        "BATCH-003"
-      ]
+      "Packages": ["PKG-001", "PKG-002", "PKG-003"],
+      "Lots": ["LOT-A001", "LOT-A002", "LOT-A003"],
+      "Batches": ["BATCH-001", "BATCH-002", "BATCH-003"]
     },
     "Products": [
       {
@@ -117,11 +105,7 @@
     ],
     "Supplier": {
       "Name": "Global Forest Products Inc.",
-      "Street": [
-        "456 Woodland Road",
-        "Building A",
-        "Suite 100"
-      ],
+      "Street": ["456 Woodland Road", "Building A", "Suite 100"],
       "ZipCode": "12345",
       "City": "Forestville",
       "State": "Washington",
@@ -136,10 +120,7 @@
     },
     "Producer": {
       "Name": "Northwest Harvesting Co.",
-      "Street": [
-        "789 Forest Lane",
-        "Industrial Park Zone B"
-      ],
+      "Street": ["789 Forest Lane", "Industrial Park Zone B"],
       "ZipCode": "12346",
       "City": "Woodtown",
       "State": "Washington",
@@ -154,11 +135,7 @@
     },
     "Customer": {
       "Name": "European Wood Importers GmbH",
-      "Street": [
-        "Holzstrasse 5",
-        "Industriegebiet Ost",
-        "Gebäude 7"
-      ],
+      "Street": ["Holzstrasse 5", "Industriegebiet Ost", "Gebäude 7"],
       "ZipCode": "10115",
       "City": "Berlin",
       "State": "Berlin",
@@ -255,15 +232,23 @@
     "DMPReferences": [
       {
         "Id": "550e8400-e29b-41d4-a716-446655440000",
-        "UserDefinedId": "DMP-2024-001"
+        "UserDefinedId": "DMP-2024-001",
+        "jsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.json",
+        "pdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.pdf"
       },
       {
         "Id": "660e8400-e29b-41d4-a716-446655440000",
-        "UserDefinedId": "DMP-2024-002"
+        "UserDefinedId": "DMP-2024-002",
+        "pdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.pdf"
       },
       {
         "Id": "770e8400-e29b-41d4-a716-446655440000",
-        "UserDefinedId": "DMP-2024-003"
+        "UserDefinedId": "DMP-2024-003",
+        "jsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.json"
+      },
+      {
+        "Id": "36782f26-0c03-4cd8-ac5d-04f279b52760",
+        "UserDefinedId": "DMP-2024-004"
       }
     ]
   }
