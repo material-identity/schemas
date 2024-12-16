@@ -364,19 +364,55 @@
               <fo:table-body>
                 <xsl:for-each select="$DMPReferences">
                   <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
-                      <xsl:with-param name="value" select="Id" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Id"/>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <xsl:choose>
+                        <xsl:when test="jsonURL">
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <fo:basic-link external-destination="{jsonURL}">
+                              <fo:inline text-decoration="underline">
+                                <xsl:value-of select="Id"/>
+                              </fo:inline>
+                            </fo:basic-link>
+                          </fo:block>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="Id"/>
+                          </fo:block>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </fo:table-cell>
                     <fo:table-cell>
                       <fo:block />
                     </fo:table-cell>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/UserDefinedId" />
-                      <xsl:with-param name="value" select="UserDefinedId" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/UserDefinedId"/>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <xsl:choose>
+                        <xsl:when test="pdfURL">
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <fo:basic-link external-destination="{pdfURL}">
+                              <fo:inline text-decoration="underline">
+                                <xsl:value-of select="UserDefinedId"/>
+                              </fo:inline>
+                            </fo:basic-link>
+                          </fo:block>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="UserDefinedId"/>
+                          </fo:block>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </fo:table-cell>
                   </fo:table-row>
                 </xsl:for-each>
               </fo:table-body>
