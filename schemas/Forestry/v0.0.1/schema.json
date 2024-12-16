@@ -572,13 +572,21 @@
             "type": "object",
             "properties": {
               "Id": {
+                "description": "The unique identifier of the referenced DMP",
                 "type": "string",
-                "format": "uuid",
-                "description": "The unique identifier of the referenced DMP"
+                "format": "uuid"
               },
               "UserDefinedId": {
-                "type": "string",
-                "description": "The user defined identifier of the referenced DMP"
+                "description": "The user defined identifier of the referenced DMP",
+                "type": "string"
+              },
+              "jsonURL": {
+                "description": "A link to the JSON of the referenced DMP JSON",
+                "type": "string"
+              },
+              "pdfURL": {
+                "description": "A link to the JSON of the referenced DMP JSON",
+                "type": "string"
               }
             },
             "required": ["Id", "UserDefinedId"]
