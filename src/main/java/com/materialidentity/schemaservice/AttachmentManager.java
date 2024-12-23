@@ -19,6 +19,9 @@ import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDEmbeddedFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 public class AttachmentManager {
 
   private final String contentString;
@@ -35,12 +38,13 @@ public class AttachmentManager {
     if (!attachJson) {
       return pdfData;
     }
+    String prettyContentString = prettyPrintJson(contentString);
     PDDocument document = Loader.loadPDF(pdfData);
     PDComplexFileSpecification fs = new PDComplexFileSpecification();
     fs.setFile(fileName);
     fs.setFileUnicode(fileName);
 
-    byte[] contentBytes = contentString.getBytes(StandardCharsets.UTF_8);
+    byte[] contentBytes = prettyContentString.getBytes(StandardCharsets.UTF_8);
 
     InputStream is = new ByteArrayInputStream(contentBytes);
     PDEmbeddedFile embeddedFile = new PDEmbeddedFile(document, is);
@@ -69,4 +73,11 @@ public class AttachmentManager {
     document.save(output);
     return output.toByteArray();
   }
+
+  private String prettyPrintJson(String jsonString) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
+    Object json = mapper.readValue(jsonString, Object.class);
+    return writer.writeValueAsString(json);
+}
 }
