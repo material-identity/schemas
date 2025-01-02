@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.xml.transform.TransformerException;
 
+import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,8 @@ public class SchemaController {
     @Operation(summary = "Render a JSON DMP as a PDF")
     public ResponseEntity<byte[]> render(
             @RequestParam(value = EndpointParamConstants.ATTACH_JSON, defaultValue = "true") Boolean attachJson,
+            @RequestParam(value = EndpointParamConstants.JSON_FILENAME, defaultValue = SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME) String filename,
             @RequestBody JsonNode dmp) throws TransformerException, IOException, SAXException {
-        return schemasService.renderPdf(attachJson, dmp);
+        return schemasService.renderPdf(attachJson, dmp, filename);
     }
 }
