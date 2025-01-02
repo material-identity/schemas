@@ -160,15 +160,15 @@ public class SchemasServiceImpl implements SchemasService {
     }
 
     @Override
-    public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate)
+    public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate, String filename)
             throws IOException, TransformerException, SAXException {
         String[] languages = extractLanguages(certificate);
         String[] encodedData = extractPdfData(certificate);
         String[] dataFromS3 = extractPdfDataFromS3(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
-        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}", schemaType,
-                schemaVersion, languages, attachJson);
+        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}, filename: {}", schemaType,
+                schemaVersion, languages, attachJson, filename);
 
         // TODO: throw error if language is not supported
         validateSchemaTypeAndVersion(schemaType, schemaVersion);
@@ -193,7 +193,7 @@ public class SchemasServiceImpl implements SchemasService {
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(
                         new AttachmentManager(certificateJson,
-                                SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME,
+                                filename,
                                 attachJson));
 
         if (encodedData != null || dataFromS3 != null) {

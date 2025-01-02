@@ -10,6 +10,6 @@ import org.xml.sax.SAXException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public interface SchemasService {
-        ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate)
+        ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate, String filename)
                         throws IOException, TransformerException, SAXException;
 }
