@@ -71,7 +71,7 @@ class RenderTest {
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
 						assertPdfContainsEmbeddedFile(responseBody,
-								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME,
+								SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME,
 								jsonContent.getBytes(), true);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
@@ -105,7 +105,7 @@ class RenderTest {
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
 						assertPdfContainsEmbeddedFile(responseBody,
-								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
+								SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
@@ -138,7 +138,7 @@ class RenderTest {
 					try {
 						assertPdfContentEquals(expectedPdfContent, responseBody);
 						assertPdfContainsEmbeddedFile(responseBody,
-								SchemaControllerConstants.PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
+								SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME, jsonContent.getBytes(), false);
 					} catch (Exception e) {
 						throw new RuntimeException("PDF comparison failed", e);
 					}
