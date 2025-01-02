@@ -21,16 +21,17 @@ import org.apache.pdfbox.pdmodel.common.filespecification.PDEmbeddedFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import static com.materialidentity.schemaservice.config.SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_EXTENSION;
 
 public class AttachmentManager {
 
   private final String contentString;
-  private final String fileName;
+  private String filename;
   private final Boolean attachJson;
 
-  public AttachmentManager(String contentString, String fileName, Boolean attachJson) {
+  public AttachmentManager(String contentString, String filename, Boolean attachJson) {
     this.contentString = contentString;
-    this.fileName = fileName;
+    this.filename = filename;
     this.attachJson = attachJson;
   }
 
@@ -41,8 +42,11 @@ public class AttachmentManager {
     String prettyContentString = prettyPrintJson(contentString);
     PDDocument document = Loader.loadPDF(pdfData);
     PDComplexFileSpecification fs = new PDComplexFileSpecification();
-    fs.setFile(fileName);
-    fs.setFileUnicode(fileName);
+    if (!filename.endsWith(DEFAULT_PDF_ATTACHMENT_CERT_FILE_EXTENSION)) {
+      filename += DEFAULT_PDF_ATTACHMENT_CERT_FILE_EXTENSION;
+    }
+    fs.setFile(filename);
+    fs.setFileUnicode(filename);
 
     byte[] contentBytes = prettyContentString.getBytes(StandardCharsets.UTF_8);
 
@@ -61,7 +65,7 @@ public class AttachmentManager {
 
     PDEmbeddedFilesNameTreeNode efTree = new PDEmbeddedFilesNameTreeNode();
     Map<String, PDComplexFileSpecification> efMap = new HashMap<>();
-    efMap.put(fileName, fs);
+    efMap.put(filename, fs);
     efTree.setNames(efMap);
 
     PDDocumentNameDictionary names = new PDDocumentNameDictionary(
