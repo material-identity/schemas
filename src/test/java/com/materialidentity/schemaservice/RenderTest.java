@@ -267,9 +267,9 @@ class RenderTest {
 				throw new FileNotFoundException("Directory not found: " + basePath.toAbsolutePath());
 			}
 
-			// Use Files.walk to traverse directories recursively
+			// skips e-coc since it doesn't support rendering
 			return Files.walk(basePath)
-					.filter(path -> path.getFileName().toString().matches("valid_.*\\.json"))
+					.filter(path -> path.getFileName().toString().matches("valid_.*\\.json") && !path.toString().contains("E-CoC"))
 					.map(path -> {
 						Path pdfPath = Paths.get(path.toString().replace(".json", ".pdf"));
 						return Arguments.of(path, pdfPath);
