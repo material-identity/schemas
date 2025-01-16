@@ -13,6 +13,7 @@ const fixtureVersions = {
   Forestry: ['v0.0.1'],
   ForestrySource: ['v0.0.1'],
   TKR: ['v0.0.4'],
+  "E-CoC": ['v1.0.0'],
 }
 
 function getCertPaths() {
@@ -33,6 +34,7 @@ const createAjvInstance = () => {
     strictRequired: true,
     strictTypes: true,
     allErrors: true,
+    discriminator: true,
   });
   ajv.addKeyword('meta:license');
   ajv.addMetaSchema(draft7MetaSchema);
