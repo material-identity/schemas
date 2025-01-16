@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "schemas/**/schema.json"
+  workflow_dispatch:
 
 jobs:
   deploy:
