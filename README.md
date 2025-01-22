@@ -77,7 +77,7 @@ Rendering text fixtures should be added using the same file structure in the `fi
 
 ## Converting Schemas from .JSON to .XML
 
-To generate the XML schema from a JSON schema, run the following command:
+To generate the XML schema from a JSON schema, run the following command from the root directory:
 
 ```shell
 npm run json2xml <relative filepath to schema>
@@ -88,4 +88,4 @@ npm run json2xml <relative filepath to schema>
 npm run json2xml schemas/CoA/v1.1.0/schema.json
 ```
 
-It will save the resulting file to the file system.
+It will save the resulting file to the same directory as the original .json file.

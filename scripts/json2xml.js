@@ -32,8 +32,7 @@ async function convertJsonToXml(jsonFilePath) {
     const xmlOutput = toXML(content, config);
 
     // Save the XML output to a file
-    const outputFilePath =
-      path.basename(jsonFilePath, path.extname(jsonFilePath)) + '.xml';
+    const outputFilePath = jsonFilePath.replace('.json', '.xml');
     await fs.writeFile(outputFilePath, xmlOutput);
     console.log(`File has been saved as ${outputFilePath}`);
   } catch (err) {
