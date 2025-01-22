@@ -1,7 +1,7 @@
-import pkg from 'jstoxml';
+const pkg = require('jstoxml');
 const { toXML } = pkg;
-import fs from 'fs/promises';
-import path from 'path';
+const fs = require('fs/promises');
+const path = require('path');
 
 // Get the JSON file path from command-line arguments
 const jsonFilePath = process.argv[2];
