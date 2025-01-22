@@ -85,7 +85,7 @@ npm run json2xml <relative filepath to schema>
 
 **Example:**
 ```shell
-npm run json2xml test/fixtures/CoA/v1.1.0/valid_certificate_1.json
+npm run json2xml schemas/CoA/v1.1.0/schema.json
 ```
 
 It will save the resulting file to the file system.
