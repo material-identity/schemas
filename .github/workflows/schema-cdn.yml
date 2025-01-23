@@ -39,6 +39,11 @@ jobs:
             domain=$(echo "$file" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
             version=$(echo "$file" | cut -d'/' -f3)
             
+            # TODO: replace this with a proper fix
+            if [ "$domain" = "forestrysource" ]; then
+              domain="forestry-source"
+            fi
+
             # Create new path with transformed structure
             new_path="transformed/${domain}-schemas/${version}/schema.json"
             
