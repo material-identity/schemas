@@ -51,7 +51,7 @@ npm start
 ## Run with node script
 ```shell
 node scripts/render-demo.js --certificatePath path_to_certificate --schemaType type --schemaVersion version
-```  
+```
 
 **Example:**
 ```shell
@@ -74,3 +74,18 @@ the script `copy-resources.sh` will be run automatically and will copy across th
 The file `schema.json` is obligatory, and for PDF validation valid `stylesheet.xsl` and `translations.json` files.
 
 Rendering text fixtures should be added using the same file structure in the `fixtures` folder. Any `valid_certificate_*.json` files will be rendered and the result checked against the corresponding `valid_certificate_*.pdf` file.
+
+## Converting Schemas from .JSON to .XML
+
+To generate the XML schema from a JSON schema, run the following command from the root directory:
+
+```shell
+npm run json2xml <relative filepath to schema>
+```
+
+**Example:**
+```shell
+npm run json2xml schemas/CoA/v1.1.0/schema.json
+```
+
+It will save the resulting file to the same directory as the original .json file.
