@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,12 @@ public class AttachmentManager {
     InputStream is = new ByteArrayInputStream(contentBytes);
     PDEmbeddedFile embeddedFile = new PDEmbeddedFile(document, is);
     embeddedFile.setSubtype("application/json");
+    embeddedFile.setSize(contentBytes.length);
+    var currentDate = Calendar.getInstance();
+    embeddedFile.setCreationDate(currentDate);
+    embeddedFile.setModDate(currentDate);
     fs.setEmbeddedFile(embeddedFile);
+    fs.setEmbeddedFileUnicode(embeddedFile);
 
     COSDictionary dict = fs.getCOSObject();
     dict.setName("AFRelationship", "Alternative");
