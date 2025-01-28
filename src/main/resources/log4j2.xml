@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+    <Properties>
+        <property name="spring.profiles.active">${env:SPRING_PROFILES_ACTIVE}</property>
+    </Properties>
 
     <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <JSONLayout complete="false" compact="true" eventEol="true" properties="true"
-                stacktraceAsString="true">
-                <KeyValuePair key="appName" value="SchemasService" />
-            </JSONLayout>
-        </Console>
-
+        <Routing name="routing">
+            <Routes pattern="${spring.profiles.active}">
+                <Route key="local">
+                    <Console name="consolePattern" target="SYSTEM_OUT">
+                        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+                    </Console>
+                </Route>
+                <Route>
+                    <Console name="consoleJson" target="SYSTEM_OUT">
+                        <JSONLayout complete="false" compact="true" eventEol="true" properties="true" stacktraceAsString="true">
+                            <KeyValuePair key="appName" value="SchemasService" />
+                        </JSONLayout>
+                    </Console>
+                </Route>
+            </Routes>
+        </Routing>
     </Appenders>
 
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="console" />
+            <AppenderRef ref="routing" />
         </Root>
-
     </Loggers>
 </Configuration>
