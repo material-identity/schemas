@@ -27,7 +27,7 @@ spring:
 sentry:
   dsn: ${SENTRY_DSN:}
 
-debug: true
+debug: false
 
 bucket4j:
   enabled: true
