@@ -36,6 +36,12 @@ async function convertJsonToXml(jsonFilePath) {
 
     let xmlOutput = toXML(wrappedContent, config);
 
+    // Performs three string replacements on the XML text to unescape variables for processing in FO:
+    // The /g flag makes the replacement global (all occurrences), not just the first match
+    xmlOutput = xmlOutput.replace(/&lt;variable/g, '<variable')
+      .replace(/\/&gt;/g, '/>')
+      .replace(/&apos;/g, "'");
+      
     // Save the XML output to a file
     const outputFilePath = jsonFilePath.replace('.json', '.xml');
     await fs.writeFile(outputFilePath, xmlOutput);
