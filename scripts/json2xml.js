@@ -24,13 +24,24 @@ async function convertJsonToXml(jsonFilePath) {
       process.exit(1);
     }
 
+    // 'Root' will be the root element as implemented in the transformation to XML
+    const wrappedContent = {
+      Root: content  
+    };
+
     // Configure the XML output according to the jstoxml documentation (https://github.com/davidcalhoun/jstoxml)
     const config = {
       indent: '    ',
     };
 
-    const xmlOutput = toXML(content, config);
+    let xmlOutput = toXML(wrappedContent, config);
 
+    // Performs three string replacements on the XML text to unescape variables for processing in FO:
+    // The /g flag makes the replacement global (all occurrences), not just the first match
+    xmlOutput = xmlOutput.replace(/&lt;variable/g, '<variable')
+      .replace(/\/&gt;/g, '/>')
+      .replace(/&apos;/g, "'");
+      
     // Save the XML output to a file
     const outputFilePath = jsonFilePath.replace('.json', '.xml');
     await fs.writeFile(outputFilePath, xmlOutput);
