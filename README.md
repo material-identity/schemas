@@ -43,17 +43,20 @@ mvn test
 ## UI
 
 To use the UI to interact with the service, run command:
+
 ```shell
 cd ui && npm install
 npm start
 ```
 
 ## Run with node script
+
 ```shell
 node scripts/render-demo.js --certificatePath path_to_certificate --schemaType type --schemaVersion version
 ```
 
 **Example:**
+
 ```shell
 node scripts/render-demo.js --certificatePath ../test/fixtures/EN10168/v0.4.1/valid_certificate_2.json --schemaType EN10168 --schemaVersion v4.0.1
 ```
@@ -75,17 +78,36 @@ The file `schema.json` is obligatory, and for PDF validation valid `stylesheet.x
 
 Rendering text fixtures should be added using the same file structure in the `fixtures` folder. Any `valid_certificate_*.json` files will be rendered and the result checked against the corresponding `valid_certificate_*.pdf` file.
 
-## Converting Schemas from .JSON to .XML
+## Converting JSON to .XML
 
-To generate the XML schema from a JSON schema, run the following command from the root directory:
+### Purpose
+
+The creation of a PDF from JSON is based on [Apache FOP](https://projects.apache.org/project.html?xmlgraphics-fop). The steps are:
+
+1. JSON to XML Transformation
+
+     The JSON is transformed to XML
+
+2. XML + XSLT to FO Transformation
+
+     The XSLT found next to the corresponding `schema.json` is applied to the XML from step 1. The output is a XSL-FO document.
+
+3. FO to PDF Transformation
+
+     An Apache FOP processes the XSL-FO to create the PDF.
+
+The script generates the XML output of step 1.
+
+### Usage
 
 ```shell
 npm run json2xml <relative filepath to schema>
 ```
 
 **Example:**
+
 ```shell
-npm run json2xml schemas/CoA/v1.1.0/schema.json
+npm run json2xml test/fixtures/CoA/v1.1.0/valid_certificate_1.json
 ```
 
 It will save the resulting file to the same directory as the original .json file.
