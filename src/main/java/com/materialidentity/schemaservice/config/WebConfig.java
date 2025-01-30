@@ -21,7 +21,21 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
     registry
         .addMapping("/api/**")
-        .allowedOrigins("http://localhost:4200", "http://localhost:8081", "https://schemas-service.development.s1seven.com", "https://schemas-service.staging.s1seven.com", "https://schemas-service.s1seven.com", "https://dmp.development.s1seven.com", "https://dmp.staging.s1seven.com", "https://dmp.s1seven.com") // Angular development server
+        .allowedOrigins(
+          // Local development
+          "http://localhost:4200", 
+          "http://localhost:8081", 
+          // Schemas service environments
+          "https://schemas-service.development.s1seven.com", 
+          "https://schemas-service.staging.s1seven.com", 
+          "https://schemas-service.s1seven.com",
+          // DMP environments 
+          "https://dmp.development.s1seven.com", 
+          "https://dmp.staging.s1seven.com", 
+          "https://dmp.s1seven.com",
+          // Heroku review apps patterns
+          "https://s1-schemas-pr-*.herokuapp.com",
+          "https://dmp-pr-*.herokuapp.com")
         .allowedMethods("GET", "POST", "PUT", "DELETE")
         .allowedHeaders("*")
         .allowCredentials(false);

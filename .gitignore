@@ -1,9 +1,15 @@
-env
-node_modules
-scripts/output
-target
-**/.DS_Store
-src/main/resources/schemas/*
-src/test/resources/schemas/*
-**/target_test-classes/*
+# Environment and build
+.env
+node_modules/
+target/
+**/target/
+**/target_test-classes/
+
+# Mac system files
 .DS_Store
+**/.DS_Store
+
+# Project specific
+scripts/output/
+src/main/resources/schemas/
+src/test/resources/schemas/
