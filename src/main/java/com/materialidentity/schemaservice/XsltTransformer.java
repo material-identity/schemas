@@ -37,7 +37,14 @@ public class XsltTransformer {
         Transformer transformer = factory.newTransformer(xsltInput);
         transformer.transform(xmlInput, new StreamResult(outputWriter));
 
-        return outputWriter.toString();
+        String result = outputWriter.toString();
+        
+        // Unescape variables for processing in FO
+        result = result.replaceAll("&lt;variable", "<variable")
+                      .replaceAll("/&gt;", "/>")
+                      .replaceAll("&apos;", "'");
+
+        return result;
     }
 
     private String jsonNodeToXml(JsonNode jsonNode) throws IOException {
