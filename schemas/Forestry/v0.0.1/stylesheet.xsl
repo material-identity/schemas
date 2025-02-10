@@ -86,6 +86,13 @@
               <fo:table-body>
                 <fo:table-row>
                   <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/DMPId" />
+                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                </fo:table-row>
+                <fo:table-row>
+                  <xsl:call-template name="KeyValue">
                     <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Date" />
                     <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Date" />
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
@@ -366,7 +373,7 @@
                   <fo:table-row>
                     <fo:table-cell>
                       <fo:block padding-bottom="{$cellPaddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Id"/>
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/DMPId"/>
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
