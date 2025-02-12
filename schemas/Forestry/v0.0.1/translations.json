@@ -2,7 +2,8 @@
   "EN": {
     "DigitalMaterialPassport": {
       "Languages": "Languages",
-      "Id": "DMP ID",
+      "Id": "ID",
+      "DMPId": "DMP ID",
       "DigitalMaterialPassport": "Digital Material Passport",
       "UserDefinedId": "User Defined ID",
       "Date": "Date",
