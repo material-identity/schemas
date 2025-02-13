@@ -233,18 +233,18 @@
       {
         "Id": "550e8400-e29b-41d4-a716-446655440000",
         "UserDefinedId": "DMP-2024-001",
-        "jsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.json",
-        "pdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.pdf"
+        "JsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.json",
+        "PdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/source_DMP.pdf"
       },
       {
         "Id": "660e8400-e29b-41d4-a716-446655440000",
         "UserDefinedId": "DMP-2024-002",
-        "pdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.pdf"
+        "PdfURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.pdf"
       },
       {
         "Id": "770e8400-e29b-41d4-a716-446655440000",
         "UserDefinedId": "DMP-2024-003",
-        "jsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.json"
+        "JsonURL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/output_DMP.json"
       },
       {
         "Id": "36782f26-0c03-4cd8-ac5d-04f279b52760",

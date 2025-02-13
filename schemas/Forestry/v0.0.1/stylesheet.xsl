@@ -378,9 +378,9 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <xsl:choose>
-                        <xsl:when test="jsonURL">
+                        <xsl:when test="JsonURL">
                           <fo:block padding-bottom="{$cellPaddingBottom}">
-                            <fo:basic-link external-destination="{jsonURL}">
+                            <fo:basic-link external-destination="{JsonURL}">
                               <fo:inline text-decoration="underline">
                                 <xsl:value-of select="Id"/>
                               </fo:inline>
@@ -404,9 +404,9 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <xsl:choose>
-                        <xsl:when test="pdfURL">
+                        <xsl:when test="PdfURL">
                           <fo:block padding-bottom="{$cellPaddingBottom}">
-                            <fo:basic-link external-destination="{pdfURL}">
+                            <fo:basic-link external-destination="{PdfURL}">
                               <fo:inline text-decoration="underline">
                                 <xsl:value-of select="UserDefinedId"/>
                               </fo:inline>

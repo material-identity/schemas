@@ -580,16 +580,17 @@
                 "description": "The user defined identifier of the referenced DMP",
                 "type": "string"
               },
-              "jsonURL": {
+              "JsonURL": {
                 "description": "A link to the JSON of the referenced DMP JSON",
                 "type": "string"
               },
-              "pdfURL": {
+              "PdfURL": {
                 "description": "A link to the JSON of the referenced DMP JSON",
                 "type": "string"
               }
             },
-            "required": ["Id", "UserDefinedId"]
+            "required": ["Id", "UserDefinedId"],
+            "additionalProperties": false
           },
           "minItems": 1,
           "uniqueItems": true
