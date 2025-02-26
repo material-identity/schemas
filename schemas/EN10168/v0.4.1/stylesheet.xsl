@@ -313,7 +313,7 @@
                   <fo:table-column column-width="50%" />
                   <fo:table-column column-width="50%" />
                   <fo:table-body>
-                    <xsl:for-each select="$Inspection/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '04' and substring(local-name(), 2) &lt;= '09']">
+                    <xsl:for-each select="SupplementaryInformation/*[substring(local-name(), 2) &gt;= '04' and substring(local-name(), 2) &lt;= '09']">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
