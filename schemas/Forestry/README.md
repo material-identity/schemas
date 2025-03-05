@@ -10,7 +10,7 @@ The DMP for Forestry ecosystem consists of two complementary schemas:
    
    Tracks forest products throughout the supply chain, linking back to source information and providing documentation for each transaction.
 
-Together, these schemas create a complete chain of custody from forest to final product.
+Together, these schemas create a complete chain of custody from forest to final product. 
 
 ## Documentation
 
