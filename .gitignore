@@ -13,3 +13,7 @@ target/
 scripts/output/
 src/main/resources/schemas/
 src/test/resources/schemas/
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

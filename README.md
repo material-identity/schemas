@@ -71,6 +71,7 @@ http://localhost:8081/swagger-ui/index.html
 All schemas, certificates, stylesheets and fixtures can be found in the `./schemas` folder.
 The filepath convention is as follows: `./schemas/<schema-type>/<version>/`.
 
+If you are a part of S1EVEN team, log in to dotenv `npx dotenv-vault login` and pull `npx dotenv-vault@latest pull` to get environment variables for running the script. 
 To add a new version, create a new folder with the version as the name. When the schemas-service app is built,
 the script `copy-resources.sh` will be run automatically and will copy across the needed `stylesheet.xsl` and `translations.json` files.
 
