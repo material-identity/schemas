@@ -3,7 +3,9 @@
     "@eslint/js": "^9.5.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.7.2",
+    "dotenv": "^16.4.7",
     "eslint": "^9.5.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.6.0",
@@ -17,9 +19,5 @@
     "test": "jest",
     "json2xml": "node ./scripts/json2xml.js",
     "dotenv": "npx dotenv-vault@latest pull"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.1692.0",
-    "dotenv": "^16.4.7"
   }
 }
