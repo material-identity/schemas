@@ -4,22 +4,22 @@ const path = require('path');
 const AWS = require('aws-sdk');
 
 const {
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-  AWS_REGION,
-  S3_BUCKET_NAME,
+  SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID,
+  SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY,
+  SCHEMAS_PRIVATE_AWS_REGION,
+  SCHEMAS_PRIVATE_S3_BUCKET_NAME,
 } = process.env;
 
 // Configure AWS S3
 const s3 = new AWS.S3({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  region: AWS_REGION
+  accessKeyId: SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID,
+  secretAccessKey: SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY,
+  region: SCHEMAS_PRIVATE_AWS_REGION
 });
 
 async function listFiles() {
   const params = {
-    Bucket: S3_BUCKET_NAME
+    Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME
   };
 
   try {
@@ -70,7 +70,7 @@ async function downloadFile(fullFileName) {
   }
 
   const params = {
-    Bucket: S3_BUCKET_NAME,
+    Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME,
     Key: fullFileName
   };
 
@@ -93,8 +93,8 @@ async function downloadFile(fullFileName) {
 }
 
 async function main() {
-  if (!S3_BUCKET_NAME) {
-    console.error('S3_BUCKET_NAME is not defined. Skipping download.');
+  if (!SCHEMAS_PRIVATE_S3_BUCKET_NAME) {
+    console.error('SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping download.');
     return;
   }
 

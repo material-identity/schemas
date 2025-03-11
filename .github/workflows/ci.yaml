@@ -45,4 +45,5 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm ci
+      - run: chmod +x ./copy-resources.sh && ./copy-resources.sh
       - run: npm test
