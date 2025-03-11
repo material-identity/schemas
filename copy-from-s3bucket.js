@@ -49,11 +49,11 @@ async function downloadFile(fullFileName) {
   const companyName = pathParts.pop();
 
   if (fullFileName.startsWith('test/fixtures/')) {
-    companyDir = path.join(__dirname, 'src/test/resources/schemas', companyName);
+    companyDir = path.join(__dirname, 'test/fixtures', companyName);
     versionDir = path.join(companyDir, versionNumber);
     targetFolder = path.join(versionDir, fileName);
   } else if (fullFileName.startsWith('schemas/')) {
-    companyDir = path.join(__dirname, 'src/main/resources/schemas', companyName);
+    companyDir = path.join(__dirname, 'schemas', companyName);
     versionDir = path.join(companyDir, versionNumber);
     targetFolder = path.join(versionDir, fileName);
   } else {
