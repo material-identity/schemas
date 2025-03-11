@@ -16,3 +16,8 @@ src/test/resources/schemas/
 .env*
 !.env.project
 !.env.vault
+.flaskenv*
+
+# schema-private files from S3Bucket
+schemas/TKR/*
+test/fixtures/TKR/*
