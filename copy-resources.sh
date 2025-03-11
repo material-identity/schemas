@@ -6,4 +6,5 @@ rsync -avm --include='*/' --include='translations.json' --include='stylesheet.xs
 mkdir -p ./src/test/resources/schemas/
 rm -rf ./src/test/resources/schemas/*
 rsync -avm --include='*/' ./test/fixtures/ ./src/test/resources/schemas/
+npm install   # to install dotenv and aws-sdk for the next script
 node copy-from-s3bucket.js
