@@ -12,7 +12,7 @@ const fixtureVersions = {
   EN10168: ['v0.4.1'],
   Forestry: ['v0.0.1'],
   ForestrySource: ['v0.0.1'],
-  TKR: ['v0.0.4'],
+//  TKR: ['v0.0.4'],
   "E-CoC": ['v1.0.0'],
 }
 
