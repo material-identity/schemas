@@ -10,7 +10,7 @@ public class SchemasAndVersions {
 
   public static final Map<SchemaTypes, List<String>> supportedSchemas = Map.of(
       SchemaTypes.CoA, List.of("v1.1.0"),
-//      SchemaTypes.TKR, List.of("v0.0.4"),
+      SchemaTypes.TKR, List.of("v0.0.4"),
       SchemaTypes.EN10168, List.of("v0.4.1"),
       SchemaTypes.Forestry, List.of("v0.0.1"),
       SchemaTypes.ForestrySource, List.of("v0.0.1"));
