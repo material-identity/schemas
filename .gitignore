@@ -20,4 +20,6 @@ src/test/resources/schemas/
 
 # schema-private files from S3Bucket
 schemas/TKR/*
+schemas/Bluemint/*
 test/fixtures/TKR/*
+test/fixtures/Bluemint/*
