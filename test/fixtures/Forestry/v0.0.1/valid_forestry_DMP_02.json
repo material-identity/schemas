@@ -229,6 +229,18 @@
         }
       ]
     },
+    "EUDRReferences": [
+      {
+        "InternalReferenceNumber": "Our-Ref-124",
+        "DDSReferenceNumber": "25ATLSQEHR3457",
+        "VerificationNumber": "XGLBQNV5"
+      },
+      {
+        "InternalReferenceNumber": "Our-Ref-125",
+        "DDSReferenceNumber": "25ATLSQEHR3458",
+        "VerificationNumber": "XXXXQNV5"
+      }
+    ],
     "DMPReferences": [
       {
         "Id": "550e8400-e29b-41d4-a716-446655440000",
