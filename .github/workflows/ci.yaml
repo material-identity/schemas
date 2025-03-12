@@ -45,4 +45,11 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm ci
+      - name: Run copy-resources script
+        env:
+          SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID: ${{ secrets.SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID }}
+          SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY: ${{ secrets.SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY }}
+          SCHEMAS_PRIVATE_AWS_REGION: ${{ secrets.SCHEMAS_PRIVATE_AWS_REGION }}
+          SCHEMAS_PRIVATE_S3_BUCKET_NAME: ${{ secrets.SCHEMAS_PRIVATE_S3_BUCKET_NAME }}
+        run: chmod +x ./copy-resources.sh && ./copy-resources.sh
       - run: npm test
