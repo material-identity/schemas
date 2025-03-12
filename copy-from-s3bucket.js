@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const AWS = require('aws-sdk');
+const { S3, ListObjectsV2Command, GetObjectCommand } = require('@aws-sdk/client-s3');
 
 const {
   SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID,
@@ -10,21 +10,19 @@ const {
   SCHEMAS_PRIVATE_S3_BUCKET_NAME,
 } = process.env;
 
-// Configure AWS S3
-const s3 = new AWS.S3({
-  accessKeyId: SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID,
-  secretAccessKey: SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY,
-  region: SCHEMAS_PRIVATE_AWS_REGION
+const s3 = new S3({
+  region: SCHEMAS_PRIVATE_AWS_REGION,
+  credentials: {
+    accessKeyId: SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID,
+    secretAccessKey: SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY,
+  },
 });
 
 async function listFiles() {
-  const params = {
-    Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME
-  };
-
+  const params = { Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME };
   try {
-    const data = await s3.listObjectsV2(params).promise();
-    return data.Contents.map(item => item.Key);
+    const data = await s3.send(new ListObjectsV2Command(params));
+    return data.Contents?.map(item => item.Key) || [];
   } catch (error) {
     console.error('Error listing files:', error.message);
     return [];
@@ -32,7 +30,6 @@ async function listFiles() {
 }
 
 async function downloadFile(fullFileName) {
-  // Skip directories in S3 (by checking for a trailing slash)
   if (fullFileName.endsWith('/')) {
     return;
   }
@@ -41,9 +38,7 @@ async function downloadFile(fullFileName) {
   let companyDir = '';
   let versionDir = '';
 
-  // Extract version and companyName from the path
   const pathParts = fullFileName.split('/');
-
   const fileName = pathParts.pop();
   const versionNumber = pathParts.pop();
   const companyName = pathParts.pop();
@@ -61,7 +56,6 @@ async function downloadFile(fullFileName) {
     return;
   }
 
-  // Ensure company and version directories exist
   if (!fs.existsSync(companyDir)) {
     fs.mkdirSync(companyDir, { recursive: true });
   }
@@ -69,23 +63,12 @@ async function downloadFile(fullFileName) {
     fs.mkdirSync(versionDir, { recursive: true });
   }
 
-  const params = {
-    Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME,
-    Key: fullFileName
-  };
+  const params = { Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME, Key: fullFileName };
 
   try {
-    const data = await s3.getObject(params).promise();
-    const dir = path.dirname(targetFolder);
-
-    // Ensure the directory exists before writing the file
-    if (!fs.existsSync(dir)) {
-      console.log(`Directory does not exist, skipping: ${dir}`);
-      return;
-    }
-
-    // Write the file content
-    fs.writeFileSync(targetFolder, data.Body);
+    const { Body } = await s3.send(new GetObjectCommand(params));
+    const fileStream = fs.createWriteStream(targetFolder);
+    Body.pipe(fileStream);
     console.log(`Downloaded: ${fullFileName} -> ${targetFolder}`);
   } catch (error) {
     console.error(`Error downloading ${fullFileName}:`, error.message);
