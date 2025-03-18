@@ -3,7 +3,7 @@
 @include mat.core();
 
 // Define custom Material palettes
-$custom-primary: mat.define-palette(
+$custom-primary: mat.m2-define-palette(
   (
     50: map-get($colors, primary-50),
     100: map-get($colors, primary-100),
@@ -31,7 +31,7 @@ $custom-primary: mat.define-palette(
   )
 );
 
-$custom-accent: mat.define-palette(
+$custom-accent: mat.m2-define-palette(
   (
     50: map-get($colors, secondary-50),
     100: map-get($colors, secondary-100),
@@ -59,9 +59,9 @@ $custom-accent: mat.define-palette(
   )
 );
 
-$custom-warn: mat.define-palette(mat.$red-palette);
+$custom-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$light-theme: mat.define-light-theme(
+$light-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $custom-primary,
@@ -71,7 +71,7 @@ $light-theme: mat.define-light-theme(
   )
 );
 
-$dark-theme: mat.define-dark-theme(
+$dark-theme: mat.m2-define-dark-theme(
   (
     color: (
       primary: $custom-primary,
