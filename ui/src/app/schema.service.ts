@@ -5,6 +5,12 @@ import { first, firstValueFrom } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SchemaService {
   private readonly http = inject(HttpClient);
+  private readonly thrustedServerUrls = [
+    "http://localhost:8081",
+    "https://schemas-service.development.s1seven.com",
+    "https://schemas-service.staging.s1seven.com",
+    "https://schemas-service.s1seven.com"
+  ];
 
   constructor() {}
 
@@ -12,9 +18,7 @@ export class SchemaService {
     certificate: Record<string, unknown>,
     attachJson: boolean = true
   ) {
-    // Retrieve port from environment variables with a default value
-    const port = '8081';
-    const url = `http://localhost:${port}/api/render`;
+    const url = `${this.getServerUrl()}/api/render`;
 
     try {
       const res = await firstValueFrom(
@@ -29,6 +33,32 @@ export class SchemaService {
       window.open(blobUrl);
     } catch (error) {
       console.error('Error rendering PDF:', error);
+    }
+  }
+
+  getServerUrl() {
+    const devUrl = "https://schemas-service.development.s1seven.com";
+    let url = devUrl;
+
+    try{
+      const baseUrl = `${window.location.protocol}//${window.location.hostname}`;
+
+      if(baseUrl.includes('localhost')) {
+        url = `${baseUrl}:${window.location.port}`;
+      }
+      else {
+        url = baseUrl;
+      }
+
+      if (this.thrustedServerUrls.includes(url)) {
+        return url;
+      }
+
+    return devUrl;
+    }
+    catch (e) {
+      console.log("Error while creating serverUrl: ", e);
+      return devUrl;
     }
   }
 }
