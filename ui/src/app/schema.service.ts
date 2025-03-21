@@ -37,10 +37,11 @@ export class SchemaService {
   }
 
   getServerUrl() {
+    const devUrl = "https://schemas-service.development.s1seven.com";
+    let url = devUrl;
+
     try{
       const baseUrl = `${window.location.protocol}//${window.location.hostname}`;
-      const devUrl = "https://schemas-service.development.s1seven.com";
-      let url = devUrl;
 
       if(baseUrl.includes('localhost')) {
         url = `${baseUrl}:${window.location.port}`;
@@ -49,9 +50,11 @@ export class SchemaService {
         url = baseUrl;
       }
 
-      if (thrustedServerUrls.includes(url)) {
+      if (this.thrustedServerUrls.includes(url)) {
         return url;
       }
+
+    return devUrl;
     }
     catch (e) {
       console.log("Error while creating serverUrl: ", e);
