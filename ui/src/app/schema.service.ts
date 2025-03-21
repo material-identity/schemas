@@ -5,6 +5,12 @@ import { first, firstValueFrom } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SchemaService {
   private readonly http = inject(HttpClient);
+  private readonly thrustedServerUrls = [
+    "http://localhost:8081",
+    "https://schemas-service.development.s1seven.com",
+    "https://schemas-service.staging.s1seven.com",
+    "https://schemas-service.s1seven.com"
+  ];
 
   constructor() {}
 
@@ -33,17 +39,23 @@ export class SchemaService {
   getServerUrl() {
     try{
       const baseUrl = `${window.location.protocol}//${window.location.hostname}`;
+      const devUrl = "https://schemas-service.development.s1seven.com";
+      let url = devUrl;
 
       if(baseUrl.includes('localhost')) {
-        return `${baseUrl}:${window.location.port}`;
+        url = `${baseUrl}:${window.location.port}`;
       }
       else {
-        return baseUrl;
+        url = baseUrl;
+      }
+
+      if (thrustedServerUrls.includes(url)) {
+        return url;
       }
     }
     catch (e) {
       console.log("Error while creating serverUrl: ", e);
-      return "https://schemas-service.development.s1seven.com";
+      return devUrl;
     }
   }
 }
