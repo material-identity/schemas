@@ -12,9 +12,7 @@ export class SchemaService {
     certificate: Record<string, unknown>,
     attachJson: boolean = true
   ) {
-    // Retrieve port from environment variables with a default value
-    const port = '8081';
-    const url = `http://localhost:${port}/api/render`;
+    const url = `${this.getServerUrl()}/api/render`;
 
     try {
       const res = await firstValueFrom(
@@ -29,6 +27,23 @@ export class SchemaService {
       window.open(blobUrl);
     } catch (error) {
       console.error('Error rendering PDF:', error);
+    }
+  }
+
+  getServerUrl() {
+    try{
+      const baseUrl = `${window.location.protocol}//${window.location.hostname}`;
+
+      if(baseUrl.includes('localhost')) {
+        return `${baseUrl}:${window.location.port}`;
+      }
+      else {
+        return baseUrl;
+      }
+    }
+    catch (e) {
+      console.log("Error while creating serverUrl: ", e);
+      return "https://schemas-service.development.s1seven.com";
     }
   }
 }
