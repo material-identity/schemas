@@ -24,6 +24,15 @@
         <font embed-url="classpath:fonts/NotoSansSC-Regular.ttf">
           <font-triplet name="NotoSansSC" style="italic" weight="normal"/>
         </font>
+        <font embed-url="classpath:fonts/TKTypeRegular.ttf">
+          <font-triplet name="TKTypeRegular" style="normal" weight="normal"/>
+        </font>
+        <font embed-url="classpath:fonts/TKTypeBold.ttf">
+          <font-triplet name="TKTypeBold" style="normal" weight="bold"/>
+        </font>
+        <font embed-url="classpath:fonts/TKTypeMedium.ttf">
+          <font-triplet name="TKTypeMedium" style="normal" weight="normal"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>
