@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "schemas/**/schema.json"
+      - "schemas/**"
   workflow_dispatch:
 
 jobs:
