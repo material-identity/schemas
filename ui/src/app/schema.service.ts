@@ -50,7 +50,7 @@ export class SchemaService {
         url = baseUrl;
       }
 
-      if (this.thrustedServerUrls.includes(url)) {
+      if (this.trustedServerUrls.includes(url)) {
         return url;
       }
 
