@@ -19,6 +19,7 @@
                     <Console name="consoleJson" target="SYSTEM_OUT">
                         <JSONLayout complete="false" compact="true" eventEol="true" properties="true" stacktraceAsString="true"/>
                             <KeyValuePair key="appName" value="SchemasService" />
+                        </JSONLayout>
                     </Console>
                 </Route>
             </Routes>
