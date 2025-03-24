@@ -11,10 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-uploader',
-  standalone: true,
-  imports: [MatIconModule, MatButtonModule],
-  template: `
+    selector: 'app-uploader',
+    imports: [MatIconModule, MatButtonModule],
+    template: `
     <div
       (drop)="onFileDrop($event)"
       (dragover)="onDragOver($event)"
@@ -48,14 +47,14 @@ import { MatIconModule } from '@angular/material/icon';
       }
     </div>
   `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: UploaderComponent,
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: UploaderComponent,
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UploaderComponent implements ControlValueAccessor {
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
