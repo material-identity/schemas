@@ -5,7 +5,7 @@ import { first, firstValueFrom } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SchemaService {
   private readonly http = inject(HttpClient);
-  private readonly thrustedServerUrls = [
+  private readonly trustedServerUrls = [
     "http://localhost:8081",
     "https://schemas-service.development.s1seven.com",
     "https://schemas-service.staging.s1seven.com",
