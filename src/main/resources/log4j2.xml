@@ -16,16 +16,8 @@
                 
                 <!-- Production JSON output -->
                 <Route>
-                    <Console name="Console-JSON" target="SYSTEM_OUT">
-                        <JSONLayout complete="false" 
-                                  compact="true" 
-                                  eventEol="true" 
-                                  stacktraceAsString="true"
-                                  includeTimeMillis="true"
-                                  objectMessageAsJsonObject="true">
-                            <KeyValuePair key="appName" value="SchemasService" />
-                            <KeyValuePair key="env" value="${spring.profiles.active}" />
-                        </JSONLayout>
+                    <Console name="consoleJson" target="SYSTEM_OUT">
+                        <JSONLayout complete="false" compact="true" eventEol="true" properties="true" stacktraceAsString="true"/>
                     </Console>
                 </Route>
             </Routes>
