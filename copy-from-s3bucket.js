@@ -34,42 +34,34 @@ async function downloadFile(fullFileName) {
     return;
   }
 
-  let targetFolder = '';
-  let companyDir = '';
-  let versionDir = '';
-
-  const pathParts = fullFileName.split('/');
-  const fileName = pathParts.pop();
-  const versionNumber = pathParts.pop();
-  const companyName = pathParts.pop();
+  let baseDir = '';
 
   if (fullFileName.startsWith('test/fixtures/')) {
-    companyDir = path.join(__dirname, 'test/fixtures', companyName);
-    versionDir = path.join(companyDir, versionNumber);
-    targetFolder = path.join(versionDir, fileName);
+    baseDir = path.join(__dirname, 'test/fixtures');
   } else if (fullFileName.startsWith('schemas/')) {
-    companyDir = path.join(__dirname, 'schemas', companyName);
-    versionDir = path.join(companyDir, versionNumber);
-    targetFolder = path.join(versionDir, fileName);
+    baseDir = path.join(__dirname, 'schemas');
   } else {
     console.warn(`Skipping file with unrecognized structure: ${fullFileName}`);
     return;
   }
 
-  if (!fs.existsSync(companyDir)) {
-    fs.mkdirSync(companyDir, { recursive: true });
-  }
-  if (!fs.existsSync(versionDir)) {
-    fs.mkdirSync(versionDir, { recursive: true });
+  // Rekonstruiši relativnu strukturu
+  const relativePath = fullFileName.replace(/^test\/fixtures\//, '').replace(/^schemas\//, '');
+  const localFilePath = path.join(baseDir, relativePath);
+
+  // Kreiraj sve potrebne direktorijume
+  const localDir = path.dirname(localFilePath);
+  if (!fs.existsSync(localDir)) {
+    fs.mkdirSync(localDir, { recursive: true });
   }
 
   const params = { Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME, Key: fullFileName };
 
   try {
     const { Body } = await s3.send(new GetObjectCommand(params));
-    const fileStream = fs.createWriteStream(targetFolder);
+    const fileStream = fs.createWriteStream(localFilePath);
     Body.pipe(fileStream);
-    console.log(`Downloaded: ${fullFileName} -> ${targetFolder}`);
+    console.log(`Downloaded: ${fullFileName} -> ${localFilePath}`);
   } catch (error) {
     console.error(`Error downloading ${fullFileName}:`, error.message);
   }
