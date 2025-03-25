@@ -19,20 +19,33 @@ const s3 = new S3({
 });
 
 async function listFiles() {
-  const params = { Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME };
+  let files = [];
+  let continuationToken = null;
+
   try {
-    const data = await s3.send(new ListObjectsV2Command(params));
-    return data.Contents?.map(item => item.Key) || [];
+    do {
+      const params = {
+        Bucket: SCHEMAS_PRIVATE_S3_BUCKET_NAME,
+        ContinuationToken: continuationToken, // Continue if more that 1000 files
+      };
+
+      const data = await s3.send(new ListObjectsV2Command(params));
+      files = files.concat(data.Contents?.map(item => item.Key) || []);
+      continuationToken = data.NextContinuationToken;
+
+    } while (continuationToken);
+
+    console.log(`✅ Found ${files.length} files in S3.`);
+    return files;
+
   } catch (error) {
-    console.error('Error listing files:', error.message);
+    console.error('🚨 Error listing files:', error.message);
     return [];
   }
 }
 
 async function downloadFile(fullFileName) {
-  if (fullFileName.endsWith('/')) {
-    return;
-  }
+  if (fullFileName.endsWith('/')) return;
 
   let baseDir = '';
 
@@ -41,15 +54,15 @@ async function downloadFile(fullFileName) {
   } else if (fullFileName.startsWith('schemas/')) {
     baseDir = path.join(__dirname, 'schemas');
   } else {
-    console.warn(`Skipping file with unrecognized structure: ${fullFileName}`);
+    console.warn(`⚠️ Skipping unrecognized file structure: ${fullFileName}`);
     return;
   }
 
-  // Rekonstruiši relativnu strukturu
   const relativePath = fullFileName.replace(/^test\/fixtures\//, '').replace(/^schemas\//, '');
   const localFilePath = path.join(baseDir, relativePath);
 
-  // Kreiraj sve potrebne direktorijume
+  console.log(`📥 Downloading: ${fullFileName} -> ${localFilePath}`);
+
   const localDir = path.dirname(localFilePath);
   if (!fs.existsSync(localDir)) {
     fs.mkdirSync(localDir, { recursive: true });
@@ -61,21 +74,28 @@ async function downloadFile(fullFileName) {
     const { Body } = await s3.send(new GetObjectCommand(params));
     const fileStream = fs.createWriteStream(localFilePath);
     Body.pipe(fileStream);
-    console.log(`Downloaded: ${fullFileName} -> ${localFilePath}`);
+
+    await new Promise((resolve, reject) => {
+      fileStream.on('finish', resolve);
+      fileStream.on('error', reject);
+    });
+
+    console.log(`✅ Successfully downloaded: ${localFilePath}`);
   } catch (error) {
-    console.error(`Error downloading ${fullFileName}:`, error.message);
+    console.error(`🚨 Error downloading ${fullFileName}:`, error.message);
   }
 }
 
 async function main() {
   if (!SCHEMAS_PRIVATE_S3_BUCKET_NAME) {
-    console.error('SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping download.');
+    console.error('❌ SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping download.');
     return;
   }
 
   const files = await listFiles();
   await Promise.all(files.map(downloadFile));
-  console.log('All files downloaded.');
+
+  console.log('🎉 All files downloaded.');
 }
 
 main();
