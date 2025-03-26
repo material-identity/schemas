@@ -9,7 +9,7 @@ const { loadExternalFile } = require('./helpers');
 // add new certs and versions here
 const fixtureVersions = {
   CoA: ['v1.1.0'],
-  EN10168: ['v0.4.1'],
+  EN10168: ['v0.4.1', 'v0.5.0'],
   Forestry: ['v0.0.1'],
   ForestrySource: ['v0.0.1'],
   TKR: ['v0.0.4'],
