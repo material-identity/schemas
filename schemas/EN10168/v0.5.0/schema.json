@@ -1738,27 +1738,6 @@
         }
       ]
     },
-    "DocumentMetadata": {
-      "title": "MetaData",
-      "description": "",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "",
-          "type": "string"
-        },
-        "version": {
-          "description": "",
-          "type": "integer",
-          "minimum": 0
-        },
-        "state": {
-          "description": "",
-          "type": "string",
-          "enum": ["draft", "valid", "cancelled"]
-        }
-      },
-      "required": ["id"]
     },
     "Certificate": {
       "description": "",
