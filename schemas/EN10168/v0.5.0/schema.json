@@ -92,99 +92,51 @@
         }
       ]
     },
-    "CompanyAddress": {
+    "Company": {
+      "title": "Company",
       "type": "object",
       "properties": {
+        "Name": {
+          "description": "The name of the company.",
+          "type": "string"
+        },
+        "ZipCode": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "PL", "CN"]
+        },
+        "Email": {
+          "description": "The company email address assigned for handling of DMP",
+          "type": "string",
+          "format": "email",
+          "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+          "minLength": 3,
+          "maxLength": 254,
+          "examples": ["user@example.com", "name.surname@subdomain.example.com"]
+        },
         "Street": {
-          "description": "Address of the company",
-          "anyOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "maxItems": 3
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "description": "The address of the company",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+        "Identifiers": {
+          "$ref": "#/definitions/CompanyIdentifiers"
         }
       },
-      "required": ["Street"]
-    },
-    "Company": {
-      "allOf": [
-        {
-          "title": "Company",
-          "type": "object",
-          "allOf": [
-            {
-              "type": "object",
-              "properties": {
-                "ZipCode": {
-                  "type": "string"
-                },
-                "City": {
-                  "type": "string"
-                },
-                "Country": {
-                  "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
-                  "type": "string",
-                  "minLength": 2,
-                  "maxLength": 2,
-                  "pattern": "^[A-Z]{2}$",
-                  "examples": ["AT", "DE", "FR", "ES", "PL", "CN"]
-                },
-                "Email": {
-                  "type": "string",
-                  "format": "email"
-                },
-                "AdditionalInformation": {
-                  "description": "An array of additional free text information on the company.",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "uniqueItems": true,
-                  "minItems": 1
-                }
-              },
-              "oneOf": [
-                {
-                  "properties": {
-                    "Name": {
-                      "type": "string"
-                    }
-                  },
-                  "required": ["Name"]
-                },
-                {
-                  "properties": {
-                    "CompanyName": {
-                      "type": "string"
-                    }
-                  },
-                  "required": ["CompanyName"]
-                }
-              ],
-              "required": ["ZipCode", "City", "Country"],
-              "additionalProperties": true
-            },
-            {
-              "$ref": "#/definitions/CompanyAddress"
-            },
-            {
-              "properties": {
-                "Identifiers": {
-                  "$ref": "#/definitions/CompanyIdentifiers"
-                }
-              }
-            }
-          ]
-        }
-      ]
+      "required": ["Name", "Country", "Street", "ZipCode", "City"]
     },
     "ChemicalElement": {
       "allOf": [

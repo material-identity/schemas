@@ -1222,7 +1222,7 @@
         <xsl:value-of select="$title" />
       </fo:block>
       <fo:block>
-        <xsl:value-of select="$party/CompanyName" />
+        <xsl:value-of select="$party/Name" />
       </fo:block>
       <fo:block>
         <xsl:for-each select="$party/Street">
