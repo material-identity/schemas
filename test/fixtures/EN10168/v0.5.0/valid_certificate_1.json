@@ -1,5 +1,5 @@
 {
-  "RefSchemaUrl": "https://schemas.s1seven.dev/en10168-schemas/v0.4.1/schema.json",
+  "RefSchemaUrl": "https://schemas.materialidentity.org/en10168-schemas/v0.5.0/schema.json",
   "Certificate": {
     "CertificateLanguages": ["EN", "DE"],
     "CommercialTransaction": {
