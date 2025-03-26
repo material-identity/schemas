@@ -51,6 +51,17 @@
           "VAT": "DE12234567890"
         }
       },
+      "A06.4": {
+        "CompanyName": "Endconsumer AG",
+        "Street": "Handelsgasse 1",
+        "ZipCode": "10115",
+        "City": "Berlin",
+        "Country": "DE",
+        "Email": "sbs.steeltrader@gmail.com",
+        "Identifiers": {
+          "VAT": "DE12234567890"
+        }
+      },
       "A07": "0334/2019/ZZS",
       "A08": "958722",
       "A09": "TR-12456",
