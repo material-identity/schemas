@@ -1139,6 +1139,14 @@
                         }
                       ],
                       "description": "The receiver/consignee of the certificate"
+                    },
+                    "A06.4": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/Company"
+                        }
+                      ],
+                      "description": "The subpurchaser of the product"
                     }
                   },
                   "required": ["A06.1"]
