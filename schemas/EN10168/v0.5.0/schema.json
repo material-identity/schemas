@@ -9,56 +9,52 @@
   "$id": "https://schemas.materialidentity.org/en10168-schemas/v0.5.0/schema.json",
   "definitions": {
     "KeyValueObject": {
-      "allOf": [
-        {
-          "title": "KeyValueObject",
-          "type": "object",
-          "properties": {
-            "Key": {
-              "type": "string"
-            },
-            "Value": {
-              "type": "string"
-            },
-            "Unit": {
-              "type": "string"
-            },
-            "Interpretation": {
-              "type": "string"
-            },
-            "Type": {
-              "enum": ["string", "number", "date", "date-time", "boolean"],
-              "default": "string"
-            }
-          },
-          "required": ["Key"],
-          "additionalProperties": false
+      "title": "KeyValueObject",
+      "type": "object",
+      "properties": {
+        "Key": {
+          "description": "The key of the value, describing the property",
+          "type": "string"
+        },
+        "Value": {
+          "description": "The value of the key",
+          "type": "string"
+        },
+        "Unit": {
+          "description": "The unit of the value, e.g. 'mm'",
+          "type": "string"
+        },
+        "Interpretation": {
+          "description": "The interpretation of the value, e.g. 'Positive'",
+          "type": "string"
+        },
+        "Type": {
+          "enum": ["string", "number", "date", "date-time", "boolean"],
+          "default": "string"
+        },
+        "Method": {
+          "description": "The method used to determine the value, e.g. 'EN ISO 148-1:2016'",
+          "type": "string"
         }
-      ]
+      },
+      "required": ["Key"],
+      "additionalProperties": false
     },
     "CertificateLanguages": {
-      "allOf": [
-        {
-          "title": "CertificateLanguages",
-          "description": "For a JSON document one or two translations used in the rendering of HTML and PDF documents can be specificed.",
-          "type": "array",
-          "items": {
-            "enum": ["EN", "DE", "FR", "ES", "PL", "CN", "TR", "IT"]
-          },
-          "minItems": 1,
-          "maxItems": 2,
-          "default": ["EN"],
-          "uniqueItems": true
-        }
-      ]
+      "title": "CertificateLanguages",
+      "description": "For a JSON document one or two translations used in the rendering of HTML and PDF documents can be specificed.",
+      "type": "array",
+      "items": {
+        "enum": ["EN", "DE", "FR", "ES", "PL", "CN", "TR", "IT"]
+      },
+      "minItems": 1,
+      "maxItems": 2,
+      "default": ["EN"],
+      "uniqueItems": true
     },
     "RefSchemaUrl": {
-      "allOf": [
-        {
-          "type": "string",
-          "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
-        }
-      ]
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
     },
     "CompanyIdentifiers": {
       "type": "object",
@@ -139,69 +135,61 @@
       "required": ["Name", "Country", "Street", "ZipCode", "City"]
     },
     "ChemicalElement": {
-      "allOf": [
-        {
-          "title": "ChemicalElement",
-          "type": "object",
-          "description": "The chemical composition of the product.",
-          "properties": {
-            "Symbol": {
-              "description": "The symbol of the element",
-              "type": "string"
-            },
-            "Actual": {
-              "description": "The measured part of the element in percentage.",
-              "type": "string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
-            },
-            "Minimum": {
-              "description": "The minimum if defined by the product specification, otherwise the element must not provided.",
-              "type": "string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
-            },
-            "Maximum": {
-              "description": "The maximum as defined by the product specification, otherwise the element must not provided.",
-              "type": "string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
-            }
-          },
-          "required": ["Symbol", "Actual"],
-          "additionalProperties": false
+      "title": "ChemicalElement",
+      "type": "object",
+      "description": "The chemical composition of the product.",
+      "properties": {
+        "Symbol": {
+          "description": "The symbol of the element",
+          "type": "string"
+        },
+        "Actual": {
+          "description": "The measured part of the element in percentage.",
+          "type": "string",
+          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
+        },
+        "Minimum": {
+          "description": "The minimum if defined by the product specification, otherwise the element must not provided.",
+          "type": "string",
+          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
+        },
+        "Maximum": {
+          "description": "The maximum as defined by the product specification, otherwise the element must not provided.",
+          "type": "string",
+          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
         }
-      ]
+      },
+      "required": ["Symbol", "Actual"],
+      "additionalProperties": false
     },
     "Measurement": {
-      "allOf": [
-        {
-          "title": "Measurement",
-          "type": "object",
-          "description": "Measured Values in a structured fashion for easy processing and rendering of data",
-          "properties": {
-            "Property": {
-              "description": "The property measured",
-              "type": "string"
-            },
-            "Value": {
-              "description": "A measured or calculated Value (e.g. mean of individual measurements).",
-              "type": "number"
-            },
-            "Minimum": {
-              "description": "The lower limit according product specification. If not provided it is 0.",
-              "type": "number"
-            },
-            "Maximum": {
-              "description": "The upper limit according product specification. If not provided it is ∞.",
-              "type": "number"
-            },
-            "Unit": {
-              "description": "The Unit of Value.",
-              "type": "string"
-            }
-          },
-          "required": ["Value"],
-          "additionalProperties": false
+      "title": "Measurement",
+      "type": "object",
+      "description": "Measured Values in a structured fashion for easy processing and rendering of data",
+      "properties": {
+        "Property": {
+          "description": "The property measured",
+          "type": "string"
+        },
+        "Value": {
+          "description": "A measured or calculated Value (e.g. mean of individual measurements).",
+          "type": "number"
+        },
+        "Minimum": {
+          "description": "The lower limit according product specification. If not provided it is 0.",
+          "type": "number"
+        },
+        "Maximum": {
+          "description": "The upper limit according product specification. If not provided it is ∞.",
+          "type": "number"
+        },
+        "Unit": {
+          "description": "The Unit of Value.",
+          "type": "string"
         }
-      ]
+      },
+      "required": ["Value"],
+      "additionalProperties": false
     },
     "ProductDescription": {
       "type": "object",
@@ -795,35 +783,19 @@
                     },
                     "B10": {
                       "description": "Product dimensions - length of the product",
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Measurement"
-                        }
-                      ]
+                      "$ref": "#/definitions/Measurement"
                     },
                     "B11": {
                       "description": "Product dimensions ",
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Measurement"
-                        }
-                      ]
+                      "$ref": "#/definitions/Measurement"
                     },
                     "B12": {
                       "description": "Theoretical mass",
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Measurement"
-                        }
-                      ]
+                      "$ref": "#/definitions/Measurement"
                     },
                     "B13": {
                       "description": "Actual mass",
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Measurement"
-                        }
-                      ]
+                      "$ref": "#/definitions/Measurement"
                     },
                     "SupplementaryInformation": {
                       "title": "ProductDescriptionSupplementaryInformation",
@@ -1007,16 +979,11 @@
           "allOf": [
             {
               "title": "CommercialTransactionBase",
-              "description": "",
               "type": "object",
               "properties": {
                 "A01": {
-                  "allOf": [
-                    {
-                      "$ref": "#/definitions/Company"
-                    }
-                  ],
-                  "description": "The manufacturer's works which delivers the certificate along the product"
+                  "description": "The manufacturer's works which delivers the certificate along the product",
+                  "$ref": "#/definitions/Company"
                 },
                 "A02": {
                   "description": "The type of inspection document, e.g. 'EN 10204 3.1 Certificate'",
@@ -1056,12 +1023,8 @@
                 {
                   "properties": {
                     "A06": {
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Company"
-                        }
-                      ],
-                      "description": "The purchaser of the product and receiver of the certificate"
+                      "description": "The purchaser of the product and receiver of the certificate",
+                      "$ref": "#/definitions/Company"
                     }
                   },
                   "required": ["A06"]
@@ -1069,36 +1032,20 @@
                 {
                   "properties": {
                     "A06.1": {
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Company"
-                        }
-                      ],
-                      "description": "The purchaser of the product"
+                      "description": "The purchaser of the product",
+                      "$ref": "#/definitions/Company"
                     },
                     "A06.2": {
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Company"
-                        }
-                      ],
-                      "description": "The consignee of the product"
+                      "description": "The consignee of the product",
+                      "$ref": "#/definitions/Company"
                     },
                     "A06.3": {
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Company"
-                        }
-                      ],
-                      "description": "The receiver/consignee of the certificate"
+                      "description": "The receiver/consignee of the certificate",
+                      "$ref": "#/definitions/Company"
                     },
                     "A06.4": {
-                      "allOf": [
-                        {
-                          "$ref": "#/definitions/Company"
-                        }
-                      ],
-                      "description": "The subpurchaser of the product"
+                      "description": "The subpurchaser of the product",
+                      "$ref": "#/definitions/Company"
                     }
                   },
                   "required": ["A06.1"]
@@ -1122,315 +1069,159 @@
         },
         "C71": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C72": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C73": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C74": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C75": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C76": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C77": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C78": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C79": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C80": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C81": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C82": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C83": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C84": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C85": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C86": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C87": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C88": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C89": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C90": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C91": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C92": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C93": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C94": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C95": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C96": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C97": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C98": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C99": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C100": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C101": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C102": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C103": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C104": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C105": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C106": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C107": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C108": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "C109": {
           "description": "Share of element",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ChemicalElement"
-            }
-          ]
+          "$ref": "#/definitions/ChemicalElement"
         },
         "SupplementaryInformation": {
           "title": "ChemicalCompositionSupplementaryInformation",
@@ -1530,27 +1321,15 @@
             },
             "C11": {
               "description": "Yield or proof strength",
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Measurement"
-                }
-              ]
+              "$ref": "#/definitions/Measurement"
             },
             "C12": {
               "description": "Tensile strength",
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Measurement"
-                }
-              ]
+              "$ref": "#/definitions/Measurement"
             },
             "C13": {
               "description": "Elongation after fracture",
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Measurement"
-                }
-              ]
+              "$ref": "#/definitions/Measurement"
             },
             "SupplementaryInformation": {
               "title": "TensileTestSupplementaryInformation",
@@ -1584,11 +1363,7 @@
             },
             "C32": {
               "description": "The average value of the individual values measured",
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Measurement"
-                }
-              ]
+              "$ref": "#/definitions/Measurement"
             },
             "SupplementaryInformation": {
               "title": "HardnessTestSupplementaryInformation",
@@ -1693,51 +1468,46 @@
       },
       "required": ["Algorithm", "Encoding", "Value"]
     },
-   "Attachments": {
-    "title": "Attachments",
-    "description": "Array of additional data in any kind of format attached to JSON document.",
-    "type": "array",
-    "items": {
-      "type": "object",
-      "properties": {
-        "Hash": {
-          "$ref": "#/definitions/Hash"
+    "Attachments": {
+      "title": "Attachments",
+      "description": "Array of additional data in any kind of format attached to JSON document.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Hash": {
+            "$ref": "#/definitions/Hash"
+          },
+          "FileName": {
+            "description": "The name of the file.",
+            "type": "string",
+            "examples": ["file.pdf"]
+          },
+          "MIME-Type": {
+            "description": "The MIME/Type of the data file.",
+            "type": "string",
+            "examples": ["application/json", "application/pdf", "image/png"]
+          },
+          "Encoding": {
+            "description": "The format in which the hash value is encoded.",
+            "type": "string",
+            "examples": ["base64", "hex"]
+          },
+          "Data": {
+            "description": "The data encoded as defined in `Encoding`",
+            "type": "string"
+          }
         },
-        "FileName": {
-          "description": "The name of the file.",
-          "type": "string",
-          "examples": ["file.pdf"]
-        },
-        "MIME-Type": {
-          "description": "The MIME/Type of the data file.", 
-          "type": "string",
-          "examples": ["application/json", "application/pdf", "image/png"]
-        },
-        "Encoding": {
-          "description": "The format in which the hash value is encoded.",
-          "type": "string",
-          "examples": ["base64", "hex"]
-        },
-        "Data": {
-          "description": "The data encoded as defined in `Encoding`",
-          "type": "string"
-        }
-      },
-      "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
-      "additionalProperties": false
+        "required": ["Hash", "FileName", "MIME-Type", "Encoding", "Data"],
+        "additionalProperties": false
+      }
     }
-  }
   },
   "title": "Certificate",
   "type": "object",
   "properties": {
     "RefSchemaUrl": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/RefSchemaUrl"
-        }
-      ]
-    },
+      "$ref": "#/definitions/RefSchemaUrl"
     },
     "Certificate": {
       "description": "",
