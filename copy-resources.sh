@@ -10,6 +10,7 @@ rm -rf ./src/test/resources/schemas/*
 rsync -avm --include='*/' --include='*' ./test/fixtures/ ./src/test/resources/schemas/
 # Build UI and copy files
 cd ui
+npm ci
 ng build || { echo "UI build failed"; exit 1; }
 cd - > /dev/null || { echo "Failed to return to root directory"; exit 1; }
 node copy-bundled-ui.js || { echo "Failed to execute copy-bundled-ui.js"; exit 1; }
