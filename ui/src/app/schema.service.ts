@@ -12,6 +12,11 @@ export class SchemaService {
     "https://schemas-service.s1seven.com"
   ];
 
+  // Regular expressions for dynamic server URL matching
+  private readonly trustedServerPatterns = [
+    /^https:\/\/s1-schemas-.*\.herokuapp\.com$/  // Matches all Heroku review apps
+  ];
+
   constructor() {}
 
   async render(
@@ -50,14 +55,20 @@ export class SchemaService {
         url = baseUrl;
       }
 
+      // Check if the URL is explicitly trusted
       if (this.trustedServerUrls.includes(url)) {
+        return url;
+      }
+
+      // Check if the URL matches any of the dynamic patterns
+      if (this.trustedServerPatterns.some(pattern => pattern.test(url))) {
         return url;
       }
 
     return devUrl;
     }
     catch (e) {
-      console.log("Error while creating serverUrl: ", e);
+      console.error("Error while creating serverUrl: ", e);
       return devUrl;
     }
   }
