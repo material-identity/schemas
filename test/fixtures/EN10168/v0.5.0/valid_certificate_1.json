@@ -98,63 +98,78 @@
       "ChemicalComposition": {
         "C71": {
           "Actual": "0.15",
-          "Symbol": "C"
+          "Symbol": "C",
+          "Unit": "%"
         },
         "C72": {
           "Actual": "0.005",
-          "Symbol": "Si"
+          "Symbol": "Si",
+          "Unit": "%"
         },
         "C73": {
           "Actual": "1",
-          "Symbol": "Mn"
+          "Symbol": "Mn",
+          "Unit": "%"
         },
         "C74": {
           "Actual": "0.014",
-          "Symbol": "P"
+          "Symbol": "P",
+          "Unit": "%"
         },
         "C75": {
           "Actual": "0.007",
-          "Symbol": "S"
+          "Symbol": "S",
+          "Unit": "%"
         },
         "C76": {
           "Actual": "0.041",
-          "Symbol": "Al"
+          "Symbol": "Al",
+          "Unit": "%"
         },
         "C77": {
           "Actual": "0.02",
-          "Symbol": "Cr"
+          "Symbol": "Cr",
+          "Unit": "%"
         },
         "C78": {
           "Actual": "0.009",
-          "Symbol": "Ni"
+          "Symbol": "Ni",
+          "Unit": "%"
         },
         "C79": {
           "Actual": "0.002",
-          "Symbol": "Mo"
+          "Symbol": "Mo",
+          "Unit": "%"
         },
         "C80": {
           "Actual": "0.01",
-          "Symbol": "Cu"
+          "Symbol": "Cu",
+          "Unit": "%"
         },
         "C81": {
           "Actual": "0.002",
-          "Symbol": "V"
+          "Symbol": "V",
+          "Unit": "%"
         },
         "C82": {
           "Actual": "0.001",
-          "Symbol": "Ti"
+          "Symbol": "Ti",
+          "Unit": "%"
         },
         "C85": {
           "Actual": "0.047",
-          "Symbol": "N"
+          "Symbol": "N",
+          "Unit": "%"
         },
         "C86": {
           "Actual": "0.001",
-          "Symbol": "B"
+          "Symbol": "B",
+          "Unit": "%"
         },
         "C92": {
           "Actual": "0.327",
-          "Symbol": "CEV"
+          "Symbol": "CEV",
+          "Unit": "%"
         }
       },
       "TensileTest": {

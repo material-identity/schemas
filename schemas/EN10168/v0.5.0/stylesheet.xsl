@@ -382,10 +382,22 @@
                         </fo:table-cell>
                       </xsl:for-each>
                     </fo:table-row>
+                     <fo:table-row>
+                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Unit</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys1">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Unit" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
                     <xsl:if test="count($keys1[Minimum != '']) &gt; 0">
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                          <fo:block>Min [%]</fo:block>
+                          <fo:block>Min</fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -399,7 +411,7 @@
                     <xsl:if test="count($keys1[Maximum != '']) &gt; 0">
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                          <fo:block>Max [%]</fo:block>
+                          <fo:block>Max</fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -412,7 +424,7 @@
                     </xsl:if>
                     <fo:table-row>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                        <fo:block>Actual [%]</fo:block>
+                        <fo:block>Actual</fo:block>
                       </fo:table-cell>
                       <xsl:for-each select="$keys1">
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -457,10 +469,22 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
+                       <fo:table-row>
+                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Unit</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Unit" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
                       <xsl:if test="count($keys2[Minimum != '']) &gt; 0">
                         <fo:table-row>
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>Min [%]</fo:block>
+                            <fo:block>Min</fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys2">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -474,7 +498,7 @@
                       <xsl:if test="count($keys2[Maximum != '']) &gt; 0">
                         <fo:table-row>
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>Max [%]</fo:block>
+                            <fo:block>Max</fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys2">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -487,7 +511,6 @@
                       </xsl:if>
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                          <fo:block>Actual [%]</fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys2">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -532,10 +555,22 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
+                      <fo:table-row>
+                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block>Unit</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Unit" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
                       <xsl:if test="count($keys3[Minimum != '']) &gt; 0">
                         <fo:table-row>
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>Min [%]</fo:block>
+                            <fo:block>Min</fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys3">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -549,7 +584,7 @@
                       <xsl:if test="count($keys3[Maximum != '']) &gt; 0">
                         <fo:table-row>
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>Max [%]</fo:block>
+                            <fo:block>Max</fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys3">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
@@ -562,7 +597,7 @@
                       </xsl:if>
                       <fo:table-row>
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                          <fo:block>Actual [%]</fo:block>
+                          <fo:block>Actual</fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys3">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
