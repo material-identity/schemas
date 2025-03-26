@@ -76,14 +76,14 @@
               </fo:table-body>
             </fo:table>
 
-            <xsl:if test="count($CommercialTransaction/A06.2) + count($CommercialTransaction/A06.3) > 0">
+            <xsl:if test="count($CommercialTransaction/A06.2) + count($CommercialTransaction/A06.3) + count($CommercialTransaction/A06.4)> 0">
               <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="33%" />
                 <fo:table-column column-width="33%" />
                 <fo:table-column column-width="33%" />
                 <fo:table-body>
                   <fo:table-row>
-                    <xsl:for-each select="2 to 3">
+                    <xsl:for-each select="2 to 4">
                       <xsl:variable name="index" select="." />
                       <xsl:variable name="elementName" select="concat('A06.', $index)" />
                       <xsl:if test="exists($CommercialTransaction/*[name() = $elementName])">
