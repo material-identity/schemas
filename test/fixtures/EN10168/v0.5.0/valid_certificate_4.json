@@ -332,23 +332,9 @@
     "Validation": {
       "Z01": "We hereby certify, that the material described above has been tested and complies with the terms of the order. This certificate has been created by a data processing system and does not contain a personal signature but the name and the offical address of the appointet department.",
       "Z02": "2018-10-23",
-      "Z03": "Mr. Super Inspector",
-      "SupplementaryInformation": {
-        "Z05": {
-          "Key": "Quality Department Tel.",
-          "Value": "+43 732 1000 8888",
-          "Type": "string"
-        },
-        "Z06": {
-          "Key": "Quality Department Fax",
-          "Value": "+43 732 1000 8889",
-          "Type": "string"
-        },
-        "Z07": {
-          "Key": "Quality Department Email",
-          "Value": "sbs.steelfactory@gmail.com",
-          "Type": "string"
-        }
+      "Z03": {
+        "Name": "John D. Keller",
+        "Title": "Quality Manager"
       }
     }
   }
