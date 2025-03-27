@@ -106,88 +106,123 @@
         },
         "ChemicalComposition": {
           "C71": {
-            "Actual": "0.1500",
+             "Actual": {
+            "Value": "0.1500"
+          },
             "Symbol": "C",
             "Unit": "%"
           },
           "C72": {
-            "Actual": "0.0050",
+             "Actual": {
+            "Value": "0.0050"
+          },
             "Symbol": "Si",
             "Unit": "%"
           },
           "C73": {
-            "Actual": "1.000",
+             "Actual": {
+            "Value": "1.000"
+          },
             "Symbol": "Mn",
             "Unit": "%"
           },
           "C74": {
-            "Actual": "0.0140",
+             "Actual": {
+            "Value": "0.0140"
+          },
             "Symbol": "P",
             "Unit": "%"
           },
           "C75": {
-            "Actual": "0.0070",
+             "Actual": {
+            "Value": "0.0070"
+          },
             "Symbol": "S",
+            "Unit": "%"
           },
           "C76": {
-            "Actual": "0.0410",
+             "Actual": {
+            "Value": "0.0410"
+          },
             "Symbol": "Al",
             "Unit": "%"
           },
           "C77": {
-            "Actual": "0.0200",
+             "Actual": {
+            "Value": "0.0200"
+          },
             "Symbol": "Cr",
             "Unit": "%"
           },
           "C78": {
-            "Actual": "0.0090",
+             "Actual": {
+            "Value": "0.0090"
+          },
             "Symbol": "Ni",
             "Unit": "%"
           },
           "C79": {
-            "Actual": "0.0020",
+             "Actual": {
+            "Value": "0.0020"
+          },
             "Symbol": "Mo",
             "Unit": "%"
           },
           "C80": {
-            "Actual": "0.0100",
+             "Actual": {
+            "Value": "0.0100"
+          },
             "Symbol": "Cu",
             "Unit": "%"
           },
           "C81": {
-            "Actual": "0.0020",
+             "Actual": {
+            "Value": "0.0020"
+          },
             "Symbol": "V",
             "Unit": "%"
           },
           "C82": {
-            "Actual": "0.0010",
+             "Actual": {
+            "Value": "0.0010"
+          },
             "Symbol": "Ti",
             "Unit": "%"
           },
           "C85": {
-            "Actual": "1.1000",
+             "Actual": {
+            "Value": "1.1000"
+          },
             "Symbol": "H",
             "Unit": "ppm"
           },
           "C86": {
-            "Actual": "2.3000",
+             "Actual": {
+            "Value": "2.3000"
+          },
             "Symbol": "O",
             "Unit": "ppm"
           },
           "C87": {
-            "Actual": "0.300",
+             "Actual": {
+            "Value": "0.300"
+          },
             "Symbol": "F1",
             "Unit": null,
             "Formula": "F1 = C + Al"
           },
           "C88": {
-            "Actual": "0.0000",
+             "Actual": {
+            "Value": "0.0000"
+          },
             "Symbol": "F2",
             "Unit": null,
             "Formula": "F2= F1/Ni"
           },
           "C89": {
-            "Actual": "0.3227",
+             "Actual": {
+            "Value": "0.3227"
+          },
             "Symbol": "F3",
             "Unit": null,
             "Formula": "F3 = F1 + F2"
