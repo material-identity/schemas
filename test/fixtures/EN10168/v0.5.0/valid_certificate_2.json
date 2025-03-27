@@ -110,86 +110,134 @@
         "ChemicalComposition": {
           "C70": "Y",
           "C71": {
-            "Minimum": "0.150",
-            "Maximum": "0.220",
-            "Actual": "0.150",
+            "Minimum": {
+              "Value": "0.150"
+            },
+            "Maximum": {
+              "Value": "0.220"
+            },
+            "Actual": {
+              "Value": "0.150"
+            },
             "Symbol": "C",
             "Unit": "%"
           },
           "C72": {
-            "Minimum": "0.001",
-            "Maximum": "0.050",
-            "Actual": "0.005",
+            "Minimum": {
+              "Value": "0.001"
+            },
+            "Maximum": {
+              "Value": "0.050"
+            },
+            "Actual": {
+              "Value": "0.005"
+            },
             "Symbol": "Si",
             "Unit": "%"
           },
           "C73": {
-            "Maximum": "1.600",
-            "Actual": "1.000",
+            "Maximum": {
+              "Value": "1.600"
+            },
+            "Actual": {
+              "Value": "1.000"
+            },
             "Symbol": "Mn",
             "Unit": "%"
           },
           "C74": {
-            "Maximum": "0.025",
-            "Actual": "0.014",
+            "Maximum": {
+              "Value": "0.025"
+            },
+            "Actual": {
+              "Value": "0.014"
+            },
             "Symbol": "P",
             "Unit": "%"
           },
           "C75": {
-            "Minimum": "0.020",
-            "Actual": "0.030",
+            "Minimum": {
+              "Value": "0.020"
+            },
+            "Actual": {
+              "Value": "0.030"
+            },
             "Symbol": "S",
             "Unit": "%"
           },
           "C76": {
-            "Minimum": "0.020",
-            "Maximum": "0.060",
-            "Actual": "0.041",
+            "Minimum": {
+              "Value": "0.020"
+            },
+            "Maximum": {
+              "Value": "0.060"
+            },
+            "Actual": {
+              "Value": "0.041"
+            },
             "Symbol": "Al",
             "Unit": "%"
           },
           "C77": {
-            "Actual": "0.020",
+            "Actual": {
+              "Value": "0.020"
+            },
             "Symbol": "Cr",
             "Unit": "%"
           },
           "C78": {
-            "Actual": "0.009",
+            "Actual": {
+              "Value": "0.009"
+            },
             "Symbol": "Ni",
             "Unit": "%"
           },
           "C79": {
-            "Actual": "0.002",
+            "Actual": {
+              "Value": "0.002"
+            },
             "Symbol": "Mo",
             "Unit": "%"
           },
           "C80": {
-            "Actual": "0.010",
+            "Actual": {
+              "Value": "0.010"
+            },
             "Symbol": "Cu",
             "Unit": "%"
           },
           "C81": {
-            "Actual": "0.002",
+            "Actual": {
+              "Value": "0.002"
+            },
             "Symbol": "V",
             "Unit": "%"
           },
           "C82": {
-            "Actual": "0.001",
+            "Actual": {
+              "Value": "0.001"
+            },
             "Symbol": "Ti",
             "Unit": "%"
           },
           "C85": {
-            "Actual": "0.004",
+            "Actual": {
+              "Value": "0.004"
+            },
             "Symbol": "N",
             "Unit": "%"
           },
           "C86": {
-            "Actual": "0.001",
+            "Actual": {
+              "Value": "0.001"
+            },
             "Symbol": "B",
             "Unit": "%"
           },
           "C92": {
-            "Actual": "0.327",
+            "Actual": {
+              "Value": "0.327"
+            },
             "Symbol": "CEV",
             "Unit": "%"
           }
