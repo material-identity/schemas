@@ -142,19 +142,58 @@
           "type": "string"
         },
         "Actual": {
-          "description": "The measured part of the element in percentage.",
-          "type": "string",
-          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
+          "type": "object",
+          "description": "Actual measured value of the property",
+          "properties": {
+            "Value": {
+              "type": "string",
+              "description": "The measured value as a string",
+              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+            },
+            "Notation": {
+              "type": "string",
+              "description": "Notation indicating measurement relation",
+              "enum": ["[", "(", "]", ")", "="],
+              "default": "="
+            }
+          },
+          "required": ["Value"]
         },
         "Minimum": {
-          "description": "The minimum if defined by the product specification, otherwise the element must not provided.",
-          "type": "string",
-          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
+          "type": "object",
+          "description": "Minimum specification value",
+          "properties": {
+            "Value": {
+              "type": "string",
+              "description": "The measured value as a string",
+              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+            },
+            "Notation": {
+              "type": "string",
+              "description": "Notation indicating range relation",
+              "enum": ["[", "("],
+              "default": "["
+            }
+          },
+          "required": ["Value"]
         },
         "Maximum": {
-          "description": "The maximum as defined by the product specification, otherwise the element must not provided.",
-          "type": "string",
-          "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,4})?|100)$"
+          "type": "object",
+          "description": "Maximum specification value",
+          "properties": {
+            "Value": {
+              "type": "string",
+              "description": "The measured value as a string",
+              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+            },
+            "Notation": {
+              "type": "string",
+              "description": "Notation indicating range relation",
+              "enum": ["]", ")"],
+              "default": "]"
+            }
+          },
+          "required": ["Value"]
         },
         "Unit": {
           "description": "The unit of measurement (%, ppm, or other unit).",

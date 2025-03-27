@@ -134,77 +134,109 @@
       "C00": "175508",
       "ChemicalComposition": {
         "C71": {
-          "Actual": "0.150",
+          "Actual": {
+            "Value": "0.150"
+          },
           "Symbol": "C",
           "Unit": "%"
         },
         "C72": {
-          "Actual": "0.005",
+          "Actual": {
+            "Value": "0.005"
+          },
           "Symbol": "Si",
           "Unit": "%"
         },
         "C73": {
-          "Actual": "1.000",
+          "Actual": {
+            "Value": "1.000"
+          },
           "Symbol": "Mn",
           "Unit": "%"
         },
         "C74": {
-          "Actual": "0.014",
+          "Actual": {
+            "Value": "0.014"
+          },
           "Symbol": "P",
           "Unit": "%"
         },
         "C75": {
-          "Actual": "0.007",
+          "Actual": {
+            "Value": "0.007"
+          },
           "Symbol": "S",
           "Unit": "%"
         },
         "C76": {
-          "Actual": "0.041",
+          "Actual": {
+            "Value": "0.041"
+          },
           "Symbol": "Al",
           "Unit": "%"
         },
         "C77": {
-          "Actual": "0.02",
+          "Actual": {
+            "Value": "0.02"
+          },
           "Symbol": "Cr",
           "Unit": "%"
         },
         "C78": {
-          "Actual": "0.009",
+          "Actual": {
+            "Value": "0.009"
+          },
           "Symbol": "Ni",
           "Unit": "%"
         },
         "C79": {
-          "Actual": "0.002",
+          "Actual": {
+            "Value": "0.002"
+          },
           "Symbol": "Mo",
           "Unit": "%"
         },
         "C80": {
-          "Actual": "0.010",
+          "Actual": {
+            "Value": "0.010"
+          },
           "Symbol": "Cu",
           "Unit": "%"
         },
         "C81": {
-          "Actual": "0.002",
+          "Actual": {
+            "Value": "0.002"
+          },
           "Symbol": "V",
           "Unit": "%"
         },
         "C82": {
-          "Actual": "0.001",
+          "Actual": {
+            "Value": "0.001"
+          },
           "Symbol": "Ti",
           "Unit": "%"
         },
         "C85": {
-          "Actual": "0.047",
+          "Actual": {
+            "Value": "0.047"
+          },
           "Symbol": "N",
           "Unit": "%"
         },
         "C86": {
-          "Actual": "0.001",
+          "Actual": {
+            "Value": "0.001"
+          },
+          "Symbol": "B",
+          "Unit": "%"
         },
         "C92": {
-          "Actual": "0.327",
+          "Actual": {
+            "Value": "0.327"
+          },
           "Symbol": "CEV",
-          "Unit": "%"
+          "Unit": null
         }
       },
       "OtherMechanicalTests": {
