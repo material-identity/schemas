@@ -611,6 +611,41 @@
                     </fo:table-body>
                   </fo:table>
                 </xsl:if>
+                <!-- Chemical formulas -->
+                 <xsl:if
+                  test="count(ChemicalComposition/*[Formula != '']) > 0">
+                    <fo:table
+                    table-layout="fixed" width="100%">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-header>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block font-weight="bold">Symbol</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                          <fo:block font-weight="bold">Formula</fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                      <xsl:for-each select="ChemicalComposition/*[Formula != '']">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Formula" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:for-each>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
 
                 <!-- Supplementary Information -->
                 <xsl:if test="ChemicalComposition/SupplementaryInformation">
