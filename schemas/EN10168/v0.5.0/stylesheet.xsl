@@ -1078,92 +1078,173 @@
               <xsl:with-param name="title" select="$i18n/Certificate/Validation" />
             </xsl:call-template>
 
-            <xsl:for-each select="$Validation/*[substring(local-name(), 2) &gt;= '01' and substring(local-name(), 2) &lt;= '03']">
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="50%" />
-                <fo:table-column column-width="50%" />
-                <fo:table-body>
-                  <fo:table-row>
-                    <fo:table-cell font-style="italic">
-                      <fo:block>
-                        <xsl:value-of select="concat(local-name(), ' ', $i18n/Certificate/*[local-name() = local-name(current())])" />
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block>
-                        <fo:table table-layout="fixed" width="100%">
-                          <xsl:if test="$Validation/Z04">
-                            <fo:table-column column-width="50%" />
-                            <fo:table-column column-width="50%" />
-                          </xsl:if>
-                          <fo:table-body>
-                            <fo:table-row>
+            <!-- Z01 Statement of compliance -->
+            <fo:table table-layout="fixed" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell font-style="italic">
+                    <fo:block>
+                      <xsl:value-of select="concat('Z01', ' ', $i18n/Certificate/Z01)" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <fo:table table-layout="fixed" width="100%">
+                        <xsl:if test="$Validation/Z04">
+                          <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+                        </xsl:if>
+                        <xsl:if test="not($Validation/Z04)">
+                          <fo:table-column column-width="100%" />
+                        </xsl:if>
+                        <fo:table-body>
+                          <fo:table-row>
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="$Validation/Z01" />
+                              </fo:block>
+                            </fo:table-cell>
+                            <!-- Display CE mark if Z04 exists -->
+                            <xsl:if test="$Validation/Z04">
                               <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                                 <fo:block>
-                                  <xsl:value-of select="." />
+                                  <fo:table table-layout="fixed" width="100% ">
+                                    <fo:table-column column-width="100%" />
+                                    <fo:table-body>
+                                      <fo:table-row>
+                                        <fo:table-cell text-align="center">
+                                          <fo:block font-weight="bold">
+                                            <fo:external-graphic fox:alt-text="CE Marking"
+                                              src="{$Validation/Z04/CE_Image}"
+                                              content-width="scale-to-fit"
+                                              width="64px"
+                                              scaling="uniform" />
+                                          </fo:block>
+                                        </fo:table-cell>
+                                      </fo:table-row>
+                                      <fo:table-row>
+                                        <fo:table-cell text-align="center">
+                                          <fo:block font-weight="bold">
+                                            <xsl:value-of
+                                              select="$Validation/Z04/NotifiedBodyNumber" />
+                                          </fo:block>
+                                        </fo:table-cell>
+                                      </fo:table-row>
+                                      <fo:table-row>
+                                        <fo:table-cell text-align="center">
+                                          <fo:block font-weight="bold">
+                                            <xsl:value-of select="$Validation/Z04/DoCYear" />
+                                          </fo:block>
+                                        </fo:table-cell>
+                                      </fo:table-row>
+                                      <fo:table-row>
+                                        <fo:table-cell text-align="center">
+                                          <fo:block font-weight="bold">
+                                            <xsl:value-of select="$Validation/Z04/DoCNumber" />
+                                          </fo:block>
+                                        </fo:table-cell>
+                                      </fo:table-row>
+                                    </fo:table-body>
+                                  </fo:table>
                                 </fo:block>
                               </fo:table-cell>
-                              <xsl:if test="$Validation/Z04">
-                                <xsl:choose>
-                                  <xsl:when test="local-name()='Z01'">
-                                    <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                                      <fo:block>
-                                        <fo:table table-layout="fixed" width="100% ">
-                                          <fo:table-column column-width="100%" />
-                                          <fo:table-body>
-                                            <fo:table-row>
-                                              <fo:table-cell text-align="center">
-                                                <fo:block font-weight="bold">
-                                                  <xsl:if test="$Validation/Z04">
-                                                    <fo:external-graphic fox:alt-text="CE Marking" src="{$Validation/Z04/CE_Image}" content-height="48px" height="48px" />
-                                                  </xsl:if>
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row>
-                                              <fo:table-cell text-align="center">
-                                                <fo:block font-weight="bold">
-                                                  <xsl:value-of select="$Validation/Z04/NotifiedBodyNumber" />
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row>
-                                              <fo:table-cell text-align="center">
-                                                <fo:block font-weight="bold">
-                                                  <xsl:value-of select="$Validation/Z04/DoCYear" />
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                            <fo:table-row>
-                                              <fo:table-cell text-align="center">
-                                                <fo:block font-weight="bold">
-                                                  <xsl:value-of select="$Validation/Z04/DoCNumber" />
-                                                </fo:block>
-                                              </fo:table-cell>
-                                            </fo:table-row>
-                                          </fo:table-body>
-                                        </fo:table>
-                                      </fo:block>
-                                    </fo:table-cell>
-                                  </xsl:when>
-                                  <xsl:otherwise>
-                                    <fo:table-cell>
-                                      <fo:block>
-                                        <!-- EMPTY -->
-                                      </fo:block>
-                                    </fo:table-cell>
-                                  </xsl:otherwise>
-                                </xsl:choose>
-                              </xsl:if>
-                            </fo:table-row>
-                          </fo:table-body>
-                        </fo:table>
-                      </fo:block>
-                    </fo:table-cell>
-                  </fo:table-row>
-                </fo:table-body>
-              </fo:table>
-            </xsl:for-each>
+                            </xsl:if>
+                          </fo:table-row>
+                        </fo:table-body>
+                      </fo:table>
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
+            <!-- Z02 Date of issue and validation -->
+            <fo:table table-layout="fixed" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell font-style="italic" padding-bottom="{$cellPaddingBottom}">
+                    <fo:block>
+                      <xsl:value-of select="concat('Z02', ' ', $i18n/Certificate/Z02)" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                    <fo:block>
+                      <xsl:value-of select="$Validation/Z02" />
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
+            <!-- Z03 Stamp of the inspection representative -->
+            <fo:table table-layout="fixed" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell font-style="italic">
+                    <fo:block>
+                      <xsl:value-of select="concat('Z03', ' ', $i18n/Certificate/Z03)" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <fo:table table-layout="fixed" width="100%">
+                        <xsl:if test="$Validation/Z03/StampImage">
+                          <fo:table-column column-width="50%" />
+                          <fo:table-column column-width="50%" />
+                        </xsl:if>
+                        <xsl:if test="not($Validation/Z03/StampImage)">
+                          <fo:table-column column-width="100%" />
+                        </xsl:if>
+                        <fo:table-body>
+                          <fo:table-row>
+                            <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                              <fo:block>
+                                <xsl:value-of select="$Validation/Z03/Name" />
+                              </fo:block>
+                              <fo:block>
+                                <xsl:value-of select="$Validation/Z03/Title" />
+                              </fo:block>
+                            </fo:table-cell>
+                            <!-- Display CE mark if Z04 exists -->
+                            <xsl:if test="$Validation/Z03/StampImage">
+                              <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                                <fo:block>
+                                  <fo:table table-layout="fixed" width="100% ">
+                                    <fo:table-column column-width="100%" />
+                                    <fo:table-body>
+                                      <fo:table-row>
+                                        <fo:table-cell text-align="center">
+                                          <fo:block font-weight="bold">
+                                            <fo:external-graphic fox:alt-text="Inspector Stamp"
+                                              src="{$Validation/Z03/StampImage}"
+                                              content-width="scale-to-fit"
+                                              width="96px"
+                                              scaling="uniform" />
+                                          </fo:block>
+                                        </fo:table-cell>
+                                      </fo:table-row>
+                                    </fo:table-body>
+                                  </fo:table>
+                                </fo:block>
+                              </fo:table-cell>
+                            </xsl:if>
+                          </fo:table-row>
+                        </fo:table-body>
+                      </fo:table>
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
+
+            <!-- Supplementary Information -->
             <xsl:if test="$Validation/SupplementaryInformation">
               <xsl:call-template name="SectionSubTitle">
                 <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />

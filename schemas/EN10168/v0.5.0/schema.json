@@ -879,106 +879,82 @@
       "unevaluatedProperties": false
     },
     "Validation": {
-      "allOf": [
-        {
-          "title": "ProductDescription",
+      "title": "Validation",
+      "type": "object",
+      "properties": {
+        "Z01": {
+          "description": "Statement of compliance",
+          "type": "string"
+        },
+        "Z02": {
+          "description": "Date of issue and validation",
+          "type": "string",
+          "format": "date"
+        },
+        "Z03": {
+          "description": "Name, role, and optional stamp image of inspection representative",
           "type": "object",
-          "allOf": [
-            {
-              "title": "Validation",
-              "type": "object",
-              "properties": {
-                "Z01": {
-                  "description": "Statement of compliance",
-                  "type": "string"
-                },
-                "Z03": {
-                  "description": "Stamp of the inspection representative",
-                  "type": "string"
-                }
-              }
+          "properties": {
+            "Name": {
+              "type": "string",
+              "description": "Name of the inspection representative"
             },
-            {
-              "anyOf": [
+            "Title": {
+              "type": "string",
+              "description": "Title of the inspection representative"
+            },
+            "StampImage": {
+              "type": "string",
+              "contentEncoding": "base64",
+              "contentMediaType": "image/png",
+              "description": "Base64 encoded image of the stamp or signature"
+            }
+          },
+          "required": ["Name", "Title"]
+        },
+        "Z04": {
+          "description": "CE marking",
+          "type": "object",
+          "properties": {
+            "CE_Image": {
+              "description": "The CE image as base64 encoded png file. A default with size 90x65 is provided by example",
+              "type": "string",
+              "contentEncoding": "base64",
+              "contentMediaType": "image/png"
+            },
+            "NotifiedBodyNumber": {
+              "description": "The identification number of the Notified body. Refer to https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31993L0068:en:HTML and https://ec.europa.eu/growth/tools-databases/nando/index.cfm?fuseaction=notifiedbody.main",
+              "type": "string"
+            },
+            "DoCYear": {
+              "description": "The year when the declaration of conformance was issued",
+              "type": "string"
+            },
+            "DoCNumber": {
+              "description": "The declaration of conformance document number ",
+              "type": "string"
+            }
+          },
+          "required": ["CE_Image", "NotifiedBodyNumber", "DoCYear", "DoCNumber"]
+        },
+        "SupplementaryInformation": {
+          "title": "ValidationSupplementaryInformation",
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^Z0[5-9]|^Z[1-9][0-9]"
+          },
+          "patternProperties": {
+            "^Z0[5-9]|^Z[1-9][0-9]": {
+              "allOf": [
                 {
-                  "properties": {
-                    "Z02": {
-                      "description": "Date of issue and validation",
-                      "type": "string",
-                      "format": "date"
-                    },
-                    "Z04": {
-                      "description": "CE marking",
-                      "type": "object",
-                      "properties": {
-                        "CE_Image": {
-                          "description": "The CE image as base64 encoded png file. A default with size 90x65 is provided by example",
-                          "type": "string",
-                          "contentEncoding": "base64",
-                          "contentMediaType": "image/png"
-                        },
-                        "NotifiedBodyNumber": {
-                          "description": "The identification number of the Notified body. Refer to https://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:31993L0068:en:HTML and https://ec.europa.eu/growth/tools-databases/nando/index.cfm?fuseaction=notifiedbody.main",
-                          "type": "string"
-                        },
-                        "DoCYear": {
-                          "description": "The year when the declaration of conformance was issued",
-                          "type": "string"
-                        },
-                        "DoCNumber": {
-                          "description": "The declaration of conformance document number ",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "CE_Image",
-                        "NotifiedBodyNumber",
-                        "DoCYear",
-                        "DoCNumber"
-                      ]
-                    },
-                    "SupplementaryInformation": {
-                      "title": "ValidationSupplementaryInformation",
-                      "type": "object",
-                      "propertyNames": {
-                        "pattern": "^Z0[5-9]|^Z[1-9][0-9]"
-                      },
-                      "patternProperties": {
-                        "^Z0[5-9]|^Z[1-9][0-9]": {
-                          "allOf": [
-                            {
-                              "$ref": "#/definitions/KeyValueObject"
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  "required": ["Z01", "Z02"]
-                },
-                {
-                  "properties": {
-                    "Z02": {
-                      "description": "Title of inspection representative",
-                      "type": "string"
-                    },
-                    "Z04": {
-                      "description": "Disclaimer",
-                      "type": "string"
-                    },
-                    "Z05": {
-                      "description": "Standard",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["Z01", "Z02", "Z03"]
+                  "$ref": "#/definitions/KeyValueObject"
                 }
               ]
             }
-          ],
-          "unevaluatedProperties": false
+          }
         }
-      ]
+      },
+      "required": ["Z01", "Z02"]
     },
     "CommercialTransactionExtended": {
       "title": "CommercialTransactionReceivers",
