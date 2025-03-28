@@ -38,11 +38,8 @@ public class XsltTransformer {
         transformer.transform(xmlInput, new StreamResult(outputWriter));
 
         String result = outputWriter.toString();
-        
-        // Unescape variables for processing in FO
-        result = result.replaceAll("&lt;variable", "<variable")
-                      .replaceAll("/&gt;", "/>")
-                      .replaceAll("&apos;", "'");
+
+        result = QRCodeProcessor.processQRCodePlaceholders(result);
 
         return result;
     }
