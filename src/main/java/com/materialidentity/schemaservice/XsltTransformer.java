@@ -2,6 +2,7 @@ package com.materialidentity.schemaservice;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.materialidentity.schemaservice.QRCodeProcessor;
 import lombok.Getter;
 import net.sf.saxon.TransformerFactoryImpl;
 
