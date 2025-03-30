@@ -358,15 +358,18 @@
       "SupplementaryInformation": {
         "Z05": {
           "Key": "Quality Department Tel.",
-          "Value": "+43 732 1000 8888"
+          "Value": "+43 732 1000 8888",
+          "Type": "phone"
         },
         "Z06": {
           "Key": "Quality Department Fax",
-          "Value": "+43 732 1000 8889"
+          "Value": "+43 732 1000 8889",
+          "Type": "phone"          
         },
         "Z07": {
           "Key": "Quality Department Email",
-          "Value": "sbs.steelfactory@gmail.com"
+          "Value": "quality@steelmill.se",
+          "Type": "email"
         }
       }
     }
