@@ -1094,7 +1094,7 @@
                       <fo:table table-layout="fixed" width="100%">
                         <xsl:if test="$Validation/Z04">
                           <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
+                          <fo:table-column column-width="50%" />
                         </xsl:if>
                         <xsl:if test="not($Validation/Z04)">
                           <fo:table-column column-width="100%" />
@@ -1116,19 +1116,14 @@
                                       <fo:table-row>
                                         <fo:table-cell text-align="center">
                                           <fo:block font-weight="bold">
-                                            <fo:external-graphic fox:alt-text="CE Marking"
-                                              src="{$Validation/Z04/CE_Image}"
-                                              content-width="scale-to-fit"
-                                              width="64px"
-                                              scaling="uniform" />
+                                            <fo:external-graphic fox:alt-text="CE Marking" src="{$Validation/Z04/CE_Image}" content-width="scale-to-fit" width="64px" scaling="uniform" />
                                           </fo:block>
                                         </fo:table-cell>
                                       </fo:table-row>
                                       <fo:table-row>
                                         <fo:table-cell text-align="center">
                                           <fo:block font-weight="bold">
-                                            <xsl:value-of
-                                              select="$Validation/Z04/NotifiedBodyNumber" />
+                                            <xsl:value-of select="$Validation/Z04/NotifiedBodyNumber" />
                                           </fo:block>
                                         </fo:table-cell>
                                       </fo:table-row>
@@ -1211,26 +1206,10 @@
                                 <xsl:value-of select="$Validation/Z03/Title" />
                               </fo:block>
                             </fo:table-cell>
-                            <!-- Display CE mark if Z04 exists -->
                             <xsl:if test="$Validation/Z03/StampImage">
                               <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                                 <fo:block>
-                                  <fo:table table-layout="fixed" width="100% ">
-                                    <fo:table-column column-width="100%" />
-                                    <fo:table-body>
-                                      <fo:table-row>
-                                        <fo:table-cell text-align="center">
-                                          <fo:block font-weight="bold">
-                                            <fo:external-graphic fox:alt-text="Inspector Stamp"
-                                              src="{$Validation/Z03/StampImage}"
-                                              content-width="scale-to-fit"
-                                              width="96px"
-                                              scaling="uniform" />
-                                          </fo:block>
-                                        </fo:table-cell>
-                                      </fo:table-row>
-                                    </fo:table-body>
-                                  </fo:table>
+                                  <fo:external-graphic fox:alt-text="Inspector Stamp" src="{$Validation/Z03/StampImage}" content-width="scale-to-fit" width="96px" scaling="uniform" />
                                 </fo:block>
                               </fo:table-cell>
                             </xsl:if>
@@ -1259,6 +1238,7 @@
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                         <xsl:with-param name="key" select="./Key" />
                         <xsl:with-param name="value" select="./Value" />
+                        <xsl:with-param name="type" select="./Type" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
@@ -1329,40 +1309,63 @@
     <xsl:param name="title" />
     <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 0.8pt black">
       <xsl:value-of select="$title" />
+<xsl:template name="KeyValue">
+  <xsl:param name="number" />
+  <xsl:param name="method" />
+  <xsl:param name="key" />
+  <xsl:param name="value" />
+  <xsl:param name="paddingBottom" />
+  <xsl:param name="type" select="'default'" />
+  <fo:table-cell padding-bottom="{$paddingBottom}" padding-right="4pt">
+    <fo:block font-style="italic">
+      <xsl:value-of select="$number" />
+      <xsl:value-of select="$key" />
+      <xsl:value-of select="$method" />
     </fo:block>
-  </xsl:template>
-  <xsl:template name="SectionSubTitle">
-    <xsl:param name="subtitle" />
-    <fo:block font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
-      <xsl:value-of select="$subtitle" />
-    </fo:block>
-  </xsl:template>
+  </fo:table-cell>
 
-  <xsl:template name="KeyValue">
-    <xsl:param name="number" />
-    <xsl:param name="key" />
-    <xsl:param name="value" />
-    <xsl:param name="paddingBottom" />
-    <xsl:param name="type" select="'default'" />
-    <fo:table-cell padding-bottom="{$paddingBottom}" padding-right="4pt">
-      <fo:block font-style="italic">
-        <xsl:value-of select="$number" />
-        <xsl:value-of select="$key" />
-      </fo:block>
-    </fo:table-cell>
-    <fo:table-cell>
-      <fo:block>
-        <xsl:choose>
-          <xsl:when test="$type = 'date-time'">
-            <xsl:value-of select="concat(substring($value, 6, 2), '/', substring($value, 9, 2), '/', substring($value, 1, 4))" />
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$value" />
-          </xsl:otherwise>
-        </xsl:choose>
-      </fo:block>
-    </fo:table-cell>
-  </xsl:template>
+  <fo:table-cell>
+    <fo:block>
+      <xsl:choose>
+        <xsl:when test="$type = 'date-time'">
+          <xsl:value-of select="concat(substring($value, 6, 2), '/', substring($value, 9, 2), '/', substring($value, 1, 4))" />
+        </xsl:when>
+        <xsl:when test="$type = 'url'">
+          <fo:basic-link external-destination="{$value}">
+            <fo:inline text-decoration="underline">
+              <xsl:value-of select="$value" />
+            </fo:inline>
+          </fo:basic-link>
+        </xsl:when>
+        <xsl:when test="$type = 'email'">
+          <fo:basic-link external-destination="mailto:{$value}">
+            <fo:inline text-decoration="underline">
+              <xsl:value-of select="$value" />
+            </fo:inline>
+          </fo:basic-link>
+        </xsl:when>
+        <xsl:when test="$type = 'phone'">
+          <fo:basic-link external-destination="tel:{$value}">
+            <fo:inline>
+              <xsl:value-of select="$value" />
+            </fo:inline>
+          </fo:basic-link>
+        </xsl:when>
+        <xsl:when test="$type = 'qr-code'">
+          <!-- QR code generation typically requires an external library or pre-generated image -->
+          <fo:external-graphic fox:alt-text="QR Code" src="{$value}" content-width="80px" width="80px" scaling="uniform" />
+        </xsl:when>
+        <xsl:when test="$type = 'image'">
+          <fo:external-graphic fox:alt-text="Image" src="{$value}" content-width="scale-to-fit" width="150px" scaling="uniform" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$value" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </fo:block>
+  </fo:table-cell>
+</xsl:template>
+
 
   <xsl:template name="KeyValueSmall">
     <xsl:param name="key" />
