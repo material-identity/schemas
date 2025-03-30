@@ -184,35 +184,39 @@
         },
         "C78": {
           "Actual": {
-            "Value": "0.009"
+            "Value": "0.009",
+            "Operator":"<="
           },
           "Symbol": "Ni",
           "Unit": "%"
         },
         "C79": {
           "Actual": {
-            "Value": "0.002"
+            "Value": "0.002",
+            "Operator": "<"
           },
           "Symbol": "Mo",
           "Unit": "%"
         },
         "C80": {
           "Actual": {
-            "Value": "0.010"
+            "Value": "0.010",
+            "Operator": "="
           },
           "Symbol": "Cu",
           "Unit": "%"
         },
         "C81": {
           "Actual": {
-            "Value": "0.002"
+            "Value": "0.002",
+            "Operator": ">="
           },
           "Symbol": "V",
           "Unit": "%"
         },
         "C82": {
           "Actual": {
-            "Value": "0.001"
+            "Value": "0.001",
           },
           "Symbol": "Ti",
           "Unit": "%"
@@ -226,7 +230,15 @@
         },
         "C86": {
           "Actual": {
-            "Value": "0.001"
+            "Value": "0.300"
+          },
+          "Minimum": {
+            "Value": "0.200",
+            "Operator": ">"
+          },
+          "Maximum": {
+            "Value": "0.400",
+            "Operator": "<"
           },
           "Symbol": "B",
           "Unit": "%"
@@ -234,6 +246,14 @@
         "C92": {
           "Actual": {
             "Value": "0.327"
+          },
+          "Minimum": {
+            "Value": "0.200",
+            "Operator": ">="
+          },
+          "Maximum": {
+            "Value": "0.400",
+            "Operator": "<="
           },
           "Symbol": "CEV",
           "Unit": null
