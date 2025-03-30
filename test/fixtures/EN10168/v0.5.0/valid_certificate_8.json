@@ -361,17 +361,17 @@
         "Z05": {
           "Key": "Quality Department Tel.",
           "Value": "+43 732 1000 8888",
-          "Type": "string"
+          "Type": "phone"
         },
         "Z06": {
           "Key": "Quality Department Fax",
           "Value": "+43 732 1000 8889",
-          "Type": "string"
+          "Type": "phone"
         },
         "Z07": {
           "Key": "Quality Department Email",
           "Value": "quality@steelmill.se",
-          "Type": "string"
+          "Type": "email"
         }
       }
     },
