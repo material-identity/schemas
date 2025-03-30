@@ -27,8 +27,7 @@
           "type": "string"
         },
         "Type": {
-          "enum": ["string", "number", "date", "date-time", "boolean", "url", "qr-code", "image", "email"],
-          "default": "string"
+          "enum": ["string", "number", "date", "date-time", "boolean", "url", "qr-code", "image", "email", "phone"]
         },
         "Method": {
           "description": "The method used to determine the value, e.g. 'EN ISO 148-1:2016'",
