@@ -1294,31 +1294,30 @@
               <fo:table-column column-width="50%" />
               <fo:table-body>
                 <fo:table-row>
-                  <fo:table-cell>
-                    <fo:block> Data schema maintained by
-                      <fo:basic-link external-destination="https://materialidentity.org">
-                        <fo:inline text-decoration="underline">Material Identity</fo:inline>
-                      </fo:basic-link>
-          .
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block color="gray" text-align="right">
-                      <fo:basic-link external-destination="{Root/RefSchemaUrl}">
-                        <fo:inline text-decoration="underline">
-                          <xsl:value-of select="Root/RefSchemaUrl" />
-                        </fo:inline>
-                      </fo:basic-link>
-                    </fo:block>
-                  </fo:table-cell>
-                </fo:table-row>
-              </fo:table-body>
-            </fo:table>
-          </fo:block>
-        </fo:flow>
-      </fo:page-sequence>
-    </fo:root>
-  </xsl:template>
+                  <fo:table-cell color="gray" font-size="8pt">
+                    <fo:block> Data schema maintained by <fo:basic-link external-destination="https://materialidentity.org">
+                      <fo:inline text-decoration="underline">Material Identity</fo:inline>
+                    </fo:basic-link>
+  . 
+                  </fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block color="gray" font-size="8pt">
+                    <fo:basic-link external-destination="{Root/RefSchemaUrl}">
+                      <fo:inline text-decoration="underline">
+                        <xsl:value-of select="Root/RefSchemaUrl" />
+                      </fo:inline>
+                    </fo:basic-link>
+                  </fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-body>
+          </fo:table>
+        </fo:block>
+      </fo:flow>
+    </fo:page-sequence>
+  </fo:root>
+</xsl:template>
 
   <xsl:template name="SectionTitle">
     <xsl:param name="title" />
