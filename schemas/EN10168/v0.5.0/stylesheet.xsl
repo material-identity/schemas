@@ -17,7 +17,7 @@
         <fo:static-content flow-name="xsl-region-after">
           <fo:block font-size="8pt" text-align="center" margin-right="1cm" font-family="NotoSans">
             <fo:page-number />
-/            <fo:page-number-citation-last ref-id="last-page" />
+ /            <fo:page-number-citation-last ref-id="last-page" />
           </fo:block>
         </fo:static-content>
         <!-- Body -->
@@ -42,8 +42,7 @@
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell padding-bottom="{$partyPaddingBottom}">
-                    <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of
-                        select="$i18n/Certificate/A04" />
+                    <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
                     </fo:block>
                     <fo:block>
                       <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
@@ -335,31 +334,23 @@
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
                 </xsl:call-template>
-                <fo:table
-                  table-layout="fixed" width="100%">
+                <fo:table table-layout="fixed" width="100%">
                   <fo:table-column column-width="50%" />
                   <fo:table-column column-width="50%" />
                   <fo:table-body>
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat('C70', ' ')" />
-                        <xsl:with-param
-                          name="key" select="$i18n/Certificate/C70" />
-                        <xsl:with-param name="value"
-                          select="ChemicalComposition/C70" />
-                        <xsl:with-param name="paddingBottom"
-                          select="$cellPaddingBottom" />
+                        <xsl:with-param name="key" select="$i18n/Certificate/C70" />
+                        <xsl:with-param name="value" select="ChemicalComposition/C70" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
-                <xsl:variable
-                  name="keys"
-                  select="ChemicalComposition/*[not(name() = 'SupplementaryInformation' or name() = 'C70')]" />
-                <xsl:variable
-                  name="columnCount" select="count($keys)" />
-                <xsl:variable name="maxColumns"
-                  select="13" />
+                <xsl:variable name="keys" select="ChemicalComposition/*[not(name() = 'SupplementaryInformation' or name() = 'C70')]" />
+                <xsl:variable name="columnCount" select="count($keys)" />
+                <xsl:variable name="maxColumns" select="13" />
 
                 <!-- First table -->
                 <xsl:variable name="keys1"
@@ -1299,16 +1290,25 @@
   </fo:root>
 </xsl:template>
 
-  <xsl:template name="SectionTitle">
-    <xsl:param name="title" />
-    <fo:block font-size="14pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 1pt black">
-      <xsl:value-of select="$title" />
-    </fo:block>
-  </xsl:template>
-  <xsl:template name="SectionTitleSmall">
-    <xsl:param name="title" />
-    <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 0.8pt black">
-      <xsl:value-of select="$title" />
+<xsl:template name="SectionTitle">
+  <xsl:param name="title" />
+  <fo:block font-size="14pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 1pt black">
+    <xsl:value-of select="$title" />
+  </fo:block>
+</xsl:template>
+<xsl:template name="SectionTitleSmall">
+  <xsl:param name="title" />
+  <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="8pt" space-after="6pt" border-bottom="solid 0.8pt black">
+    <xsl:value-of select="$title" />
+  </fo:block>
+</xsl:template>
+<xsl:template name="SectionSubTitle">
+  <xsl:param name="subtitle" />
+  <fo:block font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
+    <xsl:value-of select="$subtitle" />
+  </fo:block>
+</xsl:template>
+
 <xsl:template name="KeyValue">
   <xsl:param name="number" />
   <xsl:param name="method" />
@@ -1366,52 +1366,52 @@
   </fo:table-cell>
 </xsl:template>
 
+<xsl:template name="KeyValueSmall">
+  <xsl:param name="key" />
+  <xsl:param name="value" />
+  <xsl:param name="paddingBottom" />
+  <fo:table-cell padding-bottom="{$paddingBottom}">
+    <fo:block font-size="7pt">
+      <xsl:value-of select="$key" />
+    </fo:block>
+  </fo:table-cell>
+  <fo:table-cell>
+    <fo:block>
+      <xsl:value-of select="$value" />
+    </fo:block>
+  </fo:table-cell>
+</xsl:template>
 
-  <xsl:template name="KeyValueSmall">
-    <xsl:param name="key" />
-    <xsl:param name="value" />
-    <xsl:param name="paddingBottom" />
-    <fo:table-cell padding-bottom="{$paddingBottom}">
-      <fo:block font-size="7pt">
-        <xsl:value-of select="$key" />
-      </fo:block>
-    </fo:table-cell>
-    <fo:table-cell>
-      <fo:block>
-        <xsl:value-of select="$value" />
-      </fo:block>
-    </fo:table-cell>
-  </xsl:template>
-  <xsl:template name="PartyInfo">
-    <xsl:param name="number" />
-    <xsl:param name="title" />
-    <xsl:param name="party" />
-    <xsl:param name="paddingBottom" />
-    <fo:table-cell>
-      <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
-        <xsl:value-of select="$number" />
-        <xsl:value-of select="$title" />
-      </fo:block>
-      <fo:block>
-        <xsl:value-of select="$party/Name" />
-      </fo:block>
-      <fo:block>
-        <xsl:for-each select="$party/Street">
-          <fo:block>
-            <xsl:value-of select="." />
-          </fo:block>
-        </xsl:for-each>
-      </fo:block>
-      <fo:block>
-        <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />
-      </fo:block>
-      <fo:block>
-        <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
-          <fo:inline text-decoration="underline">
-            <xsl:value-of select="$party/Email" />
-          </fo:inline>
-        </fo:basic-link>
-      </fo:block>
-    </fo:table-cell>
-  </xsl:template>
+<xsl:template name="PartyInfo">
+  <xsl:param name="number" />
+  <xsl:param name="title" />
+  <xsl:param name="party" />
+  <xsl:param name="paddingBottom" />
+  <fo:table-cell>
+    <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
+      <xsl:value-of select="$number" />
+      <xsl:value-of select="$title" />
+    </fo:block>
+    <fo:block>
+      <xsl:value-of select="$party/Name" />
+    </fo:block>
+    <fo:block>
+      <xsl:for-each select="$party/Street">
+        <fo:block>
+          <xsl:value-of select="." />
+        </fo:block>
+      </xsl:for-each>
+    </fo:block>
+    <fo:block>
+      <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />
+    </fo:block>
+    <fo:block>
+      <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
+        <fo:inline text-decoration="underline">
+          <xsl:value-of select="$party/Email" />
+        </fo:inline>
+      </fo:basic-link>
+    </fo:block>
+  </fo:table-cell>
+</xsl:template>
 </xsl:stylesheet>
