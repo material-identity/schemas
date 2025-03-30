@@ -149,10 +149,10 @@
               "description": "The measured value as a string",
               "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
             },
-            "Notation": {
+            "Operator": {
               "type": "string",
-              "description": "Notation indicating measurement relation",
-              "enum": ["[", "(", "]", ")", "="],
+              "description": "Comparison operator indicating measurement relation",
+              "enum": ["=", "<", "<=", ">", ">="],
               "default": "="
             }
           },
@@ -167,11 +167,11 @@
               "description": "The measured value as a string",
               "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
             },
-            "Notation": {
+            "Operator": {
               "type": "string",
-              "description": "Notation indicating range relation",
-              "enum": ["[", "("],
-              "default": "["
+              "description": "Comparison operator indicating range relation",
+              "enum": [">=", ">"],
+              "default": ">="
             }
           },
           "required": ["Value"]
@@ -185,11 +185,11 @@
               "description": "The measured value as a string",
               "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
             },
-            "Notation": {
+            "Operator": {
               "type": "string",
-              "description": "Notation indicating range relation",
-              "enum": ["]", ")"],
-              "default": "]"
+              "description": "Comparison operator indicating range relation",
+              "enum": ["<=", "<"],
+              "default": "<="
             }
           },
           "required": ["Value"]
