@@ -27,7 +27,7 @@
           "type": "string"
         },
         "Type": {
-          "enum": ["string", "number", "date", "date-time", "boolean"],
+          "enum": ["string", "number", "date", "date-time", "boolean", "url", "qr-code", "image", "email"],
           "default": "string"
         },
         "Method": {
