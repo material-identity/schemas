@@ -329,8 +329,7 @@
 
               <!-- Check for one of keys: ChemicalComposition, TensileTest, HardnessTest,
                 NotchedBarImpactTest, OtherMechanicalTests  -->
-              <xsl:if
-                test="ChemicalComposition">
+              <xsl:if test="ChemicalComposition">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
                 </xsl:call-template>
@@ -353,10 +352,8 @@
                 <xsl:variable name="maxColumns" select="13" />
 
                 <!-- First table -->
-                <xsl:variable name="keys1"
-                  select="subsequence($keys, 1, $maxColumns)" />
-                <fo:table table-layout="fixed"
-                  width="100%">
+                <xsl:variable name="keys1" select="subsequence($keys, 1, $maxColumns)" />
+                <fo:table table-layout="fixed" width="100%">
                   <xsl:for-each select="1 to ($maxColumns + 1)">
                     <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
                   </xsl:for-each>
@@ -447,10 +444,8 @@
                 </fo:table>
 
                 <!-- Second table (if applicable)-->
-                <xsl:variable
-                  name="keys2" select="subsequence($keys, $maxColumns + 1, $maxColumns)" />
-                <xsl:if
-                  test="$columnCount &gt; $maxColumns">
+                <xsl:variable name="keys2" select="subsequence($keys, $maxColumns + 1, $maxColumns)" />
+                <xsl:if test="$columnCount &gt; $maxColumns">
                   <fo:table table-layout="fixed" width="100%" margin-top="10pt">
                     <xsl:for-each select="1 to ($maxColumns + 1)">
                       <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
@@ -542,12 +537,9 @@
                   </fo:table>
                 </xsl:if>
                 <!-- Third table (if applicable)-->
-                <xsl:if
-                  test="$columnCount &gt; $maxColumns*2">
-                  <xsl:variable name="keys3"
-                    select="subsequence($keys, 2*$maxColumns + 1, $maxColumns)" />
-                  <fo:table
-                    table-layout="fixed" width="100%" margin-top="10pt">
+                <xsl:if test="$columnCount &gt; $maxColumns*2">
+                  <xsl:variable name="keys3" select="subsequence($keys, 2*$maxColumns + 1, $maxColumns)" />
+                  <fo:table table-layout="fixed" width="100%" margin-top="10pt">
                     <xsl:for-each select="1 to ($maxColumns + 1)">
                       <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
                     </xsl:for-each>
@@ -638,10 +630,8 @@
                   </fo:table>
                 </xsl:if>
                 <!-- Chemical formulas -->
-                 <xsl:if
-                  test="count(ChemicalComposition/*[Formula != '']) > 0">
-                    <fo:table
-                    table-layout="fixed" width="100%">
+                <xsl:if test="count(ChemicalComposition/*[Formula != '']) > 0">
+                  <fo:table table-layout="fixed" width="100%">
                     <fo:table-column column-width="50%" />
                     <fo:table-column column-width="50%" />
                     <fo:table-header>
@@ -976,17 +966,33 @@
                 </xsl:call-template>
                 <fo:table table-layout="fixed" width="100%">
                   <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="15%" />
                   <fo:table-body>
                     <xsl:for-each select="OtherMechanicalTests/*[substring(local-name(), 2) &gt;= '50' and substring(local-name(), 2) &lt;= '69']">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                          <xsl:with-param name="key" select="./Key" />
-                          <xsl:with-param name="value" select="./Value" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
+                     <fo:table-row>
+                        <fo:table-cell>
+                          <fo:block font-style="italic" padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="concat(local-name(), ' ', ./Key)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="./Interpretation" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="./Method" />
+                          </fo:block>
+                        </fo:table-cell>
+                        </fo:table-row>
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
@@ -1023,9 +1029,10 @@
                   <xsl:with-param name="title" select="$i18n/Certificate/NonDestructiveTests" />
                 </xsl:call-template>
                 <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="33.33%" />
-                  <fo:table-column column-width="33.33%" />
-                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="15%" />
                   <fo:table-body>
                     <xsl:for-each select="NonDestructiveTests/*[substring(local-name(), 2) &gt;= '02' and substring(local-name(), 2) &lt;= '50']">
                       <fo:table-row>
@@ -1044,6 +1051,11 @@
                             <xsl:value-of select="./Interpretation" />
                           </fo:block>
                         </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="./Method" />
+                          </fo:block>
+                        </fo:table-cell>
                       </fo:table-row>
                     </xsl:for-each>
                   </fo:table-body>
@@ -1054,25 +1066,31 @@
                   <xsl:with-param name="title" select="$i18n/Certificate/OtherProductTests" />
                 </xsl:call-template>
                 <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="33.33%" />
-                  <fo:table-column column-width="33.33%" />
-                  <fo:table-column column-width="33.33%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="15%" />
                   <fo:table-body>
                     <xsl:for-each select="OtherProductTests/*[substring(local-name(), 2) &gt;= '51' and substring(local-name(), 2) &lt;= '99 ']">
                       <fo:table-row>
                         <fo:table-cell>
-                          <fo:block font-style="italic">
+                          <fo:block font-style="italic" padding-bottom="{$cellPaddingBottom}">
                             <xsl:value-of select="concat(local-name(), ' ', ./Key)" />
                           </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
-                          <fo:block>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
                             <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
                           </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
-                          <fo:block>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
                             <xsl:value-of select="./Interpretation" />
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                          <fo:block padding-bottom="{$cellPaddingBottom}">
+                            <xsl:value-of select="./Method" />
                           </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
@@ -1081,6 +1099,8 @@
                 </fo:table>
               </xsl:if>
             </xsl:for-each>
+
+            <!-- Replace the existing Validation section in the stylesheet with this code -->
 
             <!--  Validation -->
             <xsl:call-template name="SectionTitle">
@@ -1196,7 +1216,7 @@
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
-                    <fo:block>
+                  <fo:block>
                       <fo:table table-layout="fixed" width="100%">
                         <xsl:if test="$Validation/Z03/StampImage">
                           <fo:table-column column-width="50%" />
@@ -1246,6 +1266,7 @@
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                         <xsl:with-param name="key" select="./Key" />
+                        <xsl:with-param name="method" select="./Method" />
                         <xsl:with-param name="value" select="./Value" />
                         <xsl:with-param name="type" select="./Type" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
@@ -1256,7 +1277,7 @@
               </fo:table>
             </xsl:if>
 
-                        <!-- Attachments -->
+            <!-- Attachments -->
             <xsl:if test="exists($Attachments)">
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="$i18n/Certificate/Attachments" />
@@ -1276,7 +1297,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-            
+
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
               <fo:table-column column-width="50%" />
@@ -1287,7 +1308,6 @@
                     <fo:block> Data schema maintained by <fo:basic-link external-destination="https://materialidentity.org">
                       <fo:inline text-decoration="underline">Material Identity</fo:inline>
                     </fo:basic-link>
-  . 
                   </fo:block>
                 </fo:table-cell>
                 <fo:table-cell>
@@ -1374,7 +1394,7 @@
           <fo:external-graphic fox:alt-text="QR Code" src="{$value}" content-width="80px" width="80px" scaling="uniform" />
         </xsl:when>
         <xsl:when test="$type = 'image'">
-          <fo:external-graphic fox:alt-text="Image" src="{$value}" content-width="scale-to-fit" width="150px" scaling="uniform" />
+          <fo:external-graphic fox:alt-text="Image" src="{$value}" content-width="scale-to-fit" width="100px" scaling="uniform" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$value" />
