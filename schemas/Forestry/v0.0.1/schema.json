@@ -1,7 +1,7 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
   "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "$id": "https://schemas.s1seven.com//forestry-schemas/v0.0.1/schema.json",
+  "$id": "https://schemas.s1seven.com/forestry-schemas/v0.0.1/schema.json",
   "definitions": {
     "Languages": {
       "allOf": [
@@ -564,6 +564,32 @@
             }
           }
         },
+        "EUDRReferences": {
+          "title": "EUDRReferences",
+          "description": "References to Due Diligence statements registered in the EUDR system",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "InternalReferenceNumber": {
+                "description": "An optional internal reference number defined by the submitter",
+                "type": "string"
+              },
+              "DDSReferenceNumber": {
+                "description": "The Due Diligence statement reference number issued by the EUDR system",
+                "type": "string"
+              },
+              "VerificationNumber": {
+                "description": "The verification number issued by the EUDR system",
+                "type": "string"
+              }
+            },
+            "required": ["DDSReferenceNumber", "VerificationNumber"],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
         "DMPReferences": {
           "title": "DMPReferences",
           "description": "References to other DMPs",
@@ -604,8 +630,7 @@
         "Supplier",
         "Customer",
         "Creator",
-        "DueDiligenceStatement",
-        "DMPReferences"
+        "DueDiligenceStatement"
       ],
       "additionalProperties": false
     }

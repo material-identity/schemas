@@ -16,18 +16,17 @@ import { SchemaService } from './schema.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-form',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatRadioModule,
-    MatChipsModule,
-    UploaderComponent,
-    MatCheckboxModule,
-    MatIconModule,
-    ReactiveFormsModule,
-  ],
-  template: `
+    selector: 'app-form',
+    imports: [
+        MatButtonModule,
+        MatRadioModule,
+        MatChipsModule,
+        UploaderComponent,
+        MatCheckboxModule,
+        MatIconModule,
+        ReactiveFormsModule,
+    ],
+    template: `
     <section>
       <strong class="text-gray-900">Certificate</strong>
       <p class="text-gray-700 mb-4 text-sm">
@@ -48,7 +47,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
       </button>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormComponent {
   @HostBinding('class') class = 'flex flex-col gap-8';

@@ -4,10 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormComponent } from './form.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [UploaderComponent, FormComponent, MatButtonModule],
-  template: `
+    selector: 'app-root',
+    imports: [UploaderComponent, FormComponent, MatButtonModule],
+    template: `
     <div class="flex flex-col bg-primary-50/10 h-screen">
       <div class="flex-1 flex flex-col overflow-auto">
         <div class="flex-1 flex flex-col">
@@ -46,6 +45,6 @@ import { FormComponent } from './form.component';
         </div>
       </div>
     </div>
-  `,
+  `
 })
 export class AppComponent {}

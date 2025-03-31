@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "schemas/**/schema.json"
+      - "schemas/**"
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GITHUB_ACTION
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE }}
           role-session-name: githubactions
           aws-region: ${{ secrets.AWS_REGION }}
 
@@ -33,14 +33,20 @@ jobs:
           # Create a temporary directory for transformed files
           mkdir -p transformed
 
-          # Create 404.txt file in the root of transformed directory
-          echo "Not Found" > transformed/404.txt
+          # Get repository name from GitHub context
+          REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
           
-          # Find all schema.json files and create transformed copies
-          find schemas -name schema.json | while read file; do
-            # Extract components from path (e.g., schemas/Forestry/v0.0.1/schema.json)
+          # Create 404.txt file in the root of transformed directory (only for main repository)
+          if [ "$REPO_NAME" = "schemas" ]; then
+            echo "Not Found" > transformed/404.txt
+          fi
+          
+          # Find all files in schemas directory and create transformed copies
+          find schemas -type f | while read file; do
+            # Extract components from path (e.g., schemas/Forestry/v0.0.1/anyfile.json)
             domain=$(echo "$file" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
             version=$(echo "$file" | cut -d'/' -f3)
+            filename=$(basename "$file")
             
             # TODO: replace this with a proper fix
             if [ "$domain" = "forestrysource" ]; then
@@ -48,16 +54,38 @@ jobs:
             fi
 
             # Create new path with transformed structure
-            new_path="transformed/${domain}-schemas/${version}/schema.json"
+            # Keep the original file path structure after the version
+            rel_path=$(echo "$file" | cut -d'/' -f4-)
+            if [ -n "$rel_path" ]; then
+              new_path="transformed/${domain}-schemas/${version}/${rel_path}"
+            else
+              new_path="transformed/${domain}-schemas/${version}/${filename}"
+            fi
             
             # Create directory structure and copy file
             mkdir -p "$(dirname "$new_path")"
             cp "$file" "$new_path"
+            
+            # Store the domain for sync (if not already added)
+            echo "${domain}-schemas/*" >> patterns.txt
           done
           
+          # Remove duplicate patterns
+          sort -u patterns.txt > patterns_unique.txt && mv patterns_unique.txt patterns.txt
+          
           # Sync transformed directory to S3
-          aws s3 sync transformed/ s3://schema-cdn-service-bucket \
-            --delete
+          if [ -f patterns.txt ]; then
+            # Convert patterns file to proper --include arguments
+            INCLUDES=$(cat patterns.txt | while read pattern; do echo "--include $pattern"; done | tr '\n' ' ')
+            
+            # Debug output to verify the command
+            echo "Running sync with includes: $INCLUDES"
+            
+            aws s3 sync transformed/ s3://${{ secrets.AWS_S3_BUCKET }} \
+              --delete \
+              --exclude "*" \
+              $INCLUDES
+          fi
 
       - name: Invalidate CloudFront Cache
         run: |
