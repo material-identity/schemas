@@ -405,6 +405,8 @@
                         <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
+                              <xsl:value-of select="Minimum/Operator" />
+                              <xsl:text></xsl:text>
                               <xsl:value-of select="Minimum/Value" />
                             </fo:block>
                           </fo:table-cell>
@@ -419,6 +421,8 @@
                         <xsl:for-each select="$keys1">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
+                              <xsl:value-of select="Maximum/Operator" />
+                              <xsl:text></xsl:text>
                               <xsl:value-of select="Maximum/Value" />
                             </fo:block>
                           </fo:table-cell>
@@ -432,6 +436,8 @@
                       <xsl:for-each select="$keys1">
                         <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                           <fo:block>
+                            <xsl:value-of select="Actual/Operator" />
+                            <xsl:text></xsl:text>
                             <xsl:value-of select="Actual/Value" />
                           </fo:block>
                         </fo:table-cell>
@@ -494,6 +500,8 @@
                           <xsl:for-each select="$keys2">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                               <fo:block>
+                                <xsl:value-of select="Minimum/Operator" />
+                                <xsl:text></xsl:text>
                                 <xsl:value-of select="Minimum/Value" />
                               </fo:block>
                             </fo:table-cell>
@@ -508,6 +516,8 @@
                           <xsl:for-each select="$keys2">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                               <fo:block>
+                                <xsl:value-of select="Maximum/Operator" />
+                                <xsl:text></xsl:text>
                                 <xsl:value-of select="Maximum/Value" />
                               </fo:block>
                             </fo:table-cell>
@@ -521,6 +531,8 @@
                         <xsl:for-each select="$keys2">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
+                              <xsl:value-of select="Actual/Operator" />
+                              <xsl:text></xsl:text>
                               <xsl:value-of select="Actual/Value" />
                             </fo:block>
                           </fo:table-cell>
@@ -584,6 +596,8 @@
                           <xsl:for-each select="$keys3">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                               <fo:block>
+                                <xsl:value-of select="Minimum/Operator" />
+                                <xsl:text></xsl:text>
                                 <xsl:value-of select="Minimum/Value" />
                               </fo:block>
                             </fo:table-cell>
@@ -598,6 +612,8 @@
                           <xsl:for-each select="$keys3">
                             <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                               <fo:block>
+                                <xsl:value-of select="Maximum/Operator" />
+                                <xsl:text></xsl:text>
                                 <xsl:value-of select="Maximum/Value" />
                               </fo:block>
                             </fo:table-cell>
@@ -611,6 +627,8 @@
                         <xsl:for-each select="$keys3">
                           <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                             <fo:block>
+                              <xsl:value-of select="Actual/Operator" />
+                              <xsl:text></xsl:text>
                               <xsl:value-of select="Actual/Value" />
                             </fo:block>
                           </fo:table-cell>
