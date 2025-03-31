@@ -13,3 +13,13 @@ target/
 scripts/output/
 src/main/resources/schemas/
 src/test/resources/schemas/
+.env*
+!.env.project
+!.env.vault
+.flaskenv*
+
+# schema-private files from S3Bucket
+schemas/TKR/*
+schemas/Bluemint/*
+test/fixtures/TKR/*
+test/fixtures/Bluemint/*
