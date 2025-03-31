@@ -217,6 +217,7 @@
         "C82": {
           "Actual": {
             "Value": "0.001",
+            "Operator": ">"
           },
           "Symbol": "Ti",
           "Unit": "%"
@@ -261,12 +262,14 @@
       },
       "OtherMechanicalTests": {
         "C50": {
-          "Key": "Flattening test (EN ISO 8492)",
-          "Value": "satisfactory"
+          "Key": "Flattening test",
+          "Value": "satisfactory",
+          "Method": "EN ISO 8492"
         },
         "C53": {
-          "Key": "Ring expanding test (EN ISO 8495)",
-          "Value": "satisfactory"
+          "Key": "Ring expanding test",
+          "Value": "satisfactory",
+          "Method": "EN ISO 8495"
         }
       },
       "NotchedBarImpactTest": {
@@ -320,25 +323,12 @@
       "D01": "Marking",
       "NonDestructiveTests": {
         "D02": {
-          "Key": "Visual En 10219-1",
+          "Key": "Visual Inspection",
           "Value": "100",
           "Unit": "%",
           "Interpretation": "Positive",
-          "Type": "number"
-        },
-        "D03": {
-          "Key": "Non destructive test EN ISO 10893-2",
-          "Value": "100",
-          "Unit": "%",
-          "Interpretation": "Positive",
-          "Type": "number"
-        },
-        "D04": {
-          "Key": "Dimensional Inspection EN 10219-2",
-          "Value": "1",
-          "Unit": "Lot",
-          "Interpretation": "Positive",
-          "Type": "number"
+          "Type": "number",
+          "Method": "EN 10219-1"
         }
       }
     },

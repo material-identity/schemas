@@ -30,19 +30,7 @@
       "A09": "TR-12456",
       "A97": "1",
       "A98": "DN-1583836",
-      "A99": "AV-87682933",
-      "SupplementaryInformation": {
-        "A10": {
-          "Key": "Buyer Reference Number",
-          "Value": "BRN-1583836",
-          "Type": "string"
-        },
-        "A11": {
-          "Key": "Reference Date",
-          "Value": "2018-10-23T09:30:10-01:00",
-          "Type": "date-time"
-        }
-      }
+      "A99": "AV-87682933"
     },
     "ProductDescription": {
       "B01": "Seamleass Steel Tubes Hot Roild",
@@ -230,17 +218,17 @@
         },
         "TensileTest": {
           "C11": {
-            "Property": "Streckgrenze ReH/RP0,2",
+            "Property": "ReH/RP0,2",
             "Value": 377.12,
             "Unit": "MPa"
           },
           "C12": {
-            "Property": "Zugfestigkeit Rm",
+            "Property": "Rm",
             "Value": 456.18,
             "Unit": "MPa"
           },
           "C13": {
-            "Property": "Bruchdehnung A5/A80",
+            "Property": "A5/A80",
             "Value": 29.7,
             "Unit": "%"
           },
@@ -283,13 +271,6 @@
             "Unit": "J",
             "Minimum": 78.5,
             "Maximum": 90.6
-          },
-          "SupplementaryInformation": {
-            "C44": {
-              "Key": "Sample Identifier",
-              "Value": "10001011/175508",
-              "Type": "string"
-            }
           }
         }
       }
