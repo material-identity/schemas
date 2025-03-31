@@ -1085,8 +1085,8 @@
       "type": "object",
       "properties": {
         "C70": {
-          "description": "The metallurgic process, which is restricted to 2 types: Y = Basic oxygen process, E = Electric furnace",
-          "enum": ["Y", "E"]
+          "description": "The metallurgic process. Traditionally values were restricted to Y = Basic oxygen process, E = Electric furnace, but more detailed process descriptions are allowed, e.g., EAF+LF+RH+CC (Electric Arc Furnace + Ladle Furnace + RH Degassing + Continuous Casting).",
+          "type": "string"
         },
         "C71": {
           "description": "Share of element",

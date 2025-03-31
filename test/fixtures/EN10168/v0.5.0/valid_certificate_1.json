@@ -96,6 +96,7 @@
         }
       },
       "ChemicalComposition": {
+        "C70": "EAF+LF+RH+CC",
         "C71": {
           "Actual": {
             "Value": "0.15"
