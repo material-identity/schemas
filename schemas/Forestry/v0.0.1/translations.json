@@ -109,7 +109,11 @@
       "Value": "Value",
       "Geometry": "Geometry",
       "Latitude": "Latitude",
-      "Longitude": "Longitude"
+      "Longitude": "Longitude",
+      "EUDRReferences": "EUDR References",
+      "InternalReferenceNumber": "Internal Reference Number",
+      "DDSReferenceNumber": "DDS Reference Number",
+      "VerificationNumber": "Verification Number"
     }
   },
   "DE": {
@@ -221,7 +225,11 @@
       "Value": "Wert",
       "Geometry": "Geometrie",
       "Latitude": "Breitengrad",
-      "Longitude": "Längengrad"
+      "Longitude": "Längengrad",
+      "EUDRReferences": "EUDR Referenzen",
+      "InternalReferenceNumber": "Interne Referenznummer",
+      "DDSReferenceNumber": "DDS Referenznummer",
+      "VerificationNumber": "Überprüfungsnummer"
     }
   },
   "CN": {
@@ -333,7 +341,11 @@
       "Value": "值",
       "Geometry": "几何",
       "Latitude": "纬度",
-      "Longitude": "经度"
+      "Longitude": "经度",
+      "EUDRReferences": "EUDR参考",
+      "InternalReferenceNumber": "内部参考编号",
+      "DDSReferenceNumber": "DDS参考编号",
+      "VerificationNumber": "验证编号"
     }
   }
 }
