@@ -23,7 +23,7 @@
         <!-- Body -->
         <fo:flow flow-name="xsl-region-body" font-family="NotoSans">
           <!-- Global variables -->
-          <xsl:variable name="cellPaddingBottom" select="'6pt'" />
+          <xsl:variable name="cellPaddingBottom" select="'3pt'" />
           <xsl:variable name="partyPaddingBottom" select="'4pt'" />
 
           <xsl:variable name="i18n" select="Root/Translations" />
