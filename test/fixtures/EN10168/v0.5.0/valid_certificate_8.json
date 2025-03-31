@@ -312,25 +312,28 @@
       "D01": "Marking",
       "NonDestructiveTests": {
         "D02": {
-          "Key": "Visual En 10219-1",
+          "Key": "Visual Inspection",
           "Value": "100",
           "Unit": "%",
           "Interpretation": "Positive",
-          "Type": "number"
+          "Type": "number",
+          "Method":"EN 10219-1"
         },
         "D03": {
-          "Key": "Non destructive test EN ISO 10893-2",
+          "Key": "Non destructive test",
           "Value": "100",
           "Unit": "%",
           "Interpretation": "Positive",
-          "Type": "number"
+          "Type": "number",
+          "Method":"EN ISO 10893-2"
         },
         "D04": {
-          "Key": "Dimensional Inspection EN 10219-2",
+          "Key": "Dimensional Inspection",
           "Value": "1",
           "Unit": "Lot",
           "Interpretation": "Positive",
-          "Type": "number"
+          "Type": "number",
+          "Method":"EN 10219-2"
         }
       },
       "OtherProductTests": {
@@ -339,7 +342,8 @@
           "Value": "100",
           "Unit": "%",
           "Interpretation": "Positive",
-          "Type": "number"
+          "Type": "number",
+          "Method": "ISO 8492"
         }
       }
     },
