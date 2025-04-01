@@ -11,11 +11,8 @@ export class SchemaService {
     "https://schemas-service.staging.s1seven.com",
     "https://schemas-service.s1seven.com"
   ];
-
-  // Regular expressions for dynamic server URL matching
-  private readonly trustedServerPatterns = [
-    /^https:\/\/s1-schemas-.*\.herokuapp\.com$/  // Matches all Heroku review apps
-  ];
+  // Regular expressions for dynamic server URL matching for Heroku review apps
+  private readonly trustedServerPattern = /^https:\/\/s1-schemas(?:-service)?-[a-zA-Z0-9-]+\.herokuapp\.com[\/]?$/;
 
   constructor() {}
 
@@ -60,11 +57,12 @@ export class SchemaService {
         return url;
       }
 
-      // Check if the URL matches any of the dynamic patterns
-      if (this.trustedServerPatterns.some(pattern => pattern.test(url))) {
+      // Check if the URL matches the dynamic pattern
+      if (this.trustedServerPattern.test(url)) {
         return url;
       }
 
+    console.error(`Error: Couldn't find matching allowed url for ${baseUrl}`)
     return devUrl;
     }
     catch (e) {
