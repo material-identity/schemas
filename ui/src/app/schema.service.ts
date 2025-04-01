@@ -12,7 +12,7 @@ export class SchemaService {
     "https://schemas-service.s1seven.com"
   ];
   // Regular expressions for dynamic server URL matching for Heroku review apps
-  private readonly trustedServerPattern = /^https:\/\/s1-schemas[a-zA-Z0-9-]+\.herokuapp\.com[\/]?$/;
+  private readonly trustedServerPattern = /^https:\/\/s1-schemas-pr-[0-9]+\.herokuapp\.com[\/]?$/;
 
   constructor() {}
 
