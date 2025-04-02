@@ -13,7 +13,18 @@
     },
     "SPRING_PROFILES_ACTIVE": {
       "required": true
-    }
+    },
+    "SCHEMAS_PRIVATE_S3_BUCKET_NAME": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_REGION": {},
+      "required": true
   },
   "stack": "heroku-24",
   "buildpacks": [
