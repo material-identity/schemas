@@ -1,6 +1,21 @@
 {
   "name": "Schemas service app",
   "description": "This app provides public and private schemas.",
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_BRANCH": {
+      "required": true
+    },
+    "HEROKU_PR_NUMBER": {
+      "required": true
+    },
+    "SPRING_PROFILES_ACTIVE": {
+      "required": true
+    }
+  },
+  "stack": "heroku-24",
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
