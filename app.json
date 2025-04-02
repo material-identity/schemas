@@ -1,0 +1,31 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "description": "This app provides public and private schemas.",
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_BRANCH": {
+      "required": true
+    },
+    "HEROKU_PR_NUMBER": {
+      "required": true
+    },
+    "SPRING_PROFILES_ACTIVE": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "name": "schemas",
+  "scripts": {
+  },
+  "stack": "heroku-24"
+}
