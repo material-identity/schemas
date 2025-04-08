@@ -1,0 +1,38 @@
+{
+  "name": "Schemas service app",
+  "description": "This app provides public and private schemas.",
+  "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_BRANCH": {
+      "required": true
+    },
+    "HEROKU_PR_NUMBER": {
+      "required": true
+    },
+    "SPRING_PROFILES_ACTIVE": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_S3_BUCKET_NAME": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "SCHEMAS_PRIVATE_AWS_REGION": {},
+      "required": true
+  },
+  "stack": "heroku-24",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-java.git"
+    }
+  ]
+}
