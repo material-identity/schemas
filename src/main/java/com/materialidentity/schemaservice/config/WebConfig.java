@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
     registry
         .addMapping("/api/**")
-        .allowedOriginPatterns(
+        .allowedOrigins(
           // Local development
           "http://localhost:4200", 
           "http://localhost:8081", 
