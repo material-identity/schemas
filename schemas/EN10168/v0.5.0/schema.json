@@ -279,7 +279,11 @@
                 },
                 "B07": {
                   "description": "Identification of the product, usually batch, charge or lot number",
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1
                 },
                 "B08": {
                   "description": "Number of pieces of the product.",

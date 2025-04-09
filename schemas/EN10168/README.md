@@ -14,6 +14,7 @@ The `./schema.json` is an implementation of the European Union steel standards o
 - Added `Unit` to chemical analysis and display it in table view ([#98](https://github.com/material-identity/schemas/issues/98))
 - Added `Formula` to chemical element and display it in list ([#98](https://github.com/material-identity/schemas/issues/98))
 - Changed `CompanyName` to `Name` to standardize naming over all schemas.
+- Changed `B07` from string to array of strings for multiple production batches ([#122](https://github.com/material-identity/schemas/issues/122))
 - Removed restriction to `Y` and `E` on C70 field values ([#111](https://github.com/material-identity/schemas/issues/111))
 - Removed obsolete `Company/AdditionalInformation`.
 - Removed obsolete `DocumentMetaData`.

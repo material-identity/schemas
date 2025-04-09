@@ -188,6 +188,29 @@
                         </fo:table-cell>
                       </fo:table-row>
                     </xsl:when>
+<!-- Solution for correctly handling B07 array -->
+<xsl:when test="local-name() = 'B07'">
+  <!-- Skip all but the first occurrence of B07 -->
+  <xsl:if test="count(preceding-sibling::B07) = 0">
+    <fo:table-row>
+      <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-right="4pt">
+        <fo:block font-style="italic">
+          <xsl:text>B07 </xsl:text>
+          <xsl:value-of select="$i18n/Certificate/B07" />
+        </fo:block>
+      </fo:table-cell>
+      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+        <fo:block>
+          <!-- Collect all B07 values -->
+          <xsl:for-each select="$ProductDescription/B07">
+            <xsl:value-of select="." />
+            <xsl:if test="position() != last()">, </xsl:if>
+          </xsl:for-each>
+        </fo:block>
+      </fo:table-cell>
+    </fo:table-row>
+  </xsl:if>
+</xsl:when>
                     <xsl:when test="local-name() = 'B09'">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
@@ -972,7 +995,7 @@
                   <fo:table-column column-width="15%" />
                   <fo:table-body>
                     <xsl:for-each select="OtherMechanicalTests/*[substring(local-name(), 2) &gt;= '50' and substring(local-name(), 2) &lt;= '69']">
-                     <fo:table-row>
+                      <fo:table-row>
                         <fo:table-cell>
                           <fo:block font-style="italic" padding-bottom="{$cellPaddingBottom}">
                             <xsl:value-of select="concat(local-name(), ' ', ./Key)" />
@@ -993,7 +1016,7 @@
                             <xsl:value-of select="./Method" />
                           </fo:block>
                         </fo:table-cell>
-                        </fo:table-row>
+                      </fo:table-row>
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
@@ -1217,7 +1240,7 @@
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
-                  <fo:block>
+                    <fo:block>
                       <fo:table table-layout="fixed" width="100%">
                         <xsl:if test="$Validation/Z03/StampImage">
                           <fo:table-column column-width="50%" />
