@@ -9,7 +9,7 @@
         "ZipCode": "4040",
         "City": "Linz",
         "Country": "AT",
-        "Email": "sbs.steelfactory@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "DUNS": "123456789"
         }
@@ -24,21 +24,17 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
-        "Identifiers": {
-          "DUNS": "123456789"
-        }
+        "Emails": ["certificates@steeltrading.de"],
+        "Identifiers": { "VAT": "DE12234567890" }
       },
       "A06.2": {
-        "Name": "Steel Processing AG",
-        "Street": ["Handelsgasse 2"],
+        "Name": "Steel Warehouse AG",
+        "Street": ["Handelsgasse 1"],
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
-        "Identifiers": {
-          "VAT": "DE12234567890"
-        }
+        "Emails": ["certificates@steelwarehouse.ag"],
+        "Identifiers": { "VAT": "DE12234567890" }
       },
       "A06.3": {
         "Name": "Steel Storage AG",
@@ -46,7 +42,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "VAT": "DE12234567890",
           "DUNS": "123456789"

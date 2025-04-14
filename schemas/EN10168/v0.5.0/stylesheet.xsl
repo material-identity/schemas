@@ -1444,6 +1444,7 @@
   </fo:table-cell>
 </xsl:template>
 
+<!-- Update the PartyInfo template to handle Emails array -->
 <xsl:template name="PartyInfo">
   <xsl:param name="number" />
   <xsl:param name="title" />
@@ -1467,13 +1468,31 @@
     <fo:block>
       <xsl:value-of select="concat($party/City, ' ', $party/ZipCode, ', ', $party/Country)" />
     </fo:block>
-    <fo:block>
-      <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
-        <fo:inline text-decoration="underline">
-          <xsl:value-of select="$party/Email" />
-        </fo:inline>
-      </fo:basic-link>
-    </fo:block>
+    <!-- Render the email(s) -->
+    <xsl:choose>
+      <!-- Handle new Emails array -->
+      <xsl:when test="$party/Emails">
+        <xsl:for-each select="$party/Emails">
+          <fo:block>
+            <fo:basic-link external-destination="{concat('mailto:', .)}">
+              <fo:inline text-decoration="underline">
+                <xsl:value-of select="." />
+              </fo:inline>
+            </fo:basic-link>
+          </fo:block>
+        </xsl:for-each>
+      </xsl:when>
+      <!-- Fall back to Email field for backward compatibility (though it shouldn't be needed as per the updated schema) -->
+      <xsl:when test="$party/Email">
+        <fo:block>
+          <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
+            <fo:inline text-decoration="underline">
+              <xsl:value-of select="$party/Email" />
+            </fo:inline>
+          </fo:basic-link>
+        </fo:block>
+      </xsl:when>
+    </xsl:choose>
   </fo:table-cell>
 </xsl:template>
 </xsl:stylesheet>
