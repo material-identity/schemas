@@ -9,7 +9,7 @@
         "ZipCode": "4040",
         "City": "Linz",
         "Country": "AT",
-        "Email": "sbs.steelfactory@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "DUNS": "123456789"
         }
@@ -24,7 +24,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "DUNS": "123456789"
         }
@@ -35,7 +35,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "VAT": "DE12234567890"
         }
@@ -46,7 +46,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelmill.se"],
         "Identifiers": {
           "VAT": "DE12234567890",
           "DUNS": "123456789"

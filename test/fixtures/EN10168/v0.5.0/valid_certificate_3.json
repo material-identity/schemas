@@ -9,7 +9,7 @@
         "ZipCode": "4040",
         "City": "Linz",
         "Country": "AT",
-        "Email": "sbs.steelfactory@gmail.com",
+        "Emails": ["certificates@steelmill.se", "qs@steelmill.se"],
         "Identifiers": {
           "VAT": "AT123456789"
         }
@@ -24,7 +24,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steeltrading.de"],
         "Identifiers": {
           "VAT": "DE12234567890"
         }
@@ -35,7 +35,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelstorage.de"],
         "Identifiers": {
           "VAT": "DE12234567890"
         }
@@ -46,7 +46,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@ssteeluser.ag"],
         "Identifiers": {
           "VAT": "DE12234567890"
         }
@@ -57,7 +57,7 @@
         "ZipCode": "10115",
         "City": "Berlin",
         "Country": "DE",
-        "Email": "sbs.steeltrader@gmail.com",
+        "Emails": ["certificates@steelconsumer.de","qs@steelconsumer.de", "procurement@steelconsumer.de", "faktura@steelconsumer.de", "manager@steelconsumer.ag", "qs@steelconsumer.at"],
         "Identifiers": {
           "VAT": "DE12234567890"
         }
