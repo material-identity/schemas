@@ -9,7 +9,7 @@
         "ZipCode": "4040",
         "City": "Linz",
         "Country": "AT",
-        "Email": "sbs.steelfactory@gmail.com",
+        "Emails": ["certificates@steelmill.se", "qs@steelmill.se"],
         "Identifiers": {
           "VAT": "AT123456789"
         }
