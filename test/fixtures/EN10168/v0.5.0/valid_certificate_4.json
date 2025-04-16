@@ -196,7 +196,6 @@
             "Value": "0.300"
           },
             "Symbol": "F1",
-            "Unit": null,
             "Formula": "F1 = C + Al"
           },
           "C88": {
@@ -204,7 +203,6 @@
             "Value": "0.0000"
           },
             "Symbol": "F2",
-            "Unit": null,
             "Formula": "F2= F1/Ni"
           },
           "C89": {
@@ -212,7 +210,6 @@
             "Value": "0.3227"
           },
             "Symbol": "F3",
-            "Unit": null,
             "Formula": "F3 = F1 + F2"
           }
         },
