@@ -213,7 +213,7 @@
         },
         "Unit": {
           "description": "The unit of measurement (%, ppm, or other unit).",
-          "type": ["string", "null"],
+          "type": "string",
           "enum": ["%", "ppm", null]
         },
         "Formula": {
