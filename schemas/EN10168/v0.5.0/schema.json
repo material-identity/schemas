@@ -213,15 +213,15 @@
         },
         "Unit": {
           "description": "The unit of measurement (%, ppm, or other unit).",
-          "type": ["string", "null"],
-          "enum": ["%", "ppm", null]
+          "type": "string",
+          "enum": ["%", "ppm"]
         },
         "Formula": {
           "description": "For calculated values (e.g., F1, F2, F3), this field can provide the formula definition",
           "type": "string"
         }
       },
-      "required": ["Symbol", "Actual", "Unit"],
+      "required": ["Symbol", "Actual"],
       "additionalProperties": false
     },
     "Measurement": {
