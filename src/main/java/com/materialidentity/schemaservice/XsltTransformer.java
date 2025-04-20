@@ -34,6 +34,9 @@ public class XsltTransformer {
         StringWriter outputWriter = new StringWriter();
 
         TransformerFactory factory = new TransformerFactoryImpl();
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         Transformer transformer = factory.newTransformer(xsltInput);
         transformer.transform(xmlInput, new StreamResult(outputWriter));
 
