@@ -256,8 +256,7 @@
             "Value": "0.400",
             "Operator": "<="
           },
-          "Symbol": "CEV",
-          "Unit": null
+          "Symbol": "CEV"
         }
       },
       "OtherMechanicalTests": {
