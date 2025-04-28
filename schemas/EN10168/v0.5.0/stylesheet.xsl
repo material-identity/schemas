@@ -1383,7 +1383,8 @@
   <xsl:param name="value" />
   <xsl:param name="paddingBottom" />
   <xsl:param name="type" select="'default'" />
-  <fo:table-cell padding-bottom="{$paddingBottom}" padding-right="4pt">
+  <!-- In the KeyValue template -->
+  <fo:table-cell padding-bottom="{if(string-length($paddingBottom) > 0) then $paddingBottom else '0pt'}" padding-right="4pt">
     <fo:block font-style="italic">
       <xsl:value-of select="$number" />
       <xsl:value-of select="$key" />
