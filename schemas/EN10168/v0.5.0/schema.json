@@ -992,11 +992,15 @@
             "pattern": "^A1[0-9]|^A[2-8][0-9]|^A[2-9][0-6]"
           },
           "patternProperties": {
-            "^A1[0-9]|^A[2-8][0-9]|^A[2-9][0-6]": {
+            "^A1[0-9]|^A[2-8][0-9]|^A[2-9][0-5]": {
               "$ref": "#/definitions/KeyValueObject"
             }
           },
           "additionalProperties": false
+        },
+        "A96": {
+          "description": "Delivery note position number",
+          "type": "string"
         },
         "A97": {
           "description": "A custom field for the position number in the order",
