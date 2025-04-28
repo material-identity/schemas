@@ -92,6 +92,7 @@
                           <xsl:with-param name="number" select="concat('A06.', $index, ' ')" />
                           <xsl:with-param name="title" select="$i18n/Certificate/*[name() = $elementName]" />
                           <xsl:with-param name="party" select="$CommercialTransaction/*[name() = $elementName]" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                         </xsl:call-template>
                       </xsl:if>
                     </xsl:for-each>
@@ -1457,7 +1458,7 @@
   <xsl:param name="party" />
   <xsl:param name="paddingBottom" />
   <fo:table-cell>
-    <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
+    <fo:block padding-bottom="$paddingBottom" font-style="italic">
       <xsl:value-of select="$number" />
       <xsl:value-of select="$title" />
     </fo:block>
