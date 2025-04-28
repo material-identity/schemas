@@ -1458,7 +1458,7 @@
   <xsl:param name="party" />
   <xsl:param name="paddingBottom" />
   <fo:table-cell>
-    <fo:block padding-bottom="$paddingBottom" font-style="italic">
+    <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
       <xsl:value-of select="$number" />
       <xsl:value-of select="$title" />
     </fo:block>
