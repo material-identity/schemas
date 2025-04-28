@@ -1163,7 +1163,12 @@
                             <xsl:if test="$Validation/Z04">
                               <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                                 <fo:block>
-                                  <fo:table table-layout="fixed" width="100% ">
+                                  <!-- Z04 text placed at the top -->
+                                  <fo:block font-style="italic" text-align="start" margin-bottom="5pt">
+                                    <xsl:text>Z04</xsl:text>
+                                  </fo:block>
+                                  <!-- Table for CE mark and related information -->
+                                  <fo:table table-layout="fixed" width="100%">
                                     <fo:table-column column-width="100%" />
                                     <fo:table-body>
                                       <fo:table-row>
