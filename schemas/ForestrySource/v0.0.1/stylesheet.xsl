@@ -245,7 +245,7 @@
                       </fo:table-cell>
                       <fo:table-cell>
                         <fo:block>
-                          <fo:table>
+                          <fo:table table-layout="fixed" width="100%">
                             <fo:table-column column-width="50%"/>
                             <fo:table-column column-width="50%"/>
                             <fo:table-body>
@@ -281,7 +281,7 @@
               <xsl:call-template name="SectionTitleSmall">
                 <xsl:with-param name="title" select="ProductType" />
               </xsl:call-template>
-              <fo:table>
+              <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="50%"/>
                 <fo:table-column column-width="50%"/>
                 <fo:table-body>
@@ -487,7 +487,7 @@
   <xsl:template name="PartyInfo">
     <xsl:param name="title" />
     <xsl:param name="party" />
-    <xsl:param name="paddingBottom" />
+    <xsl:param name="paddingBottom" select="'4pt'" />
     <fo:table-cell padding-bottom="{$paddingBottom}">
       <fo:block font-weight="bold">
         <xsl:value-of select="$title" />
@@ -524,7 +524,7 @@
     <xsl:param name="Section" />
     <xsl:param name="latitudeTranslation" />
     <xsl:param name="longitudeTranslation" />
-    <xsl:param name="paddingBottom" />
+    <xsl:param name="paddingBottom" select="'6pt'" />
 
     <fo:table table-layout="fixed" width="100%">
       <!-- Dynamically generate table columns based on the number of headers -->
@@ -572,7 +572,7 @@
     <xsl:param name="GenusTranslation" />
     <xsl:param name="QuantityTranslation" />
     <xsl:param name="SpeciesTranslation" />
-    <xsl:param name="paddingBottom" />
+    <xsl:param name="paddingBottom" select="'6pt'" />
 
     <fo:table table-layout="fixed" width="100%">
       <fo:table-column column-width="33.3%" />
