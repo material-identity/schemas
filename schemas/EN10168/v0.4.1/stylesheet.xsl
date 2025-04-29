@@ -41,8 +41,8 @@
               <fo:table-column column-width="33%" />
               <fo:table-body>
                 <fo:table-row>
-                  <fo:table-cell padding-bottom="$partyPaddingBottom">
-                    <fo:block padding-bottom="$partyPaddingBottom" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
+                  <fo:table-cell padding-bottom="{$partyPaddingBottom}">
+                    <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
                     </fo:block>
                     <fo:block>
                       <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
@@ -1215,7 +1215,7 @@
     <xsl:param name="number" />
     <xsl:param name="title" />
     <xsl:param name="party" />
-    <xsl:param name="paddingBottom" />
+    <xsl:param name="paddingBottom" select="'4pt'" />
     <fo:table-cell>
       <fo:block padding-bottom="{$paddingBottom}" font-style="italic">
         <xsl:value-of select="$number" />
