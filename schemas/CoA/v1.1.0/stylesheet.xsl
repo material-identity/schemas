@@ -91,23 +91,27 @@
                       </fo:table-cell>
                       <xsl:call-template name="PartyInfo">
                         <xsl:with-param name="party" select="$Parties/Manufacturer" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
                     <fo:table-row>
                       <xsl:call-template name="PartyInfo">
                         <xsl:with-param name="title" select="$i18n/Certificate/Customer" />
                         <xsl:with-param name="party" select="$Parties/Customer" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                       </xsl:call-template>
                       <xsl:if test="exists($Parties/Receiver)">
                         <xsl:call-template name="PartyInfo">
                           <xsl:with-param name="title" select="$i18n/Certificate/Receiver" />
                           <xsl:with-param name="party" select="$Parties/Receiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                         </xsl:call-template>
                       </xsl:if>
                       <xsl:if test="exists($Parties/GoodsReceiver)">
                         <xsl:call-template name="PartyInfo">
                           <xsl:with-param name="title" select="$i18n/Certificate/GoodsReceiver" />
                           <xsl:with-param name="party" select="$Parties/GoodsReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                         </xsl:call-template>
                       </xsl:if>
                     </fo:table-row>
