@@ -57,7 +57,14 @@ public class SchemasServiceImpl implements SchemasService {
     public static String[] extractLanguages(JsonNode jsonContent) {
         // From Forestry DMP existence onwards, the languages are stored in Languages
         String[] languages = Optional.ofNullable(jsonContent.get("Certificate"))
-                .map(certificateNode -> certificateNode.get("CertificateLanguages"))
+                .map(certificateNode -> {
+                    // Try CertificateLanguages first, then Languages for Certificate
+                    JsonNode languagesNode = certificateNode.get("CertificateLanguages");
+                    if (languagesNode == null || !languagesNode.isArray()) {
+                        languagesNode = certificateNode.get("Languages");
+                    }
+                    return languagesNode;
+                })
                 .filter(Objects::nonNull)
                 .or(() -> Optional.ofNullable(jsonContent.get("DigitalMaterialPassport"))
                         .map(passportNode -> passportNode.get("Languages"))
