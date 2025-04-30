@@ -92,6 +92,7 @@
                           <xsl:with-param name="number" select="concat('A06.', $index, ' ')" />
                           <xsl:with-param name="title" select="$i18n/Certificate/*[name() = $elementName]" />
                           <xsl:with-param name="party" select="$CommercialTransaction/*[name() = $elementName]" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                         </xsl:call-template>
                       </xsl:if>
                     </xsl:for-each>
@@ -188,29 +189,29 @@
                         </fo:table-cell>
                       </fo:table-row>
                     </xsl:when>
-<!-- Solution for correctly handling B07 array -->
-<xsl:when test="local-name() = 'B07'">
-  <!-- Skip all but the first occurrence of B07 -->
-  <xsl:if test="count(preceding-sibling::B07) = 0">
-    <fo:table-row>
-      <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-right="4pt">
-        <fo:block font-style="italic">
-          <xsl:text>B07 </xsl:text>
-          <xsl:value-of select="$i18n/Certificate/B07" />
-        </fo:block>
-      </fo:table-cell>
-      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-        <fo:block>
-          <!-- Collect all B07 values -->
-          <xsl:for-each select="$ProductDescription/B07">
-            <xsl:value-of select="." />
-            <xsl:if test="position() != last()">, </xsl:if>
-          </xsl:for-each>
-        </fo:block>
-      </fo:table-cell>
-    </fo:table-row>
-  </xsl:if>
-</xsl:when>
+                    <!-- Solution for correctly handling B07 array -->
+                    <xsl:when test="local-name() = 'B07'">
+                      <!-- Skip all but the first occurrence of B07 -->
+                      <xsl:if test="count(preceding-sibling::B07) = 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-right="4pt">
+                            <fo:block font-style="italic">
+                              <xsl:text>B07 </xsl:text>
+                              <xsl:value-of select="$i18n/Certificate/B07" />
+                            </fo:block>
+                          </fo:table-cell>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <!-- Collect all B07 values -->
+                              <xsl:for-each select="$ProductDescription/B07">
+                                <xsl:value-of select="." />
+                                <xsl:if test="position() != last()">, </xsl:if>
+                              </xsl:for-each>
+                            </fo:block>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:if>
+                    </xsl:when>
                     <xsl:when test="local-name() = 'B09'">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
@@ -1163,7 +1164,12 @@
                             <xsl:if test="$Validation/Z04">
                               <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                                 <fo:block>
-                                  <fo:table table-layout="fixed" width="100% ">
+                                  <!-- Z04 text placed at the top -->
+                                  <fo:block font-style="italic" text-align="start" margin-bottom="5pt">
+                                    <xsl:text>Z04</xsl:text>
+                                  </fo:block>
+                                  <!-- Table for CE mark and related information -->
+                                  <fo:table table-layout="fixed" width="100%">
                                     <fo:table-column column-width="100%" />
                                     <fo:table-body>
                                       <fo:table-row>
@@ -1378,7 +1384,8 @@
   <xsl:param name="value" />
   <xsl:param name="paddingBottom" />
   <xsl:param name="type" select="'default'" />
-  <fo:table-cell padding-bottom="{$paddingBottom}" padding-right="4pt">
+  <!-- In the KeyValue template -->
+  <fo:table-cell padding-bottom="{if(string-length($paddingBottom) > 0) then $paddingBottom else '0pt'}" padding-right="4pt">
     <fo:block font-style="italic">
       <xsl:value-of select="$number" />
       <xsl:value-of select="$key" />
