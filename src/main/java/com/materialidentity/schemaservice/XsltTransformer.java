@@ -39,8 +39,6 @@ public class XsltTransformer {
 
         String result = outputWriter.toString();
         
-        // Format the registered trademark symbol as superscript
-        result = result.replaceAll("®", "<fo:inline baseline-shift=\"0.55em\" font-size=\"75%\">®</fo:inline>");
         return result;
     }
 
