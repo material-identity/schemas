@@ -278,3 +278,86 @@
       ],
       "additionalProperties": false
     },
+
+    "ChemicalElement": {
+      "title": "ChemicalElement",
+      "type": "object",
+      "description": "The chemical composition of an element or formula in the product",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Measurement"
+        }
+      ],
+      "properties": {
+        "Formula": {
+          "description": "For calculated values, this field provides the formula definition",
+          "type": "string",
+          "examples": [
+            "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+            "C+Si/30+(Mn+Cu+Cr)/20+Ni/60+Mo/15+V/10+5B"
+          ]
+        }
+      }
+    },
+
+    "MeltingProcess": {
+      "title": "MeltingProcess",
+      "description": "The metallurgical process used for melting and refining",
+      "type": "string",
+      "examples": [
+        "BOF",
+        "EAF",
+        "VIM",
+        "VAR",
+        "ESR",
+        "BOF+LF",
+        "EAF+LF",
+        "EAF+LF+VD",
+        "EAF+AOD+LF"
+      ]
+    },
+
+    "ChemicalAnalysis": {
+      "title": "ChemicalAnalysis",
+      "description": "Complete chemical analysis of the material",
+      "type": "object",
+      "properties": {
+        "MeltingProcess": {
+          "$ref": "#/definitions/MeltingProcess"
+        },
+        "HeatNumber": {
+          "description": "The heat or melt number defining the chemical properties",
+          "type": "string"
+        },
+        "CastingDate": {
+          "description": "The date when the heat was cast",
+          "type": "string",
+          "format": "date"
+        },
+        "SampleLocation": {
+          "description": "The location where the chemical analysis sample was taken",
+          "type": "string",
+          "examples": ["Ladle", "Product", "1/4 thickness", "1/2 radius"]
+        },
+        "SampleType": {
+          "description": "The type of sample used for chemical analysis",
+          "type": "string",
+          "examples": ["Solid", "Liquid", "Drilling", "Milling"]
+        },
+        "Elements": {
+          "description": "The list of elements and their measured values",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChemicalElement"
+          },
+          "minItems": 1
+        },
+        "AnalysisStandard": {
+          "description": "The standard according to which the chemical analysis was performed",
+          "type": "string",
+          "examples": ["ASTM E1251", "ISO 10474", "EN 10204"]
+        }
+      },
+      "required": ["HeatNumber", "Elements"],
+      "additionalProperties": false
+    },
