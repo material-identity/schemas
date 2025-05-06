@@ -1,0 +1,201 @@
+    "NumericResult": {
+      "title": "NumericResult",
+      "description": "A numeric value with optional comparison operator",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "numeric"
+        },
+        "Value": {
+          "description": "The numeric value",
+          "type": "number"
+        },
+        "Operator": {
+          "description": "Comparison operator indicating how the value should be interpreted",
+          "type": "string",
+          "enum": ["=", "<", "<=", ">", ">="],
+          "default": "="
+        },
+        "Uncertainty": {
+          "description": "The measurement uncertainty (if applicable)",
+          "type": "number"
+        },
+        "SignificantDigits": {
+          "description": "Number of significant digits to maintain",
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "BooleanResult": {
+      "title": "BooleanResult",
+      "description": "A true/false or pass/fail result",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "Value": {
+          "description": "The boolean value",
+          "type": "boolean"
+        },
+        "Description": {
+          "description": "Textual description of the boolean result",
+          "type": "string"
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "StringResult": {
+      "title": "StringResult",
+      "description": "A textual result",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "string"
+        },
+        "Value": {
+          "description": "The string value",
+          "type": "string"
+        },
+        "AllowedValues": {
+          "description": "List of allowed values (for enumerated results)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "RangeResult": {
+      "title": "RangeResult",
+      "description": "A result expressed as a range from minimum to maximum",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "range"
+        },
+        "Minimum": {
+          "description": "The lower bound of the range",
+          "type": "number"
+        },
+        "Maximum": {
+          "description": "The upper bound of the range",
+          "type": "number"
+        },
+        "Inclusive": {
+          "description": "Whether the bounds are inclusive (true) or exclusive (false)",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": ["ResultType", "Minimum", "Maximum"]
+    },
+
+    "ArrayResult": {
+      "title": "ArrayResult",
+      "description": "A series of values typically representing a curve or multi-point measurement",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "array"
+        },
+        "Values": {
+          "description": "Array of numeric values",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "Parameters": {
+          "description": "Array of parameter values corresponding to the results",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "ParameterName": {
+          "description": "Name of the parameter being varied",
+          "type": "string"
+        },
+        "ParameterUnit": {
+          "description": "Unit of the parameter",
+          "type": "string"
+        }
+      },
+      "required": ["ResultType", "Values"],
+      "oneOf": [
+        {
+          "required": ["Parameters"]
+        },
+        {
+          "not": {
+            "required": ["ParameterName", "ParameterUnit"]
+          }
+        }
+      ]
+    },
+
+    "StructuredArrayResult": {
+      "title": "StructuredArrayResult",
+      "description": "A structured array with named parameters and their values",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "structuredArray"
+        },
+        "Parameters": {
+          "description": "Array of parameter names",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "ParameterUnits": {
+          "description": "Array of units for each parameter (optional)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DataPoints": {
+          "description": "Array of data points, each containing values for all parameters",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["ResultType", "Parameters", "DataPoints"]
+    },
+
+    "Result": {
+      "title": "Result",
+      "description": "Union type of all possible result types",
+      "oneOf": [
+        { "$ref": "#/definitions/NumericResult" },
+        { "$ref": "#/definitions/BooleanResult" },
+        { "$ref": "#/definitions/StringResult" },
+        { "$ref": "#/definitions/RangeResult" },
+        { "$ref": "#/definitions/ArrayResult" },
+        { "$ref": "#/definitions/StructuredArrayResult" }
+      ]
+    },
