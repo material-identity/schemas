@@ -33,7 +33,7 @@ const createAjvInstance = () => {
     loadSchema: (uri) => loadExternalFile(uri, 'json'),
     strictSchema: true,
     strictNumbers: true,
-    strictRequired: true,
+    strictRequired: false,
     strictTypes: true,
     allErrors: true,
     discriminator: true,
