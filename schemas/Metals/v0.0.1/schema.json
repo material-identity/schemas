@@ -199,3 +199,82 @@
         { "$ref": "#/definitions/StructuredArrayResult" }
       ]
     },
+
+    "Measurement": {
+      "title": "Measurement",
+      "description": "A measurement with property metadata, actual result, and specification limits",
+      "type": "object",
+      "properties": {
+        "PropertyId": {
+          "description": "The identifier of the property according to a standard catalog (if applicable)",
+          "type": "string"
+        },
+        "PropertyName": {
+          "description": "The descriptive name of the property being measured (human-readable)",
+          "type": "string",
+          "examples": [
+            "Tensile Strength",
+            "Zugfestigkeit",
+            "Résistance à la traction"
+          ]
+        },
+        "PropertySymbol": {
+          "description": "The standardized technical symbol for the property",
+          "type": "string",
+          "examples": ["Rm", "Re", "A", "HB"]
+        },
+        "Method": {
+          "description": "The testing method or standard used",
+          "type": "string",
+          "examples": ["EN ISO 6892-1", "ASTM E8", "EN 10204"]
+        },
+        "Unit": {
+          "description": "The unit of measurement",
+          "type": "string"
+        },
+        "TestConditions": {
+          "description": "The conditions under which the test was performed",
+          "type": "string"
+        },
+        "Actual": {
+          "description": "The actual measured or calculated result",
+          "$ref": "#/definitions/Result"
+        },
+        "Minimum": {
+          "description": "The lower specification limit",
+          "$ref": "#/definitions/Result"
+        },
+        "Maximum": {
+          "description": "The upper specification limit",
+          "$ref": "#/definitions/Result"
+        },
+        "Target": {
+          "description": "The target or nominal value",
+          "$ref": "#/definitions/Result"
+        },
+        "PropertiesStandard": {
+          "description": "Reference to the standard catalog for property definitions",
+          "type": "string",
+          "examples": ["CAMPUS"]
+        },
+        "Interpretation": {
+          "description": "Interpretation of the result (e.g., 'In Specification', 'Out of Specification')",
+          "type": "string",
+          "enum": [
+            "In Specification",
+            "Out of Specification",
+            "Conditionally Acceptable",
+            "Not Evaluated"
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "required": ["PropertySymbol", "Actual"]
+        },
+        {
+          "required": ["PropertyName", "Actual"]
+        }
+      ],
+      "additionalProperties": false
+    },
