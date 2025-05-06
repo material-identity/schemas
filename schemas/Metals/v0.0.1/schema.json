@@ -1,3 +1,10 @@
+{
+  "meta:license": ["Copyright 2025 S1Seven Gmbh. All rights reserved."],
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://schemas.materialidentity.org/metals-schemas/v0.0.1/schema.json",
+  "title": "Digital Material Passport Schema",
+  "description": "A comprehensive schema for Digital Material Passports that encapsulates information about metals",
+  "definitions": {
     "NumericResult": {
       "title": "NumericResult",
       "description": "A numeric value with optional comparison operator",
@@ -1187,3 +1194,94 @@
       "additionalProperties": false
     }
   },
+  "type": "object",
+  "properties": {
+    "RefSchemaUrl": {
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
+    },
+    "DigitalMaterialPassport": {
+      "title": "DigitalMaterialPassport",
+      "description": "A digital representation that encapsulates comprehensive information about a material used in a product, specific to each production batch.",
+      "type": "object",
+      "properties": {
+        "Languages": {
+          "description": "List of languages used in the passport",
+          "type": "array",
+          "items": {
+            "enum": ["EN", "DE"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Id": {
+          "description": "Unique identifier for this material passport",
+          "type": "string"
+        },
+        "Version": {
+          "description": "Version of the Digital Material Passport schema",
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "examples": ["1.0.0"]
+        },
+        "IssueDate": {
+          "description": "Date when this passport was issued",
+          "type": "string",
+          "format": "date"
+        },
+        "ExpirationDate": {
+          "description": "Optional date when this passport expires",
+          "type": "string",
+          "format": "date"
+        },
+        "TransactionData": {
+          "description": "Information about the business transaction and parties involved",
+          "$ref": "#/definitions/TransactionData"
+        },
+        "Product": {
+          "description": "Information about the product being certified",
+          "$ref": "#/definitions/Product"
+        },
+        "ChemicalAnalysis": {
+          "description": "Chemical composition of the material",
+          "$ref": "#/definitions/ChemicalAnalysis"
+        },
+        "MechanicalProperties": {
+          "description": "Collection of mechanical property measurements",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "PhysicalProperties": {
+          "description": "Collection of physical property measurements",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "SupplementaryTests": {
+          "description": "Collection of supplementary tests and inspections",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "Validation": {
+          "description": "Information about the certification validation status",
+          "$ref": "#/definitions/Validation"
+        }
+      },
+      "required": [
+        "Languages",
+        "Id",
+        "Version",
+        "IssueDate",
+        "Product",
+        "TransactionData",
+        "Validation"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
