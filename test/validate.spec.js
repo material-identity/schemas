@@ -15,6 +15,7 @@ const fixtureVersions = {
   TKR: ['v0.0.4'],
   "E-CoC": ['v1.0.0'],
   Bluemint: ['v1.0.0'],
+  Metals: ['v0.0.1'],
 }
 
 function getCertPaths() {
