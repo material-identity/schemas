@@ -361,3 +361,152 @@
       "required": ["HeatNumber", "Elements"],
       "additionalProperties": false
     },
+
+    "Person": {
+      "title": "Person",
+      "description": "Representation of an individual contact person.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The full name of the contact person"
+        },
+        "Role": {
+          "type": "string",
+          "description": "The role of the person in the business process, e.g. 'Quality Manager' or 'Acceptance Officer'"
+        },
+        "Department": {
+          "type": "string",
+          "description": "The department the person is associated with, e.g. 'Factory Production Control'"
+        },
+        "Email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the contact person"
+        },
+        "Phone": {
+          "type": "string",
+          "description": "The phone number of the contact person"
+        }
+      },
+      "required": ["Name", "Role"],
+      "additionalProperties": false
+    },
+
+    "CompanyIdentifiers": {
+      "title": "CompanyIdentifiers",
+      "description": "Unique identifiers for the organization.",
+      "type": "object",
+      "properties": {
+        "CageCode": {
+          "description": "The Commercial and Government Entity Code (CAGE), a unique identifier assigned to suppliers to government or defense agencies",
+          "type": "string",
+          "examples": ["N1950#"]
+        },
+        "VAT": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 15,
+          "description": "Value Added Tax identification number"
+        },
+        "DUNS": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "description": "Data Universal Numbering System identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Party": {
+      "title": "Party",
+      "description": "An organization or entity involved in the inspection certificate process.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "The legal name of the organization.",
+          "type": "string"
+        },
+        "Street": {
+          "description": "The address of the organization.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+        "ZipCode": {
+          "description": "The postal or ZIP code.",
+          "type": "string"
+        },
+        "City": {
+          "description": "The city name.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according to ISO 3166-1 alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["DE", "FR", "US", "GB", "CN"]
+        },
+        "Email": {
+          "description": "The organization's primary email address for communications related to inspection certificates.",
+          "type": "string",
+          "format": "email"
+        },
+        "Logo": {
+          "description": "The organization's logo as a base64-encoded PNG image.",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "Identifiers": {
+          "$ref": "#/definitions/CompanyIdentifiers"
+        },
+        "Contacts": {
+          "description": "Contact persons associated with the organization.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      },
+      "required": ["Name", "Street", "ZipCode", "City", "Country"],
+      "additionalProperties": false
+    },
+
+    "Parties": {
+      "title": "Parties",
+      "description": "The parties and their roles in the business transaction.",
+      "type": "object",
+      "properties": {
+        "Manufacturer": {
+          "description": "The party manufacturing the goods and issuing the certificate.",
+          "$ref": "#/definitions/Party"
+        },
+        "Customer": {
+          "description": "The party purchasing the goods from the manufacturer.",
+          "$ref": "#/definitions/Party"
+        },
+        "Subcustomer": {
+          "description": "A secondary customer or end client for whom the Customer is purchasing the goods.",
+          "$ref": "#/definitions/Party"
+        },
+        "GoodsReceiver": {
+          "description": "The party receiving the physical goods, which may differ from the Customer (e.g., a warehouse, subsidiary, or freight forwarder).",
+          "$ref": "#/definitions/Party"
+        },
+        "CertificateReceiver": {
+          "description": "The party receiving the inspection certificate, which may differ from the Customer or GoodsReceiver.",
+          "$ref": "#/definitions/Party"
+        }
+      },
+      "required": ["Manufacturer", "Customer"],
+      "additionalProperties": false
+    },
