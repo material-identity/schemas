@@ -324,6 +324,31 @@
       },
       "required": ["type", "coordinates"]
     },
+    "GeometryCollection": {
+      "type": "object",
+      "description": "A collection of geometry objects",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["GeometryCollection"]
+        },
+        "geometries": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/Point"
+              },
+              {
+                "$ref": "#/definitions/Polygon"
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["type", "geometries"]
+    },
     "Feature": {
       "type": "object",
       "properties": {
@@ -361,6 +386,9 @@
             },
             {
               "$ref": "#/definitions/Polygon"
+            },
+            {
+              "$ref": "#/definitions/GeometryCollection"
             }
           ]
         }

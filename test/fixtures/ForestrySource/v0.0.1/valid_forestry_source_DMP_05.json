@@ -1,0 +1,317 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+    "GeneralInformation": {
+      "UserDefinedId": "MIXED-FOREST-2025-Q2",
+      "Country": "ID",
+      "State": "East Kalimantan",
+      "District": "Kutai Timur",
+      "ForestConcessionNameOrNumber": "Kalimantan-EK-592",
+      "CertificationNumber": "FSC-C012345",
+      "CertificationClaim": "FSC 100%",
+      "CertificationPercentage": 100,
+      "HarvestAuthorizationNameOrNumber": "IDN-2025-0472",
+      "HarvestingPeriod": {
+        "StartDate": "2025-03-01",
+        "EndDate": "2025-05-31"
+      }
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Borneo Sustainable Forestry",
+              "ProducerCountry": "ID",
+              "ProductionPlace": "Kutai Conservation Forest",
+              "Area": 3250,
+              "Name": "Primary Harvest Area"
+            },
+            "geometry": {
+              "type": "GeometryCollection",
+              "geometries": [
+                {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [117.123, 0.456],
+                      [117.234, 0.456],
+                      [117.234, 0.567],
+                      [117.123, 0.567],
+                      [117.123, 0.456]
+                    ]
+                  ]
+                },
+                {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [117.300, 0.500],
+                      [117.400, 0.500],
+                      [117.400, 0.600],
+                      [117.300, 0.600],
+                      [117.300, 0.500]
+                    ]
+                  ]
+                },
+                {
+                  "type": "Point",
+                  "Coordinates": [117.350, 0.550]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Borneo Sustainable Forestry",
+              "ProducerCountry": "ID",
+              "ProductionPlace": "Kutai Conservation Forest",
+              "Area": 850,
+              "Name": "Secondary Harvest Area"
+            },
+            "geometry": {
+              "type": "GeometryCollection",
+              "geometries": [
+                {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [117.500, 0.700],
+                      [117.600, 0.700],
+                      [117.600, 0.800],
+                      [117.500, 0.800],
+                      [117.500, 0.700]
+                    ]
+                  ]
+                },
+                {
+                  "type": "Point",
+                  "Coordinates": [117.550, 0.750]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Borneo Sustainable Forestry",
+              "ProducerCountry": "ID",
+              "ProductionPlace": "Kutai Conservation Forest",
+              "Name": "Processing Facilities"
+            },
+            "geometry": {
+              "type": "GeometryCollection",
+              "geometries": [
+                {
+                  "type": "Point",
+                  "Coordinates": [117.400, 0.400]
+                },
+                {
+                  "type": "Point",
+                  "Coordinates": [117.420, 0.420]
+                },
+                {
+                  "type": "Point",
+                  "Coordinates": [117.440, 0.440]
+                }
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Borneo Sustainable Forestry",
+              "ProducerCountry": "ID",
+              "ProductionPlace": "Kutai Conservation Forest",
+              "Name": "Protected Areas - No Harvesting"
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [117.300, 0.300],
+                  [117.400, 0.300],
+                  [117.400, 0.350],
+                  [117.300, 0.350],
+                  [117.300, 0.300]
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Borneo Sustainable Forestry",
+              "ProducerCountry": "ID",
+              "ProductionPlace": "Mahakam River Delta",
+              "Area": 1200,
+              "Name": "River Delta Harvest Unit"
+            },
+            "geometry": {
+              "type": "GeometryCollection",
+              "geometries": [
+                {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [117.800, 0.200],
+                      [118.000, 0.200],
+                      [118.000, 0.300],
+                      [117.800, 0.300],
+                      [117.800, 0.200]
+                    ]
+                  ]
+                },
+                {
+                  "type": "Point",
+                  "Coordinates": [117.900, 0.250]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Hardwood Logs",
+        "DescriptionOfProduct": "Raw logs of tropical hardwood species",
+        "HTSCode": "4403.49.01",
+        "ProductionPeriod": {
+          "StartDate": "2025-03-15",
+          "EndDate": "2025-04-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Meranti",
+            "ScientificName": {
+              "Genus": "Shorea",
+              "Species": "acuminata"
+            },
+            "Quantity": 450.75,
+            "QuantityUnit": "m³"
+          },
+          {
+            "CommonName": "Keruing",
+            "ScientificName": {
+              "Genus": "Dipterocarpus",
+              "Species": "grandiflorus"
+            },
+            "Quantity": 325.5,
+            "QuantityUnit": "m³"
+          }
+        ]
+      },
+      {
+        "ProductType": "Sawn Timber",
+        "DescriptionOfProduct": "Mill-cut boards from tropical hardwood",
+        "HTSCode": "4407.29.01",
+        "ProductionPeriod": {
+          "StartDate": "2025-04-01",
+          "EndDate": "2025-05-15"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Meranti",
+            "ScientificName": {
+              "Genus": "Shorea",
+              "Species": "acuminata"
+            },
+            "Quantity": 225.25,
+            "QuantityUnit": "m³"
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "East Kalimantan Forest Authority",
+      "Street": ["Jalan Pahlawan No. 123"],
+      "ZipCode": "75121",
+      "City": "Samarinda",
+      "State": "East Kalimantan",
+      "Country": "ID",
+      "Identifiers": {
+        "VAT": "ID9876543210",
+        "SystemId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+      },
+      "Email": "concessions@ekfa.gov.id",
+      "PhoneNumber": "+62 541 123456"
+    },
+    "Producer": {
+      "Name": "Borneo Sustainable Forestry",
+      "Street": ["Jalan Industri No. 456"],
+      "ZipCode": "75111",
+      "City": "Samarinda",
+      "State": "East Kalimantan",
+      "Country": "ID",
+      "Identifiers": {
+        "VAT": "ID1234567890",
+        "DUNS": "987654321"
+      },
+      "Email": "operations@borneosustainable.com",
+      "PhoneNumber": "+62 541 654321"
+    },
+    "Creator": {
+      "Name": "Forest Certification International",
+      "Street": ["One Certification Plaza", "Suite 500"],
+      "ZipCode": "10001",
+      "City": "New York",
+      "State": "NY",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "123456789"
+      },
+      "Email": "certifications@forestcertint.org",
+      "PhoneNumber": "+1 212 555 7890"
+    },
+    "DueDiligenceStatement": "This Digital Material Passport certifies that all timber products contained herein have been harvested in accordance with Indonesian forestry laws and regulations, including Law No. 41/1999 on Forestry and Regulation No. P.43/MENLHK/SETJEN/KUM.1/6/2017 on forest management. The harvesting practices comply with FSC principles and criteria for responsible forest management. Chain of custody has been verified through documented procedures from stump to export.",
+    "Documents": {
+      "ForestConcession": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "ZDkzOTljNWFkNzUzNTJjYTc1NzdkNjE1NTdiMmJkZTNlNzc2ZjUxMWVkNWU4YzJlNDQyZGQxYmM0ZjkyZDVjNg=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/harvest_authorization.pdf"
+      },
+      "HarvestAuthorization": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/forest_concession.pdf"
+      },
+      "Certificate": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OTYwYjAxNzE4MzI0ZTEyNjEyOWQ5YzRiZmY4NGE1MjQ3ODE1MjM2ODM3ZDIwZDA4NTFmMzRmNGE1ODZlY2E4MQ=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/harvest_unit_map.pdf"
+      },
+      "HarvestUnitMap": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "NWE0YzEyZTM1M2YyZjgwOGEzYjUxN2JhMzg4MGRmYmYwOGRlOWM2NTNjMjMzZmY5YTMwZjJkYWU2OGEwNzg0OA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/sfi_certificate.pdf"
+      }
+    }
+  }
+}
