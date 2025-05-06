@@ -510,6 +510,328 @@
       "required": ["Manufacturer", "Customer"],
       "additionalProperties": false
     },
+    "ProductNorm": {
+      "title": "ProductNorm",
+      "description": "Standard defining product properties and requirements",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the product norm",
+          "type": "string",
+          "examples": ["EN 10025-2", "ASTM A36", "API 5L"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Grade": {
+          "description": "The material grade according to the norm",
+          "type": "string",
+          "examples": ["S355J2", "X52", "Grade B"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "MaterialNorm": {
+      "title": "MaterialNorm",
+      "description": "Standard defining material properties and composition",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the material norm",
+          "type": "string",
+          "examples": ["EN 10025", "ASTM A36", "JIS G3101"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Grade": {
+          "description": "The material grade according to the norm",
+          "type": "string",
+          "examples": ["S355J2", "SS400", "Grade B"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "MaterialDesignation": {
+      "title": "MaterialDesignation",
+      "description": "Standard designation for material or alloy composition",
+      "type": "object",
+      "properties": {
+        "System": {
+          "description": "The designation system",
+          "type": "string",
+          "examples": ["EN", "AISI/SAE", "UNS", "Werkstoffnummer", "AA"]
+        },
+        "Designation": {
+          "description": "The material designation according to the system",
+          "type": "string",
+          "examples": ["1.0570", "1045", "S31603", "X5CrNi18-10", "Al 6060 T66"]
+        }
+      },
+      "required": ["System", "Designation"],
+      "additionalProperties": false
+    },
+
+    "MassNorm": {
+      "title": "MassNorm",
+      "description": "Standard defining mass, weight, or dimensional requirements",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the mass norm",
+          "type": "string",
+          "examples": ["EN 10060", "ASTM A6", "API 5L"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Category": {
+          "description": "The category or class according to the norm",
+          "type": "string",
+          "examples": ["Class 1", "Schedule 40", "Type S"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "ProductShape": {
+      "title": "ProductShape",
+      "description": "Physical shape and dimensions of the product",
+      "type": "object",
+      "properties": {
+        "Form": {
+          "description": "The basic form of the product",
+          "type": "string",
+          "enum": [
+            "Plate",
+            "Sheet",
+            "Coil",
+            "Strip",
+            "RoundBar",
+            "SquareBar",
+            "HexBar",
+            "FlatBar",
+            "Beam",
+            "Channel",
+            "Angle",
+            "Tee",
+            "Tube",
+            "Pipe",
+            "Hollow",
+            "Wire",
+            "Forging",
+            "Casting",
+            "Other"
+          ]
+        },
+        "Length": {
+          "description": "The length of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Width": {
+          "description": "The width of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Thickness": {
+          "description": "The thickness of the product (for flat products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Diameter": {
+          "description": "The diameter of the product (for round products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "OuterDiameter": {
+          "description": "The outer diameter of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "InnerDiameter": {
+          "description": "The inner diameter of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "WallThickness": {
+          "description": "The wall thickness of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Height": {
+          "description": "The height of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "FlangeWidth": {
+          "description": "The flange width of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "FlangeThickness": {
+          "description": "The flange thickness of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "WebThickness": {
+          "description": "The web thickness of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Area": {
+          "description": "The cross-sectional area of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Unit": {
+          "description": "The unit of measurement for dimensions",
+          "type": "string",
+          "enum": ["mm", "in", "m", "ft"],
+          "default": "mm"
+        },
+        "OtherDimensions": {
+          "description": "Additional dimensions not covered by standard fields",
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["Form", "Unit"],
+      "additionalProperties": false
+    },
+
+    "Product": {
+      "title": "Product",
+      "description": "Complete description of the product being certified",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Product name or description",
+          "type": "string"
+        },
+        "ProductNorms": {
+          "description": "List of product norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductNorm"
+          },
+          "minItems": 0
+        },
+        "MaterialNorms": {
+          "description": "List of material norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialNorm"
+          },
+          "minItems": 0
+        },
+        "MaterialDesignations": {
+          "description": "List of material or alloy designations for the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialDesignation"
+          },
+          "minItems": 0
+        },
+        "MassNorms": {
+          "description": "List of mass or dimensional norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MassNorm"
+          },
+          "minItems": 0
+        },
+        "Shape": {
+          "description": "Physical shape and dimensions of the product",
+          "$ref": "#/definitions/ProductShape"
+        },
+        "BatchId": {
+          "description": "Identification of the batch, charge, or lot",
+          "type": "string"
+        },
+        "HeatTreatment": {
+          "description": "Heat treatment applied to the product",
+          "type": "string",
+          "examples": [
+            "Normalized",
+            "Quenched and Tempered",
+            "Solution Annealed"
+          ]
+        },
+        "SurfaceCondition": {
+          "description": "Surface condition or finish of the product",
+          "type": "string",
+          "examples": [
+            "Hot-rolled",
+            "Cold-rolled",
+            "Pickled and Oiled",
+            "Galvanized"
+          ]
+        },
+        "CountryOfOrigin": {
+          "description": "Country where the product was manufactured",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$"
+        },
+        "ManufacturingLocation": {
+          "description": "Specific location where the product was manufactured",
+          "type": "string"
+        },
+        "ProductionDate": {
+          "description": "Date when the product was produced",
+          "type": "string",
+          "format": "date"
+        },
+        "Marking": {
+          "description": "Description of physical markings on the product",
+          "type": "string"
+        },
+        "Quantity": {
+          "description": "Quantity of items being certified",
+          "type": "number",
+          "minimum": 0
+        },
+        "Weight": {
+          "description": "Total weight of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "WeightUnit": {
+          "description": "Unit of weight measurement",
+          "type": "string",
+          "enum": ["kg", "t", "lb"],
+          "default": "kg"
+        },
+        "SupplementaryStandards": {
+          "description": "Additional standards to which the product conforms",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["Name", "BatchId"],
+      "additionalProperties": false
+    },
+
     "ValidationStatement": {
       "title": "ValidationStatement",
       "description": "Statement of compliance or declaration of conformity",
