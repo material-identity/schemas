@@ -259,13 +259,75 @@
                             </fo:table-body>
                           </fo:table>
                         </fo:block>
-                        <xsl:call-template name="GenerateCoordinatesTable">
-                          <xsl:with-param name="headerCount" select="2" />
-                          <xsl:with-param name="Section" select="geometry/coordinates" />
-                          <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                          <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
+                        
+                        <!-- Handle different geometry types -->
+                        <xsl:choose>
+                          <!-- Case: Point geometry -->
+                          <xsl:when test="geometry/type = 'Point'">
+                            <xsl:call-template name="GenerateCoordinatesTable">
+                              <xsl:with-param name="headerCount" select="2" />
+                              <xsl:with-param name="Section" select="geometry/Coordinates" />
+                              <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
+                              <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
+                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            </xsl:call-template>
+                          </xsl:when>
+                          
+                          <!-- Case: Polygon geometry -->
+                          <xsl:when test="geometry/type = 'Polygon'">
+                            <xsl:call-template name="GenerateCoordinatesTable">
+                              <xsl:with-param name="headerCount" select="2" />
+                              <xsl:with-param name="Section" select="geometry/coordinates" />
+                              <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
+                              <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
+                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            </xsl:call-template>
+                          </xsl:when>
+                          
+                          <!-- Case: GeometryCollection -->
+                          <xsl:when test="geometry/type = 'GeometryCollection'">
+                            <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
+                              <xsl:value-of select="'Geometry Collection Contents'" />
+                            </fo:block>
+                            
+                            <!-- Loop through each geometry in the collection -->
+                            <xsl:for-each select="geometry/geometries">
+                              <fo:block font-weight="bold" padding-top="4pt" padding-bottom="2pt">
+                                <xsl:value-of select="concat('Type: ', type)" />
+                              </fo:block>
+                              
+                              <!-- Render each geometry based on its type -->
+                              <xsl:choose>
+                                <!-- Point within GeometryCollection -->
+                                <xsl:when test="type = 'Point'">
+                                  <xsl:call-template name="GenerateCoordinatesTable">
+                                    <xsl:with-param name="headerCount" select="2" />
+                                    <xsl:with-param name="Section" select="Coordinates" />
+                                    <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
+                                    <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
+                                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                                  </xsl:call-template>
+                                </xsl:when>
+                                
+                                <!-- Polygon within GeometryCollection -->
+                                <xsl:when test="type = 'Polygon'">
+                                  <xsl:call-template name="GenerateCoordinatesTable">
+                                    <xsl:with-param name="headerCount" select="2" />
+                                    <xsl:with-param name="Section" select="coordinates" />
+                                    <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
+                                    <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
+                                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                                  </xsl:call-template>
+                                </xsl:when>
+                              </xsl:choose>
+                              
+                              <!-- Add a separator between geometries -->
+                              <xsl:if test="position() != last()">
+                                <fo:block border-bottom="dotted 1pt gray" margin-top="4pt" margin-bottom="4pt"/>
+                              </xsl:if>
+                            </xsl:for-each>
+                          </xsl:when>
+                        </xsl:choose>
                       </fo:table-cell>
                     </fo:table-row>
                   </fo:table-body>
