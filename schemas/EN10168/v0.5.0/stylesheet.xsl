@@ -720,7 +720,7 @@
                   <fo:table-column column-width="50%" />
                   <fo:table-column column-width="50%" />
                   <fo:table-body>
-                    <xsl:for-each select="TensileTest/*[local-name() = 'C11' or local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
+                    <xsl:for-each select="TensileTest/*[local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
