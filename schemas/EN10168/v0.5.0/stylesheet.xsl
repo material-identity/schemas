@@ -318,7 +318,7 @@
                 <fo:table-column column-width="50%" />
                 <fo:table-column column-width="50%" />
                 <fo:table-body>
-                  <xsl:for-each select="*[starts-with(local-name(), 'C0')]">
+                  <xsl:for-each select="*[starts-with(local-name(), 'C0') or local-name() = 'C10']">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -720,7 +720,7 @@
                   <fo:table-column column-width="50%" />
                   <fo:table-column column-width="50%" />
                   <fo:table-body>
-                    <xsl:for-each select="TensileTest/*[local-name() = 'C10' or local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
+                    <xsl:for-each select="TensileTest/*[local-name() = 'C11' or local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
