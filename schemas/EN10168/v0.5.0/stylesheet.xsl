@@ -366,7 +366,7 @@
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat('C70', ' ')" />
                         <xsl:with-param name="key" select="$i18n/Certificate/C70" />
-                        <xsl:with-param name="value" select="ChemicalComposition/C70" />
+                        <xsl:with-param name="value" select="C70" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
