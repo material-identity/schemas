@@ -60,7 +60,7 @@
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.350, 0.550]
+                  "coordinates": [117.350, 0.550]
                 }
               ]
             }
@@ -91,7 +91,7 @@
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.550, 0.750]
+                  "coordinates": [117.550, 0.750]
                 }
               ]
             }
