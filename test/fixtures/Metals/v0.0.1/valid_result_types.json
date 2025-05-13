@@ -1,0 +1,383 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "Id": "DMP-METAL-005",
+    "Version": "1.0.0",
+    "IssueDate": "2025-05-17",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "European Research Institute",
+          "Street": ["Science Boulevard 42"],
+          "ZipCode": "75015",
+          "City": "Paris",
+          "Country": "FR",
+          "Email": "materials@eri.example.org",
+          "Identifiers": {
+            "VAT": "FR76543210"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-23456",
+          "Position": "1",
+          "Date": "2025-05-01",
+          "Quantity": 1000,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "TI-6AL-4V-ELI"
+        },
+        "Delivery": {
+          "Id": "DN-65432",
+          "Position": "1",
+          "Date": "2025-05-16",
+          "Quantity": 1000,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-54321"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Titanium Alloy Ti-6Al-4V ELI",
+      "ProductNorms": [
+        {
+          "Designation": "ASTM F136",
+          "Year": "2022"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "UNS",
+          "Designation": "R56401"
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 30,
+        "Length": 3000,
+        "Unit": "mm"
+      },
+      "BatchId": "T-65432-01",
+      "HeatTreatment": "Annealed",
+      "SurfaceCondition": "Machined",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Aachen Titanium Plant",
+      "ProductionDate": "2025-05-15",
+      "Weight": 1000,
+      "WeightUnit": "kg"
+    },
+    "ChemicalAnalysis": {
+      "MeltingProcess": "VAR",
+      "HeatNumber": "T-65432",
+      "CastingDate": "2025-05-14",
+      "SampleLocation": "Product",
+      "SampleType": "Solid",
+      "Elements": [
+        {
+          "PropertySymbol": "Ti",
+          "PropertyName": "Titanium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 89.32,
+            "SignificantDigits": 4
+          }
+        },
+        {
+          "PropertySymbol": "Al",
+          "PropertyName": "Aluminum",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 6.02,
+            "Uncertainty": 0.05,
+            "SignificantDigits": 3
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 5.5
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 6.5
+          }
+        },
+        {
+          "PropertySymbol": "V",
+          "PropertyName": "Vanadium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 3.95,
+            "Uncertainty": 0.03,
+            "SignificantDigits": 3
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 3.5
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 4.5
+          }
+        },
+        {
+          "PropertySymbol": "Fe",
+          "PropertyName": "Iron",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.18,
+            "SignificantDigits": 2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          }
+        },
+        {
+          "PropertySymbol": "O",
+          "PropertyName": "Oxygen",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.11,
+            "SignificantDigits": 2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.13
+          }
+        },
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.026,
+            "SignificantDigits": 2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.08
+          }
+        },
+        {
+          "PropertySymbol": "N",
+          "PropertyName": "Nitrogen",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.012,
+            "SignificantDigits": 2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.05
+          }
+        },
+        {
+          "PropertySymbol": "H",
+          "PropertyName": "Hydrogen",
+          "Unit": "ppm",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 35,
+            "SignificantDigits": 2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 120
+          }
+        }
+      ],
+      "AnalysisStandard": "ASTM E120"
+    },
+    "MechanicalProperties": [
+      {
+        "PropertyName": "Tensile Test Results",
+        "Method": "ASTM E8",
+        "TestConditions": "Longitudinal direction, room temperature",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Property", "Value", "Unit", "Requirement"],
+          "ParameterUnits": ["", "", "", ""],
+          "DataPoints": [
+            ["Ultimate Tensile Strength", "935", "MPa", "≥ 825 MPa"],
+            ["Yield Strength (0.2% offset)", "865", "MPa", "≥ 760 MPa"],
+            ["Elongation", "12", "%", "≥ 10%"],
+            ["Reduction of Area", "40", "%", "≥ 25%"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Fatigue Test",
+        "Method": "ASTM E466",
+        "TestConditions": "Room temperature, R = 0.1",
+        "Actual": {
+          "ResultType": "array",
+          "Values": [650, 635, 610, 590, 570, 550],
+          "Parameters": [10000, 50000, 100000, 500000, 1000000, 10000000],
+          "ParameterName": "Cycles",
+          "ParameterUnit": "N"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Notch Sensitivity",
+        "Method": "Internal Method TS-5432",
+        "Actual": {
+          "ResultType": "range",
+          "Minimum": 0.85,
+          "Maximum": 0.92,
+          "Inclusive": true
+        },
+        "Target": {
+          "ResultType": "range",
+          "Minimum": 0.80,
+          "Maximum": 0.95,
+          "Inclusive": true
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "PhysicalProperties": [
+      {
+        "PropertyName": "Density",
+        "Method": "ASTM B311",
+        "Unit": "g/cm³",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 4.43,
+          "Uncertainty": 0.01,
+          "SignificantDigits": 3
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 4.43
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "SupplementaryTests": [
+      {
+        "PropertyName": "Microstructure Examination",
+        "Method": "ASTM E407",
+        "Actual": {
+          "ResultType": "string",
+          "Value": "Equiaxed alpha with intergranular beta",
+          "AllowedValues": [
+            "Equiaxed alpha with intergranular beta",
+            "Acicular alpha with intergranular beta",
+            "Bimodal alpha+beta"
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Ultrasonic Inspection",
+        "Method": "ASTM E2375",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No indications greater than reference standard"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Surface Quality Assessment",
+        "Method": "Visual Inspection per ASTM F136",
+        "Actual": {
+          "ResultType": "string",
+          "Value": "Class 1 - Medical Grade",
+          "AllowedValues": [
+            "Class 1 - Medical Grade",
+            "Class 2 - Standard Grade",
+            "Class 3 - Commercial Grade"
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Alpha Case Depth",
+        "Method": "Microhardness Traverse",
+        "Unit": "μm",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 5,
+          "SignificantDigits": 1
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 25
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Grain Size Distribution",
+        "Method": "ASTM E112",
+        "Unit": "ASTM No.",
+        "Actual": {
+          "ResultType": "range",
+          "Minimum": 8,
+          "Maximum": 10,
+          "Inclusive": true
+        },
+        "Target": {
+          "ResultType": "range",
+          "Minimum": 7,
+          "Maximum": 12,
+          "Inclusive": true
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Hardness Profile",
+        "Method": "ASTM E384",
+        "Unit": "HV",
+        "Actual": {
+          "ResultType": "array",
+          "Values": [345, 350, 352, 350, 349, 348, 351, 347],
+          "Parameters": [0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 10.0, 15.0],
+          "ParameterName": "Distance from surface",
+          "ParameterUnit": "mm"
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with ASTM F136 and meets all requirements for surgical implant applications.",
+        "Standards": ["ASTM F136:2022", "ISO 5832-3:2016"],
+        "ComplianceType": "Certificate of Compliance"
+      },
+      "ValidationDate": "2025-05-17",
+      "Validators": [
+        {
+          "Name": "Dr. Markus Weber",
+          "Title": "Head of Metallurgy",
+          "Department": "Research & Quality"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}
