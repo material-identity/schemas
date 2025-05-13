@@ -142,17 +142,7 @@
           "type": "string"
         }
       },
-      "required": ["ResultType", "Values"],
-      "oneOf": [
-        {
-          "required": ["Parameters"]
-        },
-        {
-          "not": {
-            "required": ["ParameterName", "ParameterUnit"]
-          }
-        }
-      ]
+      "required": ["ResultType", "Values"]
     },
 
     "StructuredArrayResult": {
@@ -273,16 +263,17 @@
             "Conditionally Acceptable",
             "Not Evaluated"
           ]
+        },
+        "Formula": {
+          "description": "For calculated values, this field provides the formula definition",
+          "type": "string",
+          "examples": [
+            "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+            "C+Si/30+(Mn+Cu+Cr)/20+Ni/60+Mo/15+V/10+5B"
+          ]
         }
       },
-      "anyOf": [
-        {
-          "required": ["PropertySymbol", "Actual"]
-        },
-        {
-          "required": ["PropertyName", "Actual"]
-        }
-      ],
+      "required": [ "Actual"],
       "additionalProperties": false
     },
 
@@ -294,17 +285,7 @@
         {
           "$ref": "#/definitions/Measurement"
         }
-      ],
-      "properties": {
-        "Formula": {
-          "description": "For calculated values, this field provides the formula definition",
-          "type": "string",
-          "examples": [
-            "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
-            "C+Si/30+(Mn+Cu+Cr)/20+Ni/60+Mo/15+V/10+5B"
-          ]
-        }
-      }
+      ]
     },
 
     "MeltingProcess": {
