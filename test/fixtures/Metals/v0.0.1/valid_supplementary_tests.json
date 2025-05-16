@@ -1,0 +1,491 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "Id": "DMP-METAL-004",
+    "Version": "1.0.0",
+    "IssueDate": "2025-05-16",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Advanced Nuclear Systems Ltd.",
+          "Street": ["Energy Square 456"],
+          "ZipCode": "OX14 3DB",
+          "City": "Abingdon",
+          "Country": "GB",
+          "Email": "procurement@advnuclear.example.com",
+          "Identifiers": {
+            "VAT": "GB345678912"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-56789",
+          "Position": "2",
+          "Date": "2025-04-10",
+          "Quantity": 200,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "SS-316L-001"
+        },
+        "Delivery": {
+          "Id": "DN-12345",
+          "Position": "1",
+          "Date": "2025-05-15",
+          "Quantity": 200,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-98765"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Stainless Steel 316L",
+      "ProductNorms": [
+        {
+          "Designation": "ASTM A240",
+          "Year": "2023",
+          "Grade": "316L"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "UNS",
+          "Designation": "S31603"
+        },
+        {
+          "System": "EN",
+          "Designation": "1.4404"
+        }
+      ],
+      "Shape": {
+        "Form": "Plate",
+        "Length": 2000,
+        "Width": 1000,
+        "Thickness": 10,
+        "Unit": "mm"
+      },
+      "BatchId": "H-87654-01",
+      "HeatTreatment": "Solution Annealed",
+      "SurfaceCondition": "2B",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Aachen Special Steels Plant",
+      "ProductionDate": "2025-05-14",
+      "Weight": 200,
+      "WeightUnit": "kg"
+    },
+    "ChemicalAnalysis": {
+      "MeltingProcess": "EAF+AOD+LF",
+      "HeatNumber": "H-87654",
+      "CastingDate": "2025-05-13",
+      "SampleLocation": "Ladle",
+      "SampleType": "Liquid",
+      "Elements": [
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.018
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.030
+          }
+        },
+        {
+          "PropertySymbol": "Cr",
+          "PropertyName": "Chromium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 17.2
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 16.0
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 18.0
+          }
+        },
+        {
+          "PropertySymbol": "Ni",
+          "PropertyName": "Nickel",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 10.5
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 10.0
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 14.0
+          }
+        },
+        {
+          "PropertySymbol": "Mo",
+          "PropertyName": "Molybdenum",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 2.15
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 2.00
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 3.00
+          }
+        },
+        {
+          "PropertySymbol": "Mn",
+          "PropertyName": "Manganese",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.40
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 2.00
+          }
+        },
+        {
+          "PropertySymbol": "Si",
+          "PropertyName": "Silicon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.38
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.75
+          }
+        },
+        {
+          "PropertySymbol": "P",
+          "PropertyName": "Phosphorus",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.045
+          }
+        },
+        {
+          "PropertySymbol": "S",
+          "PropertyName": "Sulphur",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.002
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.030
+          }
+        },
+        {
+          "PropertySymbol": "N",
+          "PropertyName": "Nitrogen",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.052
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.100
+          }
+        }
+      ],
+      "AnalysisStandard": "ASTM E1086"
+    },
+    "MechanicalProperties": [
+      {
+        "PropertySymbol": "Rm",
+        "PropertyName": "Tensile Strength",
+        "Method": "ASTM E8",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 580
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 515
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "Rp0.2",
+        "PropertyName": "0.2% Yield Strength",
+        "Method": "ASTM E8",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 240
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 205
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "A",
+        "PropertyName": "Elongation",
+        "Method": "ASTM E8",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 52
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 40
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "SupplementaryTests": [
+      {
+        "PropertyName": "Intergranular Corrosion Resistance",
+        "Method": "ASTM A262 Practice E",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No evidence of intergranular attack"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Pitting Corrosion Resistance",
+        "Method": "ASTM G48 Method A",
+        "TestConditions": "72 hours at 22°C in 6% FeCl₃",
+        "Unit": "g/m²",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 1.2
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 4.0
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Crevice Corrosion Resistance",
+        "Method": "ASTM G78",
+        "TestConditions": "72 hours in 3.5% NaCl solution",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No visible crevice corrosion"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Stress Corrosion Cracking Resistance",
+        "Method": "ASTM G36",
+        "TestConditions": "Boiling 42% MgCl₂ solution, 100 hours",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No cracking observed"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Ferrite Content",
+        "Method": "ASTM A800",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 2.5
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 5.0
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Grain Size",
+        "Method": "ASTM E112",
+        "Unit": "ASTM No.",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 7
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 5
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Inclusion Rating",
+        "Method": "ASTM E45 Method A",
+        "TestConditions": "Worst field rating",
+        "Actual": {
+          "ResultType": "string",
+          "Value": "A1, B1, C1, D1"
+        },
+        "Maximum": {
+          "ResultType": "string",
+          "Value": "A2, B2, C2, D2"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Ultrasonic Examination",
+        "Method": "ASTM A388",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No recordable indications"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Liquid Penetrant Examination",
+        "Method": "ASTM E165",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "No relevant indications"
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Weldability Test",
+        "Method": "Varestraint Test",
+        "Unit": "mm",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.4
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 1.0
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Surface Finish",
+        "Method": "ASME BPE SF1",
+        "Unit": "μin Ra",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 25
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 32
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "PREN (Pitting Resistance Equivalent Number)",
+        "TestConditions": "Calculated using formula: %Cr + 3.3 × %Mo + 16 × %N",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 25.8
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 24.0
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Dimensional Tolerance",
+        "Method": "ASTM A480",
+        "Unit": "mm",
+        "Actual": {
+          "ResultType": "range",
+          "Minimum": -0.3,
+          "Maximum": 0.2
+        },
+        "Target": {
+          "ResultType": "range",
+          "Minimum": -0.4,
+          "Maximum": 0.4
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Flatness",
+        "Method": "ASTM A480",
+        "Unit": "mm/m",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 4
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 9
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "PMI (Positive Material Identification)",
+        "Method": "XRF Analysis",
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true,
+          "Description": "Material confirmed as 316L stainless steel"
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with ASTM A240/A240M and meets all specified requirements. This material is suitable for nuclear applications in accordance with RCC-M code.",
+        "Standards": ["ASTM A240/A240M:2023", "RCC-M:2020"],
+        "ComplianceType": "Certificate of Compliance"
+      },
+      "ValidationDate": "2025-05-16",
+      "Validators": [
+        {
+          "Name": "Thomas Wagner",
+          "Title": "Metallurgist",
+          "Department": "Quality Assurance"
+        },
+        {
+          "Name": "Anna Schmidt",
+          "Title": "Quality Manager",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}
