@@ -1,0 +1,429 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "Id": "DMP-METAL-003",
+    "Version": "1.0.0",
+    "IssueDate": "2025-05-15",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Precision Aerospace Inc.",
+          "Street": ["Aviation Boulevard 789"],
+          "ZipCode": "94043",
+          "City": "Mountain View",
+          "Country": "US",
+          "Email": "materials@precision-aero.example.com",
+          "Identifiers": {
+            "DUNS": "123456789"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-34567",
+          "Position": "3",
+          "Date": "2025-04-25",
+          "Quantity": 500,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "AL-7075-T6"
+        },
+        "Delivery": {
+          "Id": "DN-89012",
+          "Position": "1",
+          "Date": "2025-05-14",
+          "Quantity": 500,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-67890"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Aluminum Alloy 7075-T6",
+      "ProductNorms": [
+        {
+          "Designation": "AMS 4045",
+          "Year": "2023"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "AA",
+          "Designation": "7075-T6"
+        },
+        {
+          "System": "UNS",
+          "Designation": "A97075"
+        }
+      ],
+      "Shape": {
+        "Form": "Plate",
+        "Length": 2000,
+        "Width": 1000,
+        "Thickness": 10,
+        "Unit": "mm"
+      },
+      "BatchId": "H-43210-01",
+      "HeatTreatment": "Solution treated and artificially aged (T6)",
+      "SurfaceCondition": "Rolled",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Aachen Specialty Alloys Plant",
+      "ProductionDate": "2025-05-12",
+      "Weight": 500,
+      "WeightUnit": "kg"
+    },
+    "ChemicalAnalysis": {
+      "MeltingProcess": "VAR",
+      "HeatNumber": "H-43210",
+      "CastingDate": "2025-05-10",
+      "SampleLocation": "Ladle",
+      "Elements": [
+        {
+          "PropertySymbol": "Al",
+          "PropertyName": "Aluminum",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 89.7
+          }
+        },
+        {
+          "PropertySymbol": "Zn",
+          "PropertyName": "Zinc",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 5.6
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 5.1
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 6.1
+          }
+        },
+        {
+          "PropertySymbol": "Mg",
+          "PropertyName": "Magnesium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 2.4
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 2.1
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 2.9
+          }
+        },
+        {
+          "PropertySymbol": "Cu",
+          "PropertyName": "Copper",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.5
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 1.2
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 2.0
+          }
+        },
+        {
+          "PropertySymbol": "Cr",
+          "PropertyName": "Chromium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.22
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.18
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.28
+          }
+        }
+      ],
+      "AnalysisStandard": "ASTM E1251"
+    },
+    "PhysicalProperties": [
+      {
+        "PropertySymbol": "ρ",
+        "PropertyName": "Density",
+        "Method": "ASTM B311",
+        "Unit": "g/cm³",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 2.81
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 2.81
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "α",
+        "PropertyName": "Coefficient of Thermal Expansion",
+        "Method": "ASTM E228",
+        "TestConditions": "Temperature range: 20-100°C",
+        "Unit": "10⁻⁶/K",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 23.4
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 23.5
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "λ",
+        "PropertyName": "Thermal Conductivity",
+        "Method": "ASTM E1461",
+        "TestConditions": "At 25°C",
+        "Unit": "W/(m·K)",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 130
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 120
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "cp",
+        "PropertyName": "Specific Heat Capacity",
+        "Method": "ASTM E1269",
+        "TestConditions": "At 25°C",
+        "Unit": "J/(kg·K)",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 862
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 860
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "ρₑ",
+        "PropertyName": "Electrical Resistivity",
+        "Method": "ASTM B193",
+        "TestConditions": "At 20°C",
+        "Unit": "μΩ·m",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.0538
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 0.0550
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "ν",
+        "PropertyName": "Poisson's Ratio",
+        "Method": "ASTM E132",
+        "Unit": "",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.33
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 0.33
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "Tm",
+        "PropertyName": "Melting Range",
+        "Method": "ASTM E1142",
+        "Unit": "°C",
+        "Actual": {
+          "ResultType": "range",
+          "Minimum": 477,
+          "Maximum": 635
+        },
+        "Target": {
+          "ResultType": "range",
+          "Minimum": 475,
+          "Maximum": 635
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "μr",
+        "PropertyName": "Relative Magnetic Permeability",
+        "Method": "ASTM A342",
+        "Unit": "",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 1.00002
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 1.0001
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "Ra",
+        "PropertyName": "Surface Roughness",
+        "Method": "ISO 4287",
+        "Unit": "μm",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.8
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 1.6
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "ε",
+        "PropertyName": "Emissivity",
+        "Method": "ASTM E408",
+        "TestConditions": "At 25°C",
+        "Unit": "",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.09
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 0.11
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "γ",
+        "PropertyName": "Surface Tension",
+        "Method": "ASTM D971",
+        "Unit": "N/m",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 0.875
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 0.870
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "D",
+        "PropertyName": "Diffusion Coefficient",
+        "Method": "ASTM E1559",
+        "Unit": "m²/s",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 2.3e-9
+        },
+        "Target": {
+          "ResultType": "numeric",
+          "Value": 2.2e-9
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "MechanicalProperties": [
+      {
+        "PropertySymbol": "Rm",
+        "PropertyName": "Tensile Strength",
+        "Method": "ASTM E8",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 572
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 530
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "Rp0.2",
+        "PropertyName": "0.2% Yield Strength",
+        "Method": "ASTM E8",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 505
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 480
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "A",
+        "PropertyName": "Elongation",
+        "Method": "ASTM E8",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 11
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 10
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with AMS 4045 and the specified test methods. All results are within the specified limits.",
+        "Standards": ["AMS 4045:2023", "ASTM B209"],
+        "ComplianceType": "Certificate of Compliance"
+      },
+      "ValidationDate": "2025-05-15",
+      "Validators": [
+        {
+          "Name": "Elsa Müller",
+          "Title": "Materials Engineer",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

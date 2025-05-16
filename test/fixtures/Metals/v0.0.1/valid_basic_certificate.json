@@ -1,0 +1,271 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "Id": "DMP-METAL-001",
+    "Version": "1.0.0",
+    "IssueDate": "2025-05-14",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          },
+          "Contacts": [
+            {
+              "Name": "Maria Schmidt",
+              "Role": "Quality Manager",
+              "Department": "Quality Assurance",
+              "Email": "m.schmidt@acme-metal.example.com",
+              "Phone": "+49 241 12345678"
+            }
+          ]
+        },
+        "Customer": {
+          "Name": "Engineering Solutions Ltd.",
+          "Street": ["Tech Park Way 45"],
+          "ZipCode": "CF14 5DU",
+          "City": "Cardiff",
+          "Country": "GB",
+          "Email": "procurement@engisolutions.example.com",
+          "Identifiers": {
+            "VAT": "GB987654321"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-78901",
+          "Position": "10",
+          "Date": "2025-04-20",
+          "Quantity": 5000,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "ST-355-001"
+        },
+        "Delivery": {
+          "Id": "DN-56789",
+          "Position": "1",
+          "Date": "2025-05-12",
+          "Quantity": 5000,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-12345",
+          "Transport": ["TRK-DE-AC-4578"]
+        }
+      }
+    },
+    "Product": {
+      "Name": "Structural Steel S355J2",
+      "ProductNorms": [
+        {
+          "Designation": "EN 10025-2",
+          "Year": "2019",
+          "Grade": "S355J2"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "EN",
+          "Designation": "1.0577"
+        }
+      ],
+      "MassNorms": [
+        {
+          "Designation": "EN 10060",
+          "Year": "2003"
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 50,
+        "Length": 6000,
+        "Unit": "mm"
+      },
+      "BatchId": "H-10987-02",
+      "HeatTreatment": "Normalized",
+      "SurfaceCondition": "Hot-rolled",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Aachen Plant",
+      "ProductionDate": "2025-05-09",
+      "Marking": "ACME S355J2 H-10987-02 CE",
+      "Quantity": 10,
+      "Weight": 5000,
+      "WeightUnit": "kg"
+    },
+    "ChemicalAnalysis": {
+      "MeltingProcess": "EAF+LF",
+      "HeatNumber": "H-10987",
+      "CastingDate": "2025-05-08",
+      "SampleLocation": "Ladle",
+      "SampleType": "Liquid",
+      "Elements": [
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.18
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.20
+          }
+        },
+        {
+          "PropertySymbol": "Mn",
+          "PropertyName": "Manganese",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.45
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 1.60
+          }
+        },
+        {
+          "PropertySymbol": "Si",
+          "PropertyName": "Silicon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.50
+          }
+        },
+        {
+          "PropertySymbol": "P",
+          "PropertyName": "Phosphorus",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.018
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          }
+        },
+        {
+          "PropertySymbol": "S",
+          "PropertyName": "Sulphur",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.012
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.020
+          }
+        },
+        {
+          "PropertySymbol": "N",
+          "PropertyName": "Nitrogen",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.006
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.009
+          }
+        },
+        {
+          "PropertySymbol": "CEV",
+          "PropertyName": "Carbon Equivalent Value",
+          "Unit": "%",
+          "Formula": "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.42
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.45
+          }
+        }
+      ],
+      "AnalysisStandard": "EN 10204"
+    },
+    "MechanicalProperties": [
+      {
+        "PropertySymbol": "Rm",
+        "PropertyName": "Tensile Strength",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 510
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 470
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 630
+        }
+      },
+      {
+        "PropertySymbol": "ReH",
+        "PropertyName": "Yield Strength",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 380
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 355
+        }
+      },
+      {
+        "PropertySymbol": "A",
+        "PropertyName": "Elongation after fracture",
+        "Method": "EN ISO 6892-1",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 22
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 20
+        }
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
+        "Standards": ["EN 10025-2:2019", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-05-14",
+      "Validators": [
+        {
+          "Name": "Johann Weber",
+          "Title": "Quality Inspector",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}
