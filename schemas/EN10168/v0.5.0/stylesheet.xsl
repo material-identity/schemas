@@ -318,7 +318,7 @@
                 <fo:table-column column-width="50%" />
                 <fo:table-column column-width="50%" />
                 <fo:table-body>
-                  <xsl:for-each select="*[starts-with(local-name(), 'C0')]">
+                  <xsl:for-each select="*[starts-with(local-name(), 'C0') or local-name() = 'C10']">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -351,367 +351,6 @@
                   </fo:table-body>
                 </fo:table>
               </xsl:if>
-
-              <!-- Check for one of keys: ChemicalComposition, TensileTest, HardnessTest,
-                NotchedBarImpactTest, OtherMechanicalTests  -->
-              <xsl:if test="ChemicalComposition">
-                <xsl:call-template name="SectionTitleSmall">
-                  <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <fo:table-row>
-                      <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="number" select="concat('C70', ' ')" />
-                        <xsl:with-param name="key" select="$i18n/Certificate/C70" />
-                        <xsl:with-param name="value" select="ChemicalComposition/C70" />
-                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                      </xsl:call-template>
-                    </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-                <xsl:variable name="keys" select="ChemicalComposition/*[not(name() = 'SupplementaryInformation' or name() = 'C70')]" />
-                <xsl:variable name="columnCount" select="count($keys)" />
-                <xsl:variable name="maxColumns" select="13" />
-
-                <!-- First table -->
-                <xsl:variable name="keys1" select="subsequence($keys, 1, $maxColumns)" />
-                <fo:table table-layout="fixed" width="100%">
-                  <xsl:for-each select="1 to ($maxColumns + 1)">
-                    <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
-                  </xsl:for-each>
-                  <fo:table-body>
-                    <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                        <fo:block></fo:block>
-                      </fo:table-cell>
-                      <xsl:for-each select="$keys1">
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>
-                            <xsl:value-of select="name()" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </xsl:for-each>
-                    </fo:table-row>
-                    <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                        <fo:block>Symbol</fo:block>
-                      </fo:table-cell>
-                      <xsl:for-each select="$keys1">
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>
-                            <xsl:value-of select="Symbol" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </xsl:for-each>
-                    </fo:table-row>
-                    <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                        <fo:block>Unit</fo:block>
-                      </fo:table-cell>
-                      <xsl:for-each select="$keys1">
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>
-                            <xsl:value-of select="Unit" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </xsl:for-each>
-                    </fo:table-row>
-                    <xsl:if test="count($keys1[Minimum != '']) &gt; 0">
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Min</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys1">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Minimum/Operator" />
-                              <xsl:text></xsl:text>
-                              <xsl:value-of select="Minimum/Value" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="count($keys1[Maximum != '']) &gt; 0">
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Max</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys1">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Maximum/Operator" />
-                              <xsl:text></xsl:text>
-                              <xsl:value-of select="Maximum/Value" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                    </xsl:if>
-                    <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                        <fo:block>Actual</fo:block>
-                      </fo:table-cell>
-                      <xsl:for-each select="$keys1">
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>
-                            <xsl:value-of select="Actual/Operator" />
-                            <xsl:text></xsl:text>
-                            <xsl:value-of select="Actual/Value" />
-                          </fo:block>
-                        </fo:table-cell>
-                      </xsl:for-each>
-                    </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
-
-                <!-- Second table (if applicable)-->
-                <xsl:variable name="keys2" select="subsequence($keys, $maxColumns + 1, $maxColumns)" />
-                <xsl:if test="$columnCount &gt; $maxColumns">
-                  <fo:table table-layout="fixed" width="100%" margin-top="10pt">
-                    <xsl:for-each select="1 to ($maxColumns + 1)">
-                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
-                    </xsl:for-each>
-                    <fo:table-body>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block></fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys2">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="name()" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Symbol</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys2">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Symbol" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Unit</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys2">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Unit" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <xsl:if test="count($keys2[Minimum != '']) &gt; 0">
-                        <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>Min</fo:block>
-                          </fo:table-cell>
-                          <xsl:for-each select="$keys2">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                              <fo:block>
-                                <xsl:value-of select="Minimum/Operator" />
-                                <xsl:text></xsl:text>
-                                <xsl:value-of select="Minimum/Value" />
-                              </fo:block>
-                            </fo:table-cell>
-                          </xsl:for-each>
-                        </fo:table-row>
-                      </xsl:if>
-                      <xsl:if test="count($keys2[Maximum != '']) &gt; 0">
-                        <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>Max</fo:block>
-                          </fo:table-cell>
-                          <xsl:for-each select="$keys2">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                              <fo:block>
-                                <xsl:value-of select="Maximum/Operator" />
-                                <xsl:text></xsl:text>
-                                <xsl:value-of select="Maximum/Value" />
-                              </fo:block>
-                            </fo:table-cell>
-                          </xsl:for-each>
-                        </fo:table-row>
-                      </xsl:if>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Actual</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys2">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Actual/Operator" />
-                              <xsl:text></xsl:text>
-                              <xsl:value-of select="Actual/Value" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                    </fo:table-body>
-                  </fo:table>
-                </xsl:if>
-                <!-- Third table (if applicable)-->
-                <xsl:if test="$columnCount &gt; $maxColumns*2">
-                  <xsl:variable name="keys3" select="subsequence($keys, 2*$maxColumns + 1, $maxColumns)" />
-                  <fo:table table-layout="fixed" width="100%" margin-top="10pt">
-                    <xsl:for-each select="1 to ($maxColumns + 1)">
-                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
-                    </xsl:for-each>
-                    <fo:table-body>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block></fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys3">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="name()" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Symbol</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys3">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Symbol" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Unit</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys3">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Unit" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                      <xsl:if test="count($keys3[Minimum != '']) &gt; 0">
-                        <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>Min</fo:block>
-                          </fo:table-cell>
-                          <xsl:for-each select="$keys3">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                              <fo:block>
-                                <xsl:value-of select="Minimum/Operator" />
-                                <xsl:text></xsl:text>
-                                <xsl:value-of select="Minimum/Value" />
-                              </fo:block>
-                            </fo:table-cell>
-                          </xsl:for-each>
-                        </fo:table-row>
-                      </xsl:if>
-                      <xsl:if test="count($keys3[Maximum != '']) &gt; 0">
-                        <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>Max</fo:block>
-                          </fo:table-cell>
-                          <xsl:for-each select="$keys3">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                              <fo:block>
-                                <xsl:value-of select="Maximum/Operator" />
-                                <xsl:text></xsl:text>
-                                <xsl:value-of select="Maximum/Value" />
-                              </fo:block>
-                            </fo:table-cell>
-                          </xsl:for-each>
-                        </fo:table-row>
-                      </xsl:if>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                          <fo:block>Actual</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$keys3">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
-                            <fo:block>
-                              <xsl:value-of select="Actual/Operator" />
-                              <xsl:text></xsl:text>
-                              <xsl:value-of select="Actual/Value" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                    </fo:table-body>
-                  </fo:table>
-                </xsl:if>
-                <!-- Chemical formulas -->
-                <xsl:if test="count(ChemicalComposition/*[Formula != '']) > 0">
-                  <fo:table table-layout="fixed" width="100%">
-                    <fo:table-column column-width="50%" />
-                    <fo:table-column column-width="50%" />
-                    <fo:table-header>
-                      <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
-                          <fo:block font-weight="bold">Symbol</fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
-                          <fo:block font-weight="bold">Formula</fo:block>
-                        </fo:table-cell>
-                      </fo:table-row>
-                    </fo:table-header>
-                    <fo:table-body>
-                      <xsl:for-each select="ChemicalComposition/*[Formula != '']">
-                        <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>
-                              <xsl:value-of select="Symbol" />
-                            </fo:block>
-                          </fo:table-cell>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                            <fo:block>
-                              <xsl:value-of select="Formula" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </fo:table-row>
-                      </xsl:for-each>
-                    </fo:table-body>
-                  </fo:table>
-                </xsl:if>
-
-                <!-- Supplementary Information -->
-                <xsl:if test="ChemicalComposition/SupplementaryInformation">
-                  <xsl:call-template name="SectionSubTitle">
-                    <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
-                  </xsl:call-template>
-                  <fo:table table-layout="fixed" width="100%">
-                    <fo:table-column column-width="50%" />
-                    <fo:table-column column-width="50%" />
-                    <fo:table-body>
-                      <xsl:for-each select="ChemicalComposition/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '110' and substring(local-name(), 2) &lt;= '120']">
-                        <fo:table-row>
-                          <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="number" select="concat(local-name(), ' ')" />
-                            <xsl:with-param name="key" select="./Key" />
-                            <xsl:with-param name="value" select="./Value" />
-                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                          </xsl:call-template>
-                        </fo:table-row>
-                      </xsl:for-each>
-                    </fo:table-body>
-                  </fo:table>
-                </xsl:if>
-              </xsl:if>
-
               <xsl:if test="TensileTest">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/TensileTest" />
@@ -720,7 +359,7 @@
                   <fo:table-column column-width="50%" />
                   <fo:table-column column-width="50%" />
                   <fo:table-body>
-                    <xsl:for-each select="TensileTest/*[local-name() = 'C10' or local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
+                    <xsl:for-each select="TensileTest/*[local-name() = 'C11' or local-name() = 'C12' or local-name() = 'C13']">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -1023,7 +662,370 @@
                 </fo:table>
               </xsl:if>
 
-            </xsl:for-each>
+              <!-- Check for one of keys: ChemicalComposition, TensileTest, HardnessTest,
+                NotchedBarImpactTest, OtherMechanicalTests  -->
+              
+              <xsl:if test="ChemicalComposition">
+                <xsl:call-template name="SectionTitleSmall">
+                  <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
+                </xsl:call-template>
+                <xsl:if test="C70">
+                  <fo:table table-layout="fixed" width="100%">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-body>
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="number" select="concat('C70', ' ')" />
+                          <xsl:with-param name="key" select="$i18n/Certificate/C70" />
+                          <xsl:with-param name="value" select="C70" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+                <xsl:variable name="keys" select="ChemicalComposition/*[not(name() = 'SupplementaryInformation' or name() = 'C70')]" />
+                <xsl:variable name="columnCount" select="count($keys)" />
+                <xsl:variable name="maxColumns" select="13" />
+
+                <!-- First table -->
+                <xsl:variable name="keys1" select="subsequence($keys, 1, $maxColumns)" />
+                <fo:table table-layout="fixed" width="100%" keep-together="always">
+                  <xsl:for-each select="1 to ($maxColumns + 1)">
+                    <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
+                  </xsl:for-each>
+                  <fo:table-body>
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:block></fo:block>
+                      </fo:table-cell>
+                      <xsl:for-each select="$keys1">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>
+                            <xsl:value-of select="name()" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </xsl:for-each>
+                    </fo:table-row>
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:block>Symbol</fo:block>
+                      </fo:table-cell>
+                      <xsl:for-each select="$keys1">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>
+                            <xsl:value-of select="Symbol" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </xsl:for-each>
+                    </fo:table-row>
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:block>Unit</fo:block>
+                      </fo:table-cell>
+                      <xsl:for-each select="$keys1">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>
+                            <xsl:value-of select="Unit" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </xsl:for-each>
+                    </fo:table-row>
+                    <xsl:if test="count($keys1[Minimum != '']) &gt; 0">
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Min</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys1">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Minimum/Operator" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Minimum/Value" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </xsl:if>
+                    <xsl:if test="count($keys1[Maximum != '']) &gt; 0">
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Max</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys1">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Maximum/Operator" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Maximum/Value" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </xsl:if>
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:block>Actual</fo:block>
+                      </fo:table-cell>
+                      <xsl:for-each select="$keys1">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>
+                            <xsl:value-of select="Actual/Operator" />
+                            <xsl:text></xsl:text>
+                            <xsl:value-of select="Actual/Value" />
+                          </fo:block>
+                        </fo:table-cell>
+                      </xsl:for-each>
+                    </fo:table-row>
+                  </fo:table-body>
+                </fo:table>
+
+                <!-- Second table (if applicable)-->
+                <xsl:variable name="keys2" select="subsequence($keys, $maxColumns + 1, $maxColumns)" />
+                <xsl:if test="$columnCount &gt; $maxColumns">
+                  <fo:table table-layout="fixed" width="100%" margin-top="10pt" keep-together="always">
+                    <xsl:for-each select="1 to ($maxColumns + 1)">
+                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
+                    </xsl:for-each>
+                    <fo:table-body>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block></fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="name()" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Symbol</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Unit</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Unit" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <xsl:if test="count($keys2[Minimum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>Min</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys2">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                              <fo:block>
+                                <xsl:value-of select="Minimum/Operator" />
+                                <xsl:text></xsl:text>
+                                <xsl:value-of select="Minimum/Value" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <xsl:if test="count($keys2[Maximum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>Max</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys2">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                              <fo:block>
+                                <xsl:value-of select="Maximum/Operator" />
+                                <xsl:text></xsl:text>
+                                <xsl:value-of select="Maximum/Value" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Actual</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys2">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Actual/Operator" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Actual/Value" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+                <!-- Third table (if applicable)-->
+                <xsl:if test="$columnCount &gt; $maxColumns*2">
+                  <xsl:variable name="keys3" select="subsequence($keys, 2*$maxColumns + 1, $maxColumns)" />
+                  <fo:table table-layout="fixed" width="100%" margin-top="10pt" keep-together="always">
+                    <xsl:for-each select="1 to ($maxColumns + 1)">
+                      <fo:table-column column-width="{100 div ($maxColumns + 1)}%" />
+                    </xsl:for-each>
+                    <fo:table-body>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block></fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="name()" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Symbol</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Unit</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Unit" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                      <xsl:if test="count($keys3[Minimum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>Min</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys3">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                              <fo:block>
+                                <xsl:value-of select="Minimum/Operator" />
+                                <xsl:text></xsl:text>
+                                <xsl:value-of select="Minimum/Value" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <xsl:if test="count($keys3[Maximum != '']) &gt; 0">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>Max</fo:block>
+                          </fo:table-cell>
+                          <xsl:for-each select="$keys3">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                              <fo:block>
+                                <xsl:value-of select="Maximum/Operator" />
+                                <xsl:text></xsl:text>
+                                <xsl:value-of select="Maximum/Value" />
+                              </fo:block>
+                            </fo:table-cell>
+                          </xsl:for-each>
+                        </fo:table-row>
+                      </xsl:if>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:block>Actual</fo:block>
+                        </fo:table-cell>
+                        <xsl:for-each select="$keys3">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:block>
+                              <xsl:value-of select="Actual/Operator" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Actual/Value" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </xsl:for-each>
+                      </fo:table-row>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+                <!-- Chemical formulas -->
+                <xsl:if test="count(ChemicalComposition/*[Formula != '']) > 0">
+                  <fo:table table-layout="fixed" width="100%" keep-together="always">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-header>
+                      <fo:table-row>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
+                          <fo:block font-weight="bold">Symbol</fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
+                          <fo:block font-weight="bold">Formula</fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                      <xsl:for-each select="ChemicalComposition/*[Formula != '']">
+                        <fo:table-row>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Symbol" />
+                            </fo:block>
+                          </fo:table-cell>
+                          <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                            <fo:block>
+                              <xsl:value-of select="Formula" />
+                            </fo:block>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:for-each>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+
+                <!-- Supplementary Information -->
+                <xsl:if test="ChemicalComposition/SupplementaryInformation">
+                  <xsl:call-template name="SectionSubTitle">
+                    <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
+                  </xsl:call-template>
+                  <fo:table table-layout="fixed" width="100%">
+                    <fo:table-column column-width="50%" />
+                    <fo:table-column column-width="50%" />
+                    <fo:table-body>
+                      <xsl:for-each select="ChemicalComposition/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '110' and substring(local-name(), 2) &lt;= '120']">
+                        <fo:table-row>
+                          <xsl:call-template name="KeyValue">
+                            <xsl:with-param name="number" select="concat(local-name(), ' ')" />
+                            <xsl:with-param name="key" select="./Key" />
+                            <xsl:with-param name="value" select="./Value" />
+                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                          </xsl:call-template>
+                        </fo:table-row>
+                      </xsl:for-each>
+                    </fo:table-body>
+                  </fo:table>
+                </xsl:if>
+              </xsl:if>
+
+            </xsl:for-each>          
 
             <!-- Other Tests -->
             <!-- loop through Other tests-->
@@ -1139,7 +1141,7 @@
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell font-style="italic">
-                    <fo:block>
+                    <fo:block keep-together="always">
                       <xsl:value-of select="concat('Z01', ' ', $i18n/Certificate/Z01)" />
                     </fo:block>
                   </fo:table-cell>
