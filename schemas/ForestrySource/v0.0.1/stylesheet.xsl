@@ -266,7 +266,7 @@
                           <xsl:when test="geometry/type = 'Point'">
                             <xsl:call-template name="GenerateCoordinatesTable">
                               <xsl:with-param name="headerCount" select="2" />
-                              <xsl:with-param name="Section" select="geometry/Coordinates" />
+                              <xsl:with-param name="Section" select="geometry/coordinates" />
                               <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
                               <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
                               <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
@@ -302,7 +302,7 @@
                                 <xsl:when test="type = 'Point'">
                                   <xsl:call-template name="GenerateCoordinatesTable">
                                     <xsl:with-param name="headerCount" select="2" />
-                                    <xsl:with-param name="Section" select="Coordinates" />
+                                    <xsl:with-param name="Section" select="coordinates" />
                                     <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
                                     <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
                                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
