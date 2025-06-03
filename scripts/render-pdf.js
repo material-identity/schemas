@@ -22,7 +22,7 @@ if (!certificatePath) {
 }
 
 const inputPath = path.resolve(certificatePath);
-const certificate = fs.readFileSync(inputPath);
+const certificate = fs.readFileSync(inputPath, 'utf8');
 
 // Determine output path
 let outputPath;
