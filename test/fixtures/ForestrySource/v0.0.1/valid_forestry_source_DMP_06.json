@@ -60,7 +60,7 @@
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.350, 0.550]
+                  "coordinates": [117.350, 0.550]
                 }
               ]
             }
@@ -91,7 +91,7 @@
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.550, 0.750]
+                  "coordinates": [117.550, 0.750]
                 }
               ]
             }
@@ -109,15 +109,15 @@
               "geometries": [
                 {
                   "type": "Point",
-                  "Coordinates": [117.400, 0.400]
+                  "coordinates": [117.400, 0.400]
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.420, 0.420]
+                  "coordinates": [117.420, 0.420]
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.440, 0.440]
+                  "coordinates": [117.440, 0.440]
                 }
               ]
             }
@@ -174,7 +174,7 @@
                 },
                 {
                   "type": "Point",
-                  "Coordinates": [117.900, 0.250]
+                  "coordinates": [117.900, 0.250]
                 }
               ]
             }

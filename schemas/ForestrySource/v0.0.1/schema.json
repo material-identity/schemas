@@ -313,10 +313,12 @@
           "type": "string",
           "enum": ["Point"]
         },
-        "Coordinates": {
+        "coordinates": {
           "$ref": "#/definitions/Coordinates"
         }
-      }
+      },
+      "required": ["type", "coordinates"],
+      "additionalProperties": false
     },
     "Polygon": {
       "type": "object",
