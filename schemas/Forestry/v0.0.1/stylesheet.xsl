@@ -588,52 +588,6 @@
     </fo:block>
   </fo:table-cell>
 </xsl:template>
-<xsl:template name="GenerateCoordinatesTable">
-  <xsl:param name="headerCount" />
-  <xsl:param name="Section" />
-  <xsl:param name="latitudeTranslation" />
-  <xsl:param name="longitudeTranslation" />
-  <xsl:param name="paddingBottom" select="'6pt'" />
-
-  <fo:table table-layout="fixed" width="100%">
-    <!-- Dynamically generate table columns based on the number of headers -->
-    <xsl:for-each select="$Section/Header">
-      <fo:table-column column-width="{100 div $headerCount}%" />
-    </xsl:for-each>
-    <fo:table-body>
-      <!-- Headers -->
-      <fo:table-row>
-        <fo:table-cell font-style="italic">
-          <fo:block padding-bottom="{$paddingBottom}">
-            <xsl:value-of select="$latitudeTranslation" />
-          </fo:block>
-        </fo:table-cell>
-        <fo:table-cell font-style="italic">
-          <fo:block padding-bottom="{$paddingBottom}">
-            <xsl:value-of select="$longitudeTranslation" />
-          </fo:block>
-        </fo:table-cell>
-      </fo:table-row>
-      <!-- Rows -->
-      <xsl:if test="$headerCount > 0">
-        <xsl:for-each select="$Section">
-          <xsl:variable name="pos" select="position()" />
-          <xsl:if test="($pos - 1) mod $headerCount = 0">
-            <fo:table-row>
-              <xsl:for-each select=".|following-sibling::*[position() &lt; $headerCount]">
-                <fo:table-cell>
-                  <fo:block>
-                    <xsl:value-of select="." />
-                  </fo:block>
-                </fo:table-cell>
-              </xsl:for-each>
-            </fo:table-row>
-          </xsl:if>
-        </xsl:for-each>
-      </xsl:if>
-    </fo:table-body>
-  </fo:table>
-</xsl:template>
 <xsl:template name="GenerateSpeciesTable">
   <xsl:param name="Section" />
   <xsl:param name="CommonNameTranslation" />
