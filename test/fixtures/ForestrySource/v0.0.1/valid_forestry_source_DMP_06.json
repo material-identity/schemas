@@ -2,9 +2,9 @@
   "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
-    "Id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+    "Id": "d290f1ee-6c54-4b01-90e6-d701748f0852",
     "GeneralInformation": {
-      "UserDefinedId": "MIXED-FOREST-2025-Q2",
+      "UserDefinedId": "MIXED-FOREST-2025-Q2-Filenames",
       "Country": "ID",
       "State": "East Kalimantan",
       "District": "Kutai Timur",
@@ -277,6 +277,7 @@
     "DueDiligenceStatement": "This Digital Material Passport certifies that all timber products contained herein have been harvested in accordance with Indonesian forestry laws and regulations, including Law No. 41/1999 on Forestry and Regulation No. P.43/MENLHK/SETJEN/KUM.1/6/2017 on forest management. The harvesting practices comply with FSC principles and criteria for responsible forest management. Chain of custody has been verified through documented procedures from stump to export.",
     "Documents": {
       "ForestConcession": {
+        "FileName": "Forest_Concession.pdf",
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
@@ -286,6 +287,7 @@
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/harvest_authorization.pdf"
       },
       "HarvestAuthorization": {
+        "FileName": "Harvest_Authorization.pdf",
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
@@ -295,6 +297,7 @@
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/forest_concession.pdf"
       },
       "Certificate": {
+        "FileName": "SFI_Certificate.pdf",
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
@@ -304,6 +307,7 @@
         "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/harvest_unit_map.pdf"
       },
       "HarvestUnitMap": {
+        "FileName": "Harvest_Unit_Map.pdf",
         "Hash": {
           "Algorithm": "SHA256",
           "Encoding": "base64",
