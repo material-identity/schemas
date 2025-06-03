@@ -49,16 +49,24 @@ cd ui && npm install
 npm start
 ```
 
-## Run with node script
+## Render PDF with node script
 
 ```shell
-node scripts/render-demo.js --certificatePath path_to_certificate --schemaType type --schemaVersion version
+node scripts/render-pdf.js --certificatePath path_to_certificate [--output output_directory]
 ```
 
-**Example:**
+The script automatically detects the schema type and version from the certificate. By default, it saves the PDF in the same directory as the input JSON file with the same name but .pdf extension.
+
+**Examples:**
 
 ```shell
-node scripts/render-demo.js --certificatePath ../test/fixtures/EN10168/v0.4.1/valid_certificate_2.json --schemaType EN10168 --schemaVersion v4.0.1
+# Render to same directory as input
+node scripts/render-pdf.js --certificatePath test/fixtures/EN10168/v0.4.1/valid_certificate_2.json
+# Output: test/fixtures/EN10168/v0.4.1/valid_certificate_2.pdf
+
+# Render to specific output directory
+node scripts/render-pdf.js --certificatePath test/fixtures/EN10168/v0.4.1/valid_certificate_2.json --output output/pdfs
+# Output: output/pdfs/valid_certificate_2.pdf
 ```
 
 ## OpenAPI / Swagger
