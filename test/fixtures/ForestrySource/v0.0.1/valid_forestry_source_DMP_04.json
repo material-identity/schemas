@@ -27,7 +27,7 @@
               "geometries": [
                 {
                   "type": "Point",
-                  "Coordinates": [-70.123, -9.456]
+                  "coordinates": [-70.123, -9.456]
                 },
                 {
                   "type": "Polygon",
