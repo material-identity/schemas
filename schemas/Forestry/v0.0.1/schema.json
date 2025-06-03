@@ -60,9 +60,16 @@
           "description": "The URL of the document.",
           "type": "string"
         },
-        "additionalProperties": false
+        "FileName": {
+          "description": "The original filename of the document.",
+          "type": "string",
+          "pattern": "^[^/\\\\:*?\"<>|]+$",
+          "maxLength": 255,
+          "examples": ["certificate_of_origin.pdf", "harvest_permit_2024.pdf", "FSC-certificate.pdf"]
+        }
       },
-      "required": ["Hash", "MIME-Type", "URL"]
+      "required": ["Hash", "MIME-Type", "URL"],
+      "additionalProperties": false
     },
     "Company": {
       "type": "object",
