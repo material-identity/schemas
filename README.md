@@ -49,10 +49,28 @@ cd ui && npm install
 npm start
 ```
 
-## Render PDF with node script
+## Standalone PDF Generation
+
+### Prerequisites
+
+Before using the standalone PDF generation, you must build the project:
 
 ```shell
-node scripts/render-pdf.js --certificatePath path_to_certificate [--output output_directory]
+# Install dependencies and build the project
+chmod +x copy-resources.sh && mvn clean install
+```
+
+This compiles the Java classes and copies all dependencies to the `target/` directory.
+
+**Important**: If you get a `NoClassDefFoundError` or similar error, ensure dependencies are copied:
+```shell
+mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
+```
+
+### Single Certificate Conversion
+
+```shell
+node scripts/json2pdf.js <input-file> [output-file]
 ```
 
 The script automatically detects the schema type and version from the certificate. By default, it saves the PDF in the same directory as the input JSON file with the same name but .pdf extension.
@@ -60,14 +78,25 @@ The script automatically detects the schema type and version from the certificat
 **Examples:**
 
 ```shell
-# Render to same directory as input
-node scripts/render-pdf.js --certificatePath test/fixtures/EN10168/v0.4.1/valid_certificate_2.json
+# Convert single certificate (output to same directory)
+node scripts/json2pdf.js test/fixtures/EN10168/v0.4.1/valid_certificate_2.json
 # Output: test/fixtures/EN10168/v0.4.1/valid_certificate_2.pdf
 
-# Render to specific output directory
-node scripts/render-pdf.js --certificatePath test/fixtures/EN10168/v0.4.1/valid_certificate_2.json --output output/pdfs
-# Output: output/pdfs/valid_certificate_2.pdf
+# Convert with custom output path
+node scripts/json2pdf.js test/fixtures/EN10168/v0.4.1/valid_certificate_2.json output/custom.pdf
+
+# Using npm script
+npm run json2pdf -- certificate.json output.pdf
 ```
+
+### Batch Processing
+
+```shell
+# Process all test fixtures
+npm run render-all-pdf
+```
+
+This processes all JSON certificates in the `test/fixtures/` directory and outputs PDFs to the `tmp/` directory with comprehensive statistics.
 
 ## OpenAPI / Swagger
 
