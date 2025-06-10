@@ -3,38 +3,42 @@
 const fs = require('fs/promises');
 const path = require('path');
 const { spawn } = require('child_process');
+const { parseArgs } = require('node:util');
 
-// Command line argument parsing
-const args = process.argv.slice(2);
-let inputFile = null;
-let outputFile = null;
+// Command line argument parsing using Node.js built-in parseArgs
+const options = {
+  input: {
+    type: 'string',
+    short: 'i',
+  },
+  output: {
+    type: 'string',
+    short: 'o',
+  },
+  certificatePath: {
+    type: 'string',
+  },
+  help: {
+    type: 'boolean',
+    short: 'h',
+  },
+};
 
-// Parse command line arguments
-for (let i = 0; i < args.length; i++) {
-  const arg = args[i];
-  switch (arg) {
-    case '--certificatePath':
-    case '--input':
-    case '-i':
-      inputFile = args[++i];
-      break;
-    case '--output':
-    case '-o':
-      outputFile = args[++i];
-      break;
-    case '--help':
-    case '-h':
-      showHelp();
-      process.exit(0);
-      break;
-    default:
-      if (!inputFile && !arg.startsWith('-')) {
-        inputFile = arg;
-      } else if (!outputFile && !arg.startsWith('-')) {
-        outputFile = arg;
-      }
-  }
+const { values, positionals } = parseArgs({ 
+  options,
+  allowPositionals: true,
+  strict: false  // Allow flexibility for backward compatibility
+});
+
+// Handle help first
+if (values.help) {
+  showHelp();
+  process.exit(0);
 }
+
+// Extract input and output files with backward compatibility
+let inputFile = values.input || values.certificatePath || positionals[0];
+let outputFile = values.output || positionals[1];
 
 function showHelp() {
   console.log(`
@@ -63,6 +67,27 @@ let cachedClasspath = null;
 function getClasspath() {
   if (cachedClasspath) {
     return cachedClasspath;
+  }
+  
+  // Check if Maven build has been completed
+  const fs = require('fs');
+  if (!fs.existsSync('target/classes')) {
+    throw new Error(`
+Maven build required! Please run the following commands first:
+
+  chmod +x copy-resources.sh && mvn clean install
+
+This will compile the Java classes and copy all dependencies to target/.
+After that, you can use this script.`);
+  }
+  
+  if (!fs.existsSync('target/dependency')) {
+    throw new Error(`
+Dependencies not found! Please run the following command:
+
+  mvn clean install
+
+This will download and copy all required dependencies to target/dependency/.`);
   }
   
   // Use the pre-built dependency directory instead of running Maven command
