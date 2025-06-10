@@ -15,6 +15,7 @@ target/
 scripts/output/
 src/main/resources/schemas/
 src/test/resources/schemas/
+tmp/
 .env*
 !.env.project
 !.env.vault
