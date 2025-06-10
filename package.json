@@ -17,6 +17,7 @@
     "lint": "eslint .",
     "format": "npx prettier . --write",
     "test": "jest",
+    "test:json2pdf": "jest test/json2pdf.spec.js",
     "json2xml": "node ./scripts/json2xml.js",
     "json2pdf": "node ./scripts/json2pdf.js",
     "render-all-pdf": "node ./scripts/render-all-pdf.js",
