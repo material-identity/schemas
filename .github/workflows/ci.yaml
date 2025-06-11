@@ -90,7 +90,7 @@ jobs:
         run: chmod +x ./copy-resources.sh && ./copy-resources.sh
         
       - name: Build Java project and copy dependencies
-        run: mvn clean compile package -DskipTests -Dexec.skip=true
+        run: mvn clean install -DskipTests
         
       - name: Run json2pdf tests
         run: npm run test:json2pdf
