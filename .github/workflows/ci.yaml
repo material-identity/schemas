@@ -90,7 +90,10 @@ jobs:
         run: chmod +x ./copy-resources.sh && ./copy-resources.sh
         
       - name: Build Java project and copy dependencies
-        run: mvn clean install -DskipTests
+        run: |
+          mvn clean install -DskipTests
+          # Verify dependencies were copied
+          ls -la target/dependency/ | head -10 || echo "target/dependency not found"
         
       - name: Run json2pdf tests
         run: npm run test:json2pdf
