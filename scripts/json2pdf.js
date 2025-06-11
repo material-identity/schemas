@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs/promises');
+const fs = require('fs');
+const fsPromises = require('fs/promises');
 const path = require('path');
 const { spawn } = require('child_process');
 const { parseArgs } = require('node:util');
@@ -70,8 +71,6 @@ function getClasspath() {
   }
   
   // Check if Maven build has been completed
-  const fs = require('fs');
-  const path = require('path');
   
   // Find the project root by looking for pom.xml
   let projectRoot = process.cwd();
@@ -167,7 +166,7 @@ async function main() {
 
   // Validate input file exists
   try {
-    await fs.access(inputFile);
+    await fsPromises.access(inputFile);
   } catch (error) {
     console.error(`Error: Input file not found: ${inputFile}`);
     process.exit(1);
