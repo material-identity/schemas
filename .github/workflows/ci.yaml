@@ -1,5 +1,10 @@
 name: Schemas-service CI
 
+# Set minimal permissions following principle of least privilege
+permissions:
+  contents: read  # Allow reading repository contents
+  actions: read   # Allow reading workflow run information
+
 on:
   push:
     paths-ignore:
