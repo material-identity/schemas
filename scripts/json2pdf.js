@@ -71,7 +71,18 @@ function getClasspath() {
   
   // Check if Maven build has been completed
   const fs = require('fs');
-  if (!fs.existsSync('target/classes')) {
+  const path = require('path');
+  
+  // Find the project root by looking for pom.xml
+  let projectRoot = process.cwd();
+  while (!fs.existsSync(path.join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
+    projectRoot = path.dirname(projectRoot);
+  }
+  
+  const targetClasses = path.join(projectRoot, 'target', 'classes');
+  const targetDependency = path.join(projectRoot, 'target', 'dependency');
+  
+  if (!fs.existsSync(targetClasses)) {
     throw new Error(`
 Maven build required! Please run the following commands first:
 
@@ -81,7 +92,7 @@ This will compile the Java classes and copy all dependencies to target/.
 After that, you can use this script.`);
   }
   
-  if (!fs.existsSync('target/dependency')) {
+  if (!fs.existsSync(targetDependency)) {
     throw new Error(`
 Dependencies not found! Please run the following command:
 
@@ -92,7 +103,7 @@ This will download and copy all required dependencies to target/dependency/.`);
   
   // Use the pre-built dependency directory instead of running Maven command
   // This is much faster and Maven has already copied all dependencies during build
-  cachedClasspath = 'target/classes:target/dependency/*';
+  cachedClasspath = `${targetClasses}:${targetDependency}/*`;
   return cachedClasspath;
 }
 
@@ -101,6 +112,12 @@ async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
   
   return new Promise((resolve, reject) => {
     const classpath = getClasspath();
+    
+    // Find the project root by looking for pom.xml
+    let projectRoot = process.cwd();
+    while (!fs.existsSync(path.join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
+      projectRoot = path.dirname(projectRoot);
+    }
 
     const javaArgs = [
       '-cp', classpath,
@@ -111,7 +128,7 @@ async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
 
     const javaProcess = spawn('java', javaArgs, {
       stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: process.cwd()
+      cwd: projectRoot
     });
 
     let stdoutOutput = '';
