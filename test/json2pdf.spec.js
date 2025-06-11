@@ -186,8 +186,15 @@ describe('json2pdf.js command-line tool', () => {
   test('should check for Maven build dependencies', () => {
     // This test would fail if target/dependency doesn't exist
     // We'll mock this by temporarily renaming the directory
-    const dependencyDir = path.join(__dirname, '..', 'target', 'dependency');
-    const tempDir = path.join(__dirname, '..', 'target', 'dependency_temp');
+    
+    // Find the project root by looking for pom.xml
+    let projectRoot = __dirname;
+    while (!fs.existsSync(path.join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
+      projectRoot = path.dirname(projectRoot);
+    }
+    
+    const dependencyDir = path.join(projectRoot, 'target', 'dependency');
+    const tempDir = path.join(projectRoot, 'target', 'dependency_temp');
     
     // Skip this test if dependency directory doesn't exist
     if (!fs.existsSync(dependencyDir)) {
