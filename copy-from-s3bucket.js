@@ -98,4 +98,4 @@ async function main() {
   console.log('🎉 All files downloaded.');
 }
 
-//main();
+main();
