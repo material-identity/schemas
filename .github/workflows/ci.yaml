@@ -56,7 +56,8 @@ jobs:
           SCHEMAS_PRIVATE_AWS_REGION: ${{ secrets.SCHEMAS_PRIVATE_AWS_REGION }}
           SCHEMAS_PRIVATE_S3_BUCKET_NAME: ${{ secrets.SCHEMAS_PRIVATE_S3_BUCKET_NAME }}
         run: chmod +x ./copy-resources.sh && ./copy-resources.sh
-      - run: npm test
+      - name: Run schema validation tests
+        run: npm test -- --testPathIgnorePatterns="json2pdf.spec.js"
 
   test-json2pdf:
     runs-on: ubuntu-latest
@@ -90,16 +91,7 @@ jobs:
         run: chmod +x ./copy-resources.sh && ./copy-resources.sh
         
       - name: Build Java project and copy dependencies
-        run: |
-          mvn clean install -DskipTests
-          # Debug: Show current directory and structure
-          echo "Current directory: $(pwd)"
-          echo "Contents of target directory:"
-          ls -la target/ || echo "target directory not found"
-          echo "Contents of target/dependency:"
-          ls -la target/dependency/ | head -10 || echo "target/dependency not found"
-          echo "Contents of target/classes:"
-          ls -la target/classes/ | head -10 || echo "target/classes not found"
+        run: mvn clean install -DskipTests
         
       - name: Run json2pdf tests
         run: npm run test:json2pdf
