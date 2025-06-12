@@ -19,7 +19,7 @@ import java.io.*;
  * to ensure consistent font embedding and PDF generation.
  */
 public class CommandLineFoManager {
-
+    private static final Logger logger = LoggerFactory.getLogger(CommandLineFoManager.class);
     private String xslFoInput;
 
     public CommandLineFoManager() {
@@ -49,7 +49,7 @@ public class CommandLineFoManager {
                     result = result.replace(classpathUrl, fontPath);
                 }
             } catch (Exception e) {
-                System.err.println("Error processing font " + fontFile + ": " + e.getMessage());
+                logger.error("Error processing font " + fontFile + ": " + e.getMessage());
             }
         }
         
