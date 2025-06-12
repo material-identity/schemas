@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const fsPromises = require('fs/promises');
-const path = require('path');
+const { existsSync } = require('fs');
+const { access } = require('fs/promises');
+const { join, dirname, parse } = require('node:path');
 const { spawn } = require('child_process');
 const { parseArgs } = require('node:util');
 
@@ -25,7 +25,7 @@ const options = {
   },
 };
 
-const { values, positionals } = parseArgs({ 
+const { values, positionals } = parseArgs({
   options,
   allowPositionals: true,
   strict: false  // Allow flexibility for backward compatibility
@@ -69,19 +69,19 @@ function getClasspath() {
   if (cachedClasspath) {
     return cachedClasspath;
   }
-  
+
   // Check if Maven build has been completed
-  
+
   // Find the project root by looking for pom.xml
   let projectRoot = process.cwd();
-  while (!fs.existsSync(path.join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
-    projectRoot = path.dirname(projectRoot);
+  while (!existsSync(join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
+    projectRoot = dirname(projectRoot);
   }
-  
-  const targetClasses = path.join(projectRoot, 'target', 'classes');
-  const targetDependency = path.join(projectRoot, 'target', 'dependency');
-  
-  if (!fs.existsSync(targetClasses)) {
+
+  const targetClasses = join(projectRoot, 'target', 'classes');
+  const targetDependency = join(projectRoot, 'target', 'dependency');
+
+  if (!existsSync(targetClasses)) {
     throw new Error(`
 Maven build required! Please run the following commands first:
 
@@ -90,8 +90,8 @@ Maven build required! Please run the following commands first:
 This will compile the Java classes and copy all dependencies to target/.
 After that, you can use this script.`);
   }
-  
-  if (!fs.existsSync(targetDependency)) {
+
+  if (!existsSync(targetDependency)) {
     throw new Error(`
 Dependencies not found! Please run the following command:
 
@@ -99,7 +99,7 @@ Dependencies not found! Please run the following command:
 
 This will download and copy all required dependencies to target/dependency/.`);
   }
-  
+
   // Use the pre-built dependency directory instead of running Maven command
   // This is much faster and Maven has already copied all dependencies during build
   cachedClasspath = `${targetClasses}:${targetDependency}/*`;
@@ -108,14 +108,14 @@ This will download and copy all required dependencies to target/dependency/.`);
 
 async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
   console.log('Converting JSON to PDF...');
-  
+
   return new Promise((resolve, reject) => {
     const classpath = getClasspath();
-    
+
     // Find the project root by looking for pom.xml
     let projectRoot = process.cwd();
-    while (!fs.existsSync(path.join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
-      projectRoot = path.dirname(projectRoot);
+    while (!existsSync(join(projectRoot, 'pom.xml')) && projectRoot !== '/') {
+      projectRoot = dirname(projectRoot);
     }
 
     const javaArgs = [
@@ -130,13 +130,7 @@ async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
       cwd: projectRoot
     });
 
-    let stdoutOutput = '';
     let errorOutput = '';
-
-    javaProcess.stdout.on('data', (data) => {
-      stdoutOutput += data.toString();
-      // Clean output - no forwarding needed
-    });
 
     javaProcess.stderr.on('data', (data) => {
       errorOutput += data.toString();
@@ -166,16 +160,16 @@ async function main() {
 
   // Validate input file exists
   try {
-    await fsPromises.access(inputFile);
+    await access(inputFile);
   } catch (error) {
-    console.error(`Error: Input file not found: ${inputFile}`);
+    console.error(`Error: Input file not found: ${inputFile}, error: ${error.message}`);
     process.exit(1);
   }
 
   // Set default output file if not provided
   if (!outputFile) {
-    const parsedPath = path.parse(inputFile);
-    outputFile = path.join(parsedPath.dir, `${parsedPath.name}.pdf`);
+    const parsedPath = parse(inputFile);
+    outputFile = join(parsedPath.dir, `${parsedPath.name}.pdf`);
   }
 
   console.log(`Input: ${inputFile}`);
@@ -185,7 +179,6 @@ async function main() {
     // Convert JSON to PDF using standalone Java application
     await convertJsonToPdf(inputFile, outputFile);
     console.log(`✓ PDF successfully created: ${outputFile}`);
-    
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
