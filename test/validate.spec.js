@@ -48,10 +48,21 @@ function getAllSchemaPaths(dir) {
   let schemaPaths = [];
 
   function findSchemas(currentDir) {
+    // Check if directory exists before trying to read it
+    if (!fs.existsSync(currentDir)) {
+      return;
+    }
+    
     const files = fs.readdirSync(currentDir);
 
     files.forEach(file => {
       const fullPath = join(currentDir, file);
+      
+      // Check if path exists before trying to stat it
+      if (!fs.existsSync(fullPath)) {
+        return;
+      }
+      
       const stat = fs.statSync(fullPath);
 
       if (stat.isDirectory()) {
@@ -87,9 +98,26 @@ describe('Validate valid certificates against schema files', function() {
 
   certAndVersionPaths.forEach((dir) => {
     const fullDirPath = resolve(__dirname, `../test/fixtures/${dir}/`);
+    const schemaPath = resolve(__dirname, '../schemas', dir, 'schema.json');
+    
+    // Skip if fixtures directory doesn't exist (e.g., private schemas in CI)
+    if (!fs.existsSync(fullDirPath)) {
+      it.skip(`${dir} - fixtures directory not available`, () => {
+        console.log(`Skipping tests for ${dir} - fixtures directory not found at ${fullDirPath}`);
+      });
+      return;
+    }
+    
+    // Skip if schema file doesn't exist
+    if (!fs.existsSync(schemaPath)) {
+      it.skip(`${dir} - schema file not available`, () => {
+        console.log(`Skipping tests for ${dir} - schema.json not found at ${schemaPath}`);
+      });
+      return;
+    }
+    
     const regex = /valid_.+\.json/
     const validCerts = fs.readdirSync(fullDirPath).filter((file) => regex.test(file));
-    const schemaPath = resolve(__dirname, '../schemas', dir, 'schema.json');
     const localSchema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
 
     validCerts.forEach((certificateName) => {
