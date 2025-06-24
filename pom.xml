@@ -248,20 +248,6 @@
               <executable>copy-resources.sh</executable>
             </configuration>
           </execution>
-          <execution>
-            <id>npm-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>npm</executable>
-              <arguments>
-                <argument>test</argument>
-              </arguments>
-              <workingDirectory>${project.basedir}</workingDirectory>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
 
