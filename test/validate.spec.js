@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const Ajv2019 = require('ajv/dist/2019');
 const draft7MetaSchema = require('ajv/dist/refs/json-schema-draft-07.json');
 const addFormats = require('ajv-formats');
