@@ -13,6 +13,6 @@ rsync -avm --include='*/' --include='*' ./test/fixtures/ ./src/test/resources/sc
 # Build UI and copy files
 cd ui || { echo "Failed to enter ui directory"; exit 1; }
 npm ci
-npx ng build --output-hashing none || { echo "UI build failed"; exit 1; }
+npm run build -- --output-hashing none || { echo "UI build failed"; exit 1; }
 cd - || { echo "Failed to return to root directory"; exit 1; }
 node copy-bundled-ui.js || { echo "Failed to execute copy-bundled-ui.js"; exit 1; }
