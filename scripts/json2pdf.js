@@ -19,6 +19,9 @@ const options = {
   certificatePath: {
     type: 'string',
   },
+  xsltPath: {
+    type: 'string',
+  },
   help: {
     type: 'boolean',
     short: 'h',
@@ -40,6 +43,7 @@ if (values.help) {
 // Extract input and output files with backward compatibility
 let inputFile = values.input || values.certificatePath || positionals[0];
 let outputFile = values.output || positionals[1];
+let xsltPath = values.xsltPath;
 
 function showHelp() {
   console.log(`
@@ -51,12 +55,14 @@ Options:
   -i, --input <file>             Input JSON file path
   --certificatePath <file>       Input JSON file path (alias for --input)
   -o, --output <file>            Output PDF file path (optional, defaults to input filename with .pdf extension)
+  --xsltPath <file>              Custom XSLT file path for development (overrides default)
   -h, --help                     Show this help message
 
 Examples:
   node json2pdf.js certificate.json
   node json2pdf.js --input certificate.json --output result.pdf
   node json2pdf.js --certificatePath certificate.json
+  node json2pdf.js certificate.json --xsltPath ./schemas/EN10168/v0.5.0/stylesheet.xsl
 
 This tool runs standalone without requiring a web service.
 `);
@@ -106,7 +112,7 @@ This will download and copy all required dependencies to target/dependency/.`);
   return cachedClasspath;
 }
 
-async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
+async function convertJsonToPdf(jsonFilePath, pdfFilePath, xsltPath) {
   console.log('Converting JSON to PDF...');
 
   return new Promise((resolve, reject) => {
@@ -124,6 +130,11 @@ async function convertJsonToPdf(jsonFilePath, pdfFilePath) {
       jsonFilePath,
       pdfFilePath
     ];
+
+    // Add xslt path if provided
+    if (xsltPath) {
+      javaArgs.push('--xsltPath', xsltPath);
+    }
 
     const javaProcess = spawn('java', javaArgs, {
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -166,6 +177,16 @@ async function main() {
     process.exit(1);
   }
 
+  // Validate xslt path if provided
+  if (xsltPath) {
+    try {
+      await access(xsltPath);
+    } catch (error) {
+      console.error(`Error: XSLT file not found: ${xsltPath}, error: ${error.message}`);
+      process.exit(1);
+    }
+  }
+
   // Set default output file if not provided
   if (!outputFile) {
     const parsedPath = parse(inputFile);
@@ -174,10 +195,13 @@ async function main() {
 
   console.log(`Input: ${inputFile}`);
   console.log(`Output: ${outputFile}`);
+  if (xsltPath) {
+    console.log(`XSLT: ${xsltPath}`);
+  }
 
   try {
     // Convert JSON to PDF using standalone Java application
-    await convertJsonToPdf(inputFile, outputFile);
+    await convertJsonToPdf(inputFile, outputFile, xsltPath);
     console.log(`✓ PDF successfully created: ${outputFile}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
