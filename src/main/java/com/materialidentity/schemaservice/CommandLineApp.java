@@ -1,6 +1,5 @@
 package com.materialidentity.schemaservice;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -50,6 +49,7 @@ public class CommandLineApp {
 
         String inputFile = null;
         String outputFile = null;
+        String xsltPath = null;
 
         // Parse command line arguments
         for (int i = 0; i < args.length; i++) {
@@ -65,6 +65,11 @@ public class CommandLineApp {
                 case "-o":
                     if (i + 1 < args.length) {
                         outputFile = args[++i];
+                    }
+                    break;
+                case "--xsltPath":
+                    if (i + 1 < args.length) {
+                        xsltPath = args[++i];
                     }
                     break;
                 case "--help":
@@ -95,7 +100,7 @@ public class CommandLineApp {
         }
 
         try {
-            convertJsonToPdf(inputFile, outputFile);
+            convertJsonToPdf(inputFile, outputFile, xsltPath);
             System.out.println("✓ PDF successfully created: " + outputFile);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -110,16 +115,18 @@ public class CommandLineApp {
         System.out.println("Usage: java -cp <classpath> com.materialidentity.schemaservice.CommandLineApp [options] <input-file> [output-file]");
         System.out.println();
         System.out.println("Options:");
-        System.out.println("  -i, --input <file>    Input JSON file path");
-        System.out.println("  -o, --output <file>   Output PDF file path");
-        System.out.println("  -h, --help            Show this help message");
+        System.out.println("  -i, --input <file>      Input JSON file path");
+        System.out.println("  -o, --output <file>     Output PDF file path");
+        System.out.println("  --xsltPath <file>       Custom XSLT file path (overrides default)");
+        System.out.println("  -h, --help              Show this help message");
         System.out.println();
         System.out.println("Examples:");
         System.out.println("  java -cp target/classes:target/lib/* com.materialidentity.schemaservice.CommandLineApp certificate.json");
         System.out.println("  java -cp target/classes:target/lib/* com.materialidentity.schemaservice.CommandLineApp --input cert.json --output result.pdf");
+        System.out.println("  java -cp target/classes:target/lib/* com.materialidentity.schemaservice.CommandLineApp cert.json --xsltPath custom.xsl");
     }
 
-    private static void convertJsonToPdf(String inputFile, String outputFile) 
+    private static void convertJsonToPdf(String inputFile, String outputFile, String xsltPath) 
             throws IOException, TransformerException, SAXException, URISyntaxException {
         
         // Read JSON file
@@ -148,13 +155,24 @@ public class CommandLineApp {
                 .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.JSON_TRANSLATIONS_FILE_NAME_PATTERN)
                 .toString();
 
-        String xsltPath = Paths
-                .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
-                .toString();
-
-        // Load XSLT content
-        org.springframework.core.io.Resource xsltResource = new org.springframework.core.io.ClassPathResource(xsltPath);
-        String xsltSource = new String(Files.readAllBytes(Paths.get(xsltResource.getURI())));
+        String xsltSource;
+        
+        if (xsltPath != null && !xsltPath.isEmpty()) {
+            // Load XSLT from provided file path
+            Path customXsltPath = Paths.get(xsltPath);
+            if (!Files.exists(customXsltPath)) {
+                throw new IOException("XSLT file not found: " + xsltPath);
+            }
+            logger.info("Loading custom XSLT from: {}", xsltPath);
+            xsltSource = Files.readString(customXsltPath);
+        } else {
+            // Load default XSLT from classpath
+            String defaultXsltPath = Paths
+                    .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
+                    .toString();
+            org.springframework.core.io.Resource xsltResource = new org.springframework.core.io.ClassPathResource(defaultXsltPath);
+            xsltSource = new String(Files.readAllBytes(Paths.get(xsltResource.getURI())));
+        }
 
         // Build PDF using the command-line builder pattern (with font loading fixes)
         CommandLinePDFBuilder pdfBuilder = new CommandLinePDFBuilder()
