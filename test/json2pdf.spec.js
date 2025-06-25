@@ -22,7 +22,9 @@ describe('json2pdf.js command-line tool', () => {
       'test_positional.pdf',
       'test_input_flag.pdf',
       'test_certificatePath.pdf',
-      'test_chinese.pdf'
+      'test_chinese.pdf',
+      'test_custom_xslt.pdf',
+      'test_invalid_xslt.pdf'
     ];
     testFiles.forEach(file => {
       const filePath = path.join(tmpDir, file);
@@ -181,6 +183,42 @@ describe('json2pdf.js command-line tool', () => {
       // Clean up
       fs.unlinkSync(outputFile);
     });
+  });
+
+  test('should use custom XSLT path when provided', () => {
+    const inputFile = path.join(fixturesDir, 'EN10168/v0.4.1/valid_certificate_1.json');
+    const outputFile = path.join(tmpDir, 'test_custom_xslt.pdf');
+    const xsltFile = path.join(__dirname, '..', 'schemas', 'EN10168', 'v0.4.1', 'stylesheet.xsl');
+
+    if (fs.existsSync(outputFile)) {
+      fs.unlinkSync(outputFile);
+    }
+
+    const output = execSync(`node "${json2pdfScript}" "${inputFile}" "${outputFile}" --xsltPath "${xsltFile}"`, { encoding: 'utf8' });
+
+    expect(output).toContain(`XSLT: ${xsltFile}`);
+    expect(output).toContain('✓ PDF successfully created');
+    expect(fs.existsSync(outputFile)).toBe(true);
+
+    // Clean up
+    fs.unlinkSync(outputFile);
+  });
+
+  test('should fail when XSLT path does not exist', () => {
+    const inputFile = path.join(fixturesDir, 'EN10168/v0.4.1/valid_certificate_1.json');
+    const outputFile = path.join(tmpDir, 'test_invalid_xslt.pdf');
+    const xsltFile = path.join(tmpDir, 'non_existent.xsl');
+
+    expect(() => {
+      execSync(`node "${json2pdfScript}" "${inputFile}" "${outputFile}" --xsltPath "${xsltFile}"`, { encoding: 'utf8' });
+    }).toThrow();
+
+    try {
+      execSync(`node "${json2pdfScript}" "${inputFile}" "${outputFile}" --xsltPath "${xsltFile}"`, { encoding: 'utf8', stdio: 'pipe' });
+    } catch (error) {
+      const errorMessage = error.stderr ? error.stderr.toString() : error.stdout.toString();
+      expect(errorMessage).toContain('Error: XSLT file not found');
+    }
   });
 
   test('should check for Maven build dependencies', () => {
