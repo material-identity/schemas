@@ -89,6 +89,20 @@ node scripts/json2pdf.js test/fixtures/EN10168/v0.4.1/valid_certificate_2.json o
 npm run json2pdf -- certificate.json output.pdf
 ```
 
+### Development Mode - Custom XSLT
+
+For development and testing, you can provide a custom XSLT file path to override the default compiled XSLT:
+
+```shell
+# Use custom XSLT file for development
+node scripts/json2pdf.js certificate.json --xsltPath ./schemas/EN10168/v0.5.0/stylesheet.xsl
+
+# With input/output flags
+node scripts/json2pdf.js --input cert.json --output result.pdf --xsltPath custom.xsl
+```
+
+This feature is particularly useful when developing or modifying XSLT stylesheets, as it allows you to test changes without rebuilding the entire project.
+
 ### Batch Processing
 
 ```shell
