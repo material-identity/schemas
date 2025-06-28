@@ -72,6 +72,11 @@
         "A10": {
           "Key": "Buyer Reference Number",
           "Value": "BRN-1583836"
+        },
+         "A11": {
+          "Key": "Reference Date",
+          "Value": "2018-10-23",
+          "Type": "date"
         }
       }
     },
