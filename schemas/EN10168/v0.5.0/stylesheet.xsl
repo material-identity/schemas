@@ -34,6 +34,7 @@
           <xsl:variable name="OtherTests" select="Root/Certificate/OtherTests" />
           <xsl:variable name="Validation" select="Root/Certificate/Validation" />
           <xsl:variable name="Attachments" select="Root/Certificate/Attachments" />
+          <xsl:variable name="documentLanguage" select="Root/Certificate/CertificateLanguages[1]" />
           <fo:block font-size="8pt">
             <!-- Parties -->
             <fo:table table-layout="fixed" width="100%">
@@ -139,6 +140,7 @@
                         <xsl:with-param name="value" select="./Value" />
                         <xsl:with-param name="type" select="./Type" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        <xsl:with-param name="language" select="$documentLanguage" />
                         <!-- Pass the type as a parameter -->
                       </xsl:call-template>
                     </fo:table-row>
@@ -300,6 +302,7 @@
                         <xsl:with-param name="key" select="Key" />
                         <xsl:with-param name="value" select="$concatenatedValue" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        <xsl:with-param name="language" select="$documentLanguage" />
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:for-each>
@@ -345,6 +348,7 @@
                           <xsl:with-param name="key" select="./Key" />
                           <xsl:with-param name="value" select="./Value" />
                           <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                          <xsl:with-param name="language" select="$documentLanguage" />
                         </xsl:call-template>
                       </fo:table-row>
                     </xsl:for-each>
@@ -386,6 +390,7 @@
                             <xsl:with-param name="key" select="./Key" />
                             <xsl:with-param name="value" select="./Value" />
                             <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            <xsl:with-param name="language" select="$documentLanguage" />
                           </xsl:call-template>
                         </fo:table-row>
                       </xsl:for-each>
@@ -494,6 +499,7 @@
                             <xsl:with-param name="key" select="./Key" />
                             <xsl:with-param name="value" select="./Value" />
                             <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            <xsl:with-param name="language" select="$documentLanguage" />
                           </xsl:call-template>
                         </fo:table-row>
                       </xsl:for-each>
@@ -616,6 +622,7 @@
                             <xsl:with-param name="key" select="./Key" />
                             <xsl:with-param name="value" select="./Value" />
                             <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            <xsl:with-param name="language" select="$documentLanguage" />
                           </xsl:call-template>
                         </fo:table-row>
                       </xsl:for-each>
@@ -664,7 +671,7 @@
 
               <!-- Check for one of keys: ChemicalComposition, TensileTest, HardnessTest,
                 NotchedBarImpactTest, OtherMechanicalTests  -->
-              
+
               <xsl:if test="ChemicalComposition">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
@@ -1017,6 +1024,7 @@
                             <xsl:with-param name="key" select="./Key" />
                             <xsl:with-param name="value" select="./Value" />
                             <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                            <xsl:with-param name="language" select="$documentLanguage" />
                           </xsl:call-template>
                         </fo:table-row>
                       </xsl:for-each>
@@ -1025,7 +1033,7 @@
                 </xsl:if>
               </xsl:if>
 
-            </xsl:for-each>          
+            </xsl:for-each>
 
             <!-- Other Tests -->
             <!-- loop through Other tests-->
@@ -1229,7 +1237,10 @@
                   </fo:table-cell>
                   <fo:table-cell padding-bottom="{$cellPaddingBottom}">
                     <fo:block>
-                      <xsl:value-of select="$Validation/Z02" />
+                      <xsl:call-template name="format-date-by-language">
+                        <xsl:with-param name="date" select="xs:date($Validation/Z02)" />
+                        <xsl:with-param name="language" select="$documentLanguage" />
+                      </xsl:call-template>
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
@@ -1302,6 +1313,7 @@
                         <xsl:with-param name="value" select="./Value" />
                         <xsl:with-param name="type" select="./Type" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        <xsl:with-param name="language" select="$documentLanguage" />
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:for-each>
@@ -1386,7 +1398,9 @@
   <xsl:param name="value" />
   <xsl:param name="paddingBottom" />
   <xsl:param name="type" select="'default'" />
-  <!-- In the KeyValue template -->
+  <xsl:param name="language" select="'EN'" />
+  <!-- Added language parameter with default -->
+
   <fo:table-cell padding-bottom="{if(string-length($paddingBottom) > 0) then $paddingBottom else '0pt'}" padding-right="4pt">
     <fo:block font-style="italic">
       <xsl:value-of select="$number" />
@@ -1398,6 +1412,12 @@
   <fo:table-cell>
     <fo:block>
       <xsl:choose>
+        <xsl:when test="$type = 'date'">
+          <xsl:call-template name="format-date-by-language">
+            <xsl:with-param name="date" select="xs:date($value)" />
+            <xsl:with-param name="language" select="$language" />
+          </xsl:call-template>
+        </xsl:when>
         <xsl:when test="$type = 'date-time'">
           <xsl:value-of select="concat(substring($value, 6, 2), '/', substring($value, 9, 2), '/', substring($value, 1, 4))" />
         </xsl:when>
@@ -1503,5 +1523,28 @@
       </xsl:when>
     </xsl:choose>
   </fo:table-cell>
+</xsl:template>
+<xsl:template name="format-date-by-language">
+  <xsl:param name="date" as="xs:date"/>
+  <xsl:param name="language" as="xs:string"/>
+
+  <xsl:choose>
+    <xsl:when test="$language = 'DE'">
+      <xsl:value-of select="format-date($date, '[D01].[M01].[Y0001]')"/>
+    </xsl:when>
+    <xsl:when test="$language = 'FR'">
+      <xsl:value-of select="format-date($date, '[D01]/[M01]/[Y0001]')"/>
+    </xsl:when>
+    <xsl:when test="$language = 'PL'">
+      <xsl:value-of select="format-date($date, '[D01].[M01].[Y0001]')"/>
+    </xsl:when>
+    <xsl:when test="$language = 'EN'">
+      <xsl:value-of select="format-date($date, '[D01]/[M01]/[Y0001]')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- Default to ISO format -->
+      <xsl:value-of select="format-date($date, '[Y0001]-[M01]-[D01]')"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 </xsl:stylesheet>
