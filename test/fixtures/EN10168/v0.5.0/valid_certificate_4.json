@@ -1,7 +1,7 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/en10168-schemas/v0.5.0/schema.json",
   "Certificate": {
-    "CertificateLanguages": ["PL"],
+    "CertificateLanguages": ["FR"],
     "CommercialTransaction": {
       "A01": {
         "Name": "Steel Mill SE",
@@ -30,7 +30,14 @@
       "A09": "TR-12456",
       "A97": "1",
       "A98": "DN-1583836",
-      "A99": "AV-87682933"
+      "A99": "AV-87682933",
+      "SupplementaryInformation": {
+         "A11": {
+          "Key": "Reference Date",
+          "Value": "2018-10-23",
+          "Type": "date"
+        }
+      }
     },
     "ProductDescription": {
       "B01": "Seamleass Steel Tubes Hot Roild",
