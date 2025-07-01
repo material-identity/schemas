@@ -4,6 +4,11 @@
     "Languages": ["EN"],
     "Id": "68f9c0a2-98e7-4b54-8da1-d7c3e1c47a92",
     "Date": "2024-07-15",
+    "GeneralInformation": {
+      "UserDefinedId": "DMP-2024-001",
+      "Country": "CA",
+      "State": "British Columbia"
+    },
     "Products": [
       {
         "ProductType": "Logs",
