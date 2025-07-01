@@ -269,6 +269,7 @@
         }
       },
       "required": [
+        "UserDefinedId",
         "Country",
         "State",
         "ForestConcessionNameOrNumber",
