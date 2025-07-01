@@ -26,3 +26,4 @@ schemas/TKR/*
 schemas/Bluemint/*
 test/fixtures/TKR/*
 test/fixtures/Bluemint/*
+test/fixtures/HKM/*
