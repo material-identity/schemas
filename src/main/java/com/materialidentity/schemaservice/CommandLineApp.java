@@ -96,7 +96,12 @@ public class CommandLineApp {
         if (outputFile == null) {
             Path inputPath = Paths.get(inputFile);
             String nameWithoutExt = inputPath.getFileName().toString().replaceFirst("\\.[^.]+$", "");
-            outputFile = inputPath.getParent().resolve(nameWithoutExt + ".pdf").toString();
+            Path parent = inputPath.getParent();
+            if (parent != null) {
+                outputFile = parent.resolve(nameWithoutExt + ".pdf").toString();
+            } else {
+                outputFile = nameWithoutExt + ".pdf";
+            }
         }
 
         try {
@@ -186,7 +191,10 @@ public class CommandLineApp {
 
         // Write PDF to output file
         Path outputPath = Paths.get(outputFile);
-        Files.createDirectories(outputPath.getParent());
+        Path parentDir = outputPath.getParent();
+        if (parentDir != null) {
+            Files.createDirectories(parentDir);
+        }
         
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             fos.write(pdfBytes);
