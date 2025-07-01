@@ -15,6 +15,7 @@ const fixtureVersions = {
   "E-CoC": ['v1.0.0'],
   Bluemint: ['v1.0.0'],
   Metals: ['v0.0.1'],
+  HKM: ['v1.0.0'],
 }
 
 function getCertPaths() {
