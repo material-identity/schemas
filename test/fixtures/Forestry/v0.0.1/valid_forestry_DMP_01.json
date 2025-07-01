@@ -4,6 +4,11 @@
     "Languages": ["EN"],
     "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     "Date": "2024-07-15",
+    "GeneralInformation": {
+      "UserDefinedId": "DMP-2024-001",
+      "Country": "CA",
+      "State": "British Columbia"
+    },
     "Products": [
       {
         "ProductType": "Logs",
@@ -13,19 +18,18 @@
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
         },
-        "ListOfSpecies": [
-          {
-            "CommonName": "English Oak",
-            "ScientificName": {
-              "Genus": "Quercus",
-              "Species": "robur"
-            },
-            "Quantity": 100,
-            "QuantityUnit": "m³"
-          }
-        ]
-      }
-    ],
+      "ListOfSpecies": [
+        {
+          "CommonName": "English Oak",
+          "ScientificName": {
+            "Genus": "Quercus",
+            "Species": "robur"
+          },
+          "Quantity": 100,
+          "QuantityUnit": "m³"
+        }
+      ]
+    }],
     "Supplier": {
       "Name": "Green Forest Products Inc.",
       "Street": ["456 Woodland Road"],
