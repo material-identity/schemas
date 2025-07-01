@@ -632,6 +632,7 @@
       "required": [
         "Languages",
         "Id",
+        "GeneralInformation",
         "Date",
         "Products",
         "Supplier",
