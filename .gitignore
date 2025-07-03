@@ -24,6 +24,8 @@ tmp/
 # schema-private files from S3Bucket
 schemas/TKR/*
 schemas/Bluemint/*
+schemas/HKM/*
 test/fixtures/TKR/*
 test/fixtures/Bluemint/*
 test/fixtures/HKM/*
+
