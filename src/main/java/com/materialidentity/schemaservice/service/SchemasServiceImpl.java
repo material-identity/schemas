@@ -53,6 +53,7 @@ public class SchemasServiceImpl implements SchemasService {
         certificateTypeMap.put("forestry-source", "ForestrySource");
         certificateTypeMap.put("metals", "Metals");
         certificateTypeMap.put("bluemint", "Bluemint");
+        certificateTypeMap.put("hkm", "HKM");
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
@@ -69,6 +70,9 @@ public class SchemasServiceImpl implements SchemasService {
                 .filter(Objects::nonNull)
                 .or(() -> Optional.ofNullable(jsonContent.get("DigitalMaterialPassport"))
                         .map(passportNode -> passportNode.get("Languages"))
+                        .filter(Objects::nonNull))
+                .or(() -> Optional.ofNullable(jsonContent.get("ConcessionRequest"))
+                        .map(concessionNode -> concessionNode.get("Languages"))
                         .filter(Objects::nonNull))
                 .filter(JsonNode::isArray)
                 .map(languagesNode -> {
