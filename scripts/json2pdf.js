@@ -5,6 +5,7 @@ const { access } = require('fs/promises');
 const { join, dirname, parse } = require('node:path');
 const { spawn } = require('child_process');
 const { parseArgs } = require('node:util');
+const { validateCertificateFromFile, formatValidationErrors } = require('../lib/validator');
 
 // Command line argument parsing using Node.js built-in parseArgs
 const options = {
@@ -25,6 +26,9 @@ const options = {
   help: {
     type: 'boolean',
     short: 'h',
+  },
+  'skip-validation': {
+    type: 'boolean',
   },
 };
 
@@ -56,6 +60,7 @@ Options:
   --certificatePath <file>       Input JSON file path (alias for --input)
   -o, --output <file>            Output PDF file path (optional, defaults to input filename with .pdf extension)
   --xsltPath <file>              Custom XSLT file path for development (overrides default)
+  --skip-validation              Skip JSON schema validation before PDF generation
   -h, --help                     Show this help message
 
 Examples:
@@ -200,6 +205,25 @@ async function main() {
   }
 
   try {
+    // Validate JSON schema before PDF generation (unless skipped)
+    if (!values['skip-validation']) {
+      console.log('Validating certificate against JSON schema...');
+      const validationResult = await validateCertificateFromFile(inputFile);
+      
+      if (!validationResult.isValid) {
+        console.error('\n❌ Certificate validation failed:');
+        console.error(`Schema: ${validationResult.schemaType} ${validationResult.version}`);
+        console.error('Validation errors:');
+        console.error(formatValidationErrors(validationResult.errors));
+        console.error('\nUse --skip-validation to bypass validation and generate PDF anyway.');
+        process.exit(1);
+      }
+      
+      console.log(`✓ Certificate is valid (${validationResult.schemaType} ${validationResult.version})`);
+    } else {
+      console.log('⚠️  Skipping validation (--skip-validation flag used)');
+    }
+
     // Convert JSON to PDF using standalone Java application
     await convertJsonToPdf(inputFile, outputFile, xsltPath);
     console.log(`✓ PDF successfully created: ${outputFile}`);
