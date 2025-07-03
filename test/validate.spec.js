@@ -1,22 +1,9 @@
-const Ajv2019 = require('ajv/dist/2019');
-const draft7MetaSchema = require('ajv/dist/refs/json-schema-draft-07.json');
-const addFormats = require('ajv-formats');
 const fs = require('fs');
 const { resolve, join } = require('path');
-const { loadExternalFile } = require('./helpers');
+const { SCHEMA_TYPES, createAjvInstance } = require('../lib/validator');
 
-// add new certs and versions here
-const fixtureVersions = {
-  CoA: ['v1.1.0'],
-  EN10168: ['v0.4.1', 'v0.5.0'],
-  Forestry: ['v0.0.1'],
-  ForestrySource: ['v0.0.1'],
-  TKR: ['v0.0.4'],
-  "E-CoC": ['v1.0.0'],
-  Bluemint: ['v1.0.0'],
-  Metals: ['v0.0.1'],
-  HKM: ['v1.0.0'],
-}
+// Use schema types from validator module
+const fixtureVersions = SCHEMA_TYPES;
 
 function getCertPaths() {
   const validCerts = [];
@@ -28,21 +15,7 @@ function getCertPaths() {
   return validCerts;
 }
 
-const createAjvInstance = () => {
-  const ajv = new Ajv2019({
-    loadSchema: (uri) => loadExternalFile(uri, 'json'),
-    strictSchema: true,
-    strictNumbers: true,
-    strictRequired: true, 
-    strictTypes: true,
-    allErrors: true,
-    discriminator: true,
-  });
-  ajv.addKeyword('meta:license');
-  ajv.addMetaSchema(draft7MetaSchema);
-  addFormats(ajv);
-  return ajv;
-};
+// createAjvInstance is now imported from validator module
 
 function getAllSchemaPaths(dir) {
   let schemaPaths = [];
