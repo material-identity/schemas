@@ -39,6 +39,8 @@ public class CommandLineApp {
         certificateTypeMap.put("forestry", "Forestry");
         certificateTypeMap.put("forestry-source", "ForestrySource");
         certificateTypeMap.put("e-coc", "E-CoC");
+        certificateTypeMap.put("hkm", "HKM");
+
     }
 
     public static void main(String[] args) {
@@ -202,21 +204,30 @@ public class CommandLineApp {
     }
 
     private static String[] extractLanguages(JsonNode certificate) {
+        JsonNode languagesNode = null;
+        
         // Try Metals/Forestry format first: DigitalMaterialPassport.Languages
-        JsonNode languagesNode = certificate.at("/DigitalMaterialPassport/Languages");
+        if (certificate.has("DigitalMaterialPassport")) {
+            languagesNode = certificate.get("DigitalMaterialPassport").get("Languages");
+        }
         
         // Try EN10168 format: Certificate.CertificateLanguages
-        if (languagesNode.isMissingNode()) {
-            languagesNode = certificate.at("/Certificate/CertificateLanguages");
+        if ((languagesNode == null || languagesNode.isMissingNode()) && certificate.has("Certificate")) {
+            languagesNode = certificate.get("Certificate").get("CertificateLanguages");
         }
         
         // Try CoA format: Languages
-        if (languagesNode.isMissingNode()) {
+        if ((languagesNode == null || languagesNode.isMissingNode()) && certificate.has("Languages")) {
             languagesNode = certificate.get("Languages");
         }
         
-        if (languagesNode.isMissingNode() || !languagesNode.isArray()) {
-            throw new IllegalArgumentException("Languages array not found in certificate. Tried: /DigitalMaterialPassport/Languages, /Certificate/CertificateLanguages, /Languages");
+        // Try HKM format: ConcessionRequest.Languages
+        if ((languagesNode == null || languagesNode.isMissingNode()) && certificate.has("ConcessionRequest")) {
+            languagesNode = certificate.get("ConcessionRequest").get("Languages");
+        }
+        
+        if (languagesNode == null || languagesNode.isMissingNode() || !languagesNode.isArray()) {
+            throw new IllegalArgumentException("Languages array not found in certificate. Tried: /DigitalMaterialPassport/Languages, /Certificate/CertificateLanguages, /Languages, /ConcessionRequest/Languages");
         }
 
         String[] languages = new String[languagesNode.size()];
