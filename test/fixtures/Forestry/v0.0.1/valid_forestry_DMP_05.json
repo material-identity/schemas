@@ -1,0 +1,112 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-schemas/v0.0.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "a47bc20c-68dd-4372-b567-1f03c3d4e578",
+    "Date": "2024-07-20",
+    "GeneralInformation": {
+      "UserDefinedId": "DMP-2024-005",
+      "Country": "CA",
+      "State": "British Columbia"
+    },
+    "PurchaseOrder": {
+      "Id": "PO-2024-005",
+      "Position": "1",
+      "Date": "2024-07-10",
+      "CustomerProductId": "VENEER-005",
+      "CustomerProductName": "Canadian Birch Veneer Import"
+    },
+    "SalesOrder": {
+      "Id": "SO-2024-005",
+      "Position": "1",
+      "Date": "2024-07-12",
+      "CertificationNumber": "PEFC-C987654",
+      "CertificationClaim": "PEFC 100%",
+      "CertificationPercentage": 100,
+      "Incoterms": {
+        "incoterm": {
+          "code": "FOB",
+          "description": "Free on Board"
+        }
+      }
+    },
+    "Delivery": {
+      "Id": "DEL-2024-005",
+      "Position": "1",
+      "Date": "2024-07-25",
+      "PackingList": "PL-2024-005",
+      "BillOfLading": "BOL-2024-005",
+      "Booking": "CAN-EUROPE-EXPRESS-V078",
+      "Container": "CAEU567890",
+      "Carrier": "TransAtlantic Shipping Lines",
+      "Packages": ["PKG-005-001", "PKG-005-002", "PKG-005-003", "PKG-005-004"],
+      "Lots": ["LOT-V001", "LOT-V002"],
+      "Batches": ["BATCH-VENEER-001", "BATCH-VENEER-002"]
+    },
+    "Products": [
+      {
+        "ProductType": "Veneer",
+        "DescriptionOfProduct": "Canadian Birch Veneer Sheets - Export Grade A",
+        "HTSCode": "4408.10.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-07-01",
+          "EndDate": "2024-07-20"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Silver Birch",
+            "ScientificName": {
+              "Genus": "Betula",
+              "Species": "pendula"
+            },
+            "Quantity": 2500,
+            "QuantityUnit": "m²"
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Canadian Veneer Industries Ltd.",
+      "Street": ["1250 Forest Drive", "Industrial Park"],
+      "ZipCode": "V8L 2B5",
+      "City": "Vancouver",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Email": "exports@canadianveneer.ca",
+      "PhoneNumber": "+1-604-555-0123",
+      "Identifiers": {
+        "CBN": "123456789RC0001",
+        "SystemId": "660e8400-e29b-41d4-a716-446655440001"
+      }
+    },
+    "Customer": {
+      "Name": "European Furniture Manufacturing GmbH",
+      "Street": ["Holzverarbeitungsstraße 15", "Industriegebiet Nord"],
+      "ZipCode": "22765",
+      "City": "Hamburg",
+      "State": "Hamburg",
+      "Country": "DE",
+      "Email": "imports@europeanfurniture.de",
+      "PhoneNumber": "+49-40-123-4567",
+      "Identifiers": {
+        "VAT": "DE123456789",
+        "EORI": "DE123456789012345"
+      }
+    },
+    "Creator": {
+      "Name": "Canadian Forest Certification Services Ltd.",
+      "Street": ["500 Certification Boulevard"],
+      "ZipCode": "V6C 1G8",
+      "City": "Vancouver",
+      "State": "British Columbia",
+      "Country": "CA",
+      "Email": "certificates@canadianforestcert.ca",
+      "PhoneNumber": "+1-604-555-0789",
+      "Identifiers": {
+        "CBN": "987654321BC0001",
+        "SystemId": "880e8400-e29b-41d4-a716-446655440003"
+      }
+    },
+    "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities:\n\n1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n2. Country of Production\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n4. Genus/Species and Common name\n5. Quantity (volume)\n6. Geolocation of all harvest units / forest plots\n\nThis delivery represents an export from Canada to the European Union, containing a total of 2500 m² of premium Silver Birch veneer sheets for furniture manufacturing applications. The shipment complies with EU import regulations and EUDR requirements."
+  }
+}
