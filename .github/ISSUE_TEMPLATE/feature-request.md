@@ -6,6 +6,7 @@ labels: ''
 assignees: ''
 type: 'Feature'
 ---
+# <Name>
 
 ## Describe the problem to be solved by the feature
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
