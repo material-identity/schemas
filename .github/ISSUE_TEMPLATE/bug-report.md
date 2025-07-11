@@ -6,6 +6,7 @@ labels: ''
 assignees: ''
 type: 'Bug'
 ---
+# <Name>
 
 ## Bug Description
 Clear description of the bug
