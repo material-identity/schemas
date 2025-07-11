@@ -597,8 +597,12 @@
                     <xsl:for-each select="$dmp/MechanicalProperties[not(PropertyName = preceding-sibling::MechanicalProperties/PropertyName)]">
                       <xsl:variable name="propertyName" select="PropertyName" />
                       <fo:table-row>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="$propertyName" /></fo:block>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="$propertyName" />
+                            </xsl:call-template>
+                          </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                           <fo:block><xsl:value-of select="PropertySymbol" /></fo:block>
@@ -632,7 +636,11 @@
                           </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="Method" /></fo:block>
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                           <fo:block text-align="center">
@@ -699,8 +707,12 @@
                     
                     <xsl:for-each select="$dmp/PhysicalProperties">
                       <fo:table-row>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="PropertyName" /></fo:block>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">>
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertyName" />
+                            </xsl:call-template>
+                          </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                           <fo:block><xsl:value-of select="PropertySymbol" /></fo:block>
@@ -742,7 +754,11 @@
                           </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="Method" /></fo:block>
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                           <fo:block text-align="center">
@@ -805,8 +821,12 @@
                     
                     <xsl:for-each select="$dmp/SupplementaryTests">
                       <fo:table-row>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="PropertyName" /></fo:block>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertyName" />
+                            </xsl:call-template>
+                          </fo:block>
                           <xsl:if test="TestConditions">
                             <fo:block font-size="6pt" color="gray">
                               <xsl:value-of select="TestConditions" />
@@ -850,7 +870,11 @@
                           </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="Method" /></fo:block>
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
                           <fo:block text-align="center">
@@ -1073,5 +1097,11 @@
         <xsl:value-of select="$result/Value" />
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <!-- Template to add zero-width space after every blank for better word wrapping -->
+  <xsl:template name="AddWordWrapBreaks">
+    <xsl:param name="text" />
+    <xsl:value-of select="replace($text, '(\s)', '$1&#x00AD;')"/>
   </xsl:template>
 </xsl:stylesheet>
