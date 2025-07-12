@@ -96,6 +96,9 @@ describe('json2pdf.js command-line tool', () => {
     const inputFile = path.join(fixturesDir, 'Forestry/v0.0.1/valid_forestry_DMP_01.json');
     const expectedOutput = inputFile.replace('.json', '.pdf');
 
+    // Store whether the PDF existed before the test
+    const pdfExistedBefore = fs.existsSync(expectedOutput);
+
     // Clean up any existing PDF
     if (fs.existsSync(expectedOutput)) {
       fs.unlinkSync(expectedOutput);
@@ -106,8 +109,10 @@ describe('json2pdf.js command-line tool', () => {
     expect(output).toContain(`Output: ${expectedOutput}`);
     expect(fs.existsSync(expectedOutput)).toBe(true);
 
-    // Clean up
-    fs.unlinkSync(expectedOutput);
+    // Only clean up if the PDF didn't exist before the test
+    if (!pdfExistedBefore) {
+      fs.unlinkSync(expectedOutput);
+    }
   });
 
   test('should handle Chinese translations correctly (CoA certificate 9)', () => {
