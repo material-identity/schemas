@@ -34,6 +34,11 @@ public class XsltTransformer {
         StringWriter outputWriter = new StringWriter();
 
         TransformerFactory factory = new TransformerFactoryImpl();
+        
+        // Security: Disable external entity access to prevent XXE attacks
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "");
+        
         Transformer transformer = factory.newTransformer(xsltInput);
         transformer.transform(xmlInput, new StreamResult(outputWriter));
 

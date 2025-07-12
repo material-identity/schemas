@@ -272,6 +272,37 @@
               </fo:table-body>
             </fo:table>
             
+            <!-- Product Norms -->
+            <xsl:if test="$dmp/Product/ProductNorms">
+              <xsl:call-template name="SectionTitleSmall">
+                <xsl:with-param name="title" select="'Product Norms'" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%" />
+                <fo:table-column column-width="50%" />
+                <fo:table-body>
+                  <xsl:for-each select="$dmp/Product/ProductNorms">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Designation'" />
+                        <xsl:with-param name="value" select="concat(Designation, if(Year) then concat(' (', Year, ')') else '')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                    <xsl:if test="Grade">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="'Grade'" />
+                          <xsl:with-param name="value" select="Grade" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
+            </xsl:if>
+            
             <!-- Material Designations -->
             <xsl:if test="$dmp/Product/MaterialDesignations">
               <xsl:call-template name="SectionTitleSmall">
@@ -503,6 +534,22 @@
                       </fo:table-row>
                     </fo:table-body>
                   </fo:table>
+                  
+                  <!-- Formula Definitions -->
+                  <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
+                    <fo:block space-before="8pt">
+                      <xsl:call-template name="SectionTitleSmall">
+                        <xsl:with-param name="title" select="'Formula Definitions'" />
+                      </xsl:call-template>
+                      <xsl:for-each select="$dmp/ChemicalAnalysis/Elements[Formula][not(PropertySymbol = preceding-sibling::*/PropertySymbol)]">
+                        <fo:block space-after="2pt">
+                          <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
+                          <xsl:text> = </xsl:text>
+                          <xsl:value-of select="Formula" />
+                        </fo:block>
+                      </xsl:for-each>
+                    </fo:block>
+                  </xsl:if>
                 </fo:block>
               </xsl:if>
             </xsl:if>
@@ -514,14 +561,13 @@
                   <xsl:with-param name="title" select="'Mechanical Properties'" />
                 </xsl:call-template>
                 <fo:table id="mechanical-properties-table" table-layout="fixed" width="100%">
-                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="20%" />
                   <fo:table-column column-width="10%" />
-                  <fo:table-column column-width="10%" />
-                  <fo:table-column column-width="15%" />
                   <fo:table-column column-width="15%" />
                   <fo:table-column column-width="15%" />
-                  <fo:table-column column-width="10%" />
-                  <fo:table-column column-width="10%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="5%" />
                   
                   <fo:table-body>
                     <fo:table-row background-color="#f0f0f0">
@@ -530,9 +576,6 @@
                       </fo:table-cell>
                       <fo:table-cell padding="2pt">
                         <fo:block font-style="italic">Symbol</fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell padding="2pt">
-                        <fo:block font-style="italic">Unit</fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding="2pt">
                         <fo:block font-style="italic">Actual</fo:block>
@@ -547,30 +590,49 @@
                         <fo:block font-style="italic">Method</fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding="2pt">
-                        <fo:block font-style="italic">Status</fo:block>
+                        <fo:block font-style="italic" text-align="center">Status</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
                     
                     <xsl:for-each select="$dmp/MechanicalProperties[not(PropertyName = preceding-sibling::MechanicalProperties/PropertyName)]">
                       <xsl:variable name="propertyName" select="PropertyName" />
                       <fo:table-row>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="$propertyName" /></fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="PropertySymbol" /></fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="Unit" /></fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="2pt">
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
-                            <xsl:call-template name="FormatResult">
-                              <xsl:with-param name="result" select="Actual" />
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="$propertyName" />
                             </xsl:call-template>
                           </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell padding="2pt">
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertySymbol" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:choose>
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                                <fo:block>
+                                  <xsl:call-template name="AddWordWrapBreaks">
+                                    <xsl:with-param name="text" select="'Array data (see below)'" />
+                                  </xsl:call-template>
+                                </fo:block>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Actual" />
+                                </xsl:call-template>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="Unit and not(Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray')">
+                              <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                            </xsl:if>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:if test="Minimum">
                               <xsl:call-template name="FormatResult">
@@ -579,7 +641,7 @@
                             </xsl:if>
                           </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell padding="2pt">
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:if test="Maximum">
                               <xsl:call-template name="FormatResult">
@@ -588,11 +650,15 @@
                             </xsl:if>
                           </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell padding="2pt">
-                          <fo:block><xsl:value-of select="Method" /></fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="2pt">
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block text-align="center">
                             <xsl:choose>
                               <xsl:when test="Interpretation = 'In Specification'">
                                 <fo:inline color="green">✓</fo:inline>
@@ -608,6 +674,296 @@
                           </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
+                      <!-- Add spanning row for Array result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                        <fo:table-row>
+                          <fo:table-cell number-columns-spanned="7" padding="4pt">
+                            <xsl:call-template name="FormatResult">
+                              <xsl:with-param name="result" select="Actual" />
+                            </xsl:call-template>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </xsl:if>
+            
+            <!-- Physical Properties -->
+            <xsl:if test="$dmp/PhysicalProperties">
+              <fo:block keep-together="always">
+                <xsl:call-template name="SectionTitle">
+                  <xsl:with-param name="title" select="'Physical Properties'" />
+                </xsl:call-template>
+                <fo:table id="physical-properties-table" table-layout="fixed" width="100%">
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="10%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="15%" />
+                  <fo:table-column column-width="20%" />
+                  <fo:table-column column-width="5%" />
+                  
+                  <fo:table-body>
+                    <fo:table-row background-color="#f0f0f0">
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Property</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Symbol</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Actual</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Target/Min</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Maximum</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Method</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic" text-align="center">Status</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                    
+                    <xsl:for-each select="$dmp/PhysicalProperties">
+                      <fo:table-row>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertyName" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertySymbol" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:choose>
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                                <fo:block>
+                                  <xsl:call-template name="AddWordWrapBreaks">
+                                    <xsl:with-param name="text" select="'Array data (see below)'" />
+                                  </xsl:call-template>
+                                </fo:block>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Actual" />
+                                </xsl:call-template>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="Unit and not(Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray')">
+                              <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                            </xsl:if>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:choose>
+                              <xsl:when test="Target">
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Target" />
+                                </xsl:call-template>
+                              </xsl:when>
+                              <xsl:when test="Minimum">
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Minimum" />
+                                </xsl:call-template>
+                              </xsl:when>
+                              <xsl:otherwise>-</xsl:otherwise>
+                            </xsl:choose>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:if test="Maximum">
+                              <xsl:call-template name="FormatResult">
+                                <xsl:with-param name="result" select="Maximum" />
+                              </xsl:call-template>
+                            </xsl:if>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block text-align="center">
+                            <xsl:choose>
+                              <xsl:when test="Interpretation = 'In Specification'">
+                                <fo:inline color="green">✓</fo:inline>
+                              </xsl:when>
+                              <xsl:when test="Interpretation = 'Out of Specification'">
+                                <fo:inline color="red">✗</fo:inline>
+                              </xsl:when>
+                              <xsl:when test="Interpretation = 'Conditionally Acceptable'">
+                                <fo:inline color="orange">!</fo:inline>
+                              </xsl:when>
+                              <xsl:otherwise>-</xsl:otherwise>
+                            </xsl:choose>
+                          </fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                      <!-- Add spanning row for Array result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                        <fo:table-row>
+                          <fo:table-cell number-columns-spanned="7" padding="4pt">
+                            <xsl:call-template name="FormatResult">
+                              <xsl:with-param name="result" select="Actual" />
+                            </xsl:call-template>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </xsl:if>
+            
+            <!-- Supplementary Tests -->
+            <xsl:if test="$dmp/SupplementaryTests">
+              <fo:block keep-together="always">
+                <xsl:call-template name="SectionTitle">
+                  <xsl:with-param name="title" select="'Supplementary Tests'" />
+                </xsl:call-template>
+                <fo:table id="supplementary-tests-table" table-layout="fixed" width="100%">
+                  <fo:table-column column-width="25%" />
+                  <fo:table-column column-width="25%" />
+                  <fo:table-column column-width="12%" />
+                  <fo:table-column column-width="12%" />
+                  <fo:table-column column-width="21%" />
+                  <fo:table-column column-width="5%" />
+                  
+                  <fo:table-body>
+                    <fo:table-row background-color="#f0f0f0">
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Property</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Actual</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Target/Min</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Maximum</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Method</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic" text-align="center">Status</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                    
+                    <xsl:for-each select="$dmp/SupplementaryTests">
+                      <fo:table-row>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="PropertyName" />
+                            </xsl:call-template>
+                          </fo:block>
+                          <xsl:if test="TestConditions">
+                            <fo:block font-size="6pt" color="gray">
+                              <xsl:value-of select="TestConditions" />
+                            </fo:block>
+                          </xsl:if>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:choose>
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                                <fo:block>
+                                  <xsl:call-template name="AddWordWrapBreaks">
+                                    <xsl:with-param name="text" select="'Array data (see below)'" />
+                                  </xsl:call-template>
+                                </fo:block>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Actual" />
+                                </xsl:call-template>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="Unit and not(Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray')">
+                              <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                            </xsl:if>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:choose>
+                              <xsl:when test="Target">
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Target" />
+                                </xsl:call-template>
+                              </xsl:when>
+                              <xsl:when test="Minimum">
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Minimum" />
+                                </xsl:call-template>
+                              </xsl:when>
+                              <xsl:otherwise>-</xsl:otherwise>
+                            </xsl:choose>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:if test="Maximum">
+                              <xsl:call-template name="FormatResult">
+                                <xsl:with-param name="result" select="Maximum" />
+                              </xsl:call-template>
+                            </xsl:if>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block>
+                            <xsl:call-template name="AddWordWrapBreaks">
+                              <xsl:with-param name="text" select="Method" />
+                            </xsl:call-template>
+                          </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                          <fo:block text-align="center">
+                            <xsl:choose>
+                              <xsl:when test="Interpretation = 'In Specification'">
+                                <fo:inline color="green">✓</fo:inline>
+                              </xsl:when>
+                              <xsl:when test="Interpretation = 'Out of Specification'">
+                                <fo:inline color="red">✗</fo:inline>
+                              </xsl:when>
+                              <xsl:when test="Interpretation = 'Conditionally Acceptable'">
+                                <fo:inline color="orange">!</fo:inline>
+                              </xsl:when>
+                              <xsl:otherwise>-</xsl:otherwise>
+                            </xsl:choose>
+                          </fo:block>
+                        </fo:table-cell>
+                      </fo:table-row>
+                      <!-- Add spanning row for Array result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'structuredArray'">
+                        <fo:table-row>
+                          <fo:table-cell number-columns-spanned="6" padding="4pt">
+                            <xsl:call-template name="FormatResult">
+                              <xsl:with-param name="result" select="Actual" />
+                            </xsl:call-template>
+                          </fo:table-cell>
+                        </fo:table-row>
+                      </xsl:if>
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
@@ -794,6 +1150,11 @@
           <xsl:when test="$result/Value = 'true'">Yes</xsl:when>
           <xsl:otherwise>No</xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="$result/Description">
+          <fo:block font-size="6pt" color="gray">
+            <xsl:value-of select="$result/Description" />
+          </fo:block>
+        </xsl:if>
       </xsl:when>
       <xsl:when test="$result/ResultType = 'string'">
         <xsl:value-of select="$result/Value" />
@@ -803,9 +1164,156 @@
         <xsl:text> - </xsl:text>
         <xsl:value-of select="$result/Maximum" />
       </xsl:when>
+      <xsl:when test="$result/ResultType = 'array'">
+        <fo:table table-layout="fixed" width="100%" margin-top="3pt">
+          <fo:table-column column-width="proportional-column-width(2)"/>
+          <xsl:for-each select="$result/Values">
+            <fo:table-column column-width="proportional-column-width(1)"/>
+          </xsl:for-each>
+          <fo:table-body>
+            <!-- First row: Parameter name and values -->
+            <fo:table-row background-color="#f8f8f8">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                <fo:block text-align="center" font-size="8pt" font-weight="bold">
+                  <xsl:choose>
+                    <xsl:when test="$result/ParameterName">
+                      <xsl:call-template name="AddWordWrapBreaks">
+                        <xsl:with-param name="text" select="$result/ParameterName" />
+                      </xsl:call-template>
+                      <xsl:if test="$result/ParameterUnit">
+                        <xsl:text> (</xsl:text>
+                        <xsl:call-template name="AddWordWrapBreaks">
+                          <xsl:with-param name="text" select="$result/ParameterUnit" />
+                        </xsl:call-template>
+                        <xsl:text>)</xsl:text>
+                      </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:call-template name="AddWordWrapBreaks">
+                        <xsl:with-param name="text" select="'Parameter'" />
+                      </xsl:call-template>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </fo:block>
+              </fo:table-cell>
+              <xsl:choose>
+                <xsl:when test="$result/Parameters">
+                  <xsl:for-each select="$result/Parameters">
+                    <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                      <fo:block text-align="center" font-size="8pt">
+                        <xsl:value-of select="." />
+                      </fo:block>
+                    </fo:table-cell>
+                  </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:for-each select="$result/Values">
+                    <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                      <fo:block text-align="center" font-size="8pt">
+                        <xsl:value-of select="position()" />
+                      </fo:block>
+                    </fo:table-cell>
+                  </xsl:for-each>
+                </xsl:otherwise>
+              </xsl:choose>
+            </fo:table-row>
+            <!-- Second row: Values with units -->
+            <fo:table-row>
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                <fo:block text-align="center" font-size="8pt" font-weight="bold">
+                  <xsl:choose>
+                    <xsl:when test="$result/Unit">
+                      <xsl:call-template name="AddWordWrapBreaks">
+                        <xsl:with-param name="text" select="concat('[', $result/Unit, ']')" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$result/../Unit">
+                      <xsl:call-template name="AddWordWrapBreaks">
+                        <xsl:with-param name="text" select="concat('[', $result/../Unit, ']')" />
+                      </xsl:call-template>
+                    </xsl:when>
+                  </xsl:choose>
+                </fo:block>
+              </fo:table-cell>
+              <xsl:for-each select="$result/Values">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:value-of select="." />
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
+      </xsl:when>
+      <xsl:when test="$result/ResultType = 'structuredArray'">
+        <fo:table table-layout="fixed" width="100%" margin-top="3pt">
+          <xsl:for-each select="$result/Parameters">
+            <fo:table-column column-width="proportional-column-width(1)"/>
+          </xsl:for-each>
+          <fo:table-body>
+            <!-- Header row: Parameters -->
+            <fo:table-row background-color="#f8f8f8">
+              <xsl:for-each select="$result/Parameters">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <xsl:choose>
+                    <xsl:when test="position() = 1">
+                      <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+                      <xsl:attribute name="hyphenate">true</xsl:attribute>
+                      <xsl:attribute name="keep-together.within-line">auto</xsl:attribute>
+                      <fo:block text-align="center" font-size="8pt" font-weight="bold">
+                        <xsl:call-template name="AddWordWrapBreaks">
+                          <xsl:with-param name="text" select="." />
+                        </xsl:call-template>
+                      </fo:block>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <fo:block text-align="center" font-size="8pt" font-weight="bold">
+                        <xsl:value-of select="." />
+                      </fo:block>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
+            <!-- Data rows: DataPoints -->
+            <xsl:for-each select="$result/DataPoints">
+              <fo:table-row>
+                <xsl:for-each select=".">
+                  <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                    <xsl:choose>
+                      <xsl:when test="position() = 1">
+                        <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+                        <xsl:attribute name="hyphenate">true</xsl:attribute>
+                        <xsl:attribute name="keep-together.within-line">auto</xsl:attribute>
+                        <fo:block text-align="center" font-size="8pt">
+                          <xsl:call-template name="AddWordWrapBreaks">
+                            <xsl:with-param name="text" select="." />
+                          </xsl:call-template>
+                        </fo:block>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <fo:block text-align="center" font-size="8pt">
+                          <xsl:value-of select="." />
+                        </fo:block>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </fo:table-cell>
+                </xsl:for-each>
+              </fo:table-row>
+            </xsl:for-each>
+          </fo:table-body>
+        </fo:table>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$result/Value" />
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <!-- Template to add zero-width space after every blank for better word wrapping -->
+  <xsl:template name="AddWordWrapBreaks">
+    <xsl:param name="text" />
+    <xsl:value-of select="replace($text, '(\s)', '$1&#x00AD;')"/>
   </xsl:template>
 </xsl:stylesheet>
