@@ -1,5 +1,6 @@
 <fop version="1.0">
   <accessibility>true</accessibility>
+  <hyphenation-pattern lang="en" country="US">en_US</hyphenation-pattern>
   <complex-scripts disabled="true" />
   <renderers>
     <renderer mime="application/pdf">
