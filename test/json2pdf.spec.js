@@ -93,26 +93,31 @@ describe('json2pdf.js command-line tool', () => {
   });
 
   test('should use default output path when not specified', () => {
-    const inputFile = path.join(fixturesDir, 'Forestry/v0.0.1/valid_forestry_DMP_01.json');
-    const expectedOutput = inputFile.replace('.json', '.pdf');
-
-    // Store whether the PDF existed before the test
-    const pdfExistedBefore = fs.existsSync(expectedOutput);
+    // Copy test JSON to temp directory to avoid modifying fixtures
+    const tempDir = path.join(__dirname, '../tmp/test');
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+    
+    const sourceFile = path.join(fixturesDir, 'Forestry/v0.0.1/valid_forestry_DMP_01.json');
+    const tempInputFile = path.join(tempDir, 'test_forestry_input.json');
+    fs.copyFileSync(sourceFile, tempInputFile);
+    
+    const expectedOutput = tempInputFile.replace('.json', '.pdf');
 
     // Clean up any existing PDF
     if (fs.existsSync(expectedOutput)) {
       fs.unlinkSync(expectedOutput);
     }
 
-    const output = execSync(`node "${json2pdfScript}" "${inputFile}"`, { encoding: 'utf8' });
+    const output = execSync(`node "${json2pdfScript}" "${tempInputFile}"`, { encoding: 'utf8' });
 
     expect(output).toContain(`Output: ${expectedOutput}`);
     expect(fs.existsSync(expectedOutput)).toBe(true);
 
-    // Only clean up if the PDF didn't exist before the test
-    if (!pdfExistedBefore) {
-      fs.unlinkSync(expectedOutput);
-    }
+    // Clean up test files
+    fs.unlinkSync(tempInputFile);
+    fs.unlinkSync(expectedOutput);
   });
 
   test('should handle Chinese translations correctly (CoA certificate 9)', () => {
