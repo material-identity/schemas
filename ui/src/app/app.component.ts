@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { UploaderComponent } from './uploader.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FormComponent } from './form.component';
 
 @Component({
     selector: 'app-root',
-    imports: [UploaderComponent, FormComponent, MatButtonModule],
+    imports: [FormComponent, MatButtonModule],
     template: `
     <div class="flex flex-col bg-primary-50/10 h-screen">
       <div class="flex-1 flex flex-col overflow-auto">
