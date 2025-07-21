@@ -197,11 +197,6 @@
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>jcache</artifactId>
     </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <version>1.3.2</version>
-    </dependency>
   </dependencies>
 
   <profiles>
@@ -311,6 +306,14 @@
               <version>1.18.32</version>
             </path>
           </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-XX:+EnableDynamicAgentLoading</argLine>
         </configuration>
       </plugin>
       
