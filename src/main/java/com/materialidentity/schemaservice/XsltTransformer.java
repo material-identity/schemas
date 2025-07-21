@@ -36,8 +36,12 @@ public class XsltTransformer {
         TransformerFactory factory = new TransformerFactoryImpl();
         
         // Security: Disable external entity access to prevent XXE attacks
+        // but allow file access for legitimate translation files
         factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
-        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "");
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "file");
+        
+        // Allow file access for json-doc() function to load translation files
+        factory.setFeature("http://saxon.sf.net/feature/allow-external-functions", true);
         
         Transformer transformer = factory.newTransformer(xsltInput);
         transformer.transform(xmlInput, new StreamResult(outputWriter));
