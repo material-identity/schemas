@@ -65,6 +65,7 @@
       "Elements": [
         {
           "PropertyName": "Silicon",
+          "Unit": "%",
           "PropertySymbol": "Si",
           "Actual": {
             "ResultType": "numeric",
@@ -82,6 +83,7 @@
         {
           "PropertyName": "Iron",
           "PropertySymbol": "Fe",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.1625
@@ -98,6 +100,7 @@
         {
           "PropertyName": "Copper",
           "PropertySymbol": "Cu",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.0005
@@ -110,6 +113,7 @@
         {
           "PropertyName": "Manganese",
           "PropertySymbol": "Mn",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.056
@@ -122,6 +126,7 @@
         {
           "PropertyName": "Magnesium",
           "PropertySymbol": "Mg",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.3795
@@ -138,6 +143,7 @@
         {
           "PropertyName": "Chromium",
           "PropertySymbol": "Cr",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.004
@@ -150,6 +156,7 @@
         {
           "PropertyName": "Zinc",
           "PropertySymbol": "Zn",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.005
@@ -162,6 +169,7 @@
         {
           "PropertyName": "Nickel",
           "PropertySymbol": "Ni",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.0051
@@ -174,6 +182,7 @@
         {
           "PropertyName": "Lead",
           "PropertySymbol": "Pb",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.0012
@@ -186,6 +195,7 @@
         {
           "PropertyName": "Titanium",
           "PropertySymbol": "Ti",
+          "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
             "Value": 0.0148
@@ -193,6 +203,19 @@
           "Maximum": {
             "ResultType": "numeric",
             "Value": 0.1
+          }
+        },
+        {
+          "PropertyName": "Nitrogen",
+          "PropertySymbol": "N",
+          "Unit": "ppm",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 200
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 2000
           }
         }
       ],
