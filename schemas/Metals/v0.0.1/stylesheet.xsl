@@ -464,8 +464,11 @@
                           <fo:block font-style="italic">Unit</fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
+                          <xsl:variable name="currentSymbol" select="." />
                           <fo:table-cell padding="3pt">
-                            <fo:block text-align="center">%</fo:block>
+                            <fo:block text-align="center">
+                              <xsl:value-of select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol][1]/Unit" />
+                            </fo:block>
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
