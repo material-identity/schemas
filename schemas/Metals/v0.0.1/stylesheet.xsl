@@ -482,9 +482,9 @@
                           <fo:table-cell padding="3pt">
                             <fo:block text-align="center">
                               <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Minimum[1]">
+                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Minimum[1]">
                                   <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Minimum[1]" />
+                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Minimum[1]" />
                                   </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>-</xsl:otherwise>
@@ -503,9 +503,9 @@
                           <fo:table-cell padding="3pt">
                             <fo:block text-align="center">
                               <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Maximum[1]">
+                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Maximum[1]">
                                   <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Maximum[1]" />
+                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Maximum[1]" />
                                   </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>-</xsl:otherwise>
@@ -524,9 +524,9 @@
                           <fo:table-cell padding="3pt">
                             <fo:block text-align="center">
                               <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Actual[1]">
+                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Actual[1]">
                                   <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[. = $currentSymbol]/following-sibling::Actual[1]" />
+                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Actual[1]" />
                                   </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>-</xsl:otherwise>
