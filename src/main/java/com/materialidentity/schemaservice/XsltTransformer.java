@@ -53,6 +53,16 @@ public class XsltTransformer {
 
     private String jsonNodeToXml(JsonNode jsonNode) throws IOException {
         XmlMapper xmlMapper = new XmlMapper();
+        // Disable external entity processing to prevent XXE attacks
+        xmlMapper.getFactory().setXMLInputFactory(createSecureXMLInputFactory());
         return xmlMapper.writer().withRootName("Root").writeValueAsString(jsonNode);
+    }
+    
+    private javax.xml.stream.XMLInputFactory createSecureXMLInputFactory() {
+        javax.xml.stream.XMLInputFactory factory = javax.xml.stream.XMLInputFactory.newInstance();
+        // Disable all external entity processing
+        factory.setProperty(javax.xml.stream.XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        factory.setProperty(javax.xml.stream.XMLInputFactory.SUPPORT_DTD, false);
+        return factory;
     }
 }
