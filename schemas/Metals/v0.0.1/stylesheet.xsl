@@ -113,101 +113,73 @@
               <xsl:with-param name="title" select="'Business Transaction'" />
             </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
-              <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
               <fo:table-body>
                 <fo:table-row>
-                  <fo:table-cell padding-right="12pt">
-                    <xsl:call-template name="SectionTitleSmall">
-                      <xsl:with-param name="title" select="'Order'" />
-                    </xsl:call-template>
-                    <fo:table table-layout="fixed" width="100%">
-                      <fo:table-column column-width="70%" />
-                      <fo:table-column column-width="30%" />
-                      <fo:table-body>
-                        <fo:table-row>
-                          <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Order ID'" />
-                            <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Id" />
-                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                          </xsl:call-template>
-                        </fo:table-row>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Position">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Position'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Position" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Date">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Date'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Date" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Quantity">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Quantity'" />
-                              <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Order/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Order/QuantityUnit)" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                      </fo:table-body>
-                    </fo:table>
+                  <fo:table-cell number-columns-spanned="2">
+                    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Order</fo:block>
                   </fo:table-cell>
-                  <fo:table-cell>
-                    <xsl:call-template name="SectionTitleSmall">
-                      <xsl:with-param name="title" select="'Delivery'" />
-                    </xsl:call-template>
-                    <fo:table table-layout="fixed" width="100%">
-                      <fo:table-column column-width="70%" />
-                      <fo:table-column column-width="30%" />
-                      <fo:table-body>
-                        <fo:table-row>
-                          <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Delivery ID'" />
-                            <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Id" />
-                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                          </xsl:call-template>
-                        </fo:table-row>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Position">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Position'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Position" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Date">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Date'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Date" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Quantity">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Quantity'" />
-                              <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Delivery/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Delivery/QuantityUnit)" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                      </fo:table-body>
-                    </fo:table>
+                  <fo:table-cell number-columns-spanned="2">
+                    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Delivery</fo:block>
                   </fo:table-cell>
                 </fo:table-row>
+                <fo:table-row>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="'Order ID'" />
+                    <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="'Delivery ID'" />
+                    <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                </fo:table-row>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Position or $dmp/TransactionData/BusinessTransaction/Delivery/Position">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Position'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Position" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Position'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Position" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Date or $dmp/TransactionData/BusinessTransaction/Delivery/Date">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Quantity or $dmp/TransactionData/BusinessTransaction/Delivery/Quantity">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Quantity'" />
+                      <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Order/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Order/QuantityUnit)" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Quantity'" />
+                      <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Delivery/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Delivery/QuantityUnit)" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
             
