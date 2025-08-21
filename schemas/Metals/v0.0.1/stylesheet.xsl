@@ -40,6 +40,7 @@
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
+                <!-- Row 1: Logo and Manufacturer -->
                 <fo:table-row>
                   <fo:table-cell number-columns-spanned="1" padding-bottom="{$logoPaddingBottom}">
                     <fo:block>
@@ -56,16 +57,99 @@
                     <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
+                
+                <!-- Row 2: Customer and next party (Subcustomer, GoodsReceiver, or CertificateReceiver) -->
                 <fo:table-row>
                   <xsl:call-template name="PartyInfo">
                     <xsl:with-param name="title" select="'Customer'" />
                     <xsl:with-param name="party" select="$dmp/TransactionData/Parties/Customer" />
                     <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
-                  <fo:table-cell>
-                    <fo:block/>
-                  </fo:table-cell>
+                  <xsl:choose>
+                    <xsl:when test="$dmp/TransactionData/Parties/Subcustomer">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Subcustomer'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/Subcustomer" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$dmp/TransactionData/Parties/GoodsReceiver">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Goods Receiver'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/GoodsReceiver" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$dmp/TransactionData/Parties/CertificateReceiver">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Certificate Receiver'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <fo:table-cell>
+                        <fo:block/>
+                      </fo:table-cell>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </fo:table-row>
+                
+                <!-- Row 3: Additional parties if 4+ parties exist -->
+                <xsl:variable name="hasSubcustomer" select="boolean($dmp/TransactionData/Parties/Subcustomer)" />
+                <xsl:variable name="hasGoodsReceiver" select="boolean($dmp/TransactionData/Parties/GoodsReceiver)" />
+                <xsl:variable name="hasCertificateReceiver" select="boolean($dmp/TransactionData/Parties/CertificateReceiver)" />
+                <xsl:variable name="partyCount" select="2 + number($hasSubcustomer) + number($hasGoodsReceiver) + number($hasCertificateReceiver)" />
+                
+                <xsl:if test="$partyCount >= 4">
+                  <fo:table-row>
+                    <!-- Row 3 Col 1: Third party -->
+                    <xsl:choose>
+                      <xsl:when test="$hasSubcustomer and $hasGoodsReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Goods Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/GoodsReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:when test="$hasSubcustomer and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:when test="$hasGoodsReceiver and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <fo:table-cell>
+                          <fo:block/>
+                        </fo:table-cell>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                    
+                    <!-- Row 3 Col 2: Fourth party -->
+                    <xsl:choose>
+                      <xsl:when test="$hasSubcustomer and $hasGoodsReceiver and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <fo:table-cell>
+                          <fo:block/>
+                        </fo:table-cell>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
             
