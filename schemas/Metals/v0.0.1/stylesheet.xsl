@@ -1087,12 +1087,12 @@
       <fo:block font-weight="bold" padding-bottom="{$paddingBottom}">
         <xsl:value-of select="$party/Name" />
       </fo:block>
-      <fo:block>
-        <xsl:value-of select="$party/Street" />
-      </fo:block>
-      <fo:block>
-        <xsl:value-of select="concat($party/ZipCode, ' ', $party/City, ', ', $party/Country)" />
-      </fo:block>
+      
+      <!-- Use FormatAddress template for country-specific address formatting -->
+      <xsl:call-template name="FormatAddress">
+        <xsl:with-param name="party" select="$party" />
+      </xsl:call-template>
+      
       <xsl:if test="$party/Email">
         <fo:block>
           <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
@@ -1290,5 +1290,344 @@
   <xsl:template name="AddWordWrapBreaks">
     <xsl:param name="text" />
     <xsl:value-of select="replace($text, '(\s)', '$1&#x00AD;')"/>
+  </xsl:template>
+
+  <!-- Template for country-specific address formatting -->
+  <xsl:template name="FormatAddress">
+    <xsl:param name="party" />
+    
+    <!-- Determine country code -->
+    <xsl:variable name="countryCode" select="$party/Country" />
+    
+    <xsl:choose>
+      <!-- United States Format -->
+      <xsl:when test="$countryCode = 'US'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, State ZIP -->
+        <fo:block>
+          <xsl:value-of select="$party/City" />
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Canada Format (similar to US) -->
+      <xsl:when test="$countryCode = 'CA'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, Province ZIP -->
+        <fo:block>
+          <xsl:value-of select="$party/City" />
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Japan Format -->
+      <xsl:when test="$countryCode = 'JP'">
+        <!-- Postal code with 〒 symbol -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block>
+            <xsl:text>〒</xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
+        </xsl:if>
+        <!-- Prefecture City District -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:if test="$party/StateProvince">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/District">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/District" />
+          </xsl:if>
+        </fo:block>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- China Format -->
+      <xsl:when test="$countryCode = 'CN'">
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <!-- Postal code -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Province City District -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:if test="$party/StateProvince">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/District">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/District" />
+          </xsl:if>
+        </fo:block>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+      </xsl:when>
+      
+      <!-- United Kingdom Format -->
+      <xsl:when test="$countryCode = 'GB'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- Postal code -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Australia Format -->
+      <xsl:when test="$countryCode = 'AU'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Brazil Format -->
+      <xsl:when test="$countryCode = 'BR'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- ZIP City - State -->
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- India Format -->
+      <xsl:when test="$countryCode = 'IN'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- City - ZIP -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- State -->
+        <xsl:if test="$party/StateProvince">
+          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- South Korea Format -->
+      <xsl:when test="$countryCode = 'KR'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District City -->
+        <fo:block>
+          <xsl:if test="$party/District">
+            <xsl:value-of select="$party/District" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <!-- State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Mexico Format -->
+      <xsl:when test="$countryCode = 'MX'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, State -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+        </fo:block>
+        <!-- ZIP -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Russia Format -->
+      <xsl:when test="$countryCode = 'RU'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Netherlands and EU Format -->
+      <xsl:when test="$countryCode = 'NL' or $countryCode = 'DE' or $countryCode = 'FR' or $countryCode = 'IT' or $countryCode = 'ES' or $countryCode = 'AT' or $countryCode = 'BE' or $countryCode = 'CH'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- ZIP City -->
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Default/Fallback Format -->
+      <xsl:otherwise>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- State/Province -->
+        <xsl:if test="$party/StateProvince">
+          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+        </xsl:if>
+        <!-- ZIP -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
