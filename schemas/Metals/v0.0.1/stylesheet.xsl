@@ -40,6 +40,7 @@
               <fo:table-column column-width="50%" />
               <fo:table-column column-width="50%" />
               <fo:table-body>
+                <!-- Row 1: Logo and Manufacturer -->
                 <fo:table-row>
                   <fo:table-cell number-columns-spanned="1" padding-bottom="{$logoPaddingBottom}">
                     <fo:block>
@@ -56,16 +57,99 @@
                     <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
+                
+                <!-- Row 2: Customer and next party (Subcustomer, GoodsReceiver, or CertificateReceiver) -->
                 <fo:table-row>
                   <xsl:call-template name="PartyInfo">
                     <xsl:with-param name="title" select="'Customer'" />
                     <xsl:with-param name="party" select="$dmp/TransactionData/Parties/Customer" />
                     <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
-                  <fo:table-cell>
-                    <fo:block/>
-                  </fo:table-cell>
+                  <xsl:choose>
+                    <xsl:when test="$dmp/TransactionData/Parties/Subcustomer">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Subcustomer'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/Subcustomer" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$dmp/TransactionData/Parties/GoodsReceiver">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Goods Receiver'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/GoodsReceiver" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="$dmp/TransactionData/Parties/CertificateReceiver">
+                      <xsl:call-template name="PartyInfo">
+                        <xsl:with-param name="title" select="'Certificate Receiver'" />
+                        <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                      </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <fo:table-cell>
+                        <fo:block/>
+                      </fo:table-cell>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </fo:table-row>
+                
+                <!-- Row 3: Additional parties if 4+ parties exist -->
+                <xsl:variable name="hasSubcustomer" select="boolean($dmp/TransactionData/Parties/Subcustomer)" />
+                <xsl:variable name="hasGoodsReceiver" select="boolean($dmp/TransactionData/Parties/GoodsReceiver)" />
+                <xsl:variable name="hasCertificateReceiver" select="boolean($dmp/TransactionData/Parties/CertificateReceiver)" />
+                <xsl:variable name="partyCount" select="2 + number($hasSubcustomer) + number($hasGoodsReceiver) + number($hasCertificateReceiver)" />
+                
+                <xsl:if test="$partyCount >= 4">
+                  <fo:table-row>
+                    <!-- Row 3 Col 1: Third party -->
+                    <xsl:choose>
+                      <xsl:when test="$hasSubcustomer and $hasGoodsReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Goods Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/GoodsReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:when test="$hasSubcustomer and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:when test="$hasGoodsReceiver and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <fo:table-cell>
+                          <fo:block/>
+                        </fo:table-cell>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                    
+                    <!-- Row 3 Col 2: Fourth party -->
+                    <xsl:choose>
+                      <xsl:when test="$hasSubcustomer and $hasGoodsReceiver and $hasCertificateReceiver">
+                        <xsl:call-template name="PartyInfo">
+                          <xsl:with-param name="title" select="'Certificate Receiver'" />
+                          <xsl:with-param name="party" select="$dmp/TransactionData/Parties/CertificateReceiver" />
+                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+                        </xsl:call-template>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <fo:table-cell>
+                          <fo:block/>
+                        </fo:table-cell>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
             
@@ -113,101 +197,73 @@
               <xsl:with-param name="title" select="'Business Transaction'" />
             </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
-              <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="20%" />
               <fo:table-body>
                 <fo:table-row>
-                  <fo:table-cell padding-right="12pt">
-                    <xsl:call-template name="SectionTitleSmall">
-                      <xsl:with-param name="title" select="'Order'" />
-                    </xsl:call-template>
-                    <fo:table table-layout="fixed" width="100%">
-                      <fo:table-column column-width="70%" />
-                      <fo:table-column column-width="30%" />
-                      <fo:table-body>
-                        <fo:table-row>
-                          <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Order ID'" />
-                            <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Id" />
-                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                          </xsl:call-template>
-                        </fo:table-row>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Position">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Position'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Position" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Date">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Date'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Date" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Quantity">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Quantity'" />
-                              <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Order/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Order/QuantityUnit)" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                      </fo:table-body>
-                    </fo:table>
+                  <fo:table-cell number-columns-spanned="2">
+                    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Order</fo:block>
                   </fo:table-cell>
-                  <fo:table-cell>
-                    <xsl:call-template name="SectionTitleSmall">
-                      <xsl:with-param name="title" select="'Delivery'" />
-                    </xsl:call-template>
-                    <fo:table table-layout="fixed" width="100%">
-                      <fo:table-column column-width="70%" />
-                      <fo:table-column column-width="30%" />
-                      <fo:table-body>
-                        <fo:table-row>
-                          <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Delivery ID'" />
-                            <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Id" />
-                            <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                          </xsl:call-template>
-                        </fo:table-row>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Position">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Position'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Position" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Date">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Date'" />
-                              <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Date" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                        <xsl:if test="$dmp/TransactionData/BusinessTransaction/Delivery/Quantity">
-                          <fo:table-row>
-                            <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Quantity'" />
-                              <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Delivery/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Delivery/QuantityUnit)" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </fo:table-row>
-                        </xsl:if>
-                      </fo:table-body>
-                    </fo:table>
+                  <fo:table-cell number-columns-spanned="2">
+                    <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Delivery</fo:block>
                   </fo:table-cell>
                 </fo:table-row>
+                <fo:table-row>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="'Order ID'" />
+                    <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="'Delivery ID'" />
+                    <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                </fo:table-row>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Position or $dmp/TransactionData/BusinessTransaction/Delivery/Position">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Position'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Position" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Position'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Position" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Date or $dmp/TransactionData/BusinessTransaction/Delivery/Date">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Order/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Delivery/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Order/Quantity or $dmp/TransactionData/BusinessTransaction/Delivery/Quantity">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Quantity'" />
+                      <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Order/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Order/QuantityUnit)" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Quantity'" />
+                      <xsl:with-param name="value" select="concat($dmp/TransactionData/BusinessTransaction/Delivery/Quantity, ' ', $dmp/TransactionData/BusinessTransaction/Delivery/QuantityUnit)" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
             
@@ -1115,12 +1171,12 @@
       <fo:block font-weight="bold" padding-bottom="{$paddingBottom}">
         <xsl:value-of select="$party/Name" />
       </fo:block>
-      <fo:block>
-        <xsl:value-of select="$party/Street" />
-      </fo:block>
-      <fo:block>
-        <xsl:value-of select="concat($party/ZipCode, ' ', $party/City, ', ', $party/Country)" />
-      </fo:block>
+      
+      <!-- Use FormatAddress template for country-specific address formatting -->
+      <xsl:call-template name="FormatAddress">
+        <xsl:with-param name="party" select="$party" />
+      </xsl:call-template>
+      
       <xsl:if test="$party/Email">
         <fo:block>
           <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
@@ -1318,5 +1374,344 @@
   <xsl:template name="AddWordWrapBreaks">
     <xsl:param name="text" />
     <xsl:value-of select="replace($text, '(\s)', '$1&#x00AD;')"/>
+  </xsl:template>
+
+  <!-- Template for country-specific address formatting -->
+  <xsl:template name="FormatAddress">
+    <xsl:param name="party" />
+    
+    <!-- Determine country code -->
+    <xsl:variable name="countryCode" select="$party/Country" />
+    
+    <xsl:choose>
+      <!-- United States Format -->
+      <xsl:when test="$countryCode = 'US'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, State ZIP -->
+        <fo:block>
+          <xsl:value-of select="$party/City" />
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Canada Format (similar to US) -->
+      <xsl:when test="$countryCode = 'CA'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, Province ZIP -->
+        <fo:block>
+          <xsl:value-of select="$party/City" />
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Japan Format -->
+      <xsl:when test="$countryCode = 'JP'">
+        <!-- Postal code with 〒 symbol -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block>
+            <xsl:text>〒</xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
+        </xsl:if>
+        <!-- Prefecture City District -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:if test="$party/StateProvince">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/District">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/District" />
+          </xsl:if>
+        </fo:block>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- China Format -->
+      <xsl:when test="$countryCode = 'CN'">
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <!-- Postal code -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Province City District -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:if test="$party/StateProvince">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/District">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/District" />
+          </xsl:if>
+        </fo:block>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+      </xsl:when>
+      
+      <!-- United Kingdom Format -->
+      <xsl:when test="$countryCode = 'GB'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- Postal code -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Australia Format -->
+      <xsl:when test="$countryCode = 'AU'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Brazil Format -->
+      <xsl:when test="$countryCode = 'BR'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- ZIP City - State -->
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- India Format -->
+      <xsl:when test="$countryCode = 'IN'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- City - ZIP -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- State -->
+        <xsl:if test="$party/StateProvince">
+          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- South Korea Format -->
+      <xsl:when test="$countryCode = 'KR'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District City -->
+        <fo:block>
+          <xsl:if test="$party/District">
+            <xsl:value-of select="$party/District" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <!-- State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Mexico Format -->
+      <xsl:when test="$countryCode = 'MX'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City, State -->
+        <fo:block>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+          <xsl:if test="$party/StateProvince">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+        </fo:block>
+        <!-- ZIP -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Russia Format -->
+      <xsl:when test="$countryCode = 'RU'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- State ZIP -->
+        <fo:block>
+          <xsl:if test="$party/StateProvince">
+            <xsl:value-of select="$party/StateProvince" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Netherlands and EU Format -->
+      <xsl:when test="$countryCode = 'NL' or $countryCode = 'DE' or $countryCode = 'FR' or $countryCode = 'IT' or $countryCode = 'ES' or $countryCode = 'AT' or $countryCode = 'BE' or $countryCode = 'CH'">
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- ZIP City -->
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:when>
+      
+      <!-- Default/Fallback Format -->
+      <xsl:otherwise>
+        <!-- Street lines -->
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <!-- District (if present) -->
+        <xsl:if test="$party/District">
+          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+        </xsl:if>
+        <!-- City -->
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <!-- State/Province -->
+        <xsl:if test="$party/StateProvince">
+          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+        </xsl:if>
+        <!-- ZIP -->
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <!-- Country -->
+        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>

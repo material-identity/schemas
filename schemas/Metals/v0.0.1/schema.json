@@ -414,23 +414,39 @@
       "properties": {
         "Name": {
           "description": "The legal name of the organization.",
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
         },
         "Street": {
           "description": "The address of the organization.",
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
           },
           "minItems": 1,
-          "maxItems": 3
+          "maxItems": 5
         },
-        "ZipCode": {
-          "description": "The postal or ZIP code.",
-          "type": "string"
+        "District": {
+          "description": "The district, borough, or sub-city administrative division. Required for addresses in Japan (ku/shi), China (district), South Korea (gu), and urban areas of India.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
         },
         "City": {
           "description": "The city name.",
+          "type": "string"
+        },
+        "StateProvince": {
+          "description": "The state, province, region, or primary administrative division. Format varies by country: 2-letter codes for US/CA, full names for others.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "ZipCode": {
+          "description": "The postal or ZIP code.",
           "type": "string"
         },
         "Country": {

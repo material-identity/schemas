@@ -38,6 +38,24 @@
           "Identifiers": {
             "VAT": "GB987654321"
           }
+        },
+        "Subcustomer": {
+          "Name": "American Heavy Industries Inc.",
+          "Street": ["5000 Industrial Blvd", "Building C"],
+          "City": "Detroit",
+          "StateProvince": "MI",
+          "ZipCode": "48201",
+          "Country": "US",
+          "Email": "materials@heavyind.example.com"
+        },
+        "GoodsReceiver": {
+          "Name": "Canadian Construction Corp",
+          "Street": ["777 Construction Ave"],
+          "City": "Toronto",
+          "StateProvince": "ON", 
+          "ZipCode": "M5H 2N2",
+          "Country": "CA",
+          "Email": "logistics@canconstruct.example.ca"
         }
       },
       "BusinessTransaction": {
