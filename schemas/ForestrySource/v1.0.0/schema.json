@@ -529,6 +529,12 @@
           "format": "uuid",
           "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
+        "Date": {
+          "description": "The DMP issuing date.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2018-12-12"]
+        },
         "GeneralInformation": {
           "description": "",
           "$ref": "#/definitions/GeneralInformation"
@@ -593,6 +599,7 @@
       "required": [
         "Languages",
         "Id",
+        "Date",
         "GeneralInformation",
         "HarvestUnits",
         "Supplier",
