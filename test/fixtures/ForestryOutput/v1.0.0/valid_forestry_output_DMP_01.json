@@ -18,15 +18,19 @@
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
         },
+        "Measurements": {
+          "NetWeight": {
+            "Value": 60000,
+            "Unit": "kg"
+          }
+        },
       "ListOfSpecies": [
         {
           "CommonName": "English Oak",
           "ScientificName": {
             "Genus": "Quercus",
             "Species": "robur"
-          },
-          "Quantity": 100,
-          "QuantityUnit": "m³"
+          }
         }
       ]
     }],

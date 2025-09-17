@@ -194,6 +194,47 @@
                   </xsl:if>
                 </fo:table-body>
               </fo:table>
+
+              <!-- Product Measurements -->
+              <xsl:if test="exists(Measurements)">
+                <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
+                  <xsl:value-of select="$i18n/DigitalMaterialPassport/Measurements" />
+                </fo:block>
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-body>
+                    <xsl:if test="exists(Measurements/Volume)">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Volume" />
+                          <xsl:with-param name="value" select="concat(Measurements/Volume/Value, ' ', Measurements/Volume/Unit)" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                    <xsl:if test="exists(Measurements/NetWeight)">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/NetWeight" />
+                          <xsl:with-param name="value" select="concat(Measurements/NetWeight/Value, ' ', Measurements/NetWeight/Unit)" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                    <xsl:if test="exists(Measurements/SupplementaryUnit)">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/SupplementaryUnit" />
+                          <xsl:with-param name="value" select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+
               <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
                 <xsl:value-of select="$i18n/DigitalMaterialPassport/ListOfSpecies" />
               </fo:block>
@@ -204,7 +245,6 @@
                   <xsl:with-param name="ScientificNameTranslation" select="$i18n/DigitalMaterialPassport/ScientificName" />
                   <xsl:with-param name="GenusTranslation" select="$i18n/DigitalMaterialPassport/Genus" />
                   <xsl:with-param name="SpeciesTranslation" select="$i18n/DigitalMaterialPassport/Species" />
-                  <xsl:with-param name="QuantityTranslation" select="$i18n/DigitalMaterialPassport/Quantity" />
                   <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                 </xsl:call-template>
               </xsl:if>
@@ -593,14 +633,12 @@
   <xsl:param name="CommonNameTranslation" />
   <xsl:param name="ScientificNameTranslation" />
   <xsl:param name="GenusTranslation" />
-  <xsl:param name="QuantityTranslation" />
   <xsl:param name="SpeciesTranslation" />
   <xsl:param name="paddingBottom" select="'6pt'" />
 
   <fo:table table-layout="fixed" width="100%">
-    <fo:table-column column-width="33.3%" />
-    <fo:table-column column-width="33.3%" />
-    <fo:table-column column-width="33.3%" />
+    <fo:table-column column-width="50%" />
+    <fo:table-column column-width="50%" />
     <fo:table-body>
       <!-- Headers -->
       <fo:table-row>
@@ -612,11 +650,6 @@
         <fo:table-cell>
           <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
             <xsl:value-of select="$ScientificNameTranslation" />
-          </fo:block>
-        </fo:table-cell>
-        <fo:table-cell>
-          <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
-            <xsl:value-of select="$QuantityTranslation" />
           </fo:block>
         </fo:table-cell>
       </fo:table-row>
@@ -631,11 +664,6 @@
           <fo:table-cell>
             <fo:block>
               <xsl:value-of select="concat(ScientificName/Genus, ' ', ScientificName/Species)" />
-            </fo:block>
-          </fo:table-cell>
-          <fo:table-cell>
-            <fo:block>
-              <xsl:value-of select="concat(Quantity, ' ', QuantityUnit)" />
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
