@@ -65,8 +65,12 @@
               "Genus": "Handroanthus",
               "Species": "impetiginosus"
             },
-            "Quantity": 35.5,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "SupplementaryUnit": {
+                "Value": 150,
+                "Unit": "BDT"
+              }
+            }
           }
         ]
       }

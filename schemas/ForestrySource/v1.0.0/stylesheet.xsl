@@ -418,7 +418,6 @@
                 <xsl:with-param name="ScientificNameTranslation" select="$i18n/DigitalMaterialPassport/ScientificName" />
                 <xsl:with-param name="GenusTranslation" select="$i18n/DigitalMaterialPassport/Genus" />
                 <xsl:with-param name="SpeciesTranslation" select="$i18n/DigitalMaterialPassport/Species" />
-                <xsl:with-param name="QuantityTranslation" select="$i18n/DigitalMaterialPassport/Quantity" />
                 <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
               </xsl:call-template>
             </xsl:for-each>
@@ -657,7 +656,6 @@
     <xsl:param name="CommonNameTranslation" />
     <xsl:param name="ScientificNameTranslation" />
     <xsl:param name="GenusTranslation" />
-    <xsl:param name="QuantityTranslation" />
     <xsl:param name="SpeciesTranslation" />
     <xsl:param name="paddingBottom" select="'6pt'" />
 
@@ -680,7 +678,7 @@
           </fo:table-cell>
           <fo:table-cell>
             <fo:block font-style="italic" padding-bottom="{$paddingBottom}">
-              <xsl:value-of select="$QuantityTranslation" />
+              Measurements
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
@@ -699,7 +697,15 @@
             </fo:table-cell>
             <fo:table-cell>
               <fo:block>
-                <xsl:value-of select="concat(Quantity, ' ', QuantityUnit)" />
+                <xsl:if test="Measurements/Volume">
+                  <fo:block>Volume: <xsl:value-of select="concat(Measurements/Volume/Value, ' ', Measurements/Volume/Unit)" /></fo:block>
+                </xsl:if>
+                <xsl:if test="Measurements/NetWeight">
+                  <fo:block>Net Weight: <xsl:value-of select="concat(Measurements/NetWeight/Value, ' ', Measurements/NetWeight/Unit)" /></fo:block>
+                </xsl:if>
+                <xsl:if test="Measurements/SupplementaryUnit">
+                  <fo:block>Supplementary: <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" /></fo:block>
+                </xsl:if>
               </fo:block>
             </fo:table-cell>
           </fo:table-row>

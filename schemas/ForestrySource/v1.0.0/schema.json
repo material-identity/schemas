@@ -444,17 +444,11 @@
           "required": ["Genus", "Species"],
           "additionalProperties": false
         },
-        "Quantity": {
-          "type": "number",
-          "description": "The quantity of the species in the product"
-        },
-        "QuantityUnit": {
-          "type": "string",
-          "description": "The unit of the quantity",
-          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
+        "Measurements": {
+          "$ref": "#/definitions/Measurements"
         }
       },
-      "required": ["CommonName", "ScientificName", "Quantity", "QuantityUnit"]
+      "required": ["CommonName", "ScientificName", "Measurements"]
     },
     "Measurements": {
       "type": "object",
