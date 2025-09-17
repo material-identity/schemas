@@ -71,6 +71,31 @@
               </fo:table-body>
             </fo:table>
 
+            <!-- DMP info -->
+            <xsl:call-template name="SectionTitle">
+              <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DigitalMaterialPassport" />
+            </xsl:call-template>
+            <fo:table table-layout="fixed" width="100%">
+              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="50%" />
+              <fo:table-body>
+                <fo:table-row>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Id" />
+                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Id" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                </fo:table-row>
+                <fo:table-row>
+                  <xsl:call-template name="KeyValue">
+                    <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Date" />
+                    <xsl:with-param name="value" select="Root/DigitalMaterialPassport/Date" />
+                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                  </xsl:call-template>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+
             <!-- General Information -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/GeneralInformation" />
