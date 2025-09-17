@@ -289,6 +289,75 @@
       },
       "required": ["CommonName", "ScientificName", "Quantity", "QuantityUnit"]
     },
+    "Measurements": {
+      "type": "object",
+      "properties": {
+        "Volume": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Volume measurement value"
+            },
+            "Unit": {
+              "type": "string",
+              "const": "m³",
+              "description": "Volume unit (cubic meters)"
+            }
+          },
+          "required": ["Value", "Unit"],
+          "additionalProperties": false
+        },
+        "NetWeight": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Net weight measurement value - required for customs documentation"
+            },
+            "Unit": {
+              "type": "string",
+              "const": "kg",
+              "description": "Net weight unit (kilograms) - universal customs requirement"
+            }
+          },
+          "required": ["Value", "Unit"],
+          "additionalProperties": false
+        },
+        "SupplementaryUnit": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Supplementary unit measurement value - for industry-specific business operations"
+            },
+            "Unit": {
+              "type": "string",
+              "enum": [
+                "m²",
+                "m³",
+                "GT",
+                "BDU",
+                "BDMT",
+                "BDT",
+                "ton (short)",
+                "tonne",
+                "ton (long)",
+                "MFBM (thousand; Scribner)",
+                "MBF"
+              ],
+              "description": "Supplementary measurement unit for business-specific needs"
+            }
+          },
+          "required": ["Value", "Unit"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "Product": {
       "title": "Product",
       "description": "A product made from the harvested wood.",
