@@ -1,7 +1,7 @@
 {
   "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
   "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "$id": "https://schemas.s1seven.com/forestry-output-schemas/v1.0.0/schema.json",
+  "$id": "https://schemas.materialidentity.org/forestry-output-schemas/v1.0.0/schema.json",
   "definitions": {
     "Languages": {
       "allOf": [
@@ -276,18 +276,9 @@
           },
           "required": ["Genus", "Species"],
           "additionalProperties": false
-        },
-        "Quantity": {
-          "type": "number",
-          "description": "The quantity of the species in the product"
-        },
-        "QuantityUnit": {
-          "type": "string",
-          "description": "The unit of the quantity",
-          "examples": ["kg", "l", "m", "m²", "m³", "t", "tonne", "piece"]
         }
       },
-      "required": ["CommonName", "ScientificName", "Quantity", "QuantityUnit"]
+      "required": ["CommonName", "ScientificName"]
     },
     "Measurements": {
       "type": "object",
@@ -393,6 +384,9 @@
           },
           "required": ["StartDate", "EndDate"]
         },
+        "Measurements": {
+          "$ref": "#/definitions/Measurements"
+        },
         "ListOfSpecies": {
           "description": "The species used in the product",
           "type": "array",
@@ -402,7 +396,8 @@
           "uniqueItems": true,
           "minItems": 1
         }
-      }
+      },
+      "required": ["Measurements"]
     },
     "PurchaseOrder": {
       "title": "PurchaseOrder",
