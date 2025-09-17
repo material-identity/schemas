@@ -199,8 +199,20 @@
               "Genus": "Shorea",
               "Species": "acuminata"
             },
-            "Quantity": 450.75,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "Volume": {
+                "Value": 450.75,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 270450,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 1200,
+                "Unit": "MBF"
+              }
+            }
           },
           {
             "CommonName": "Keruing",
@@ -208,8 +220,20 @@
               "Genus": "Dipterocarpus",
               "Species": "grandiflorus"
             },
-            "Quantity": 325.5,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "Volume": {
+                "Value": 325.5,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 195300,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 850,
+                "Unit": "MBF"
+              }
+            }
           }
         ]
       },
@@ -228,8 +252,20 @@
               "Genus": "Shorea",
               "Species": "acuminata"
             },
-            "Quantity": 225.25,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "Volume": {
+                "Value": 225.25,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 135150,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 600,
+                "Unit": "MBF"
+              }
+            }
           }
         ]
       }

@@ -77,8 +77,12 @@
               "Genus": "Pseudotsuga",
               "Species": "menziesii"
             },
-            "Quantity": 500,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "NetWeight": {
+                "Value": 300000,
+                "Unit": "kg"
+              }
+            }
           }
         ]
       },
@@ -97,8 +101,12 @@
               "Genus": "Tsuga",
               "Species": "heterophylla"
             },
-            "Quantity": 200,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "NetWeight": {
+                "Value": 120000,
+                "Unit": "kg"
+              }
+            }
           }
         ]
       }

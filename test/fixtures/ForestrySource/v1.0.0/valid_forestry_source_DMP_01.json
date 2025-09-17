@@ -49,8 +49,12 @@
               "Genus": "Pseudotsuga",
               "Species": "menziesii"
             },
-            "Quantity": 500,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "Volume": {
+                "Value": 500,
+                "Unit": "m³"
+              }
+            }
           }
         ]
       }
