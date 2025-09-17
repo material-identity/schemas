@@ -52,15 +52,23 @@
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-20"
         },
+        "Measurements": {
+          "NetWeight": {
+            "Value": 12500,
+            "Unit": "kg"
+          },
+          "SupplementaryUnit": {
+            "Value": 2500,
+            "Unit": "m²"
+          }
+        },
         "ListOfSpecies": [
           {
             "CommonName": "Silver Birch",
             "ScientificName": {
               "Genus": "Betula",
               "Species": "pendula"
-            },
-            "Quantity": 2500,
-            "QuantityUnit": "m²"
+            }
           }
         ]
       }

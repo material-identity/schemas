@@ -52,24 +52,30 @@
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
         },
+        "Measurements": {
+          "Volume": {
+            "Value": 500,
+            "Unit": "m³"
+          },
+          "NetWeight": {
+            "Value": 300000,
+            "Unit": "kg"
+          }
+        },
         "ListOfSpecies": [
           {
             "CommonName": "English Oak",
             "ScientificName": {
               "Genus": "Quercus",
               "Species": "robur"
-            },
-            "Quantity": 300,
-            "QuantityUnit": "m³"
+            }
           },
           {
             "CommonName": "Sessile Oak",
             "ScientificName": {
               "Genus": "Quercus",
               "Species": "petraea"
-            },
-            "Quantity": 200,
-            "QuantityUnit": "m³"
+            }
           }
         ]
       },
@@ -81,24 +87,34 @@
           "StartDate": "2024-07-16",
           "EndDate": "2024-07-30"
         },
+        "Measurements": {
+          "Volume": {
+            "Value": 375,
+            "Unit": "m³"
+          },
+          "NetWeight": {
+            "Value": 225000,
+            "Unit": "kg"
+          },
+          "SupplementaryUnit": {
+            "Value": 1000,
+            "Unit": "MBF"
+          }
+        },
         "ListOfSpecies": [
           {
             "CommonName": "American Black Cherry",
             "ScientificName": {
               "Genus": "Prunus",
               "Species": "serotina"
-            },
-            "Quantity": 250,
-            "QuantityUnit": "m³"
+            }
           },
           {
             "CommonName": "Hard Maple",
             "ScientificName": {
               "Genus": "Acer",
               "Species": "saccharum"
-            },
-            "Quantity": 250,
-            "QuantityUnit": "m³"
+            }
           }
         ]
       }
