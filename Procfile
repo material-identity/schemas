@@ -1,0 +1,1 @@
+web: java -jar target/schema-service-1.0-SNAPSHOT.jar
