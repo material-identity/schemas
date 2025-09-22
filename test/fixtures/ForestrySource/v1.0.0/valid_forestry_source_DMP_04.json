@@ -53,7 +53,7 @@
       {
         "ProductType": "Sawn Timber",
         "DescriptionOfProduct": "Kiln-dried hardwood boards",
-        "HTSCode": "4407.29.01",
+        "HSCode": "4407.29.01",
         "ProductionPeriod": {
           "StartDate": "2024-04-15",
           "EndDate": "2024-04-30"
@@ -68,7 +68,8 @@
             "Measurements": {
               "SupplementaryUnit": {
                 "Value": 150,
-                "Unit": "BDT"
+                "Unit": "BDT",
+                "DisplayUnit": "Bone Dry Tonnes"
               }
             }
           }

@@ -187,7 +187,7 @@
       {
         "ProductType": "Hardwood Logs",
         "DescriptionOfProduct": "Raw logs of tropical hardwood species",
-        "HTSCode": "4403.49.01",
+        "HSCode": "4403.49.01",
         "ProductionPeriod": {
           "StartDate": "2025-03-15",
           "EndDate": "2025-04-30"
@@ -210,7 +210,8 @@
               },
               "SupplementaryUnit": {
                 "Value": 1200,
-                "Unit": "MBF"
+                "Unit": "MBF",
+                "DisplayUnit": "Thousand Board Feet"
               }
             }
           },
@@ -231,7 +232,8 @@
               },
               "SupplementaryUnit": {
                 "Value": 850,
-                "Unit": "MBF"
+                "Unit": "MBF",
+                "DisplayUnit": "Thousand Board Feet"
               }
             }
           }
@@ -240,7 +242,7 @@
       {
         "ProductType": "Sawn Timber",
         "DescriptionOfProduct": "Mill-cut boards from tropical hardwood",
-        "HTSCode": "4407.29.01",
+        "HSCode": "4407.29.01",
         "ProductionPeriod": {
           "StartDate": "2025-04-01",
           "EndDate": "2025-05-15"
@@ -263,7 +265,8 @@
               },
               "SupplementaryUnit": {
                 "Value": 600,
-                "Unit": "MBF"
+                "Unit": "MBF",
+                "DisplayUnit": "Thousand Board Feet"
               }
             }
           }
