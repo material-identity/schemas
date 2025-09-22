@@ -1,0 +1,369 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "Id": "DMP-METAL-006",
+    "Version": "1.0.0",
+    "IssueDate": "2025-05-18",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Logo": "data:image/png;base64,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",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Global Steel Trading Ltd.",
+          "Street": ["Commerce Way 789"],
+          "ZipCode": "2000",
+          "City": "Antwerp",
+          "Country": "BE",
+          "Email": "orders@globalsteel.example.com",
+          "Identifiers": {
+            "VAT": "BE0987654321"
+          }
+        },
+        "GoodsReceiver": {
+          "Name": "Global Steel Trading Ltd. - Rotterdam Warehouse",
+          "Street": ["Harbor District 45", "Pier 7"],
+          "ZipCode": "3089",
+          "City": "Rotterdam",
+          "Country": "NL"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-65478",
+          "Position": "1-10",
+          "Date": "2025-04-15",
+          "Quantity": 75000,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "STRUCTURAL-ASSORT"
+        },
+        "Delivery": {
+          "Id": "DN-98761",
+          "Position": "All",
+          "Date": "2025-05-17",
+          "Quantity": 75000,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-87432",
+          "Transport": ["VESSEL-MS-EUROPA", "CONTAINER-ACEU1234567"]
+        }
+      }
+    },
+    "Product": {
+      "Name": "Structural Steel S355J2+N - Various Shapes",
+      "ProductNorms": [
+        {
+          "Designation": "EN 10025-2",
+          "Year": "2019",
+          "Grade": "S355J2+N"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "EN",
+          "Designation": "1.0577"
+        }
+      ],
+      "BatchId": "H-79513-03",
+      "HeatTreatment": "Normalized",
+      "SurfaceCondition": "Hot-rolled",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Aachen Plant",
+      "ProductionDate": "2025-05-16",
+      "Weight": 75000,
+      "WeightUnit": "kg"
+    },
+    "ChemicalAnalysis": {
+      "MeltingProcess": "BOF+LF",
+      "HeatNumber": "H-79513",
+      "CastingDate": "2025-05-15",
+      "SampleLocation": "Ladle",
+      "SampleType": "Liquid",
+      "Elements": [
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.17
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.20
+          }
+        },
+        {
+          "PropertySymbol": "Mn",
+          "PropertyName": "Manganese",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.47
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 1.60
+          }
+        },
+        {
+          "PropertySymbol": "Si",
+          "PropertyName": "Silicon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.50
+          }
+        },
+        {
+          "PropertySymbol": "P",
+          "PropertyName": "Phosphorus",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.017
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          }
+        },
+        {
+          "PropertySymbol": "S",
+          "PropertyName": "Sulphur",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.011
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.020
+          }
+        },
+        {
+          "PropertySymbol": "CEV",
+          "PropertyName": "Carbon Equivalent Value",
+          "Unit": "%",
+          "Formula": "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.42
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.45
+          }
+        }
+      ],
+      "AnalysisStandard": "EN 10204"
+    },
+    "MechanicalProperties": [
+      {
+        "PropertySymbol": "Rm",
+        "PropertyName": "Tensile Strength",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 525
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 470
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 630
+        }
+      },
+      {
+        "PropertySymbol": "ReH",
+        "PropertyName": "Yield Strength",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 385
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 355
+        }
+      },
+      {
+        "PropertySymbol": "A",
+        "PropertyName": "Elongation after fracture",
+        "Method": "EN ISO 6892-1",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 23
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 20
+        }
+      },
+      {
+        "PropertySymbol": "KV",
+        "PropertyName": "Charpy V-notch Impact Energy",
+        "Method": "EN ISO 148-1",
+        "TestConditions": "Test temperature: -20°C",
+        "Unit": "J",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 42
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 27
+        }
+      }
+    ],
+    "SupplementaryTests": [
+      {
+        "PropertyName": "Product Details - Item 1: IPE Beam",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "Beam", ""],
+            ["Height", "200", "mm"],
+            ["FlangeWidth", "100", "mm"],
+            ["FlangeThickness", "8.5", "mm"],
+            ["WebThickness", "5.6", "mm"],
+            ["Length", "12000", "mm"],
+            ["Quantity", "15", "pieces"],
+            ["Weight", "15000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Product Details - Item 2: HEA Beam",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "Beam", ""],
+            ["Height", "240", "mm"],
+            ["FlangeWidth", "240", "mm"],
+            ["FlangeThickness", "12", "mm"],
+            ["WebThickness", "7.5", "mm"],
+            ["Length", "8000", "mm"],
+            ["Quantity", "20", "pieces"],
+            ["Weight", "20000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Product Details - Item 3: Angle",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "Angle", ""],
+            ["Height", "100", "mm"],
+            ["Width", "100", "mm"],
+            ["Thickness", "10", "mm"],
+            ["Length", "6000", "mm"],
+            ["Quantity", "200", "pieces"],
+            ["Weight", "10000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Product Details - Item 4: Channel",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "Channel", ""],
+            ["Height", "140", "mm"],
+            ["FlangeWidth", "60", "mm"],
+            ["FlangeThickness", "8", "mm"],
+            ["WebThickness", "5", "mm"],
+            ["Length", "6000", "mm"],
+            ["Quantity", "125", "pieces"],
+            ["Weight", "10000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Product Details - Item 5: Round Bar",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "RoundBar", ""],
+            ["Diameter", "50", "mm"],
+            ["Length", "6000", "mm"],
+            ["Quantity", "100", "pieces"],
+            ["Weight", "10000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Product Details - Item 6: Hollow Section",
+        "Method": "Dimensional Inspection",
+        "Actual": {
+          "ResultType": "structuredArray",
+          "Parameters": ["Parameter", "Value", "Unit"],
+          "DataPoints": [
+            ["Form", "Hollow", ""],
+            ["Height", "150", "mm"],
+            ["Width", "100", "mm"],
+            ["WallThickness", "5", "mm"],
+            ["Length", "6000", "mm"],
+            ["Quantity", "80", "pieces"],
+            ["Weight", "10000", "kg"]
+          ]
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that all material described above has been manufactured and tested in accordance with the requirements of EN 10025-2:2019 and EN 10204:2004 type 3.1. The results comply with the requirements for S355J2+N steel grade.",
+        "Standards": ["EN 10025-2:2019", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-05-18",
+      "Validators": [
+        {
+          "Name": "Klaus Müller",
+          "Title": "Quality Control Manager",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

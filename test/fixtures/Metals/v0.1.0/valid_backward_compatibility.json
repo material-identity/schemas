@@ -1,0 +1,105 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-METAL-BACKWARD-001",
+    "Version": "1.0.0",
+    "IssueDate": "2025-08-21",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "European Steel GmbH",
+          "Street": ["Industriestraße 42"],
+          "ZipCode": "40235",
+          "City": "Düsseldorf",
+          "Country": "DE",
+          "Email": "info@eurosteel.example.de",
+          "Identifiers": {
+            "VAT": "DE987654321"
+          }
+        },
+        "Customer": {
+          "Name": "Nordic Construction AS",
+          "Street": ["Storgata 123", "2. etasje"],
+          "ZipCode": "0184",
+          "City": "Oslo",
+          "Country": "NO",
+          "Email": "orders@nordicconstruct.example.no"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-BACKWARD-001",
+          "Position": "1",
+          "Date": "2025-08-01",
+          "Quantity": 2500,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "STEEL-BEAM-NORDIC-001"
+        },
+        "Delivery": {
+          "Id": "DN-BACKWARD-001",
+          "Position": "1",
+          "Date": "2025-08-20",
+          "Quantity": 2500,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-BACKWARD-001"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Structural Steel S355J2+N",
+      "ProductNorms": [
+        {
+          "Designation": "EN 10025-2",
+          "Year": "2019",
+          "Grade": "S355J2+N"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "EN",
+          "Designation": "1.0577"
+        }
+      ],
+      "Shape": {
+        "Form": "Beam",
+        "Height": 300,
+        "Width": 150,
+        "WebThickness": 7.1,
+        "FlangeThickness": 10.7,
+        "Length": 12000,
+        "Unit": "mm"
+      },
+      "BatchId": "EU-S355-2025-BACK-001",
+      "HeatTreatment": "Normalized",
+      "SurfaceCondition": "Hot-rolled",
+      "CountryOfOrigin": "DE",
+      "ManufacturingLocation": "Düsseldorf Works",
+      "ProductionDate": "2025-08-18",
+      "Marking": "ES S355J2+N EU-S355-2025-BACK-001 CE",
+      "Quantity": 20,
+      "Weight": 2500,
+      "WeightUnit": "kg"
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "This certificate confirms that the steel products meet all specified requirements and quality standards.",
+        "Standards": ["EN 10025-2:2019"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-08-21",
+      "Validators": [
+        {
+          "Name": "Klaus Weber",
+          "Title": "Quality Inspector",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Düsseldorf, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

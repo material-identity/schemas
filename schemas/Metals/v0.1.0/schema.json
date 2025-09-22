@@ -1,0 +1,1284 @@
+{
+  "meta:license": ["Copyright 2025 S1Seven Gmbh. All rights reserved."],
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
+  "title": "Digital Material Passport Schema",
+  "description": "A comprehensive schema for Digital Material Passports that encapsulates information about metals",
+  "definitions": {
+    "NumericResult": {
+      "title": "NumericResult",
+      "description": "A numeric value with optional comparison operator",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "numeric"
+        },
+        "Value": {
+          "description": "The numeric value",
+          "type": "number"
+        },
+        "Operator": {
+          "description": "Comparison operator indicating how the value should be interpreted",
+          "type": "string",
+          "enum": ["=", "<", "<=", ">", ">="],
+          "default": "="
+        },
+        "Uncertainty": {
+          "description": "The measurement uncertainty (if applicable)",
+          "type": "number"
+        },
+        "SignificantDigits": {
+          "description": "Number of significant digits to maintain",
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "BooleanResult": {
+      "title": "BooleanResult",
+      "description": "A true/false or pass/fail result",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "Value": {
+          "description": "The boolean value",
+          "type": "boolean"
+        },
+        "Description": {
+          "description": "Textual description of the boolean result",
+          "type": "string"
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "StringResult": {
+      "title": "StringResult",
+      "description": "A textual result",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "string"
+        },
+        "Value": {
+          "description": "The string value",
+          "type": "string"
+        },
+        "AllowedValues": {
+          "description": "List of allowed values (for enumerated results)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["ResultType", "Value"]
+    },
+
+    "RangeResult": {
+      "title": "RangeResult",
+      "description": "A result expressed as a range from minimum to maximum",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "range"
+        },
+        "Minimum": {
+          "description": "The lower bound of the range",
+          "type": "number"
+        },
+        "Maximum": {
+          "description": "The upper bound of the range",
+          "type": "number"
+        },
+        "Inclusive": {
+          "description": "Whether the bounds are inclusive (true) or exclusive (false)",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": ["ResultType", "Minimum", "Maximum"]
+    },
+
+    "ArrayResult": {
+      "title": "ArrayResult",
+      "description": "A series of values typically representing a curve or multi-point measurement",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "array"
+        },
+        "Values": {
+          "description": "Array of numeric values",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "Parameters": {
+          "description": "Array of parameter values corresponding to the results",
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        },
+        "ParameterName": {
+          "description": "Name of the parameter being varied",
+          "type": "string"
+        },
+        "ParameterUnit": {
+          "description": "Unit of the parameter",
+          "type": "string"
+        }
+      },
+      "required": ["ResultType", "Values"]
+    },
+
+    "StructuredArrayResult": {
+      "title": "StructuredArrayResult",
+      "description": "A structured array with named parameters and their values",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "structuredArray"
+        },
+        "Parameters": {
+          "description": "Array of parameter names",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "ParameterUnits": {
+          "description": "Array of units for each parameter (optional)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DataPoints": {
+          "description": "Array of data points, each containing values for all parameters",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["ResultType", "Parameters", "DataPoints"]
+    },
+
+    "Result": {
+      "title": "Result",
+      "description": "Union type of all possible result types",
+      "oneOf": [
+        { "$ref": "#/definitions/NumericResult" },
+        { "$ref": "#/definitions/BooleanResult" },
+        { "$ref": "#/definitions/StringResult" },
+        { "$ref": "#/definitions/RangeResult" },
+        { "$ref": "#/definitions/ArrayResult" },
+        { "$ref": "#/definitions/StructuredArrayResult" }
+      ]
+    },
+
+    "Measurement": {
+      "title": "Measurement",
+      "description": "A measurement with property metadata, actual result, and specification limits",
+      "type": "object",
+      "properties": {
+        "PropertyId": {
+          "description": "The identifier of the property according to a standard catalog (if applicable)",
+          "type": "string"
+        },
+        "PropertyName": {
+          "description": "The descriptive name of the property being measured (human-readable)",
+          "type": "string",
+          "examples": [
+            "Tensile Strength",
+            "Zugfestigkeit",
+            "Résistance à la traction"
+          ]
+        },
+        "PropertySymbol": {
+          "description": "The standardized technical symbol for the property",
+          "type": "string",
+          "examples": ["Rm", "Re", "A", "HB"]
+        },
+        "Method": {
+          "description": "The testing method or standard used",
+          "type": "string",
+          "examples": ["EN ISO 6892-1", "ASTM E8", "EN 10204"]
+        },
+        "Unit": {
+          "description": "The unit of measurement",
+          "type": "string"
+        },
+        "TestConditions": {
+          "description": "The conditions under which the test was performed",
+          "type": "string"
+        },
+        "Actual": {
+          "description": "The actual measured or calculated result",
+          "$ref": "#/definitions/Result"
+        },
+        "Minimum": {
+          "description": "The lower specification limit",
+          "$ref": "#/definitions/Result"
+        },
+        "Maximum": {
+          "description": "The upper specification limit",
+          "$ref": "#/definitions/Result"
+        },
+        "Target": {
+          "description": "The target or nominal value",
+          "$ref": "#/definitions/Result"
+        },
+        "PropertiesStandard": {
+          "description": "Reference to the standard catalog for property definitions",
+          "type": "string",
+          "examples": ["CAMPUS"]
+        },
+        "Interpretation": {
+          "description": "Interpretation of the result (e.g., 'In Specification', 'Out of Specification')",
+          "type": "string",
+          "enum": [
+            "In Specification",
+            "Out of Specification",
+            "Conditionally Acceptable",
+            "Not Evaluated"
+          ]
+        },
+        "Formula": {
+          "description": "For calculated values, this field provides the formula definition",
+          "type": "string",
+          "examples": [
+            "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+            "C+Si/30+(Mn+Cu+Cr)/20+Ni/60+Mo/15+V/10+5B"
+          ]
+        }
+      },
+      "required": [ "Actual"],
+      "additionalProperties": false
+    },
+
+    "ChemicalElement": {
+      "title": "ChemicalElement",
+      "type": "object",
+      "description": "The chemical composition of an element or formula in the product",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Measurement"
+        }
+      ]
+    },
+
+    "MeltingProcess": {
+      "title": "MeltingProcess",
+      "description": "The metallurgical process used for melting and refining",
+      "type": "string",
+      "examples": [
+        "BOF",
+        "EAF",
+        "VIM",
+        "VAR",
+        "ESR",
+        "BOF+LF",
+        "EAF+LF",
+        "EAF+LF+VD",
+        "EAF+AOD+LF"
+      ]
+    },
+
+    "ChemicalAnalysis": {
+      "title": "ChemicalAnalysis",
+      "description": "Complete chemical analysis of the material",
+      "type": "object",
+      "properties": {
+        "MeltingProcess": {
+          "$ref": "#/definitions/MeltingProcess"
+        },
+        "HeatNumber": {
+          "description": "The heat or melt number defining the chemical properties",
+          "type": "string"
+        },
+        "CastingDate": {
+          "description": "The date when the heat was cast",
+          "type": "string",
+          "format": "date"
+        },
+        "SampleLocation": {
+          "description": "The location where the chemical analysis sample was taken",
+          "type": "string",
+          "examples": ["Ladle", "Product", "1/4 thickness", "1/2 radius"]
+        },
+        "SampleType": {
+          "description": "The type of sample used for chemical analysis",
+          "type": "string",
+          "examples": ["Solid", "Liquid", "Drilling", "Milling"]
+        },
+        "Elements": {
+          "description": "The list of elements and their measured values",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChemicalElement"
+          },
+          "minItems": 1
+        },
+        "AnalysisStandard": {
+          "description": "The standard according to which the chemical analysis was performed",
+          "type": "string",
+          "examples": ["ASTM E1251", "ISO 10474", "EN 10204"]
+        }
+      },
+      "required": ["HeatNumber", "Elements"],
+      "additionalProperties": false
+    },
+
+    "Person": {
+      "title": "Person",
+      "description": "Representation of an individual contact person.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "The full name of the contact person"
+        },
+        "Role": {
+          "type": "string",
+          "description": "The role of the person in the business process, e.g. 'Quality Manager' or 'Acceptance Officer'"
+        },
+        "Department": {
+          "type": "string",
+          "description": "The department the person is associated with, e.g. 'Factory Production Control'"
+        },
+        "Email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the contact person"
+        },
+        "Phone": {
+          "type": "string",
+          "description": "The phone number of the contact person"
+        }
+      },
+      "required": ["Name", "Role"],
+      "additionalProperties": false
+    },
+
+    "CompanyIdentifiers": {
+      "title": "CompanyIdentifiers",
+      "description": "Unique identifiers for the organization.",
+      "type": "object",
+      "properties": {
+        "CageCode": {
+          "description": "The Commercial and Government Entity Code (CAGE), a unique identifier assigned to suppliers to government or defense agencies",
+          "type": "string",
+          "examples": ["N1950#"]
+        },
+        "VAT": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 15,
+          "description": "Value Added Tax identification number"
+        },
+        "DUNS": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "description": "Data Universal Numbering System identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Party": {
+      "title": "Party",
+      "description": "An organization or entity involved in the inspection certificate process.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "The legal name of the organization.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "Street": {
+          "description": "The address of the organization.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "District": {
+          "description": "The district, borough, or sub-city administrative division. Required for addresses in Japan (ku/shi), China (district), South Korea (gu), and urban areas of India.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "City": {
+          "description": "The city name.",
+          "type": "string"
+        },
+        "StateProvince": {
+          "description": "The state, province, region, or primary administrative division. Format varies by country: 2-letter codes for US/CA, full names for others.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "ZipCode": {
+          "description": "The postal or ZIP code.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according to ISO 3166-1 alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["DE", "FR", "US", "GB", "CN"]
+        },
+        "Email": {
+          "description": "The organization's primary email address for communications related to inspection certificates.",
+          "type": "string",
+          "format": "email"
+        },
+        "Logo": {
+          "description": "The organization's logo as a base64-encoded PNG image.",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "Identifiers": {
+          "$ref": "#/definitions/CompanyIdentifiers"
+        },
+        "Contacts": {
+          "description": "Contact persons associated with the organization.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      },
+      "required": ["Name", "Street", "ZipCode", "City", "Country"],
+      "additionalProperties": false
+    },
+
+    "Parties": {
+      "title": "Parties",
+      "description": "The parties and their roles in the business transaction.",
+      "type": "object",
+      "properties": {
+        "Manufacturer": {
+          "description": "The party manufacturing the goods and issuing the certificate.",
+          "$ref": "#/definitions/Party"
+        },
+        "Customer": {
+          "description": "The party purchasing the goods from the manufacturer.",
+          "$ref": "#/definitions/Party"
+        },
+        "Subcustomer": {
+          "description": "A secondary customer or end client for whom the Customer is purchasing the goods.",
+          "$ref": "#/definitions/Party"
+        },
+        "GoodsReceiver": {
+          "description": "The party receiving the physical goods, which may differ from the Customer (e.g., a warehouse, subsidiary, or freight forwarder).",
+          "$ref": "#/definitions/Party"
+        },
+        "CertificateReceiver": {
+          "description": "The party receiving the inspection certificate, which may differ from the Customer or GoodsReceiver.",
+          "$ref": "#/definitions/Party"
+        }
+      },
+      "required": ["Manufacturer", "Customer"],
+      "additionalProperties": false
+    },
+
+    "Order": {
+      "title": "Order",
+      "description": "Information about the order submitted by the customer to the manufacturer.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The order identification.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The order position number or line item.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of issuing the order.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2024-04-15"]
+        },
+        "Quantity": {
+          "description": "The order quantity.",
+          "type": "number"
+        },
+        "QuantityUnit": {
+          "description": "The unit of the order quantity.",
+          "type": "string",
+          "examples": ["kg", "t", "m", "m²", "m³", "pieces"]
+        },
+        "CustomerProductId": {
+          "description": "The internal product identifier of the Customer.",
+          "type": "string"
+        },
+        "CustomerProductName": {
+          "description": "The internal product name used by the Customer.",
+          "type": "string"
+        },
+        "GoodsReceiptId": {
+          "description": "The identifier for the goods receipt issued by the Customer or GoodsReceiver.",
+          "type": "string"
+        }
+      },
+      "required": ["Id"],
+      "additionalProperties": false
+    },
+
+    "Delivery": {
+      "title": "Delivery",
+      "description": "Information from the delivery note associated with the shipment.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The identifier of the delivery note.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position on the delivery note.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of issuing the delivery note.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2024-04-25"]
+        },
+        "Quantity": {
+          "description": "The shipped quantity.",
+          "type": "number"
+        },
+        "QuantityUnit": {
+          "description": "The unit of the shipped quantity.",
+          "type": "string",
+          "examples": ["kg", "t", "m", "m²", "m³", "pieces"]
+        },
+        "InternalOrderId": {
+          "description": "The internal order number issued at the manufacturer.",
+          "type": "string"
+        },
+        "InternalOrderPosition": {
+          "description": "The position on the internal order issued at the manufacturer.",
+          "type": "string"
+        },
+        "Transport": {
+          "description": "A reference to the transport, e.g., license plates of trucks or container numbers.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["Id", "Quantity", "QuantityUnit"],
+      "additionalProperties": false
+    },
+
+    "BusinessTransaction": {
+      "title": "BusinessTransaction",
+      "description": "All information about the underlying commercial transaction including order and delivery.",
+      "type": "object",
+      "properties": {
+        "Order": {
+          "$ref": "#/definitions/Order"
+        },
+        "Delivery": {
+          "$ref": "#/definitions/Delivery"
+        }
+      },
+      "required": ["Order", "Delivery"],
+      "additionalProperties": false
+    },
+
+    "TransactionData": {
+      "title": "TransactionData",
+      "description": "The complete transaction information including parties and business data.",
+      "type": "object",
+      "properties": {
+        "Parties": {
+          "$ref": "#/definitions/Parties"
+        },
+        "BusinessTransaction": {
+          "$ref": "#/definitions/BusinessTransaction"
+        }
+      },
+      "required": ["Parties", "BusinessTransaction"],
+      "additionalProperties": false
+    },
+
+    "ProductNorm": {
+      "title": "ProductNorm",
+      "description": "Standard defining product properties and requirements",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the product norm",
+          "type": "string",
+          "examples": ["EN 10025-2", "ASTM A36", "API 5L"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Grade": {
+          "description": "The material grade according to the norm",
+          "type": "string",
+          "examples": ["S355J2", "X52", "Grade B"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "MaterialNorm": {
+      "title": "MaterialNorm",
+      "description": "Standard defining material properties and composition",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the material norm",
+          "type": "string",
+          "examples": ["EN 10025", "ASTM A36", "JIS G3101"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Grade": {
+          "description": "The material grade according to the norm",
+          "type": "string",
+          "examples": ["S355J2", "SS400", "Grade B"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "MaterialDesignation": {
+      "title": "MaterialDesignation",
+      "description": "Standard designation for material or alloy composition",
+      "type": "object",
+      "properties": {
+        "System": {
+          "description": "The designation system",
+          "type": "string",
+          "examples": ["EN", "AISI/SAE", "UNS", "Werkstoffnummer", "AA"]
+        },
+        "Designation": {
+          "description": "The material designation according to the system",
+          "type": "string",
+          "examples": ["1.0570", "1045", "S31603", "X5CrNi18-10", "Al 6060 T66"]
+        }
+      },
+      "required": ["System", "Designation"],
+      "additionalProperties": false
+    },
+
+    "MassNorm": {
+      "title": "MassNorm",
+      "description": "Standard defining mass, weight, or dimensional requirements",
+      "type": "object",
+      "properties": {
+        "Designation": {
+          "description": "The designation of the mass norm",
+          "type": "string",
+          "examples": ["EN 10060", "ASTM A6", "API 5L"]
+        },
+        "Year": {
+          "description": "The year of publication of the norm",
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["2019", "2004"]
+        },
+        "Category": {
+          "description": "The category or class according to the norm",
+          "type": "string",
+          "examples": ["Class 1", "Schedule 40", "Type S"]
+        }
+      },
+      "required": ["Designation"],
+      "additionalProperties": false
+    },
+
+    "ProductShape": {
+      "title": "ProductShape",
+      "description": "Physical shape and dimensions of the product",
+      "type": "object",
+      "properties": {
+        "Form": {
+          "description": "The basic form of the product",
+          "type": "string",
+          "enum": [
+            "Plate",
+            "Sheet",
+            "Coil",
+            "Strip",
+            "RoundBar",
+            "SquareBar",
+            "HexBar",
+            "FlatBar",
+            "Beam",
+            "Channel",
+            "Angle",
+            "Tee",
+            "Tube",
+            "Pipe",
+            "Hollow",
+            "Wire",
+            "Forging",
+            "Casting",
+            "Other"
+          ]
+        },
+        "Length": {
+          "description": "The length of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Width": {
+          "description": "The width of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Thickness": {
+          "description": "The thickness of the product (for flat products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Diameter": {
+          "description": "The diameter of the product (for round products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "OuterDiameter": {
+          "description": "The outer diameter of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "InnerDiameter": {
+          "description": "The inner diameter of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "WallThickness": {
+          "description": "The wall thickness of the product (for tubular products)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Height": {
+          "description": "The height of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "FlangeWidth": {
+          "description": "The flange width of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "FlangeThickness": {
+          "description": "The flange thickness of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "WebThickness": {
+          "description": "The web thickness of the product (for structural shapes)",
+          "type": "number",
+          "minimum": 0
+        },
+        "Area": {
+          "description": "The cross-sectional area of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "Unit": {
+          "description": "The unit of measurement for dimensions",
+          "type": "string",
+          "enum": ["mm", "in", "m", "ft"],
+          "default": "mm"
+        },
+        "OtherDimensions": {
+          "description": "Additional dimensions not covered by standard fields",
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["Form", "Unit"],
+      "additionalProperties": false
+    },
+
+    "Product": {
+      "title": "Product",
+      "description": "Complete description of the product being certified",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Product name or description",
+          "type": "string"
+        },
+        "ProductNorms": {
+          "description": "List of product norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductNorm"
+          },
+          "minItems": 0
+        },
+        "MaterialNorms": {
+          "description": "List of material norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialNorm"
+          },
+          "minItems": 0
+        },
+        "MaterialDesignations": {
+          "description": "List of material or alloy designations for the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialDesignation"
+          },
+          "minItems": 0
+        },
+        "MassNorms": {
+          "description": "List of mass or dimensional norms applicable to the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MassNorm"
+          },
+          "minItems": 0
+        },
+        "Shape": {
+          "description": "Physical shape and dimensions of the product",
+          "$ref": "#/definitions/ProductShape"
+        },
+        "BatchId": {
+          "description": "Identification of the batch, charge, or lot",
+          "type": "string"
+        },
+        "HeatTreatment": {
+          "description": "Heat treatment applied to the product",
+          "type": "string",
+          "examples": [
+            "Normalized",
+            "Quenched and Tempered",
+            "Solution Annealed"
+          ]
+        },
+        "SurfaceCondition": {
+          "description": "Surface condition or finish of the product",
+          "type": "string",
+          "examples": [
+            "Hot-rolled",
+            "Cold-rolled",
+            "Pickled and Oiled",
+            "Galvanized"
+          ]
+        },
+        "CountryOfOrigin": {
+          "description": "Country where the product was manufactured",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$"
+        },
+        "ManufacturingLocation": {
+          "description": "Specific location where the product was manufactured",
+          "type": "string"
+        },
+        "ProductionDate": {
+          "description": "Date when the product was produced",
+          "type": "string",
+          "format": "date"
+        },
+        "Marking": {
+          "description": "Description of physical markings on the product",
+          "type": "string"
+        },
+        "Quantity": {
+          "description": "Quantity of items being certified",
+          "type": "number",
+          "minimum": 0
+        },
+        "Weight": {
+          "description": "Total weight of the product",
+          "type": "number",
+          "minimum": 0
+        },
+        "WeightUnit": {
+          "description": "Unit of weight measurement",
+          "type": "string",
+          "enum": ["kg", "t", "lb"],
+          "default": "kg"
+        },
+        "SupplementaryStandards": {
+          "description": "Additional standards to which the product conforms",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["Name", "BatchId"],
+      "additionalProperties": false
+    },
+
+    "ValidationStatement": {
+      "title": "ValidationStatement",
+      "description": "Statement of compliance or declaration of conformity",
+      "type": "object",
+      "properties": {
+        "Statement": {
+          "description": "The full text of the declaration of conformity or compliance statement",
+          "type": "string"
+        },
+        "Standards": {
+          "description": "List of standards to which conformity is declared",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ComplianceType": {
+          "description": "The type of compliance being declared",
+          "type": "string",
+          "enum": [
+            "Declaration of Conformity",
+            "Certificate of Compliance",
+            "Statement of Compliance",
+            "Type Approval"
+          ]
+        }
+      },
+      "required": ["Statement"],
+      "additionalProperties": false
+    },
+
+    "ValidatingPerson": {
+      "title": "ValidatingPerson",
+      "description": "Person responsible for validation and approval",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Name of the person validating the certificate",
+          "type": "string"
+        },
+        "Title": {
+          "description": "Job title or position of the validator",
+          "type": "string",
+          "examples": [
+            "Quality Inspector",
+            "Acceptance Officer",
+            "Factory Production Control Manager"
+          ]
+        },
+        "Department": {
+          "description": "Department of the validator",
+          "type": "string",
+          "examples": [
+            "Quality Assurance",
+            "Factory Production Control",
+            "Acceptance Office"
+          ]
+        },
+        "StampImage": {
+          "description": "Base64 encoded image of the signature or stamp",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "Email": {
+          "description": "Email address of the validator",
+          "type": "string",
+          "format": "email",
+          "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+          "minLength": 3,
+          "maxLength": 254
+        },
+        "Phone": {
+          "description": "Phone number of the validator",
+          "type": "string"
+        }
+      },
+      "required": ["Name", "Title"],
+      "additionalProperties": false
+    },
+
+    "CEMarking": {
+      "title": "CEMarking",
+      "description": "CE marking information for products sold in the European Economic Area",
+      "type": "object",
+      "properties": {
+        "CEImage": {
+          "description": "Base64 encoded image of the CE marking",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "NotifiedBodyNumber": {
+          "description": "The identification number of the Notified Body",
+          "type": "string",
+          "examples": ["0123", "2531"]
+        },
+        "DoCYear": {
+          "description": "The year when the Declaration of Conformity was issued",
+          "type": "string",
+          "pattern": "^[0-9]{2}$|^[0-9]{4}$",
+          "examples": ["21", "2021"]
+        },
+        "DoCNumber": {
+          "description": "The Declaration of Conformity document number",
+          "type": "string"
+        },
+        "Directives": {
+          "description": "EU directives to which the product conforms",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "examples": [["2014/68/EU", "2006/42/EC"]]
+        },
+        "HarmonizedStandards": {
+          "description": "Harmonized standards applied",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "examples": [["EN 10204:2004", "EN 10168:2004"]]
+        }
+      },
+      "required": ["CEImage", "NotifiedBodyNumber", "DoCYear"],
+      "additionalProperties": false
+    },
+
+    "OtherMarkings": {
+      "title": "OtherMarkings",
+      "description": "Additional regulatory or certification markings",
+      "type": "object",
+      "properties": {
+        "MarkingType": {
+          "description": "Type of marking",
+          "type": "string",
+          "examples": ["UKCA", "EAC", "CCC", "ASME", "API", "UL"]
+        },
+        "MarkingImage": {
+          "description": "Base64 encoded image of the marking",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "CertificateNumber": {
+          "description": "Certificate or approval number",
+          "type": "string"
+        },
+        "IssuingBody": {
+          "description": "Authority or organization that issued the certification",
+          "type": "string"
+        },
+        "IssueDate": {
+          "description": "Date when the certificate or approval was issued",
+          "type": "string",
+          "format": "date"
+        },
+        "ExpiryDate": {
+          "description": "Expiry date of the certification or approval, if applicable",
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": ["MarkingType"],
+      "additionalProperties": false
+    },
+
+    "Validation": {
+      "title": "Validation",
+      "description": "Validation information and declarations of conformity for the certificate",
+      "type": "object",
+      "properties": {
+        "ValidationStatement": {
+          "$ref": "#/definitions/ValidationStatement"
+        },
+        "ValidationDate": {
+          "description": "Date of validation or approval",
+          "type": "string",
+          "format": "date"
+        },
+        "Validators": {
+          "description": "Persons who validated or approved the certificate",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ValidatingPerson"
+          },
+          "minItems": 1
+        },
+        "CEMarking": {
+          "$ref": "#/definitions/CEMarking"
+        },
+        "OtherMarkings": {
+          "description": "Additional regulatory or certification markings",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OtherMarkings"
+          }
+        },
+        "Disclaimer": {
+          "description": "Legal disclaimer text",
+          "type": "string"
+        },
+        "ValidationPlace": {
+          "description": "Location where the validation was performed",
+          "type": "string"
+        },
+        "CertificateType": {
+          "description": "The type of certificate according to relevant standards",
+          "type": "object",
+          "properties": {
+            "Standard": {
+              "description": "The standard defining the certificate type",
+              "type": "string",
+              "examples": ["EN 10204", "ISO 10474"]
+            },
+            "Type": {
+              "description": "The specific certificate type according to the standard",
+              "type": "string",
+              "examples": ["3.1", "3.2", "2.2"]
+            }
+          },
+          "required": ["Standard"]
+        }
+      },
+      "required": ["ValidationStatement", "ValidationDate", "Validators"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "RefSchemaUrl": {
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
+    },
+    "DigitalMaterialPassport": {
+      "title": "DigitalMaterialPassport",
+      "description": "A digital representation that encapsulates comprehensive information about a material used in a product, specific to each production batch.",
+      "type": "object",
+      "properties": {
+        "Languages": {
+          "description": "List of languages used in the passport",
+          "type": "array",
+          "items": {
+            "enum": ["EN", "DE"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Id": {
+          "description": "Unique identifier for this material passport",
+          "type": "string"
+        },
+        "Version": {
+          "description": "Version of the Digital Material Passport schema",
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "examples": ["1.0.0"]
+        },
+        "IssueDate": {
+          "description": "Date when this passport was issued",
+          "type": "string",
+          "format": "date"
+        },
+        "ExpirationDate": {
+          "description": "Optional date when this passport expires",
+          "type": "string",
+          "format": "date"
+        },
+        "TransactionData": {
+          "description": "Information about the business transaction and parties involved",
+          "$ref": "#/definitions/TransactionData"
+        },
+        "Product": {
+          "description": "Information about the product being certified",
+          "$ref": "#/definitions/Product"
+        },
+        "ChemicalAnalysis": {
+          "description": "Chemical composition of the material",
+          "$ref": "#/definitions/ChemicalAnalysis"
+        },
+        "MechanicalProperties": {
+          "description": "Collection of mechanical property measurements",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "PhysicalProperties": {
+          "description": "Collection of physical property measurements",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "SupplementaryTests": {
+          "description": "Collection of supplementary tests and inspections",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Measurement"
+          }
+        },
+        "Validation": {
+          "description": "Information about the certification validation status",
+          "$ref": "#/definitions/Validation"
+        }
+      },
+      "required": [
+        "Languages",
+        "Id",
+        "Version",
+        "IssueDate",
+        "Product",
+        "TransactionData",
+        "Validation"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
