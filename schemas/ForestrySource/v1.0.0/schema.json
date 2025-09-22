@@ -497,23 +497,14 @@
             },
             "Unit": {
               "type": "string",
-              "enum": [
-                "m²",
-                "m³",
-                "GT",
-                "BDU",
-                "BDMT",
-                "BDT",
-                "ton (short)",
-                "tonne",
-                "ton (long)",
-                "MFBM (thousand; Scribner)",
-                "MBF"
-              ],
               "description": "Supplementary measurement unit for business-specific needs"
+            },
+            "DisplayUnit": {
+              "type": "string",
+              "description": "Human-readable display format of the unit"
             }
           },
-          "required": ["Value", "Unit"],
+          "required": ["Value", "Unit", "DisplayUnit"],
           "additionalProperties": false
         }
       },
@@ -532,10 +523,36 @@
           "type": "string",
           "description": "A detailed description of the product"
         },
-        "HTSCode": {
+        "HSCode": {
           "type": "string",
-          "description": "The Harmonized Tariff Schedule code for the product",
-          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+          "description": "The Harmonized System code for international trade classification",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}(\\.[0-9]{2})?$",
+          "examples": ["4403.24", "4403.24.00"]
+        },
+        "CustomsClassification": {
+          "type": "object",
+          "description": "Regional customs classification systems",
+          "properties": {
+            "HTS": {
+              "type": "string",
+              "description": "US Harmonized Tariff Schedule code",
+              "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}\\.[0-9]{2}$",
+              "examples": ["4403.24.00.10"]
+            },
+            "CN": {
+              "type": "string",
+              "description": "EU Combined Nomenclature code",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00 10"]
+            },
+            "TARIC": {
+              "type": "string",
+              "description": "EU Integrated Tariff of the European Communities code",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00 10 00"]
+            }
+          },
+          "additionalProperties": false
         },
         "ProductionPeriod": {
           "description": "The period when the product was produced",

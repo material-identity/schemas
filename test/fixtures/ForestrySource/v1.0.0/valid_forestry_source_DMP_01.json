@@ -37,7 +37,11 @@
       {
         "ProductType": "Logs (Saw)",
         "DescriptionOfProduct": "Douglas-fir saw logs",
-        "HTSCode": "4403.24.00",
+        "HSCode": "4403.24.00",
+        "CustomsClassification": {
+          "HTS": "4403.24.00.10",
+          "CN": "4403 24 00 10"
+        },
         "ProductionPeriod": {
           "StartDate": "2024-09-01",
           "EndDate": "2025-04-30"

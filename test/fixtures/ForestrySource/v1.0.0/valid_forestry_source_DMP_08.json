@@ -1,0 +1,249 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v1.0.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "b2c3d4e5-6f78-4012-bcde-234567890abc",
+    "Date": "2024-12-01",
+    "GeneralInformation": {
+      "UserDefinedId": "US-MIXED-UNITS-2024",
+      "Country": "US",
+      "State": "Oregon",
+      "District": "Willamette Valley",
+      "ForestConcessionNameOrNumber": "Oregon State Forest OSF-2024",
+      "CertificationNumber": "SFI-C246810",
+      "CertificationClaim": "SFI Certified Sustainable",
+      "CertificationPercentage": 95,
+      "HarvestAuthorizationNameOrNumber": "OR-DNR-2024-3456"
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Pacific Northwest Timber Co",
+              "ProducerCountry": "US",
+              "ProductionPlace": "Cascade Range",
+              "Area": 450.25,
+              "Name": "Mixed Species Production Unit"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-123.0351, 44.9778]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Hardwood Lumber",
+        "DescriptionOfProduct": "Mixed hardwood species demonstrating various measurement units",
+        "HSCode": "4407.99",
+        "ProductionPeriod": {
+          "StartDate": "2024-11-01",
+          "EndDate": "2024-11-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Red Oak",
+            "ScientificName": {
+              "Genus": "Quercus",
+              "Species": "rubra"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 125.5,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 87850,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 85.2,
+                "Unit": "BDMT",
+                "DisplayUnit": "Bone Dry Metric Tonnes"
+              }
+            }
+          },
+          {
+            "CommonName": "White Ash",
+            "ScientificName": {
+              "Genus": "Fraxinus",
+              "Species": "americana"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 95.75,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 71812,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 79.3,
+                "Unit": "ton (short)",
+                "DisplayUnit": "US Short Tons"
+              }
+            }
+          },
+          {
+            "CommonName": "Black Walnut",
+            "ScientificName": {
+              "Genus": "Juglans",
+              "Species": "nigra"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 45.25,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 32580,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 32.1,
+                "Unit": "tonne",
+                "DisplayUnit": "Metric Tonnes"
+              }
+            }
+          },
+          {
+            "CommonName": "Sugar Maple",
+            "ScientificName": {
+              "Genus": "Acer",
+              "Species": "saccharum"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 75.8,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 60640,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 67.5,
+                "Unit": "ton (long)",
+                "DisplayUnit": "Imperial Long Tons"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "ProductType": "Specialty Lumber",
+        "DescriptionOfProduct": "High-grade lumber with specialized measurements",
+        "HSCode": "4407.91.00",
+        "ProductionPeriod": {
+          "StartDate": "2024-11-15",
+          "EndDate": "2024-11-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Douglas Fir",
+            "ScientificName": {
+              "Genus": "Pseudotsuga",
+              "Species": "menziesii"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 285.5,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 142750,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 1250.75,
+                "Unit": "MFBM (thousand; Scribner)",
+                "DisplayUnit": "Thousand Board Feet (Scribner Scale)"
+              }
+            }
+          },
+          {
+            "CommonName": "Western Red Cedar",
+            "ScientificName": {
+              "Genus": "Thuja",
+              "Species": "plicata"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 158.25,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 63300,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 2450.5,
+                "Unit": "BDU",
+                "DisplayUnit": "Bone Dry Units"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Oregon Department of Forestry",
+      "Street": ["2600 State Street"],
+      "ZipCode": "97310",
+      "City": "Salem",
+      "State": "Oregon",
+      "Country": "US",
+      "Identifiers": {
+        "MID": "12345678901"
+      },
+      "Email": "timber.sales@oregon.gov",
+      "PhoneNumber": "+1 503 945 7200"
+    },
+    "Producer": {
+      "Name": "Pacific Northwest Timber Co",
+      "Street": ["1234 Timber Trail"],
+      "ZipCode": "97520",
+      "City": "Ashland",
+      "State": "Oregon",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "987654321",
+        "MID": "98765432100"
+      },
+      "Email": "harvest@pnwtimber.com",
+      "PhoneNumber": "+1 541 482 9876"
+    },
+    "Creator": {
+      "Name": "North American Forest Verification",
+      "Street": ["567 Certification Way"],
+      "ZipCode": "97201",
+      "City": "Portland",
+      "State": "Oregon",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "456789123"
+      },
+      "Email": "verify@nafv.org",
+      "PhoneNumber": "+1 503 123 4567"
+    },
+    "DueDiligenceStatement": "This DMP demonstrates comprehensive measurement unit diversity across North American forestry operations. All timber harvested under sustainable forest management principles with SFI certification. This fixture showcases various supplementary units including BDMT, short/long tons, MFBM Scribner scale, and BDU measurements commonly used in different regional markets and applications.",
+    "Documents": {
+      "HarvestAuthorization": {
+        "FileName": "Harvest_Authorization.pdf",
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/forest_concession.pdf"
+      }
+    }
+  }
+}
