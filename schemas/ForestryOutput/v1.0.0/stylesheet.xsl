@@ -160,11 +160,27 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
-                  <xsl:if test="exists(HTSCode)">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/HSCode" />
+                      <xsl:with-param name="value" select="HSCode" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:if test="exists(CustomsClassification/HTS)">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/HTSCode" />
-                        <xsl:with-param name="value" select="HTSCode" />
+                        <xsl:with-param name="key" select="'HTS Code'" />
+                        <xsl:with-param name="value" select="CustomsClassification/HTS" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="exists(CustomsClassification/CN)">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'CN Code'" />
+                        <xsl:with-param name="value" select="CustomsClassification/CN" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
@@ -226,7 +242,16 @@
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/SupplementaryUnit" />
-                          <xsl:with-param name="value" select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" />
+                          <xsl:with-param name="value">
+                            <xsl:choose>
+                              <xsl:when test="Measurements/SupplementaryUnit/DisplayUnit">
+                                <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/DisplayUnit)" />
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" />
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:with-param>
                           <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         </xsl:call-template>
                       </fo:table-row>

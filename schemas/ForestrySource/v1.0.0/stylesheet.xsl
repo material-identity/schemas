@@ -212,6 +212,170 @@
               </fo:table-body>
             </fo:table>
 
+            <!-- Products -->
+            <xsl:call-template name="SectionTitle">
+              <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Products" />
+            </xsl:call-template>
+            <xsl:for-each select="$Products">
+              <xsl:call-template name="SectionTitleSmall">
+                <xsl:with-param name="title" select="ProductType" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="50%"/>
+                <fo:table-body>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/DescriptionOfProduct" />
+                      <xsl:with-param name="value" select="DescriptionOfProduct" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/HSCode" />
+                      <xsl:with-param name="value" select="HSCode" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:if test="exists(CustomsClassification/HTS)">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'HTS Code'" />
+                        <xsl:with-param name="value" select="CustomsClassification/HTS" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="exists(CustomsClassification/CN)">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'CN Code'" />
+                        <xsl:with-param name="value" select="CustomsClassification/CN" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <fo:table-row>
+                    <fo:table-cell>
+                      <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/ProductionPeriod" />
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/StartDate" />
+                      <xsl:with-param name="value" select="ProductionPeriod/StartDate" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/EndDate" />
+                      <xsl:with-param name="value" select="ProductionPeriod/EndDate" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </fo:table-body>
+              </fo:table>
+              <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
+                <xsl:value-of select="$i18n/DigitalMaterialPassport/ListOfSpecies" />
+              </fo:block>
+              <xsl:call-template name="GenerateSpeciesTable">
+                <xsl:with-param name="Section" select="ListOfSpecies" />
+                <xsl:with-param name="CommonNameTranslation" select="$i18n/DigitalMaterialPassport/CommonName" />
+                <xsl:with-param name="ScientificNameTranslation" select="$i18n/DigitalMaterialPassport/ScientificName" />
+                <xsl:with-param name="GenusTranslation" select="$i18n/DigitalMaterialPassport/Genus" />
+                <xsl:with-param name="SpeciesTranslation" select="$i18n/DigitalMaterialPassport/Species" />
+                <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+              </xsl:call-template>
+            </xsl:for-each>
+
+            <!-- Due Diligence Statement -->
+            <xsl:if test="exists($DueDiligenceStatement)">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DueDiligenceStatement" />
+              </xsl:call-template>
+              <xsl:for-each select="tokenize($DueDiligenceStatement, '&#10;')">
+                <fo:block>
+                  <xsl:value-of select="." />
+                </fo:block>
+              </xsl:for-each>
+            </xsl:if>
+
+            <!-- Contacts -->
+            <xsl:if test="exists($Contacts)">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Contacts" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="10%" />
+                <fo:table-column column-width="15%" />
+                <fo:table-column column-width="25%" />
+                <fo:table-column column-width="30%" />
+                <fo:table-column column-width="10%" />
+                <fo:table-body>
+                  <fo:table-row>
+                    <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Name" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Role" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Department" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Email" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Phone" />
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <xsl:for-each select="$Contacts">
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
+                          <xsl:value-of select="Name" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Role" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Department" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Email" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="Phone" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
+            </xsl:if>
+
             <!-- HarvestUnits -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/HarvestUnits" />
@@ -359,152 +523,6 @@
                 </fo:table>
               </xsl:for-each>
             </xsl:for-each>
-
-            <!-- Products -->
-            <xsl:call-template name="SectionTitle">
-              <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Products" />
-            </xsl:call-template>
-            <xsl:for-each select="$Products">
-              <xsl:call-template name="SectionTitleSmall">
-                <xsl:with-param name="title" select="ProductType" />
-              </xsl:call-template>
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="50%"/>
-                <fo:table-column column-width="50%"/>
-                <fo:table-body>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/DescriptionOfProduct" />
-                      <xsl:with-param name="value" select="DescriptionOfProduct" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/HTSCode" />
-                      <xsl:with-param name="value" select="HTSCode" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
-                  <fo:table-row>
-                    <fo:table-cell>
-                      <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/ProductionPeriod" />
-                      </fo:block>
-                    </fo:table-cell>
-                  </fo:table-row>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/StartDate" />
-                      <xsl:with-param name="value" select="ProductionPeriod/StartDate" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/EndDate" />
-                      <xsl:with-param name="value" select="ProductionPeriod/EndDate" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
-                </fo:table-body>
-              </fo:table>
-              <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
-                <xsl:value-of select="$i18n/DigitalMaterialPassport/ListOfSpecies" />
-              </fo:block>
-              <xsl:call-template name="GenerateSpeciesTable">
-                <xsl:with-param name="Section" select="ListOfSpecies" />
-                <xsl:with-param name="CommonNameTranslation" select="$i18n/DigitalMaterialPassport/CommonName" />
-                <xsl:with-param name="ScientificNameTranslation" select="$i18n/DigitalMaterialPassport/ScientificName" />
-                <xsl:with-param name="GenusTranslation" select="$i18n/DigitalMaterialPassport/Genus" />
-                <xsl:with-param name="SpeciesTranslation" select="$i18n/DigitalMaterialPassport/Species" />
-                <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-              </xsl:call-template>
-            </xsl:for-each>
-
-            <!-- Due Diligence Statement -->
-            <xsl:if test="exists($DueDiligenceStatement)">
-              <xsl:call-template name="SectionTitle">
-                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/DueDiligenceStatement" />
-              </xsl:call-template>
-              <xsl:for-each select="tokenize($DueDiligenceStatement, '&#10;')">
-                <fo:block>
-                  <xsl:value-of select="." />
-                </fo:block>
-              </xsl:for-each>
-            </xsl:if>
-
-            <!-- Contacts -->
-            <xsl:if test="exists($Contacts)">
-              <xsl:call-template name="SectionTitle">
-                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/Contacts" />
-              </xsl:call-template>
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="10%" />
-                <fo:table-column column-width="15%" />
-                <fo:table-column column-width="25%" />
-                <fo:table-column column-width="30%" />
-                <fo:table-column column-width="10%" />
-                <fo:table-body>
-                  <fo:table-row>
-                    <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                      <fo:block font-weight="bold">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Name" />
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block font-weight="bold">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Role" />
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block font-weight="bold">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Department" />
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block font-weight="bold">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Email" />
-                      </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                      <fo:block font-weight="bold">
-                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Phone" />
-                      </fo:block>
-                    </fo:table-cell>
-                  </fo:table-row>
-                  <xsl:for-each select="$Contacts">
-                    <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                        <fo:block font-family="NotoSans, NotoSansSC" font-style="italic">
-                          <xsl:value-of select="Name" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="Role" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="Department" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="Email" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <xsl:value-of select="Phone" />
-                        </fo:block>
-                      </fo:table-cell>
-                    </fo:table-row>
-                  </xsl:for-each>
-                </fo:table-body>
-              </fo:table>
-            </xsl:if>
 
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
@@ -704,7 +722,16 @@
                   <fo:block>Net Weight: <xsl:value-of select="concat(Measurements/NetWeight/Value, ' ', Measurements/NetWeight/Unit)" /></fo:block>
                 </xsl:if>
                 <xsl:if test="Measurements/SupplementaryUnit">
-                  <fo:block>Supplementary: <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" /></fo:block>
+                  <fo:block>
+                    <xsl:choose>
+                      <xsl:when test="Measurements/SupplementaryUnit/DisplayUnit">
+                        Supplementary: <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/DisplayUnit)" />
+                      </xsl:when>
+                      <xsl:otherwise>
+                        Supplementary: <xsl:value-of select="concat(Measurements/SupplementaryUnit/Value, ' ', Measurements/SupplementaryUnit/Unit)" />
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </fo:block>
                 </xsl:if>
               </fo:block>
             </fo:table-cell>
