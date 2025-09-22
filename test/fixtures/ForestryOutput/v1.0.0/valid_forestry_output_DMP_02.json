@@ -47,7 +47,7 @@
       {
         "ProductType": "Logs (Saw)",
         "DescriptionOfProduct": "Premium Oak Saw Logs - Grade A",
-        "HTSCode": "4403.11.00",
+        "HSCode": "4403.11.00",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
@@ -82,7 +82,7 @@
       {
         "ProductType": "Lumber",
         "DescriptionOfProduct": "Mixed Hardwood Lumber - Kiln Dried",
-        "HTSCode": "4407.91.00",
+        "HSCode": "4407.91.00",
         "ProductionPeriod": {
           "StartDate": "2024-07-16",
           "EndDate": "2024-07-30"
@@ -98,7 +98,8 @@
           },
           "SupplementaryUnit": {
             "Value": 1000,
-            "Unit": "MBF"
+            "Unit": "MBF",
+            "DisplayUnit": "Thousand Board Feet"
           }
         },
         "ListOfSpecies": [

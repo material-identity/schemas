@@ -1,0 +1,188 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-output-schemas/v1.0.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "d4e5f6g7-8901-4345-9efg-4567890abcde",
+    "Date": "2024-12-20",
+    "GeneralInformation": {
+      "UserDefinedId": "OUTPUT-CUSTOMS-2024-001",
+      "Country": "SE",
+      "State": "Västerbotten"
+    },
+    "PurchaseOrder": {
+      "Id": "PO-SE-2024-9876",
+      "Position": "001",
+      "Date": "2024-12-01",
+      "CustomerProductId": "CUST-PINE-2024",
+      "CustomerProductName": "Nordic Pine Lumber Premium"
+    },
+    "SalesOrder": {
+      "Id": "SO-SE-2024-5432",
+      "Position": "001",
+      "Date": "2024-12-05",
+      "CertificationNumber": "FSC-C135792",
+      "CertificationClaim": "FSC Mix 70%",
+      "CertificationPercentage": 70,
+      "Incoterms": {
+        "incoterm": { "code": "FOB", "description": "Free on Board" }
+      }
+    },
+    "Delivery": {
+      "Id": "DEL-SE-2024-1357",
+      "Position": "001",
+      "Date": "2024-12-20",
+      "PackingList": "PL-2024-8642",
+      "BillOfLading": "BOL-NORDIC-2024-3579",
+      "Booking": "BOOK-SE-2024-9753",
+      "Container": "CONT-SE-2024-1234567890",
+      "Carrier": "Nordic Forest Logistics AB",
+      "Packages": ["PKG-001", "PKG-002", "PKG-003"],
+      "Lots": ["LOT-2024-A", "LOT-2024-B"],
+      "Batches": ["BATCH-001", "BATCH-002"]
+    },
+    "Products": [
+      {
+        "ProductType": "Sawn Lumber",
+        "DescriptionOfProduct": "Premium Nordic pine lumber with multi-regional customs classification",
+        "HSCode": "4407.11.00",
+        "CustomsClassification": {
+          "HTS": "4407.11.00.20",
+          "CN": "4407 11 00 10"
+        },
+        "ProductionPeriod": {
+          "StartDate": "2024-12-10",
+          "EndDate": "2024-12-18"
+        },
+        "Measurements": {
+          "Volume": {
+            "Value": 245.8,
+            "Unit": "m³"
+          },
+          "NetWeight": {
+            "Value": 122900,
+            "Unit": "kg"
+          },
+          "SupplementaryUnit": {
+            "Value": 108.5,
+            "Unit": "BDMT",
+            "DisplayUnit": "Bone Dry Metric Tonnes"
+          }
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Scots Pine",
+            "ScientificName": {
+              "Genus": "Pinus",
+              "Species": "sylvestris"
+            }
+          },
+          {
+            "CommonName": "Norway Spruce",
+            "ScientificName": {
+              "Genus": "Picea",
+              "Species": "abies"
+            }
+          }
+        ]
+      },
+      {
+        "ProductType": "Engineered Wood Products",
+        "DescriptionOfProduct": "Cross-laminated timber panels with diverse measurement units",
+        "HSCode": "4418.99",
+        "ProductionPeriod": {
+          "StartDate": "2024-12-15",
+          "EndDate": "2024-12-20"
+        },
+        "Measurements": {
+          "Volume": {
+            "Value": 85.25,
+            "Unit": "m³"
+          },
+          "NetWeight": {
+            "Value": 42625,
+            "Unit": "kg"
+          },
+          "SupplementaryUnit": {
+            "Value": 1750,
+            "Unit": "m²",
+            "DisplayUnit": "Square Meters"
+          }
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Norway Spruce",
+            "ScientificName": {
+              "Genus": "Picea",
+              "Species": "abies"
+            }
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Sveaskog AB",
+      "Street": ["Torsgatan 4"],
+      "ZipCode": "105 22",
+      "City": "Stockholm",
+      "Country": "SE",
+      "Identifiers": {
+        "VAT": "SE556012345601"
+      },
+      "Email": "export@sveaskog.se",
+      "PhoneNumber": "+46 8 655 90 00"
+    },
+    "Customer": {
+      "Name": "Atlantic Timber Imports Inc",
+      "Street": ["123 Harbor Drive"],
+      "ZipCode": "04101",
+      "City": "Portland",
+      "State": "Maine",
+      "Country": "US",
+      "Identifiers": {
+        "DUNS": "123456789"
+      },
+      "Email": "procurement@atlantictimber.com",
+      "PhoneNumber": "+1 207 555 0123"
+    },
+    "Creator": {
+      "Name": "Scandinavian Forest Certification AB",
+      "Street": ["Certification Center", "Industrivägen 12"],
+      "ZipCode": "114 86",
+      "City": "Stockholm",
+      "Country": "SE",
+      "Identifiers": {
+        "VAT": "SE556987654301"
+      },
+      "Email": "certify@scanforest.se",
+      "PhoneNumber": "+46 8 123 45 67"
+    },
+    "DueDiligenceStatement": "This ForestryOutput DMP demonstrates comprehensive customs classification capabilities for multi-regional export. All products certified under FSC Chain of Custody standards. This fixture showcases HSCode with regional CustomsClassification variants (HTS, CN), diverse SupplementaryUnit measurements (BDMT, m²), and complete business transaction workflow from purchase order through delivery.",
+    "Documents": {
+        "CertificateOfOrigin": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "hex",
+          "Value": "b32f29bfdb8e58587efe1ae245fbae74020cc70c33ea835db8c13039789569c3"
+        },
+        "FileName": "certificate_of_origin.pdf",
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/certificate_of_origin.pdf"
+      }
+    },
+    "EUDRReferences": [
+      {
+        "InternalReferenceNumber": "EUDR-SE-2024-001",
+        "DDSReferenceNumber": "SE.24.12.001234567",
+        "VerificationNumber": "VER-SE-24-001234"
+      }
+    ],
+    "DMPReferences": [
+      {
+        "Id": "a1b2c3d4-5e6f-7890-abcd-1234567890ef",
+        "UserDefinedId": "EU-PINE-2024-CUSTOMS",
+        "JsonURL": "https://api.materialidentity.org/dmp/a1b2c3d4-5e6f-7890-abcd-1234567890ef.json",
+        "PdfURL": "https://api.materialidentity.org/dmp/a1b2c3d4-5e6f-7890-abcd-1234567890ef.pdf"
+      }
+    ]
+  }
+}

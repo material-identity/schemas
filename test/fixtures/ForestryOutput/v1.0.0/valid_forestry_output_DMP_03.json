@@ -13,7 +13,7 @@
       {
         "ProductType": "Logs",
         "DescriptionOfProduct": "Oak Logs",
-        "HTSCode": "4403.11.00",
+        "HSCode": "4403.11.00",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
@@ -25,7 +25,8 @@
           },
           "SupplementaryUnit": {
             "Value": 2500,
-            "Unit": "m²"
+            "Unit": "m²",
+            "DisplayUnit": "Square Meters"
           }
         },
         "ListOfSpecies": [
