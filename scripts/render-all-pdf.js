@@ -13,9 +13,9 @@ async function findFixtureFiles() {
 
     for (const schemaType of schemaTypes) {
       const schemaPath = join(fixturesDir, schemaType);
-      const stat = await stat(schemaPath);
+      const schemaStats = await stat(schemaPath);
 
-      if (stat.isDirectory() && schemaType !== 'LICENSE' && schemaType !== 'E-CoC') {
+      if (schemaStats.isDirectory() && schemaType !== 'LICENSE' && schemaType !== 'E-CoC') {
         const versions = await readdir(schemaPath);
 
         for (const version of versions) {

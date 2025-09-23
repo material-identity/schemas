@@ -37,10 +37,10 @@ public class CommandLineApp {
         certificateTypeMap.put("en10168", "EN10168");
         certificateTypeMap.put("metals", "Metals");
         certificateTypeMap.put("forestry", "Forestry");
+        certificateTypeMap.put("forestry-output", "ForestryOutput");
         certificateTypeMap.put("forestry-source", "ForestrySource");
         certificateTypeMap.put("e-coc", "E-CoC");
         certificateTypeMap.put("hkm", "HKM");
-
     }
 
     public static void main(String[] args) {
