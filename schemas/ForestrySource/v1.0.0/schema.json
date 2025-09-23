@@ -62,7 +62,11 @@
           "type": "string",
           "pattern": "^[^/\\\\:*?\"<>|]+$",
           "maxLength": 255,
-          "examples": ["certificate_of_origin.pdf", "harvest_permit_2024.pdf", "FSC-certificate.pdf"]
+          "examples": [
+            "certificate_of_origin.pdf",
+            "harvest_permit_2024.pdf",
+            "FSC-certificate.pdf"
+          ]
         }
       },
       "required": ["Hash", "MIME-Type", "URL"],
@@ -588,12 +592,8 @@
   "type": "object",
   "properties": {
     "RefSchemaUrl": {
-      "allOf": [
-        {
-          "type": "string",
-          "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
-        }
-      ]
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
     },
     "DigitalMaterialPassport": {
       "description": "The Digital Material Passport information object",
