@@ -1,9 +1,11 @@
 {
-  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v0.0.1/schema.json",
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v1.0.0/schema.json",
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
-    "Id": "550e8400-e29b-41d4-a716-446655440000",
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "Date": "2024-09-15",
     "GeneralInformation": {
+      "UserDefinedId": "CA-BC-2024-001",
       "Country": "CA",
       "State": "British Columbia",
       "ForestConcessionNameOrNumber": "FC TA2115",
@@ -47,8 +49,12 @@
               "Genus": "Pseudotsuga",
               "Species": "menziesii"
             },
-            "Quantity": 500,
-            "QuantityUnit": "m³"
+            "Measurements": {
+              "Volume": {
+                "Value": 500,
+                "Unit": "m³"
+              }
+            }
           }
         ]
       }
