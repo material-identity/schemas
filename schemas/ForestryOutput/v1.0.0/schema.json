@@ -4,20 +4,17 @@
   "$id": "https://schemas.materialidentity.org/forestry-output-schemas/v1.0.0/schema.json",
   "definitions": {
     "Languages": {
-      "allOf": [
-        {
-          "title": "Languages",
-          "description": "For a JSON document one or two translations used in the rendering of HTML and PDF documents can be specificed.",
-          "type": "array",
-          "items": {
-            "enum": ["EN"]
-          },
-          "minItems": 1,
-          "maxItems": 2,
-          "default": ["EN"],
-          "uniqueItems": true
-        }
-      ]
+      "title": "Languages",
+      "description": "Specify one or two translations used in rendering.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["EN"]
+      },
+      "minItems": 1,
+      "maxItems": 2,
+      "default": ["EN"],
+      "uniqueItems": true
     },
     "Hash": {
       "title": "Hash",
@@ -65,7 +62,11 @@
           "type": "string",
           "pattern": "^[^/\\\\:*?\"<>|]+$",
           "maxLength": 255,
-          "examples": ["certificate_of_origin.pdf", "harvest_permit_2024.pdf", "FSC-certificate.pdf"]
+          "examples": [
+            "certificate_of_origin.pdf",
+            "harvest_permit_2024.pdf",
+            "FSC-certificate.pdf"
+          ]
         }
       },
       "required": ["Hash", "MIME-Type", "URL"],
@@ -556,12 +557,8 @@
   "type": "object",
   "properties": {
     "RefSchemaUrl": {
-      "allOf": [
-        {
-          "type": "string",
-          "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
-        }
-      ]
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
     },
     "DigitalMaterialPassport": {
       "description": "The Digital Material Passport information object",
