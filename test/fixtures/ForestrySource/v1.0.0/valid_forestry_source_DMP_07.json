@@ -1,0 +1,141 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v1.0.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "a1b2c3d4-5e6f-4890-abcd-1234567890ef",
+    "Date": "2024-11-15",
+    "GeneralInformation": {
+      "UserDefinedId": "EU-PINE-2024-CUSTOMS",
+      "Country": "DE",
+      "State": "Bavaria",
+      "District": "Upper Franconia",
+      "ForestConcessionNameOrNumber": "Bavarian State Forest 445",
+      "CertificationNumber": "PEFC-C987654",
+      "CertificationClaim": "PEFC Certified",
+      "CertificationPercentage": 100,
+      "HarvestAuthorizationNameOrNumber": "DE-BAV-2024-1129"
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Bavarian State Forestry",
+              "ProducerCountry": "DE",
+              "ProductionPlace": "Black Forest Region",
+              "Area": 125.5,
+              "Name": "Sustainable Pine Harvest Block"
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [11.0781, 49.4521],
+                  [11.0892, 49.4521],
+                  [11.0892, 49.4612],
+                  [11.0781, 49.4612],
+                  [11.0781, 49.4521]
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Coniferous Logs",
+        "DescriptionOfProduct": "Fresh pine logs for export to multiple markets",
+        "HSCode": "4403.20.00",
+        "CustomsClassification": {
+          "HTS": "4403.20.00.40",
+          "CN": "4403 20 00 90"
+        },
+        "ProductionPeriod": {
+          "StartDate": "2024-10-01",
+          "EndDate": "2024-11-15"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Scots Pine",
+            "ScientificName": {
+              "Genus": "Pinus",
+              "Species": "sylvestris"
+            },
+            "Measurements": {
+              "Volume": {
+                "Value": 850.75,
+                "Unit": "m³"
+              },
+              "NetWeight": {
+                "Value": 425375,
+                "Unit": "kg"
+              },
+              "SupplementaryUnit": {
+                "Value": 850,
+                "Unit": "GT",
+                "DisplayUnit": "Green Tonnes"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Bavarian State Forestry Administration",
+      "Street": ["Ludwigstraße 2"],
+      "ZipCode": "80539",
+      "City": "Munich",
+      "State": "Bavaria",
+      "Country": "DE",
+      "Identifiers": {
+        "VAT": "DE123456789",
+        "EORI": "DE1234567890123"
+      },
+      "Email": "exports@bayerische-staatsforsten.de",
+      "PhoneNumber": "+49 89 12345678"
+    },
+    "Producer": {
+      "Name": "Alpine Forest Operations GmbH",
+      "Street": ["Forstweg 15"],
+      "ZipCode": "95448",
+      "City": "Bayreuth",
+      "State": "Bavaria",
+      "Country": "DE",
+      "Identifiers": {
+        "VAT": "DE987654321",
+        "DUNS": "123456789"
+      },
+      "Email": "operations@alpine-forest.de",
+      "PhoneNumber": "+49 921 987654"
+    },
+    "Creator": {
+      "Name": "European Forest Certification Ltd",
+      "Street": ["Certification Plaza 1", "Suite 200"],
+      "ZipCode": "1010",
+      "City": "Vienna",
+      "Country": "AT",
+      "Identifiers": {
+        "VAT": "ATU12345678",
+        "EORI": "AT1234567890123"
+      },
+      "Email": "certify@euroforest-cert.com",
+      "PhoneNumber": "+43 1 234567890"
+    },
+    "DueDiligenceStatement": "This Digital Material Passport certifies compliance with EU Timber Regulation (EUTR) requirements. All harvesting activities conducted under PEFC sustainable forest management certification. Chain of custody verified from forest to export point. Products conform to EU customs classification requirements for multiple destination markets including US HTS and EU CN classifications.",
+    "Documents": {
+      "HarvestAuthorization": {
+        "FileName": "Harvest_Authorization.pdf",
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/forest_concession.pdf"
+      }
+    }
+  }
+}

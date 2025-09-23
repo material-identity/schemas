@@ -1,0 +1,696 @@
+{
+  "meta:license": ["Copyright 2024 S1Seven Gmbh. All rights reserved."],
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://schemas.materialidentity.org/forestry-source-schemas/v1.0.0/schema.json",
+  "definitions": {
+    "Languages": {
+      "title": "Languages",
+      "description": "Specify one or two translations used in rendering.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["EN"]
+      },
+      "minItems": 1,
+      "maxItems": 2,
+      "default": ["EN"],
+      "uniqueItems": true
+    },
+    "Hash": {
+      "title": "Hash",
+      "description": "For any attachment to the JSON document a hash must be calculated and added to the document before adding the base64 encoded data.",
+      "type": "object",
+      "properties": {
+        "Algorithm": {
+          "description": "The algorithm selected to calculate the hash value.",
+          "type": "string",
+          "enum": ["SHA256", "SHA3-256"],
+          "default": "SHA256"
+        },
+        "Encoding": {
+          "description": "The format in which the hash value is encoded.",
+          "type": "string",
+          "enum": ["base64", "hex"],
+          "default": "base64"
+        },
+        "Value": {
+          "description": "The hash value.",
+          "type": "string"
+        }
+      },
+      "required": ["Algorithm", "Encoding", "Value"]
+    },
+    "DocumentReference": {
+      "title": "DocumentReference",
+      "description": "Additional data in any kind of format attached to JSON document.",
+      "type": "object",
+      "properties": {
+        "Hash": {
+          "$ref": "#/definitions/Hash"
+        },
+        "MIME-Type": {
+          "description": "The MIME/Type of the data file.",
+          "type": "string",
+          "examples": ["application/json", "application/pdf", "image/png"]
+        },
+        "URL": {
+          "description": "The URL of the document.",
+          "type": "string"
+        },
+        "FileName": {
+          "description": "The original filename of the document.",
+          "type": "string",
+          "pattern": "^[^/\\\\:*?\"<>|]+$",
+          "maxLength": 255,
+          "examples": [
+            "certificate_of_origin.pdf",
+            "harvest_permit_2024.pdf",
+            "FSC-certificate.pdf"
+          ]
+        }
+      },
+      "required": ["Hash", "MIME-Type", "URL"],
+      "additionalProperties": false
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "The name of the company.",
+          "type": "string"
+        },
+        "Street": {
+          "description": "The address of the company",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+        "ZipCode": {
+          "description": "The postal code of the company.",
+          "type": "string"
+        },
+        "City": {
+          "description": "The city of the company.",
+          "type": "string"
+        },
+        "State": {
+          "description": "The state or province of the company.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "US", "CN"]
+        },
+        "Identifiers": {
+          "$ref": "#/definitions/CompanyIdentifiers"
+        },
+        "Email": {
+          "description": "The company email address assigned for handling of DMP",
+          "type": "string",
+          "format": "email",
+          "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+          "minLength": 3,
+          "maxLength": 254,
+          "examples": ["user@example.com", "name.surname@subdomain.example.com"]
+        },
+        "PhoneNumber": {
+          "type": "string",
+          "pattern": "^(?:(?:\\+|00|1)[1-9]\\d{0,3}|[0-9]{1,3})?[-\\s.]?\\(?[0-9]{1,5}\\)?(?:[-\\s.]?[0-9]{1,5}){1,6}$",
+          "description": "Phone number pattern supporting bare NA numbers and flexible international formats",
+          "examples": [
+            "(555) 123-4567",
+            "555-123-4567",
+            "555.123.4567",
+            "5551234567",
+            "1 (555) 123-4567",
+            "1-555-123-4567",
+            "+1 (555) 123-4567",
+            "+44 20 7183 8750",
+            "+86 10 8765 4321",
+            "+55 11 98765-4321",
+            "+33 1 23 45 67 89",
+            "+91 98765 43210",
+            "00 44 20 7183 8750",
+            "020 7183 8750",
+            "010-8765-4321",
+            "011-98765-4321",
+            "(02) 9123 4567"
+          ]
+        }
+      },
+      "required": [
+        "Name",
+        "Street",
+        "ZipCode",
+        "City",
+        "Country",
+        "Identifiers"
+      ],
+      "additionalProperties": true
+    },
+    "CompanyIdentifiers": {
+      "type": "object",
+      "properties": {
+        "VAT": {
+          "description": "The Value Added Tax identification number of the company, issued by European Union member states.",
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 15
+        },
+        "DUNS": {
+          "description": "The Data Universal Numbering System (DUNS) number is a unique nine-digit identifier for businesses.",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9
+        },
+        "EORI": {
+          "description": "The Economic Operators Registration and Identification (EORI) number is an unique identifier assigned to economic operators in the European Union.",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 17
+        },
+        "MID": {
+          "description": "Manufacturer Identification Code defined by US Customs and Border Protection.",
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 11
+        },
+        "CNPJ": {
+          "description": "The Cadastro Nacional da Pessoa Jurídica (CNPJ) is a unique identifier assigned to Brazilian companies.",
+          "type": "string",
+          "minLength": 14,
+          "maxLength": 14
+        },
+        "RUT": {
+          "description": "The Rol Único Tributario (RUT) is a unique identifier assigned to Chilean companies.",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9
+        },
+        "CBN": {
+          "description": "The Commercial Business Number (CBN) is a unique identifier assigned to Canadian companies.",
+          "type": "string",
+          "minLength": 15,
+          "maxLength": 15,
+          "pattern": "^[0-9]{9}[A-Z]{2}[0-9]{4}$"
+        },
+        "SystemId": {
+          "description": "The unique identifier assigned by the system creating a DMP for the case that a company is not registered in any of the above systems.",
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "GeneralInformation": {
+      "type": "object",
+      "properties": {
+        "UserDefinedId": {
+          "description": "An optional user defined identifier.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["AT", "DE", "FR", "ES", "US", "CN"]
+        },
+        "State": {
+          "description": "The state or province of the company.",
+          "type": "string"
+        },
+        "District": {
+          "description": "The district of the harvesting unit.",
+          "type": "string"
+        },
+        "ForestConcessionNameOrNumber": {
+          "description": "The name or number of the forest concession.",
+          "type": "string"
+        },
+        "CertificationNumber": {
+          "description": "The certification number of the company.",
+          "type": "string"
+        },
+        "CertificationClaim": {
+          "description": "The certification claim of the company.",
+          "type": "string"
+        },
+        "CertificationPercentage": {
+          "description": "The certification percentage of the company.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "HarvestAuthorizationNameOrNumber": {
+          "description": "The name or number of the harvest authorization.",
+          "type": "string"
+        },
+        "HarvestingPeriod": {
+          "type": "object",
+          "properties": {
+            "StartDate": {
+              "description": "The start date of the harvesting period.",
+              "type": "string",
+              "format": "date"
+            },
+            "EndDate": {
+              "description": "The start date of the harvesting period.",
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      },
+      "required": [
+        "UserDefinedId",
+        "Country",
+        "State",
+        "ForestConcessionNameOrNumber",
+        "HarvestAuthorizationNameOrNumber"
+      ]
+    },
+    "Coordinates": {
+      "type": "array",
+      "items": [
+        {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude"
+        },
+        {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitude"
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2,
+      "additionalItems": false
+    },
+    "PolygonCoordinates": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Coordinates"
+        },
+        "minItems": 3
+      },
+      "minItems": 1
+    },
+    "Point": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Point"]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/Coordinates"
+        }
+      },
+      "required": ["type", "coordinates"],
+      "additionalProperties": false
+    },
+    "Polygon": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Polygon"]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/PolygonCoordinates"
+        }
+      },
+      "required": ["type", "coordinates"]
+    },
+    "GeometryCollection": {
+      "type": "object",
+      "description": "A collection of geometry objects",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["GeometryCollection"]
+        },
+        "geometries": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/Point"
+              },
+              {
+                "$ref": "#/definitions/Polygon"
+              }
+            ]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["type", "geometries"]
+    },
+    "Feature": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Feature"]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "ProducerName": {
+              "type": "string"
+            },
+            "ProducerCountry": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "ProductionPlace": {
+              "type": "string"
+            },
+            "Area": {
+              "type": "number",
+              "minimum": 0
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Point"
+            },
+            {
+              "$ref": "#/definitions/Polygon"
+            },
+            {
+              "$ref": "#/definitions/GeometryCollection"
+            }
+          ]
+        }
+      },
+      "required": ["type", "geometry"]
+    },
+    "Location": {
+      "type": "object",
+      "description": "A harvesting location defined using GeoJSON FeatureCollection",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["FeatureCollection"]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Feature"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["type", "features"]
+    },
+    "Species": {
+      "type": "object",
+      "properties": {
+        "CommonName": {
+          "type": "string"
+        },
+        "ScientificName": {
+          "type": "object",
+          "properties": {
+            "Genus": {
+              "description": "The genus of the species.",
+              "type": "string"
+            },
+            "Species": {
+              "description": "The species of the genus.",
+              "type": "string"
+            }
+          },
+          "required": ["Genus", "Species"],
+          "additionalProperties": false
+        },
+        "Measurements": {
+          "$ref": "#/definitions/Measurements"
+        }
+      },
+      "required": ["CommonName", "ScientificName", "Measurements"]
+    },
+    "Measurements": {
+      "type": "object",
+      "properties": {
+        "Volume": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Volume measurement value"
+            },
+            "Unit": {
+              "type": "string",
+              "const": "m³",
+              "description": "Volume unit (cubic meters)"
+            }
+          },
+          "required": ["Value", "Unit"],
+          "additionalProperties": false
+        },
+        "NetWeight": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Net weight measurement value - required for customs documentation"
+            },
+            "Unit": {
+              "type": "string",
+              "const": "kg",
+              "description": "Net weight unit (kilograms) - universal customs requirement"
+            }
+          },
+          "required": ["Value", "Unit"],
+          "additionalProperties": false
+        },
+        "SupplementaryUnit": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Supplementary unit measurement value - for industry-specific business operations"
+            },
+            "Unit": {
+              "type": "string",
+              "description": "Supplementary measurement unit for business-specific needs"
+            },
+            "DisplayUnit": {
+              "type": "string",
+              "description": "Human-readable display format of the unit"
+            }
+          },
+          "required": ["Value", "Unit", "DisplayUnit"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A product made from the harvested wood.",
+      "type": "object",
+      "properties": {
+        "ProductType": {
+          "type": "string",
+          "description": "The type of product"
+        },
+        "DescriptionOfProduct": {
+          "type": "string",
+          "description": "A detailed description of the product"
+        },
+        "HSCode": {
+          "type": "string",
+          "description": "The Harmonized System code for international trade classification",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}(\\.[0-9]{2})?$",
+          "examples": ["4403.24", "4403.24.00"]
+        },
+        "CustomsClassification": {
+          "type": "object",
+          "description": "Regional customs classification systems",
+          "properties": {
+            "HTS": {
+              "type": "string",
+              "description": "US Harmonized Tariff Schedule code",
+              "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}\\.[0-9]{2}$",
+              "examples": ["4403.24.00.10"]
+            },
+            "CN": {
+              "type": "string",
+              "description": "EU Combined Nomenclature code",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00 10"]
+            },
+            "TARIC": {
+              "type": "string",
+              "description": "EU Integrated Tariff of the European Communities code",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00 10 00"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "ProductionPeriod": {
+          "description": "The period when the product was produced",
+          "type": "object",
+          "properties": {
+            "StartDate": {
+              "description": "The date when production began",
+              "type": "string",
+              "format": "date"
+            },
+            "EndDate": {
+              "description": "The date when production ended",
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": ["StartDate", "EndDate"]
+        },
+        "ListOfSpecies": {
+          "description": "The species used in the product",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Species"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "title": "Digital Material Passport for Forestry Sources",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "RefSchemaUrl": {
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
+    },
+    "DigitalMaterialPassport": {
+      "description": "The Digital Material Passport information object",
+      "type": "object",
+      "properties": {
+        "Languages": {
+          "description": "The languages in which the document should be rendered in HTML and PDF.",
+          "$ref": "#/definitions/Languages"
+        },
+        "Id": {
+          "description": "The unique identifier of the DMP.",
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        },
+        "Date": {
+          "description": "The DMP issuing date.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2018-12-12"]
+        },
+        "GeneralInformation": {
+          "description": "",
+          "$ref": "#/definitions/GeneralInformation"
+        },
+        "HarvestUnits": {
+          "description": "The harvest units of the source.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Products": {
+          "description": "The products made from the harvested wood.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "Supplier": {
+          "description": "The landowner, concession or tenure holder that has the right to harvest the timber.",
+          "$ref": "#/definitions/Company"
+        },
+        "Producer": {
+          "description": "The party selling or harvesting the goods.",
+          "$ref": "#/definitions/Company"
+        },
+        "Creator": {
+          "description": "The party creating the source DMP.",
+          "$ref": "#/definitions/Company"
+        },
+        "DueDiligenceStatement": {
+          "description": "A statement on the due diligence of the company.",
+          "type": "string"
+        },
+        "Documents": {
+          "type": "object",
+          "properties": {
+            "ForestConcession": {
+              "description": "The forest concession document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "HarvestAuthorization": {
+              "description": "The harvest authorization document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "Certificate": {
+              "description": "The certificate document.",
+              "$ref": "#/definitions/DocumentReference"
+            },
+            "HarvestUnitMap": {
+              "description": "The map of the harvest unit.",
+              "$ref": "#/definitions/DocumentReference"
+            }
+          },
+          "required": ["HarvestAuthorization"]
+        }
+      },
+      "required": [
+        "Languages",
+        "Id",
+        "Date",
+        "GeneralInformation",
+        "HarvestUnits",
+        "Supplier",
+        "Creator",
+        "Products",
+        "DueDiligenceStatement",
+        "Documents"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": ["RefSchemaUrl", "DigitalMaterialPassport"],
+  "additionalProperties": false
+}

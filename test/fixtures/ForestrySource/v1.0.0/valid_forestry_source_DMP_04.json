@@ -1,0 +1,131 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v1.0.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "Date": "2024-07-10",
+    "GeneralInformation": {
+      "UserDefinedId": "BR-AMAZONIA-2024-04",
+      "Country": "BR",
+      "State": "Acre",
+      "ForestConcessionNameOrNumber": "Amazonia-217",
+      "HarvestAuthorizationNameOrNumber": "HA-2024-1138"
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ProducerName": "Sustainable Timber Corp",
+              "ProducerCountry": "BR",
+              "ProductionPlace": "Eastern Acre",
+              "Area": 1250,
+              "Name": "Harvest Block A"
+            },
+            "geometry": {
+              "type": "GeometryCollection",
+              "geometries": [
+                {
+                  "type": "Point",
+                  "coordinates": [-70.123, -9.456]
+                },
+                {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [-70.145, -9.488],
+                      [-70.145, -9.422],
+                      [-70.078, -9.422],
+                      [-70.078, -9.488],
+                      [-70.145, -9.488]
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Sawn Timber",
+        "DescriptionOfProduct": "Kiln-dried hardwood boards",
+        "HSCode": "4407.29.01",
+        "ProductionPeriod": {
+          "StartDate": "2024-04-15",
+          "EndDate": "2024-04-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Brazilian Walnut",
+            "ScientificName": {
+              "Genus": "Handroanthus",
+              "Species": "impetiginosus"
+            },
+            "Measurements": {
+              "SupplementaryUnit": {
+                "Value": 150,
+                "Unit": "BDT",
+                "DisplayUnit": "Bone Dry Tonnes"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Amazonia Forestry Ltd",
+      "Street": ["Rua das Palmeiras, 123"],
+      "ZipCode": "69980-000",
+      "City": "Rio Branco",
+      "Country": "BR",
+      "Identifiers": {
+        "CNPJ": "12345678901234"
+      }
+    },
+    "Producer": {
+      "Name": "Sustainable Timber Corp",
+      "Street": ["Avenida Principal, 456"],
+      "ZipCode": "69980-000",
+      "City": "Rio Branco",
+      "Country": "BR",
+      "Identifiers": {
+        "CNPJ": "98765432109876"
+      }
+    },
+    "Creator": {
+      "Name": "EcoTrack Solutions",
+      "Street": ["1234 Certification Avenue"],
+      "ZipCode": "68900-000",
+      "City": "Macapá",
+      "Country": "BR",
+      "Identifiers": {
+        "CNPJ": "45678901234567"
+      }
+    },
+    "DueDiligenceStatement": "All timber in this passport has been harvested in compliance with local regulations and sustainable forestry practices. Chain of custody verified through documented procedures and third-party certification.",
+    "Documents": {
+      "ForestConcession": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "ZDkzOTljNWFkNzUzNTJjYTc1NzdkNjE1NTdiMmJkZTNlNzc2ZjUxMWVkNWU4YzJlNDQyZGQxYmM0ZjkyZDVjNg=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/sfi_certificate.pdf"
+      },
+      "HarvestAuthorization": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/sfi_certificate.pdf"
+      }
+    }
+  }
+}
