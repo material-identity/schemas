@@ -102,6 +102,7 @@
       "MeltingProcess": "EAF+LF",
       "HeatNumber": "H-10987",
       "CastingDate": "2025-05-08",
+      "CastingMethod": "ContinuousCasting",
       "SampleLocation": "Ladle",
       "SampleType": "Liquid",
       "Elements": [
