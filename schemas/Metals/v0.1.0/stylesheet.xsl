@@ -157,7 +157,7 @@
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="'Digital Material Passport'" />
             </xsl:call-template>
-            
+
             <!-- General Information -->
             <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="30%" />
@@ -264,9 +264,43 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <!-- Specification Reference -->
+                <xsl:if test="$dmp/Product/SpecificationReference">
+                  <fo:table-row>
+                    <fo:table-cell number-columns-spanned="4" padding-top="8pt">
+                      <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Specification</fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Name'" />
+                      <xsl:with-param name="value" select="$dmp/Product/SpecificationReference/Name" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Revision'" />
+                      <xsl:with-param name="value" select="$dmp/Product/SpecificationReference/Revision" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:if test="$dmp/Product/SpecificationReference/Creator or $dmp/Product/SpecificationReference/BaseStandard">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Creator'" />
+                        <xsl:with-param name="value" select="$dmp/Product/SpecificationReference/Creator" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Base Standard'" />
+                        <xsl:with-param name="value" select="$dmp/Product/SpecificationReference/BaseStandard" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
-            
+
             <!-- Product Information -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="'Product Information'" />

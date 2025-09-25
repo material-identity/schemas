@@ -108,6 +108,10 @@
             "Description": "Flat-rolled products of iron or non-alloy steel, of a width of 600 mm or more, hot-rolled, not clad, plated or coated, of a thickness of 4.75 mm or more"
           }
         ]
+      },
+      "SpecificationReference": {
+        "Name": "EN 10025-2",
+        "Revision": "2019"
       }
     },
     "ChemicalAnalysis": {
