@@ -83,6 +83,18 @@
       "Thixomolding": "Thixomolding",
       "Other": "Other",
 
+      "CustomsClassification": "Customs Classification",
+      "HSCode": "HS Code",
+      "StandardDescription": "Standard Description",
+      "RegionalCodes": "Regional Codes",
+
+      "CN8": "CN8",
+      "TARIC": "TARIC",
+      "HTS": "HTS",
+      "NCM": "NCM",
+      "AHTN": "AHTN",
+      "JCT": "JCT",
+
       "SampleLocation": "Sample Location",
       "SampleType": "Sample Type",
       "Elements": "Elements",
@@ -325,6 +337,18 @@
       "Rheocasting": "Rheoguss",
       "Thixomolding": "Thixoformen",
       "Other": "Andere",
+
+      "CustomsClassification": "Zollklassifizierung",
+      "HSCode": "HS-Code",
+      "StandardDescription": "Standardbeschreibung",
+      "RegionalCodes": "Regionale Codes",
+
+      "CN8": "CN8",
+      "TARIC": "TARIC",
+      "HTS": "HTS",
+      "NCM": "NCM",
+      "AHTN": "AHTN",
+      "JCT": "JCT",
 
       "SampleLocation": "Probenort",
       "SampleType": "Probentyp",

@@ -979,6 +979,53 @@
           "items": {
             "type": "string"
           }
+        },
+        "CustomsClassification": {
+          "description": "Customs tariff classification for international trade compliance",
+          "type": "object",
+          "properties": {
+            "HSCode": {
+              "description": "6-digit Harmonized System code",
+              "type": "string",
+              "pattern": "^[0-9]{6}$"
+            },
+            "StandardDescription": {
+              "description": "Official HS description of the product",
+              "type": "string"
+            },
+            "RegionalCodes": {
+              "description": "Regional tariff codes for specific jurisdictions",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Region": {
+                    "description": "ISO 3166-1 alpha-2 country/region code",
+                    "type": "string",
+                    "pattern": "^[A-Z]{2}$"
+                  },
+                  "Code": {
+                    "description": "Regional tariff code (8-10 digits)",
+                    "type": "string",
+                    "pattern": "^[0-9]{8,10}$"
+                  },
+                  "System": {
+                    "description": "Regional classification system",
+                    "type": "string",
+                    "enum": ["CN8", "TARIC", "HTS", "NCM", "AHTN", "JCT"]
+                  },
+                  "Description": {
+                    "description": "Regional description of the product",
+                    "type": "string"
+                  }
+                },
+                "required": ["Region", "Code", "System"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["HSCode", "StandardDescription"],
+          "additionalProperties": false
         }
       },
       "required": ["Name", "BatchId"],

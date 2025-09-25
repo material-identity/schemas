@@ -327,7 +327,52 @@
                 </xsl:if>
               </fo:table-body>
             </fo:table>
-            
+
+            <!-- Customs Classification -->
+            <xsl:if test="$dmp/Product/CustomsClassification">
+              <xsl:call-template name="SectionTitleSmall">
+                <xsl:with-param name="title" select="'Customs Classification'" />
+              </xsl:call-template>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="50%" />
+                <fo:table-column column-width="50%" />
+                <fo:table-body>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'HS Code'" />
+                      <xsl:with-param name="value" select="$dmp/Product/CustomsClassification/HSCode" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Standard Description'" />
+                      <xsl:with-param name="value" select="$dmp/Product/CustomsClassification/StandardDescription" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:for-each select="$dmp/Product/CustomsClassification/RegionalCodes">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="concat(System, ' (', Region, ')')" />
+                        <xsl:with-param name="value" select="Code" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                    <xsl:if test="Description">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="concat('Description (', Region, ')')" />
+                          <xsl:with-param name="value" select="Description" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
+            </xsl:if>
+
             <!-- Product Norms -->
             <xsl:if test="$dmp/Product/ProductNorms">
               <xsl:call-template name="SectionTitleSmall">
@@ -441,7 +486,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-            
+
             <!-- Chemical Analysis -->
             <xsl:if test="$dmp/ChemicalAnalysis">
               <xsl:call-template name="SectionTitle">
