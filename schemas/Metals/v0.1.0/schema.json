@@ -322,6 +322,28 @@
           "type": "string",
           "format": "date"
         },
+        "CastingMethod": {
+          "description": "The method used to cast the material, determining its initial solid form",
+          "type": "string",
+          "enum": [
+            "IngotCasting",
+            "ContinuousCasting",
+            "SandCasting",
+            "DieCasting",
+            "InvestmentCasting",
+            "PermanentMoldCasting",
+            "CentrifugalCasting",
+            "ShellMolding",
+            "PlasterMoldCasting",
+            "CeramicMoldCasting",
+            "LostFoamCasting",
+            "VacuumCasting",
+            "SqueezeCasting",
+            "Rheocasting",
+            "Thixomolding",
+            "Other"
+          ]
+        },
         "SampleLocation": {
           "description": "The location where the chemical analysis sample was taken",
           "type": "string",

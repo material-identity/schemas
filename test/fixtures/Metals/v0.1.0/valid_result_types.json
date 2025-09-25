@@ -83,6 +83,7 @@
       "MeltingProcess": "VAR",
       "HeatNumber": "T-65432",
       "CastingDate": "2025-05-14",
+      "CastingMethod": "VacuumCasting",
       "SampleLocation": "Product",
       "SampleType": "Solid",
       "Elements": [

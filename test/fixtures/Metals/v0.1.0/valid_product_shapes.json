@@ -86,6 +86,7 @@
       "MeltingProcess": "BOF+LF",
       "HeatNumber": "H-79513",
       "CastingDate": "2025-05-15",
+      "CastingMethod": "ContinuousCasting",
       "SampleLocation": "Ladle",
       "SampleType": "Liquid",
       "Elements": [

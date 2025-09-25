@@ -476,6 +476,15 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
+                  <xsl:if test="$dmp/ChemicalAnalysis/CastingMethod">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Casting Method'" />
+                        <xsl:with-param name="value" select="$dmp/ChemicalAnalysis/CastingMethod" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
                   <xsl:if test="$dmp/ChemicalAnalysis/SampleLocation">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
