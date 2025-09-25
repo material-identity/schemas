@@ -659,6 +659,16 @@
                           <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
                           <xsl:text> = </xsl:text>
                           <xsl:value-of select="Formula" />
+                          <xsl:if test="Actual">
+                            <xsl:text>: </xsl:text>
+                            <xsl:call-template name="FormatResult">
+                              <xsl:with-param name="result" select="Actual" />
+                            </xsl:call-template>
+                            <xsl:if test="Unit">
+                              <xsl:text> </xsl:text>
+                              <xsl:value-of select="Unit" />
+                            </xsl:if>
+                          </xsl:if>
                         </fo:block>
                       </xsl:for-each>
                     </fo:block>
