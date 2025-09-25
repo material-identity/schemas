@@ -88,6 +88,12 @@
       "StandardDescription": "Standard Description",
       "RegionalCodes": "Regional Codes",
 
+      "SpecificationReference": "Specification Reference",
+      "Name": "Name",
+      "Revision": "Revision",
+      "Creator": "Creator",
+      "BaseStandard": "Base Standard",
+
       "CN8": "CN8",
       "TARIC": "TARIC",
       "HTS": "HTS",
@@ -342,6 +348,12 @@
       "HSCode": "HS-Code",
       "StandardDescription": "Standardbeschreibung",
       "RegionalCodes": "Regionale Codes",
+
+      "SpecificationReference": "Spezifikationsreferenz",
+      "Name": "Name",
+      "Revision": "Revision",
+      "Creator": "Ersteller",
+      "BaseStandard": "Basisnorm",
 
       "CN8": "CN8",
       "TARIC": "TARIC",

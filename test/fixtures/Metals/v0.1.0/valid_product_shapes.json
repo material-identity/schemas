@@ -98,6 +98,12 @@
             "Description": "H-sections of iron or nonalloy steel"
           }
         ]
+      },
+      "SpecificationReference": {
+        "Name": "1180-1/ ISO GENERIC - HR",
+        "Revision": "2024-11-07",
+        "Creator": "Nordic Metals AB",
+        "BaseStandard": "ISO 683-1"
       }
     },
     "ChemicalAnalysis": {

@@ -1026,6 +1026,42 @@
           },
           "required": ["HSCode", "StandardDescription"],
           "additionalProperties": false
+        },
+        "SpecificationReference": {
+          "description": "Reference to the steel product specification defining this material",
+          "type": "object",
+          "properties": {
+            "Name": {
+              "description": "Name of the steel product specification as given by creator or standard",
+              "type": "string",
+              "examples": [
+                "EN 10025-2",
+                "ISO 683-1",
+                "ASTM A36",
+                "1180-1/ ISO GENERIC - HR",
+                "0577-2/ GENERIC - HR",
+                "Custom Steel Spec ABC-123"
+              ]
+            },
+            "Revision": {
+              "description": "Revision, version, or issue number of the specification",
+              "type": "string",
+              "pattern": "^[A-Za-z0-9\\.\\-\\/]+$",
+              "examples": ["2019", "2018", "Rev. 5", "v2.1.0", "2024-11-07"]
+            },
+            "Creator": {
+              "description": "Organization that created the specification (if custom)",
+              "type": "string",
+              "examples": ["SteelTech Solutions GmbH", "Nordic Metals AB"]
+            },
+            "BaseStandard": {
+              "description": "Steel product standard this specification is derived from (if applicable)",
+              "type": "string",
+              "examples": ["ISO 683-1", "EN 10025-2", "ASTM A36"]
+            }
+          },
+          "required": ["Name", "Revision"],
+          "additionalProperties": false
         }
       },
       "required": ["Name", "BatchId"],
