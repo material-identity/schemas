@@ -80,7 +80,25 @@
       "ManufacturingLocation": "Aachen Plant",
       "ProductionDate": "2025-05-16",
       "Weight": 75000,
-      "WeightUnit": "kg"
+      "WeightUnit": "kg",
+      "CustomsClassification": {
+        "HSCode": "721633",
+        "StandardDescription": "H sections of iron or non-alloy steel",
+        "RegionalCodes": [
+          {
+            "Region": "EU",
+            "Code": "72163300",
+            "System": "CN8",
+            "Description": "H-sections of iron or non-alloy steel"
+          },
+          {
+            "Region": "US",
+            "Code": "7216330000",
+            "System": "HTS",
+            "Description": "H-sections of iron or nonalloy steel"
+          }
+        ]
+      }
     },
     "ChemicalAnalysis": {
       "MeltingProcess": "BOF+LF",

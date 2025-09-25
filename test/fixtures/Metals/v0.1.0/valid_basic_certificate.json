@@ -96,7 +96,19 @@
       "Marking": "ACME S355J2 H-10987-02 CE",
       "Quantity": 10,
       "Weight": 5000,
-      "WeightUnit": "kg"
+      "WeightUnit": "kg",
+      "CustomsClassification": {
+        "HSCode": "720839",
+        "StandardDescription": "Flat-rolled products of iron or non-alloy steel, of a width of 600 mm or more, hot-rolled, not clad, plated or coated",
+        "RegionalCodes": [
+          {
+            "Region": "EU",
+            "Code": "72083900",
+            "System": "CN8",
+            "Description": "Flat-rolled products of iron or non-alloy steel, of a width of 600 mm or more, hot-rolled, not clad, plated or coated, of a thickness of 4.75 mm or more"
+          }
+        ]
+      }
     },
     "ChemicalAnalysis": {
       "MeltingProcess": "EAF+LF",
