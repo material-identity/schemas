@@ -109,6 +109,14 @@
           }
         ]
       },
+      "DeliveryConditions": {
+        "Bundles": {
+          "Type": "Hexagonal",
+          "Quantity": 5,
+          "Material": "Wire binding",
+          "Condition": "Good"
+        }
+      },
       "SpecificationReference": {
         "Name": "EN 10025-2",
         "Revision": "2019"

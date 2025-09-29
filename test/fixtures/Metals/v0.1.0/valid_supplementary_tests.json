@@ -83,7 +83,21 @@
       "ManufacturingLocation": "Aachen Special Steels Plant",
       "ProductionDate": "2025-05-14",
       "Weight": 200,
-      "WeightUnit": "kg"
+      "WeightUnit": "kg",
+      "DeliveryConditions": {
+        "Coloring": {
+          "Method": "Other",
+          "Color": "Natural",
+          "Coverage": "Full",
+          "Purpose": "Protection"
+        },
+        "Stamping": {
+          "Content": "316L",
+          "Location": "Corner",
+          "Depth": "Medium",
+          "Legibility": "Good"
+        }
+      }
     },
     "ChemicalAnalysis": {
       "MeltingProcess": "EAF+AOD+LF",
