@@ -1,0 +1,428 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-2024-ARR-001",
+    "Version": "0.1.0",
+    "IssueDate": "2024-12-15",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Advanced Steel Technologies GmbH",
+          "Street": ["Industriestraße 15"],
+          "ZipCode": "52070",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@advanced-steel.de"
+        },
+        "Customer": {
+          "Name": "Precision Engineering Ltd.",
+          "Street": ["Manufacturing Park 42"],
+          "ZipCode": "B1 1AA",
+          "City": "Birmingham",
+          "Country": "GB",
+          "Email": "procurement@precision-eng.co.uk"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-2024-7890"
+        },
+        "Delivery": {
+          "Id": "DN-2024-3456",
+          "Quantity": 500,
+          "QuantityUnit": "kg"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Hardenability Test Steel",
+      "BatchId": "HTB-2024-045",
+      "MaterialNorms": [
+        {
+          "Designation": "EN 10083-1",
+          "Year": "2006",
+          "Grade": "C45"
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 100,
+        "Length": 1000,
+        "Unit": "mm"
+      }
+    },
+    "ChemicalAnalysis": {
+      "HeatNumber": "H-2024-078",
+      "SampleLocation": "Ladle",
+      "SampleType": "Liquid",
+      "Elements": [
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.45
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.42
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.50
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "Mn",
+          "PropertyName": "Manganese",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.65
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.50
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.80
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "Si",
+          "PropertyName": "Silicon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.40
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "P",
+          "PropertyName": "Phosphorus",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.030
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "S",
+          "PropertyName": "Sulfur",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.008
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "Cr",
+          "PropertyName": "Chromium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.12
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Interpretation": "In Specification"
+        },
+        {
+          "PropertySymbol": "Ni",
+          "PropertyName": "Nickel",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.08
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Interpretation": "In Specification"
+        }
+      ]
+    },
+    "MechanicalProperties": [
+      {
+        "PropertyName": "Jominy Hardenability Test",
+        "PropertySymbol": "HRC",
+        "Method": "ISO 377",
+        "Unit": "HRC",
+        "TestConditions": "Quenched from 850°C",
+        "Actual": {
+          "ResultType": "array",
+          "ParameterName": "Distance from quenched end",
+          "ParameterUnit": "mm",
+          "Data": [
+            {
+              "Parameter": 1.5,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 45
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 42
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 47
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 3,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 43
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 39
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 46
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 5,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 40
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 35
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 44
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 7,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 36
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 32
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 41
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 9,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 33
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 29
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 39
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 11,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 31
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 26
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 37
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 15,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 27
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 22
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 33
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 20,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 25
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 20
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 31
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 25,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 28
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 30,
+                "Operator": "<="
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 30,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 27
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 29,
+                "Operator": "<="
+              },
+              "Status": "Pass"
+            }
+          ]
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Coating Thickness Profile",
+        "Method": "ISO 2178",
+        "Unit": "μm",
+        "TestConditions": "Magnetic induction method",
+        "Actual": {
+          "ResultType": "array",
+          "ParameterName": "Position along length",
+          "ParameterUnit": "mm",
+          "Data": [
+            {
+              "Parameter": 0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 125
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 120,
+                "Operator": ">="
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 130,
+                "Operator": "<="
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 50,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 115
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 110,
+                "Operator": ">="
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 125,
+                "Operator": "<="
+              },
+              "Status": "Pass"
+            },
+            {
+              "Parameter": 100,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 108
+              },
+              "Minimum": {
+                "ResultType": "numeric",
+                "Value": 100,
+                "Operator": ">="
+              },
+              "Maximum": {
+                "ResultType": "numeric",
+                "Value": 120,
+                "Operator": "<="
+              },
+              "Status": "Pass"
+            }
+          ]
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with EN 10083-1 and ISO 377. All hardenability requirements have been met.",
+        "Standards": ["EN 10083-1", "ISO 377"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2024-12-15",
+      "Validators": [
+        {
+          "Name": "Dr. Maria Schmidt",
+          "Title": "Metallurgical Engineer",
+          "Department": "Quality Control Laboratory"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}
