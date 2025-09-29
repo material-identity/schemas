@@ -145,44 +145,6 @@
       "required": ["ResultType", "Values"]
     },
 
-    "StructuredArrayResult": {
-      "title": "StructuredArrayResult",
-      "description": "A structured array with named parameters and their values",
-      "type": "object",
-      "properties": {
-        "ResultType": {
-          "type": "string",
-          "const": "structuredArray"
-        },
-        "Parameters": {
-          "description": "Array of parameter names",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        },
-        "ParameterUnits": {
-          "description": "Array of units for each parameter (optional)",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "DataPoints": {
-          "description": "Array of data points, each containing values for all parameters",
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "minItems": 1
-        }
-      },
-      "required": ["ResultType", "Parameters", "DataPoints"]
-    },
 
     "Result": {
       "title": "Result",
@@ -192,8 +154,7 @@
         { "$ref": "#/definitions/BooleanResult" },
         { "$ref": "#/definitions/StringResult" },
         { "$ref": "#/definitions/RangeResult" },
-        { "$ref": "#/definitions/ArrayResult" },
-        { "$ref": "#/definitions/StructuredArrayResult" }
+        { "$ref": "#/definitions/ArrayResult" }
       ]
     },
 
