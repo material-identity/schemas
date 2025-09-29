@@ -99,6 +99,20 @@
           }
         ]
       },
+      "DeliveryConditions": {
+        "Marking": {
+          "Type": "Laser",
+          "Content": "S355J2+N",
+          "Location": "Web surface",
+          "Legibility": "Clear"
+        },
+        "Bundles": {
+          "Type": "Crated",
+          "Quantity": 10,
+          "Material": "Steel straps",
+          "Condition": "Good"
+        }
+      },
       "SpecificationReference": {
         "Name": "1180-1/ ISO GENERIC - HR",
         "Revision": "2024-11-07",
