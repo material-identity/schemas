@@ -227,8 +227,35 @@
         "PropertySymbol": "Rp0.2",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 172.56
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 171.2
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 172.5
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 174.0
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 172.56
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 171.2
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 174.0
+            }
+          }
         }
       },
       {
@@ -236,8 +263,39 @@
         "PropertySymbol": "Rm",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 220.35
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 219.8
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 220.3
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 221.0
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 220.35
+            },
+            "Median": {
+              "ResultType": "numeric",
+              "Value": 220.3
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 219.8
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 221.0
+            }
+          }
         }
       },
       {
@@ -245,8 +303,35 @@
         "PropertySymbol": "A50%",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 12.83
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 12.5
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 12.8
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 13.2
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 12.83
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 12.5
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 13.2
+            }
+          }
         }
       },
       {
@@ -254,8 +339,49 @@
         "PropertySymbol": "HB",
         "Unit": "HBW",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 75
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 74
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 75
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 76
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 75
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 76
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 75.2
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 74
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 76
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 0.84
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "ASTM E10 statistical analysis"
+          }
         }
       }
     ],

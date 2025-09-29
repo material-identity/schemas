@@ -215,10 +215,52 @@
         "TestConditions": "Room temperature, R = 0.1",
         "Actual": {
           "ResultType": "array",
-          "Values": [650, 635, 610, 590, 570, 550],
-          "Parameters": [10000, 50000, 100000, 500000, 1000000, 10000000],
           "ParameterName": "Cycles",
-          "ParameterUnit": "N"
+          "ParameterUnit": "N",
+          "Data": [
+            {
+              "Parameter": 10000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 650
+              }
+            },
+            {
+              "Parameter": 50000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 635
+              }
+            },
+            {
+              "Parameter": 100000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 610
+              }
+            },
+            {
+              "Parameter": 500000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 590
+              }
+            },
+            {
+              "Parameter": 1000000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 570
+              }
+            },
+            {
+              "Parameter": 10000000,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 550
+              }
+            }
+          ]
         },
         "Interpretation": "In Specification"
       },
@@ -336,10 +378,66 @@
         "Unit": "HV",
         "Actual": {
           "ResultType": "array",
-          "Values": [345, 350, 352, 350, 349, 348, 351, 347],
-          "Parameters": [0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 10.0, 15.0],
           "ParameterName": "Distance from surface",
-          "ParameterUnit": "mm"
+          "ParameterUnit": "mm",
+          "Data": [
+            {
+              "Parameter": 0.1,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 345
+              }
+            },
+            {
+              "Parameter": 0.5,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 350
+              }
+            },
+            {
+              "Parameter": 1.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 352
+              }
+            },
+            {
+              "Parameter": 2.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 350
+              }
+            },
+            {
+              "Parameter": 3.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 349
+              }
+            },
+            {
+              "Parameter": 5.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 348
+              }
+            },
+            {
+              "Parameter": 10.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 351
+              }
+            },
+            {
+              "Parameter": 15.0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 347
+              }
+            }
+          ]
         },
         "Interpretation": "In Specification"
       }
