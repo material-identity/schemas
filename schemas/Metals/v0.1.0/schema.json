@@ -110,39 +110,61 @@
 
     "ArrayResult": {
       "title": "ArrayResult",
-      "description": "A series of values typically representing a curve or multi-point measurement",
+      "description": "Result type for tests with parameter-dependent specifications",
       "type": "object",
       "properties": {
         "ResultType": {
           "type": "string",
           "const": "array"
         },
-        "Values": {
-          "description": "Array of numeric values",
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "minItems": 1
-        },
-        "Parameters": {
-          "description": "Array of parameter values corresponding to the results",
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "minItems": 1
-        },
         "ParameterName": {
-          "description": "Name of the parameter being varied",
-          "type": "string"
+          "type": "string",
+          "description": "The varying parameter (e.g., 'Distance', 'Position', 'Time')"
         },
         "ParameterUnit": {
-          "description": "Unit of the parameter",
-          "type": "string"
+          "type": "string",
+          "description": "Unit of the parameter"
+        },
+        "Data": {
+          "type": "array",
+          "description": "Data points with individual specifications",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Parameter": {
+                "type": "number",
+                "description": "Parameter value for this data point"
+              },
+              "Value": {
+                "description": "Measured numeric value at this parameter",
+                "$ref": "#/definitions/NumericResult"
+              },
+              "Minimum": {
+                "description": "Minimum specification for THIS specific parameter",
+                "$ref": "#/definitions/NumericResult"
+              },
+              "Maximum": {
+                "description": "Maximum specification for THIS specific parameter",
+                "$ref": "#/definitions/NumericResult"
+              },
+              "Target": {
+                "description": "Target value for THIS specific parameter",
+                "$ref": "#/definitions/NumericResult"
+              },
+              "Status": {
+                "type": "string",
+                "enum": ["Pass", "Fail", "Warning", "Info"],
+                "description": "Pass/Fail status for this specific point"
+              }
+            },
+            "required": ["Parameter", "Value"],
+            "additionalProperties": false
+          },
+          "minItems": 1
         }
       },
-      "required": ["ResultType", "Values"]
+      "required": ["ResultType", "Data"],
+      "additionalProperties": false
     },
 
 
