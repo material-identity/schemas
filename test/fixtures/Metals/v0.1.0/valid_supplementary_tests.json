@@ -230,10 +230,38 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "ASTM E8",
+        "TestConditions": "3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 580
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 578
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 580
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 582
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 580.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 578
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 582
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -245,10 +273,48 @@
         "PropertySymbol": "Rp0.2",
         "PropertyName": "0.2% Yield Strength",
         "Method": "ASTM E8",
+        "TestConditions": "3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 240
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 238
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 240
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 242
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 240.0
+            },
+            "Median": {
+              "ResultType": "numeric",
+              "Value": 240.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 238
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 242
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "ASTM E8 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -260,10 +326,38 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation",
         "Method": "ASTM E8",
+        "TestConditions": "3 specimens tested",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 52
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 51
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 52
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 53
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 52.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 51
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 53
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",

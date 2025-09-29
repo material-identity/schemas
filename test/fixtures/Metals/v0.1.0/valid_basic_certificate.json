@@ -222,10 +222,38 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
+        "TestConditions": "3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 510
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 508
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 510
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 512
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 510.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 508
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 512
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -240,10 +268,42 @@
         "PropertySymbol": "ReH",
         "PropertyName": "Yield Strength",
         "Method": "EN ISO 6892-1",
+        "TestConditions": "3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 380
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 378
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 380
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 382
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 380.0
+            },
+            "Median": {
+              "ResultType": "numeric",
+              "Value": 380.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 378
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 382
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -254,10 +314,44 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation after fracture",
         "Method": "EN ISO 6892-1",
+        "TestConditions": "3 specimens tested",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 22
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 21.5
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 22.0
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 22.5
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 22.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 21.5
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 22.5
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 0.5
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",

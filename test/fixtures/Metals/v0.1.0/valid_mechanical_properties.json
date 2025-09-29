@@ -205,11 +205,44 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C, Specimen: Round, Ø 10 mm",
+        "TestConditions": "Test temperature: 20°C, Specimen: Round, Ø 10 mm, 3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 560
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 558
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 562
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 560
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 560.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 558
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 562
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -225,11 +258,44 @@
         "PropertySymbol": "ReH",
         "PropertyName": "Yield Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C",
+        "TestConditions": "Test temperature: 20°C, 3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 445
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 442
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 445
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 448
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 445.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 442
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 448
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 3.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -241,11 +307,44 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation after fracture",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Gauge length 5.65√S₀",
+        "TestConditions": "Gauge length 5.65√S₀, 3 specimens tested",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 24
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 23
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 24
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 25
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 24.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 23
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 25
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 1.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -257,10 +356,44 @@
         "PropertySymbol": "Z",
         "PropertyName": "Reduction of Area",
         "Method": "EN ISO 6892-1",
+        "TestConditions": "3 specimens tested",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 62
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 60
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 62
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 64
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 62.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 60
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 64
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -272,11 +405,44 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20°C",
+        "TestConditions": "Test temperature: -20°C, 3 specimens tested",
         "Unit": "J",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 58
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 56
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 58
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 60
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 58.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 56
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 60
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 148-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -288,11 +454,52 @@
         "PropertySymbol": "HBW",
         "PropertyName": "Brinell Hardness",
         "Method": "EN ISO 6506-1",
-        "TestConditions": "Ball: 10mm, Force: 3000kg",
+        "TestConditions": "Ball: 10mm, Force: 3000kg, 5 indentations",
         "Unit": "HBW",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 185
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 183
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 185
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 187
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 184
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 186
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 185.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 183
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 187
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 1.58
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6506-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -308,10 +515,52 @@
         "PropertySymbol": "HV",
         "PropertyName": "Vickers Hardness",
         "Method": "EN ISO 6507-1",
+        "TestConditions": "10 kg load, 5 indentations",
         "Unit": "HV10",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 195
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 192
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 195
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 198
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 194
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 196
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 195.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 192
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 198
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.35
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6507-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -387,10 +636,44 @@
         "PropertySymbol": "Rp0.2",
         "PropertyName": "0.2% Proof Strength",
         "Method": "EN ISO 6892-1",
+        "TestConditions": "3 specimens tested",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 430
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 428
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 430
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 432
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 430.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 428
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 432
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 6892-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",

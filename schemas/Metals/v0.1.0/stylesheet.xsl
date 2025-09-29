@@ -755,8 +755,8 @@
                       <xsl:variable name="propertyName" select="PropertyName" />
                       <fo:table-row>
                         <xsl:choose>
-                          <xsl:when test="Actual/ResultType = 'array'">
-                            <!-- For ArrayResult: Property name spans Property + Symbol + Actual + Min + Max columns -->
+                          <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
+                            <!-- For ArrayResult/MultiValueResult: Property name spans Property + Symbol + Actual + Min + Max columns -->
                             <fo:table-cell number-columns-spanned="5" padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                               <fo:block font-weight="bold">
                                 <xsl:call-template name="AddWordWrapBreaks">
@@ -775,7 +775,7 @@
                             </fo:table-cell>
                           </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:if test="not(Actual/ResultType = 'array')">
+                        <xsl:if test="not(Actual/ResultType = 'array') and not(Actual/ResultType = 'multiValue')">
                           <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                             <fo:block>
                               <xsl:call-template name="AddWordWrapBreaks">
@@ -836,8 +836,8 @@
                           </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
-                      <!-- Add spanning row for Array result types -->
-                      <xsl:if test="Actual/ResultType = 'array'">
+                      <!-- Add spanning row for Array/MultiValue result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                         <fo:table-row>
                           <fo:table-cell number-columns-spanned="7" padding="4pt">
                             <xsl:call-template name="FormatResult">
@@ -918,13 +918,20 @@
                                   </xsl:call-template>
                                 </fo:block>
                               </xsl:when>
+                              <xsl:when test="Actual/ResultType = 'multiValue'">
+                                <fo:block>
+                                  <xsl:call-template name="AddWordWrapBreaks">
+                                    <xsl:with-param name="text" select="'Multi-value data (see below)'" />
+                                  </xsl:call-template>
+                                </fo:block>
+                              </xsl:when>
                               <xsl:otherwise>
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Actual" />
                                 </xsl:call-template>
                               </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="Unit and not(Actual/ResultType = 'array')">
+                            <xsl:if test="Unit and not(Actual/ResultType = 'array') and not(Actual/ResultType = 'multiValue')">
                               <xsl:text> </xsl:text><xsl:value-of select="Unit" />
                             </xsl:if>
                           </fo:block>
@@ -932,7 +939,7 @@
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:choose>
-                              <xsl:when test="Actual/ResultType = 'array'">
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                                 <xsl:text>-</xsl:text>
                               </xsl:when>
                               <xsl:when test="Target">
@@ -952,7 +959,7 @@
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:choose>
-                              <xsl:when test="Actual/ResultType = 'array'">
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                                 <xsl:text>-</xsl:text>
                               </xsl:when>
                               <xsl:when test="Maximum">
@@ -988,8 +995,8 @@
                           </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
-                      <!-- Add spanning row for Array result types -->
-                      <xsl:if test="Actual/ResultType = 'array'">
+                      <!-- Add spanning row for Array/MultiValue result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                         <fo:table-row>
                           <fo:table-cell number-columns-spanned="7" padding="4pt">
                             <xsl:call-template name="FormatResult">
@@ -1064,13 +1071,20 @@
                                   </xsl:call-template>
                                 </fo:block>
                               </xsl:when>
+                              <xsl:when test="Actual/ResultType = 'multiValue'">
+                                <fo:block>
+                                  <xsl:call-template name="AddWordWrapBreaks">
+                                    <xsl:with-param name="text" select="'Multi-value data (see below)'" />
+                                  </xsl:call-template>
+                                </fo:block>
+                              </xsl:when>
                               <xsl:otherwise>
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Actual" />
                                 </xsl:call-template>
                               </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="Unit and not(Actual/ResultType = 'array')">
+                            <xsl:if test="Unit and not(Actual/ResultType = 'array') and not(Actual/ResultType = 'multiValue')">
                               <xsl:text> </xsl:text><xsl:value-of select="Unit" />
                             </xsl:if>
                           </fo:block>
@@ -1078,7 +1092,7 @@
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:choose>
-                              <xsl:when test="Actual/ResultType = 'array'">
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                                 <xsl:text>-</xsl:text>
                               </xsl:when>
                               <xsl:when test="Target">
@@ -1098,7 +1112,7 @@
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                           <fo:block>
                             <xsl:choose>
-                              <xsl:when test="Actual/ResultType = 'array'">
+                              <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                                 <xsl:text>-</xsl:text>
                               </xsl:when>
                               <xsl:when test="Maximum">
@@ -1134,8 +1148,8 @@
                           </fo:block>
                         </fo:table-cell>
                       </fo:table-row>
-                      <!-- Add spanning row for Array result types -->
-                      <xsl:if test="Actual/ResultType = 'array'">
+                      <!-- Add spanning row for Array/MultiValue result types -->
+                      <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                         <fo:table-row>
                           <fo:table-cell number-columns-spanned="6" padding="4pt">
                             <xsl:call-template name="FormatResult">
@@ -1490,6 +1504,127 @@
             </xsl:if>
           </fo:table-body>
         </fo:table>
+      </xsl:when>
+      <xsl:when test="$result/ResultType = 'multiValue'">
+        <fo:table table-layout="fixed" width="100%" margin-top="3pt">
+          <fo:table-column column-width="proportional-column-width(2)"/>
+          <xsl:for-each select="$result/Values">
+            <fo:table-column column-width="proportional-column-width(1)"/>
+          </xsl:for-each>
+          <fo:table-body>
+            <!-- Header row -->
+            <fo:table-row background-color="#f8f8f8">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="left" font-size="8pt" font-weight="bold">
+                  Individual Values
+                </fo:block>
+              </fo:table-cell>
+              <xsl:for-each select="$result/Values">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    #<xsl:value-of select="position()" />
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
+            <!-- Values row -->
+            <fo:table-row>
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="left" font-size="8pt">
+                  <xsl:choose>
+                    <xsl:when test="$result/../Unit">
+                      Value [<xsl:value-of select="$result/../Unit" />]
+                    </xsl:when>
+                    <xsl:otherwise>Value</xsl:otherwise>
+                  </xsl:choose>
+                </fo:block>
+              </fo:table-cell>
+              <xsl:for-each select="$result/Values">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="." />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
+        <!-- Statistics section if available -->
+        <xsl:if test="$result/Statistics">
+          <fo:table table-layout="fixed" width="100%" margin-top="6pt">
+            <fo:table-column column-width="25%"/>
+            <fo:table-column column-width="25%"/>
+            <fo:table-column column-width="25%"/>
+            <fo:table-column column-width="25%"/>
+            <fo:table-body>
+              <fo:table-row background-color="#f0f0f0">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt" font-weight="bold">Statistics</fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt" font-weight="bold">Mean</fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt" font-weight="bold">Min/Max</fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt" font-weight="bold">Std Dev</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+              <fo:table-row>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:if test="$result/Statistics/Method">
+                      <xsl:value-of select="$result/Statistics/Method" />
+                    </xsl:if>
+                  </fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:if test="$result/Statistics/Mean">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="$result/Statistics/Mean" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:if test="$result/Statistics/Minimum">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="$result/Statistics/Minimum" />
+                      </xsl:call-template>
+                    </xsl:if>
+                    <xsl:if test="$result/Statistics/Minimum and $result/Statistics/Maximum">
+                      <xsl:text> / </xsl:text>
+                    </xsl:if>
+                    <xsl:if test="$result/Statistics/Maximum">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="$result/Statistics/Maximum" />
+                      </xsl:call-template>
+                    </xsl:if>
+                  </fo:block>
+                </fo:table-cell>
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="8pt">
+                    <xsl:if test="$result/Statistics/StandardDeviation">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="$result/Statistics/StandardDeviation" />
+                      </xsl:call-template>
+                      <xsl:if test="$result/Statistics/StandardDeviationType">
+                        <fo:block font-size="6pt" color="gray">
+                          (<xsl:value-of select="$result/Statistics/StandardDeviationType" />)
+                        </fo:block>
+                      </xsl:if>
+                    </xsl:if>
+                  </fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+            </fo:table-body>
+          </fo:table>
+        </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$result/Value" />

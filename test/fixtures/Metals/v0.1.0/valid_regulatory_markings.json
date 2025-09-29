@@ -265,11 +265,38 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C, transverse to rolling direction",
+        "TestConditions": "3 specimens tested at 20°C, transverse to rolling direction",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 550
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 548
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 550
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 552
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 550.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 548
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 552
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -285,11 +312,42 @@
         "PropertySymbol": "ReH",
         "PropertyName": "Yield Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C, transverse to rolling direction",
+        "TestConditions": "3 specimens tested at 20°C, transverse to rolling direction",
         "Unit": "MPa",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 440
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 438
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 440
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 442
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 440.0
+            },
+            "Median": {
+              "ResultType": "numeric",
+              "Value": 440.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 438
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 442
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -301,11 +359,38 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation after fracture",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Gauge length 5.65√S₀, transverse to rolling direction",
+        "TestConditions": "3 specimens tested, gauge length 5.65√S₀, transverse to rolling direction",
         "Unit": "%",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 21
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 20.5
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 21.0
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 21.5
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 21.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 20.5
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 21.5
+            }
+          }
         },
         "Minimum": {
           "ResultType": "numeric",
@@ -317,11 +402,44 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20°C, transverse to rolling direction",
+        "TestConditions": "3 specimens tested at -20°C, transverse to rolling direction",
         "Unit": "J",
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 65
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 63
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 65
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 67
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 65.0
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 63
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 67
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 148-1 statistical analysis"
+          }
         },
         "Minimum": {
           "ResultType": "numeric",

@@ -167,6 +167,63 @@
       "additionalProperties": false
     },
 
+    "MultiValueResult": {
+      "title": "MultiValueResult",
+      "description": "Result type for inspections that produce multiple individual test values with associated statistical calculations",
+      "type": "object",
+      "properties": {
+        "ResultType": {
+          "type": "string",
+          "const": "multiValue"
+        },
+        "Values": {
+          "type": "array",
+          "description": "Array of individual numeric test values",
+          "items": {
+            "$ref": "#/definitions/NumericResult"
+          },
+          "minItems": 3
+        },
+        "Statistics": {
+          "type": "object",
+          "description": "Statistical calculations for the test values",
+          "properties": {
+            "Mean": {
+              "description": "Arithmetic mean of the values",
+              "$ref": "#/definitions/NumericResult"
+            },
+            "Median": {
+              "description": "Median value",
+              "$ref": "#/definitions/NumericResult"
+            },
+            "Minimum": {
+              "description": "Minimum value from the dataset",
+              "$ref": "#/definitions/NumericResult"
+            },
+            "Maximum": {
+              "description": "Maximum value from the dataset",
+              "$ref": "#/definitions/NumericResult"
+            },
+            "StandardDeviation": {
+              "description": "Standard deviation of the values",
+              "$ref": "#/definitions/NumericResult"
+            },
+            "StandardDeviationType": {
+              "type": "string",
+              "enum": ["Sample", "Population"],
+              "description": "Type of standard deviation calculation used"
+            },
+            "Method": {
+              "type": "string",
+              "description": "Statistical method or approach used for calculations"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["ResultType", "Values"],
+      "additionalProperties": false
+    },
 
     "Result": {
       "title": "Result",
@@ -176,7 +233,8 @@
         { "$ref": "#/definitions/BooleanResult" },
         { "$ref": "#/definitions/StringResult" },
         { "$ref": "#/definitions/RangeResult" },
-        { "$ref": "#/definitions/ArrayResult" }
+        { "$ref": "#/definitions/ArrayResult" },
+        { "$ref": "#/definitions/MultiValueResult" }
       ]
     },
 
