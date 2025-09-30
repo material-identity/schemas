@@ -88,7 +88,19 @@
         "Unit": "mm"
       },
       "BatchId": "H-10987-02",
-      "HeatTreatment": "Normalized",
+      "HeatTreatment": {
+        "Process": "Normalizing",
+        "HeatTreatmentLot": "HT-2024-11-15-B47",
+        "Stages": [
+          {
+            "StageType": "Austenitizing",
+            "Temperature": 920,
+            "TemperatureUnit": "C"
+          }
+        ],
+        "FurnaceId": "FURNACE-03",
+        "ProcessDate": "2024-11-15"
+      },
       "SurfaceCondition": "Hot-rolled",
       "CountryOfOrigin": "DE",
       "ManufacturingLocation": "Aachen Plant",
