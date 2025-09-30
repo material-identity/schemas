@@ -52,6 +52,9 @@ jobs:
             if [ "$domain" = "forestrysource" ]; then
               domain="forestry-source"
             fi
+            if [ "$domain" = "forestryoutput" ]; then
+              domain="forestry-output"
+            fi
 
             # Create new path with transformed structure
             # Keep the original file path structure after the version
