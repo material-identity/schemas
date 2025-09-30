@@ -355,13 +355,8 @@
           "type": "string"
         },
         "TestConditions": {
-          "description": "Test conditions as text - use SamplingSpecification at ChemicalAnalysis level for structured sampling location",
+          "description": "Test conditions as text (e.g., temperature, environment)",
           "type": "string"
-        },
-        "SpecimenSpecification": {
-          "description": "DEPRECATED: Use SamplingSpecification at ChemicalAnalysis level for chemical sampling location",
-          "deprecated": true,
-          "$ref": "#/definitions/SpecimenSpecification"
         },
         "Actual": {
           "description": "The actual measured or calculated result",
@@ -468,23 +463,14 @@
           ]
         },
         "SampleLocation": {
-          "description": "DEPRECATED: Use SamplingSpecification for detailed sampling info. The location where the chemical analysis sample was taken",
+          "description": "The location where the chemical analysis sample was taken",
           "type": "string",
-          "deprecated": true,
           "examples": ["Ladle", "Product", "1/4 thickness", "1/2 radius"]
         },
         "SampleType": {
-          "description": "DEPRECATED: Use SamplingSpecification for detailed sampling info. The type of sample used for chemical analysis",
+          "description": "The type of sample used for chemical analysis",
           "type": "string",
-          "deprecated": true,
           "examples": ["Solid", "Liquid", "Drilling", "Milling"]
-        },
-        "SamplingSpecification": {
-          "description": "Comprehensive sampling specification for chemical analysis",
-          "oneOf": [
-            {"$ref": "#/definitions/SingleChemicalSampling"},
-            {"$ref": "#/definitions/MultipleChemicalSampling"}
-          ]
         },
         "Elements": {
           "description": "The list of elements and their measured values",
@@ -1588,380 +1574,6 @@
       "additionalProperties": false
     },
 
-    "CommonSamplingLocation": {
-      "title": "CommonSamplingLocation",
-      "description": "Common sampling location definitions for both chemical and mechanical testing",
-      "type": "object",
-      "properties": {
-        "Position": {
-          "description": "Standardized position descriptor",
-          "type": "string",
-          "enum": [
-            "Surface", "Subsurface", "1/6T", "1/4T", "1/3T", "1/2T", "2/3T", "3/4T", "5/6T",
-            "Center", "tR/4", "tR/2", "tR/3", "Edge", "Quarter", "Mid-radius", "Custom",
-            "Ladle", "Tundish", "Product", "Top", "Middle", "Bottom", "End"
-          ]
-        },
-        "DepthMm": {
-          "description": "Specific depth below surface in millimeters",
-          "type": "number",
-          "minimum": 0
-        },
-        "RadialPosition": {
-          "description": "Distance from center for cylindrical products (mm)",
-          "type": "number",
-          "minimum": 0
-        },
-        "AxialPosition": {
-          "description": "Position along product length",
-          "type": "string",
-          "enum": ["Top", "Middle", "Bottom", "End", "Quarter", "Custom"]
-        },
-        "CustomDescription": {
-          "description": "Custom location description when Position is 'Custom'",
-          "type": "string"
-        },
-        "ReferencePoint": {
-          "description": "Reference point for position measurements",
-          "type": "string",
-          "examples": ["From outer surface", "From bore", "From center line", "From end face"]
-        }
-      },
-      "required": ["Position"],
-      "additionalProperties": false
-    },
-
-    "IndustryStandards": {
-      "description": "Comprehensive list of industry standards for sampling and testing",
-      "type": "string",
-      "enum": [
-        "ISO 377", "ISO 377-1", "ISO 377-2", "ISO 377-3",
-        "ASTM A388", "ASTM A370",
-        "EN 10250", "EN 10250-1", "EN 10250-2", "EN 10250-3", "EN 10250-4",
-        "ISO 6892-1", "ISO 6892-2", "EN ISO 6892-1", "EN ISO 6892-2",
-        "ASTM E8", "ASTM E8M",
-        "ISO 148-1", "EN ISO 148-1", "ASTM E23",
-        "ISO 6507-1", "EN ISO 6507-1", "ASTM E92", "ASTM E384",
-        "ISO 7438", "ASTM E399", "ASTM E1820",
-        "ISO 4491", "ASTM E1019", "ASTM E415", "ASTM E1086",
-        "EN 10020", "EN 10027-1", "EN 10027-2",
-        "AMS 2301", "AMS 2371", "AMS 2750", "ASTM E1131",
-        "AS 9100", "NADCAP AC7004", "NADCAP AC7101",
-        "ASME Section II", "ASME Section III", "ASME Section VIII",
-        "ASTM A965", "RCC-M", "KTA 3201.2",
-        "NORSOK M-101", "NORSOK M-120", "NORSOK M-630",
-        "API 5L", "API 5CT", "API 6A", "API 20E",
-        "DNV GL-ST-F101", "ISO 3183",
-        "IATF 16949", "ISO/TS 16949", "VDA 6.1", "AIAG",
-        "JIS G 0404", "JIS Z 2241", "JIS G 0553",
-        "GB/T 228.1", "GB/T 229", "GB/T 4340.1",
-        "GOST 1497", "GOST 9454", "GOST 2999"
-      ]
-    },
-
-    "SingleChemicalSampling": {
-      "type": "object",
-      "properties": {
-        "Location": {
-          "$ref": "#/definitions/CommonSamplingLocation"
-        },
-        "Method": {
-          "description": "Sampling method",
-          "type": "string",
-          "enum": ["Liquid", "Solid", "Drilling", "Milling", "Turning", "Punching", "Cutting"]
-        },
-        "Direction": {
-          "description": "Sampling direction relative to product orientation",
-          "type": "string",
-          "enum": ["L", "T", "Z", "R", "C"]
-        },
-        "Preparation": {
-          "description": "Sample preparation method",
-          "type": "string",
-          "examples": ["As-cast", "Machined", "Ground", "Polished", "Etched"]
-        }
-      },
-      "required": ["Location", "Method"],
-      "additionalProperties": false
-    },
-
-    "MultipleChemicalSampling": {
-      "type": "object",
-      "properties": {
-        "Samples": {
-          "description": "Array of sampling specifications",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "SampleId": {
-                "description": "Identifier for this specific sample",
-                "type": "string"
-              },
-              "Location": {
-                "$ref": "#/definitions/CommonSamplingLocation"
-              },
-              "Method": {
-                "description": "Sampling method",
-                "type": "string",
-                "enum": ["Liquid", "Solid", "Drilling", "Milling", "Turning", "Punching", "Cutting"]
-              },
-              "Direction": {
-                "description": "Sampling direction relative to product orientation",
-                "type": "string",
-                "enum": ["L", "T", "Z", "R", "C"]
-              },
-              "Preparation": {
-                "description": "Sample preparation method",
-                "type": "string",
-                "examples": ["As-cast", "Machined", "Ground", "Polished", "Etched"]
-              },
-              "AppliesTo": {
-                "description": "Chemical elements this sample applies to",
-                "type": "array",
-                "items": {"type": "string"}
-              }
-            },
-            "required": ["SampleId", "Location", "Method"],
-            "additionalProperties": false
-          },
-          "minItems": 2
-        },
-        "SamplingPattern": {
-          "description": "Description of the sampling pattern",
-          "type": "string",
-          "examples": ["Diagonal", "Cross-section", "Grid", "Random"]
-        }
-      },
-      "required": ["Samples"],
-      "additionalProperties": false
-    },
-
-    "SpecimenLocation": {
-      "type": "object",
-      "allOf": [
-        {"$ref": "#/definitions/CommonSamplingLocation"}
-      ]
-    },
-
-    "SpecimenSpecification": {
-      "title": "SpecimenSpecification",
-      "description": "Specimen location and orientation per industry standards for mechanical and chemical testing",
-      "type": "object",
-      "properties": {
-        "Location": {
-          "type": "string",
-          "enum": [
-            "Surface",
-            "1/4T",
-            "1/2T",
-            "3/4T",
-            "Center",
-            "Edge",
-            "Top",
-            "Bottom",
-            "Core",
-            "Custom"
-          ],
-          "description": "Location within the product per ASTM/EN standards"
-        },
-        "CustomLocation": {
-          "type": "string",
-          "maxLength": 50,
-          "description": "Required when Location='Custom'"
-        },
-        "Orientation": {
-          "type": "string",
-          "enum": [
-            "L",
-            "T",
-            "S",
-            "Z",
-            "R",
-            "C",
-            "L-T",
-            "T-L",
-            "S-L",
-            "L-S",
-            "T-S",
-            "S-T"
-          ],
-          "description": "Orientation per ASTM E399 notation. L=Longitudinal, T=Transverse, S=Short transverse, Z=Through-thickness, R=Radial, C=Circumferential. Hyphenated codes indicate crack plane orientation."
-        },
-        "Identifier": {
-          "type": "string",
-          "maxLength": 30,
-          "description": "Specimen marking or ID"
-        }
-      },
-      "additionalProperties": false
-    },
-
-    "SpecimenOrientation": {
-      "type": "object",
-      "properties": {
-        "PrimaryDirection": {
-          "description": "Primary specimen axis",
-          "type": "string",
-          "enum": ["L", "T", "Z", "R", "C", "45°"]
-        },
-        "SecondaryDirection": {
-          "description": "Secondary direction (for notch orientation, crack plane, etc.)",
-          "type": "string",
-          "enum": ["L", "T", "Z", "R", "C"]
-        },
-        "NotchOrientation": {
-          "description": "For impact/fracture tests",
-          "type": "string",
-          "examples": ["T-L", "L-T", "Z-L", "L-Z", "T-Z", "Z-T"]
-        },
-        "ReferenceDirection": {
-          "description": "Reference for orientation (rolling, forging, extrusion direction)",
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
-
-    "SpecimenPreparation": {
-      "type": "object",
-      "properties": {
-        "ExtractionMethod": {
-          "description": "Method used to extract specimen",
-          "type": "string",
-          "enum": ["Flame cut", "Plasma cut", "Water jet", "Saw cut", "Wire EDM", "Machined", "Sheared"]
-        },
-        "HeatAffectedZone": {
-          "description": "HAZ removed in mm",
-          "type": "number",
-          "minimum": 0
-        },
-        "SurfaceFinish": {
-          "description": "Surface preparation",
-          "type": "string",
-          "examples": ["As rolled", "Machined", "Ground", "Polished"]
-        },
-        "FinalMachining": {
-          "description": "Final machining details",
-          "type": "string"
-        },
-        "Straightening": {
-          "description": "Whether specimen was straightened",
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false
-    },
-
-    "SpecimenGeometry": {
-      "type": "object",
-      "properties": {
-        "Type": {
-          "description": "Specimen type",
-          "type": "string",
-          "examples": ["Round tensile", "Flat tensile", "Charpy V-notch", "Compact tension", "Cylindrical compression"]
-        },
-        "Standard": {
-          "$ref": "#/definitions/IndustryStandards"
-        },
-        "GaugeLength": {
-          "description": "Gauge length for tensile specimens (mm)",
-          "type": "number",
-          "minimum": 0
-        },
-        "Diameter": {
-          "description": "Specimen diameter (mm)",
-          "type": "number",
-          "minimum": 0
-        },
-        "Width": {
-          "description": "Specimen width (mm)",
-          "type": "number",
-          "minimum": 0
-        },
-        "Thickness": {
-          "description": "Specimen thickness (mm)",
-          "type": "number",
-          "minimum": 0
-        },
-        "CrossSection": {
-          "description": "Cross-sectional area (mm²)",
-          "type": "number",
-          "minimum": 0
-        }
-      },
-      "additionalProperties": false
-    },
-
-    "SingleSpecimen": {
-      "type": "object",
-      "properties": {
-        "Location": {
-          "$ref": "#/definitions/SpecimenLocation"
-        },
-        "Orientation": {
-          "$ref": "#/definitions/SpecimenOrientation"
-        },
-        "Preparation": {
-          "$ref": "#/definitions/SpecimenPreparation"
-        },
-        "Geometry": {
-          "$ref": "#/definitions/SpecimenGeometry"
-        },
-        "ExtractionStandard": {
-          "$ref": "#/definitions/IndustryStandards"
-        }
-      },
-      "additionalProperties": false
-    },
-
-    "MultipleSpecimens": {
-      "type": "object",
-      "properties": {
-        "Specimens": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "SpecimenId": {
-                "description": "Unique identifier for this specimen",
-                "type": "string"
-              },
-              "Location": {
-                "$ref": "#/definitions/SpecimenLocation"
-              },
-              "Orientation": {
-                "$ref": "#/definitions/SpecimenOrientation"
-              },
-              "Preparation": {
-                "$ref": "#/definitions/SpecimenPreparation"
-              },
-              "Geometry": {
-                "$ref": "#/definitions/SpecimenGeometry"
-              },
-              "ExtractionStandard": {
-                "$ref": "#/definitions/IndustryStandards"
-              },
-              "TestResult": {
-                "description": "Link to specific result if multiple values reported",
-                "type": "string"
-              }
-            },
-            "required": ["SpecimenId"],
-            "additionalProperties": false
-          },
-          "minItems": 2
-        },
-        "StatisticalMethod": {
-          "description": "Statistical method for multiple specimens",
-          "type": "string",
-          "enum": ["Average", "Minimum", "Maximum", "Median", "All", "Range"]
-        }
-      },
-      "required": ["Specimens"],
-      "additionalProperties": false
-    },
-
     "HeatTreatmentStage": {
       "title": "HeatTreatmentStage",
       "description": "A single stage in a heat treatment process",
@@ -2155,6 +1767,57 @@
         }
       },
       "required": ["CheckType", "Result"],
+      "additionalProperties": false
+    },
+
+    "SpecimenSpecification": {
+      "title": "SpecimenSpecification",
+      "description": "Specimen location and orientation for mechanical testing",
+      "type": "object",
+      "properties": {
+        "Location": {
+          "description": "Standardized location through the material thickness or cross-section",
+          "type": "string",
+          "enum": [
+            "Surface",
+            "1/4T",
+            "1/2T",
+            "3/4T",
+            "Center",
+            "Edge",
+            "Top",
+            "Bottom",
+            "Core",
+            "Custom"
+          ]
+        },
+        "CustomLocation": {
+          "description": "Custom location description when Location is 'Custom'",
+          "type": "string"
+        },
+        "Orientation": {
+          "description": "Specimen orientation relative to material processing direction",
+          "type": "string",
+          "enum": [
+            "L",
+            "T",
+            "S",
+            "Z",
+            "R",
+            "C",
+            "L-T",
+            "T-L",
+            "S-L",
+            "L-S",
+            "T-S",
+            "S-T"
+          ]
+        },
+        "Identifier": {
+          "description": "Unique specimen identifier for traceability",
+          "type": "string"
+        }
+      },
       "additionalProperties": false
     },
 
