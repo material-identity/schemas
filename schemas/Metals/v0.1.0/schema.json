@@ -1346,6 +1346,32 @@
       "additionalProperties": false
     },
 
+    "IndividualStatement": {
+      "title": "IndividualStatement",
+      "description": "An individual statement requiring explicit confirmation",
+      "type": "object",
+      "properties": {
+        "StatementId": {
+          "description": "Unique identifier for the statement",
+          "type": "string"
+        },
+        "StatementText": {
+          "description": "The statement to be confirmed",
+          "type": "string"
+        },
+        "Confirmed": {
+          "description": "Manufacturer's confirmation of the statement",
+          "$ref": "#/definitions/BooleanResult"
+        },
+        "RegulatoryReference": {
+          "description": "Optional reference to regulation or legal requirement",
+          "type": "string"
+        }
+      },
+      "required": ["StatementText", "Confirmed"],
+      "additionalProperties": false
+    },
+
     "ValidationStatement": {
       "title": "ValidationStatement",
       "description": "Statement of compliance or declaration of conformity",
@@ -1371,6 +1397,13 @@
             "Statement of Compliance",
             "Type Approval"
           ]
+        },
+        "IndividualStatements": {
+          "description": "Individual statements requiring explicit confirmation",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IndividualStatement"
+          }
         }
       },
       "required": ["Statement"],
