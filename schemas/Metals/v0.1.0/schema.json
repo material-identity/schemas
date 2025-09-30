@@ -1051,13 +1051,8 @@
           "type": "string"
         },
         "HeatTreatment": {
-          "description": "Heat treatment applied to the product",
-          "type": "string",
-          "examples": [
-            "Normalized",
-            "Quenched and Tempered",
-            "Solution Annealed"
-          ]
+          "description": "Comprehensive heat treatment process information",
+          "$ref": "#/definitions/HeatTreatmentDetails"
         },
         "SurfaceCondition": {
           "description": "Surface condition or finish of the product",
@@ -1964,6 +1959,287 @@
         }
       },
       "required": ["Specimens"],
+      "additionalProperties": false
+    },
+
+    "HeatTreatmentStage": {
+      "title": "HeatTreatmentStage",
+      "description": "A single stage in a heat treatment process",
+      "type": "object",
+      "properties": {
+        "StageType": {
+          "description": "Type of heat treatment stage",
+          "type": "string",
+          "enum": [
+            "Austenitizing",
+            "Soaking",
+            "Quenching",
+            "Tempering",
+            "Cooling",
+            "Preheating",
+            "Stress Relief",
+            "Carburizing",
+            "Diffusion"
+          ]
+        },
+        "Temperature": {
+          "description": "Target temperature for this stage",
+          "type": "number",
+          "minimum": 20,
+          "maximum": 1300
+        },
+        "TemperatureUnit": {
+          "description": "Unit of temperature measurement",
+          "type": "string",
+          "enum": ["C", "F", "K"]
+        },
+        "TemperatureTolerance": {
+          "description": "Acceptable temperature deviation (e.g., '+/-5C')",
+          "type": "string",
+          "pattern": "^\\+/-\\d+[CFK]$"
+        },
+        "Duration": {
+          "description": "Time duration at this stage",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "DurationUnit": {
+          "description": "Unit of time measurement",
+          "type": "string",
+          "enum": ["s", "min", "h"]
+        },
+        "HeatingRate": {
+          "description": "Rate of heating (degrees per time unit)",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "CoolingRate": {
+          "description": "Rate of cooling (degrees per time unit)",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "CoolingMedium": {
+          "description": "Medium used for cooling",
+          "type": "string",
+          "enum": [
+            "Water",
+            "Oil",
+            "Air",
+            "Forced Air",
+            "Salt Bath",
+            "Polymer",
+            "Furnace",
+            "Nitrogen",
+            "Mist"
+          ]
+        },
+        "AtmosphereType": {
+          "description": "Type of furnace atmosphere",
+          "type": "string",
+          "enum": [
+            "Air",
+            "Nitrogen",
+            "Hydrogen",
+            "Argon",
+            "Vacuum",
+            "Endothermic",
+            "Exothermic",
+            "Dissociated Ammonia"
+          ]
+        },
+        "AtmospherePressure": {
+          "description": "Atmosphere pressure during this stage",
+          "type": "number",
+          "minimum": 0
+        },
+        "AtmospherePressureUnit": {
+          "description": "Unit of pressure measurement",
+          "type": "string",
+          "enum": ["Pa", "mbar", "Torr", "psi"]
+        }
+      },
+      "required": ["StageType", "Temperature", "TemperatureUnit"],
+      "additionalProperties": false
+    },
+
+    "ProcessBundling": {
+      "title": "ProcessBundling",
+      "description": "How items are arranged and bundled during heat treatment",
+      "type": "object",
+      "properties": {
+        "ItemsPerCharge": {
+          "description": "Number of items in the furnace charge",
+          "type": "integer",
+          "minimum": 1
+        },
+        "ArrangementPattern": {
+          "description": "Physical arrangement pattern of items",
+          "type": "string",
+          "enum": [
+            "stacked",
+            "spaced",
+            "hanging",
+            "basket",
+            "fixture",
+            "single_layer",
+            "multi_layer"
+          ]
+        },
+        "SeparatorType": {
+          "description": "Type of separators used between items",
+          "type": "string",
+          "enum": [
+            "ceramic_spacers",
+            "steel_racks",
+            "wire_mesh",
+            "ceramic_plates",
+            "none"
+          ]
+        },
+        "LoadConfiguration": {
+          "description": "Overall load configuration",
+          "type": "string",
+          "enum": ["vertical", "horizontal", "angled", "mixed"]
+        },
+        "MaxLoadWeight": {
+          "description": "Maximum load weight capacity",
+          "type": "number",
+          "minimum": 0
+        },
+        "ActualLoadWeight": {
+          "description": "Actual weight of the load",
+          "type": "number",
+          "minimum": 0
+        },
+        "WeightUnit": {
+          "description": "Unit of weight measurement",
+          "type": "string",
+          "enum": ["kg", "t", "lbs", "MT"]
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "QualityCheck": {
+      "title": "QualityCheck",
+      "description": "In-process quality check during heat treatment",
+      "type": "object",
+      "properties": {
+        "CheckType": {
+          "description": "Type of quality check performed",
+          "type": "string",
+          "enum": [
+            "Hardness",
+            "Temperature",
+            "Atmosphere",
+            "Carbon Potential",
+            "Dew Point",
+            "Visual",
+            "Dimensional"
+          ]
+        },
+        "Method": {
+          "description": "Method or standard used for the check",
+          "type": "string",
+          "maxLength": 100
+        },
+        "Result": {
+          "description": "Result of the quality check",
+          "type": "string",
+          "maxLength": 200
+        },
+        "Timestamp": {
+          "description": "When the check was performed",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["CheckType", "Result"],
+      "additionalProperties": false
+    },
+
+    "HeatTreatmentDetails": {
+      "title": "HeatTreatmentDetails",
+      "description": "Comprehensive heat treatment process information including temperature profiles, duration, cooling methods, and process identification",
+      "type": "object",
+      "properties": {
+        "Process": {
+          "description": "Main heat treatment process type",
+          "type": "string",
+          "enum": [
+            "Quenching",
+            "Tempering",
+            "Annealing",
+            "Normalizing",
+            "Quenching and Tempering",
+            "Case Hardening",
+            "Solution Treatment",
+            "Stress Relief",
+            "Age Hardening"
+          ]
+        },
+        "HeatTreatmentLot": {
+          "description": "Unique heat treatment batch identifier",
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9-]{2,49}$"
+        },
+        "ChargeNumber": {
+          "description": "Furnace charge identifier",
+          "type": "string",
+          "maxLength": 50
+        },
+        "Stages": {
+          "description": "Array of process stages in the heat treatment",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/HeatTreatmentStage"
+          }
+        },
+        "ProcessBundling": {
+          "description": "Details about how items were arranged during processing",
+          "$ref": "#/definitions/ProcessBundling"
+        },
+        "FurnaceId": {
+          "description": "Equipment identifier for the furnace",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "ProcessDate": {
+          "description": "Date when heat treatment was performed",
+          "type": "string",
+          "format": "date"
+        },
+        "ProcessStartTime": {
+          "description": "Start timestamp of the process",
+          "type": "string",
+          "format": "date-time"
+        },
+        "ProcessEndTime": {
+          "description": "End timestamp of the process",
+          "type": "string",
+          "format": "date-time"
+        },
+        "EquipmentCertification": {
+          "description": "Calibration or certification reference for equipment",
+          "type": "string",
+          "maxLength": 100
+        },
+        "Operator": {
+          "description": "Person or team responsible for the process",
+          "type": "string",
+          "maxLength": 100
+        },
+        "QualityChecks": {
+          "description": "In-process quality checks performed",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QualityCheck"
+          }
+        }
+      },
+      "required": ["Process", "HeatTreatmentLot", "Stages", "FurnaceId", "ProcessDate"],
       "additionalProperties": false
     }
   },

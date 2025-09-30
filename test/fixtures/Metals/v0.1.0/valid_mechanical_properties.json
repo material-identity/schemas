@@ -101,7 +101,44 @@
         "Unit": "mm"
       },
       "BatchId": "H-10988-01",
-      "HeatTreatment": "Normalized",
+      "HeatTreatment": {
+        "Process": "Normalizing",
+        "HeatTreatmentLot": "NORM-2024-0823-A12",
+        "ChargeNumber": "NF-789",
+        "Stages": [
+          {
+            "StageType": "Austenitizing",
+            "Temperature": 920,
+            "TemperatureUnit": "C",
+            "TemperatureTolerance": "+/-15C",
+            "Duration": 60,
+            "DurationUnit": "min",
+            "HeatingRate": 40,
+            "AtmosphereType": "Air"
+          },
+          {
+            "StageType": "Cooling",
+            "Temperature": 20,
+            "TemperatureUnit": "C",
+            "CoolingMedium": "Air",
+            "CoolingRate": 15
+          }
+        ],
+        "ProcessBundling": {
+          "ItemsPerCharge": 20,
+          "ArrangementPattern": "stacked",
+          "SeparatorType": "ceramic_spacers",
+          "LoadConfiguration": "horizontal",
+          "ActualLoadWeight": 8500,
+          "WeightUnit": "kg"
+        },
+        "FurnaceId": "NF-LINE-02",
+        "ProcessDate": "2024-08-23",
+        "ProcessStartTime": "2024-08-23T10:00:00Z",
+        "ProcessEndTime": "2024-08-23T12:30:00Z",
+        "EquipmentCertification": "DIN-EN-ISO-9001",
+        "Operator": "H. Mueller"
+      },
       "SurfaceCondition": "Hot-rolled",
       "CountryOfOrigin": "DE",
       "ManufacturingLocation": "Aachen Plant",

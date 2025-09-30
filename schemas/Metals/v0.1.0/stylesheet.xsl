@@ -324,13 +324,9 @@
                   </xsl:call-template>
                 </fo:table-row>
                 <xsl:if test="$dmp/Product/HeatTreatment">
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="'Heat Treatment'" />
-                      <xsl:with-param name="value" select="$dmp/Product/HeatTreatment" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
+                  <xsl:call-template name="HeatTreatmentDetailsSection">
+                    <xsl:with-param name="details" select="$dmp/Product/HeatTreatment" />
+                  </xsl:call-template>
                 </xsl:if>
                 <xsl:if test="$dmp/Product/SurfaceCondition">
                   <fo:table-row>
@@ -2261,5 +2257,189 @@
         </xsl:if>
       </fo:block>
     </xsl:if>
+  </xsl:template>
+
+  <!-- Template for HeatTreatmentDetails section -->
+  <xsl:template name="HeatTreatmentDetailsSection">
+    <xsl:param name="details" />
+
+    <fo:table-row>
+      <fo:table-cell number-columns-spanned="2" padding="6pt" border-top="1pt solid #cccccc">
+        <fo:block font-weight="bold" font-size="10pt" space-after="6pt">
+          Heat Treatment
+        </fo:block>
+
+        <!-- Process and Lot Info -->
+        <fo:block space-after="4pt">
+          <fo:inline font-weight="bold">Process: </fo:inline>
+          <xsl:value-of select="$details/Process" />
+          <xsl:if test="$details/HeatTreatmentLot">
+            <fo:inline> | </fo:inline>
+            <fo:inline font-weight="bold">Lot: </fo:inline>
+            <xsl:value-of select="$details/HeatTreatmentLot" />
+          </xsl:if>
+          <xsl:if test="$details/ChargeNumber">
+            <fo:inline> | </fo:inline>
+            <fo:inline font-weight="bold">Charge: </fo:inline>
+            <xsl:value-of select="$details/ChargeNumber" />
+          </xsl:if>
+        </fo:block>
+
+        <!-- Equipment and Date Info -->
+        <fo:block space-after="4pt" font-size="8pt" color="gray">
+          <xsl:if test="$details/FurnaceId">
+            <fo:inline font-weight="bold">Furnace: </fo:inline>
+            <xsl:value-of select="$details/FurnaceId" />
+            <xsl:if test="$details/ProcessDate">
+              <fo:inline> | </fo:inline>
+            </xsl:if>
+          </xsl:if>
+          <xsl:if test="$details/ProcessDate">
+            <fo:inline font-weight="bold">Date: </fo:inline>
+            <xsl:value-of select="$details/ProcessDate" />
+          </xsl:if>
+          <xsl:if test="$details/Operator">
+            <fo:inline> | </fo:inline>
+            <fo:inline font-weight="bold">Operator: </fo:inline>
+            <xsl:value-of select="$details/Operator" />
+          </xsl:if>
+        </fo:block>
+
+        <!-- Process Stages Table -->
+        <xsl:if test="$details/Stages">
+          <fo:block space-before="6pt">
+            <fo:table table-layout="fixed" width="100%" border="0.5pt solid #cccccc">
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="15%" />
+              <fo:table-column column-width="20%" />
+              <fo:table-column column-width="25%" />
+
+              <fo:table-header background-color="#f0f0f0">
+                <fo:table-row>
+                  <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                    <fo:block font-weight="bold" font-size="8pt">Stage</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                    <fo:block font-weight="bold" font-size="8pt">Temperature</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                    <fo:block font-weight="bold" font-size="8pt">Duration</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                    <fo:block font-weight="bold" font-size="8pt">Cooling</fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                    <fo:block font-weight="bold" font-size="8pt">Atmosphere</fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-header>
+
+              <fo:table-body>
+                <xsl:for-each select="$details/Stages">
+                  <fo:table-row>
+                    <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                      <fo:block font-size="8pt">
+                        <xsl:value-of select="StageType" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                      <fo:block font-size="8pt">
+                        <xsl:value-of select="Temperature" />
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="TemperatureUnit" />
+                        <xsl:if test="TemperatureTolerance">
+                          <fo:block font-size="7pt" color="gray">
+                            <xsl:value-of select="TemperatureTolerance" />
+                          </fo:block>
+                        </xsl:if>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                      <fo:block font-size="8pt">
+                        <xsl:if test="Duration">
+                          <xsl:value-of select="Duration" />
+                          <xsl:text> </xsl:text>
+                          <xsl:value-of select="DurationUnit" />
+                        </xsl:if>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                      <fo:block font-size="8pt">
+                        <xsl:if test="CoolingMedium">
+                          <xsl:value-of select="CoolingMedium" />
+                        </xsl:if>
+                        <xsl:if test="CoolingRate">
+                          <fo:block font-size="7pt" color="gray">
+                            <xsl:value-of select="CoolingRate" />°/
+                            <xsl:value-of select="DurationUnit" />
+                          </fo:block>
+                        </xsl:if>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
+                      <fo:block font-size="8pt">
+                        <xsl:if test="AtmosphereType">
+                          <xsl:value-of select="AtmosphereType" />
+                        </xsl:if>
+                        <xsl:if test="AtmospherePressure">
+                          <fo:block font-size="7pt" color="gray">
+                            <xsl:value-of select="AtmospherePressure" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="AtmospherePressureUnit" />
+                          </fo:block>
+                        </xsl:if>
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                </xsl:for-each>
+              </fo:table-body>
+            </fo:table>
+          </fo:block>
+        </xsl:if>
+
+        <!-- Process Bundling Info -->
+        <xsl:if test="$details/ProcessBundling">
+          <fo:block space-before="4pt" font-size="8pt" color="gray">
+            <fo:inline font-weight="bold">Bundling: </fo:inline>
+            <xsl:if test="$details/ProcessBundling/ItemsPerCharge">
+              <xsl:value-of select="$details/ProcessBundling/ItemsPerCharge" /> items,
+            </xsl:if>
+            <xsl:if test="$details/ProcessBundling/ArrangementPattern">
+              <xsl:value-of select="$details/ProcessBundling/ArrangementPattern" />,
+            </xsl:if>
+            <xsl:if test="$details/ProcessBundling/ActualLoadWeight">
+              <xsl:value-of select="$details/ProcessBundling/ActualLoadWeight" />
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="$details/ProcessBundling/WeightUnit" />
+            </xsl:if>
+          </fo:block>
+        </xsl:if>
+
+        <!-- Quality Checks -->
+        <xsl:if test="$details/QualityChecks">
+          <fo:block space-before="4pt" font-size="8pt">
+            <fo:inline font-weight="bold">Quality Checks:</fo:inline>
+            <xsl:for-each select="$details/QualityChecks">
+              <fo:block margin-left="6pt" space-before="2pt">
+                <fo:inline font-weight="bold"><xsl:value-of select="CheckType" />: </fo:inline>
+                <xsl:value-of select="Result" />
+                <xsl:if test="Method">
+                  <fo:inline color="gray"> (<xsl:value-of select="Method" />)</fo:inline>
+                </xsl:if>
+              </fo:block>
+            </xsl:for-each>
+          </fo:block>
+        </xsl:if>
+
+        <!-- Equipment Certification -->
+        <xsl:if test="$details/EquipmentCertification">
+          <fo:block space-before="4pt" font-size="7pt" color="gray">
+            <fo:inline font-weight="bold">Certification: </fo:inline>
+            <xsl:value-of select="$details/EquipmentCertification" />
+          </fo:block>
+        </xsl:if>
+      </fo:table-cell>
+    </fo:table-row>
   </xsl:template>
 </xsl:stylesheet>
