@@ -998,6 +998,16 @@
                                   <xsl:with-param name="text" select="$propertyName" />
                                 </xsl:call-template>
                               </fo:block>
+                              <xsl:if test="TestConditions">
+                                <fo:block font-size="6pt" color="gray">
+                                  <xsl:value-of select="TestConditions" />
+                                </fo:block>
+                              </xsl:if>
+                              <xsl:if test="SpecimenSpecification">
+                                <xsl:call-template name="FormatSpecimenSpecification">
+                                  <xsl:with-param name="specimen" select="SpecimenSpecification" />
+                                </xsl:call-template>
+                              </xsl:if>
                             </fo:table-cell>
                           </xsl:when>
                           <xsl:otherwise>
@@ -1007,6 +1017,16 @@
                                   <xsl:with-param name="text" select="$propertyName" />
                                 </xsl:call-template>
                               </fo:block>
+                              <xsl:if test="TestConditions">
+                                <fo:block font-size="6pt" color="gray">
+                                  <xsl:value-of select="TestConditions" />
+                                </fo:block>
+                              </xsl:if>
+                              <xsl:if test="SpecimenSpecification">
+                                <xsl:call-template name="FormatSpecimenSpecification">
+                                  <xsl:with-param name="specimen" select="SpecimenSpecification" />
+                                </xsl:call-template>
+                              </xsl:if>
                             </fo:table-cell>
                           </xsl:otherwise>
                         </xsl:choose>
@@ -2210,5 +2230,36 @@
         <fo:block><xsl:value-of select="$party/Country" /></fo:block>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <!-- Template to format SpecimenSpecification -->
+  <xsl:template name="FormatSpecimenSpecification">
+    <xsl:param name="specimen" />
+    <xsl:if test="$specimen/Location or $specimen/Orientation or $specimen/Identifier">
+      <fo:block font-size="6pt" color="gray">
+        <xsl:text>Specimen: </xsl:text>
+        <xsl:if test="$specimen/Location">
+          <xsl:value-of select="$specimen/Location" />
+          <xsl:if test="$specimen/Location = 'Custom' and $specimen/CustomLocation">
+            <xsl:text> (</xsl:text>
+            <xsl:value-of select="$specimen/CustomLocation" />
+            <xsl:text>)</xsl:text>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="$specimen/Orientation">
+          <xsl:if test="$specimen/Location">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+          <xsl:value-of select="$specimen/Orientation" />
+        </xsl:if>
+        <xsl:if test="$specimen/Identifier">
+          <xsl:if test="$specimen/Location or $specimen/Orientation">
+            <xsl:text> - </xsl:text>
+          </xsl:if>
+          <xsl:text>ID: </xsl:text>
+          <xsl:value-of select="$specimen/Identifier" />
+        </xsl:if>
+      </fo:block>
+    </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

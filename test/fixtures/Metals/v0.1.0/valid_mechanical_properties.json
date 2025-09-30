@@ -205,7 +205,11 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C, Specimen: Round, Ø 10 mm, 3 specimens tested",
+        "TestConditions": "Test temperature: 20°C",
+        "SpecimenSpecification": {
+          "Location": "1/4T",
+          "Orientation": "L"
+        },
         "Unit": "MPa",
         "Actual": {
           "ResultType": "multiValue",
@@ -405,7 +409,11 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20°C, 3 specimens tested",
+        "TestConditions": "Test temperature: -20°C",
+        "SpecimenSpecification": {
+          "Location": "1/2T",
+          "Orientation": "T-L"
+        },
         "Unit": "J",
         "Actual": {
           "ResultType": "multiValue",
