@@ -1050,6 +1050,9 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:if>
                             </fo:block>
                           </fo:table-cell>
@@ -1059,6 +1062,9 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:if>
                             </fo:block>
                           </fo:table-cell>
@@ -1197,11 +1203,17 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Target" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:when test="Minimum">
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
                             </xsl:choose>
@@ -1217,6 +1229,9 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
                             </xsl:choose>
@@ -1350,11 +1365,17 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Target" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:when test="Minimum">
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
                             </xsl:choose>
@@ -1370,6 +1391,9 @@
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
+                                <xsl:if test="Unit">
+                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
                             </xsl:choose>
