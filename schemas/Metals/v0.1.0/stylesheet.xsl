@@ -1424,7 +1424,44 @@
             <fo:block space-before="4pt" space-after="8pt">
               <xsl:value-of select="$dmp/Validation/ValidationStatement/Statement" />
             </fo:block>
-            
+
+            <!-- Individual Statements -->
+            <xsl:if test="$dmp/Validation/ValidationStatement/IndividualStatements">
+              <xsl:call-template name="SectionTitleSmall">
+                <xsl:with-param name="title" select="'Individual Statements'" />
+              </xsl:call-template>
+              <fo:list-block space-before="4pt" space-after="8pt" provisional-distance-between-starts="12pt">
+                <xsl:for-each select="$dmp/Validation/ValidationStatement/IndividualStatements">
+                  <fo:list-item space-after="4pt">
+                    <fo:list-item-label end-indent="label-end()">
+                      <fo:block>
+                        <xsl:choose>
+                          <xsl:when test="Confirmed/Value = 'true' or Confirmed/Value = true()">
+                            <fo:inline color="green">✓</fo:inline>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <fo:inline color="red">✗</fo:inline>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                      <fo:block>
+                        <xsl:value-of select="StatementText" />
+                        <xsl:if test="RegulatoryReference">
+                          <fo:inline font-style="italic" color="#666666">
+                            <xsl:text> (</xsl:text>
+                            <xsl:value-of select="RegulatoryReference" />
+                            <xsl:text>)</xsl:text>
+                          </fo:inline>
+                        </xsl:if>
+                      </fo:block>
+                    </fo:list-item-body>
+                  </fo:list-item>
+                </xsl:for-each>
+              </fo:list-block>
+            </xsl:if>
+
             <!-- Validators -->
             <xsl:if test="$dmp/Validation/Validators">
               <xsl:call-template name="SectionTitleSmall">

@@ -273,6 +273,13 @@
       "WeightUnit": "Weight Unit",
       "SupplementaryStandards": "Supplementary Standards",
       
+      "IndividualStatement": "Individual Statement",
+      "StatementId": "Statement ID",
+      "StatementText": "Statement Text",
+      "Confirmed": "Confirmed",
+      "RegulatoryReference": "Regulatory Reference",
+      "IndividualStatements": "Individual Statements",
+
       "Statement": "Statement",
       "Standards": "Standards",
       "ComplianceType": "Compliance Type",
@@ -627,6 +634,13 @@
       "WeightUnit": "Gewichtseinheit",
       "SupplementaryStandards": "Zusätzliche Standards",
       
+      "IndividualStatement": "Individuelle Erklärung",
+      "StatementId": "Erklärungskennung",
+      "StatementText": "Erklärungstext",
+      "Confirmed": "Bestätigt",
+      "RegulatoryReference": "Regulatorische Referenz",
+      "IndividualStatements": "Individuelle Erklärungen",
+
       "Statement": "Erklärung",
       "Standards": "Standards",
       "ComplianceType": "Konformitätstyp",
