@@ -1,0 +1,143 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-METAL-ADDRESS-001",
+    "Version": "1.0.0",
+    "IssueDate": "2025-08-21",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Tokyo Steel Works Co., Ltd.",
+          "Street": ["1-2-3 Industrial Zone", "Chiyoda Building, 5th Floor"],
+          "District": "Chiyoda-ku",
+          "City": "Tokyo",
+          "StateProvince": "Tokyo",
+          "ZipCode": "100-0001",
+          "Country": "JP",
+          "Email": "info@tokyosteel.example.jp",
+          "Identifiers": {
+            "VAT": "JP123456789012"
+          }
+        },
+        "Customer": {
+          "Name": "American Construction Corp",
+          "Street": [
+            "5678 Industrial Boulevard",
+            "Suite 200",
+            "Manufacturing District"
+          ],
+          "City": "Detroit",
+          "StateProvince": "MI",
+          "ZipCode": "48201",
+          "Country": "US",
+          "Email": "procurement@amcon.example.com",
+          "Identifiers": {
+            "VAT": "US987654321"
+          }
+        },
+        "Subcustomer": {
+          "Name": "European Steel Trading GmbH",
+          "Street": ["Hauptstraße 456", "Industriegebiet Nord"],
+          "City": "München",
+          "StateProvince": "Bayern",
+          "ZipCode": "80331",
+          "Country": "DE",
+          "Email": "orders@eurosteel-trading.example.de"
+        },
+        "GoodsReceiver": {
+          "Name": "Shanghai Quality Testing Ltd",
+          "Street": [
+            "999 Quality Street",
+            "Pudong New Area",
+            "Building A, Floor 8",
+            "Office 801-803"
+          ],
+          "District": "Pudong New Area",
+          "City": "Shanghai",
+          "StateProvince": "Shanghai",
+          "ZipCode": "200120",
+          "Country": "CN",
+          "Email": "testing@shqualtest.example.cn"
+        },
+        "CertificateReceiver": {
+          "Name": "British Steel Certification Ltd",
+          "Street": ["123 Industrial Estate", "Steelworks Road", "Unit 5A"],
+          "City": "Birmingham",
+          "ZipCode": "B12 0XQ",
+          "Country": "GB",
+          "Email": "certificates@britishsteel-cert.example.co.uk"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-ADDRESS-001",
+          "Position": "1",
+          "Date": "2025-08-01",
+          "Quantity": 1000,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "STEEL-H-BEAM-001"
+        },
+        "Delivery": {
+          "Id": "DN-ADDRESS-001",
+          "Position": "1",
+          "Date": "2025-08-20",
+          "Quantity": 1000,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-ADDRESS-001"
+        }
+      }
+    },
+    "Product": {
+      "Name": "H-Beam Steel JIS SS400",
+      "ProductNorms": [
+        {
+          "Designation": "JIS G 3101",
+          "Year": "2015",
+          "Grade": "SS400"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "System": "JIS",
+          "Designation": "SS400"
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 200,
+        "Length": 6000,
+        "Unit": "mm"
+      },
+      "BatchId": "JP-SS400-2025-001",
+      "SurfaceCondition": "Mill finish",
+      "CountryOfOrigin": "JP",
+      "ManufacturingLocation": "Tokyo Plant",
+      "ProductionDate": "2025-08-15",
+      "Marking": "TSW SS400 JP-SS400-2025-001",
+      "Quantity": 50,
+      "Weight": 1000,
+      "WeightUnit": "kg"
+    },
+    "Validation": {
+    "ValidationStatement": {
+      "Statement": "This certificate confirms that the steel products meet all specified requirements and quality standards for international address formatting.",
+      "Standards": ["JIS G 3101:2015", "ISO 3166-1"],
+      "ComplianceType": "Declaration of Conformity"
+    },
+    "ValidationDate": "2025-08-21",
+    "Validators": [
+      {
+        "Name": "Takeshi Yamamoto",
+        "Title": "Quality Inspector",
+        "Department": "International Quality Assurance"
+      }
+    ],
+    "ValidationPlace": "Tokyo, Japan",
+    "CertificateType": {
+      "Standard": "JIS",
+      "Type": "3.1"
+    }
+    }
+  }
+}
