@@ -105,6 +105,8 @@
       "Geometry": "Geometry",
       "Latitude": "Latitude",
       "Longitude": "Longitude",
+      "ForestConcessionNameOrNumber": "Forest Concession Name or Number",
+      "CertificationNumber": "Certification Number",
       "HarvestAuthorizationNameOrNumber": "Harvest Authorization Name or Number",
       "HarvestingPeriod": "Harvesting Period"
     }
@@ -215,6 +217,8 @@
       "Geometry": "Geometrie",
       "Latitude": "Breitengrad",
       "Longitude": "Längengrad",
+      "ForestConcessionNameOrNumber": "Name oder Nummer der Waldkonzession",
+      "CertificationNumber": "Zertifizierungsnummer",
       "HarvestAuthorizationNameOrNumber": "Ernteerlaubnisname oder -nummer",
       "HarvestingPeriod": "Erntezeitraum"
     }
@@ -325,6 +329,8 @@
       "Geometry": "几何",
       "Latitude": "纬度",
       "Longitude": "经度",
+      "ForestConcessionNameOrNumber": "森林特许权名称或编号",
+      "CertificationNumber": "认证编号",
       "HarvestAuthorizationNameOrNumber": "采伐授权名称或编号",
       "HarvestingPeriod": "采伐期"
     }

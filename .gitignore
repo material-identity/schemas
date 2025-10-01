@@ -14,6 +14,7 @@ target/
 # Project specific
 scripts/output/
 src/main/resources/schemas/
+src/main/resources/static
 src/test/resources/schemas/
 tmp/
 .env*
