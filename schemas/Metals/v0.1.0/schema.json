@@ -912,62 +912,62 @@
         "Length": {
           "description": "The length of the product",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Width": {
           "description": "The width of the product",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Thickness": {
           "description": "The thickness of the product (for flat products)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Diameter": {
           "description": "The diameter of the product (for round products)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "OuterDiameter": {
           "description": "The outer diameter of the product (for tubular products)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "InnerDiameter": {
           "description": "The inner diameter of the product (for tubular products)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "WallThickness": {
           "description": "The wall thickness of the product (for tubular products)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Height": {
           "description": "The height of the product (for structural shapes)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "FlangeWidth": {
           "description": "The flange width of the product (for structural shapes)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "FlangeThickness": {
           "description": "The flange thickness of the product (for structural shapes)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "WebThickness": {
           "description": "The web thickness of the product (for structural shapes)",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Area": {
           "description": "The cross-sectional area of the product",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Unit": {
           "description": "The unit of measurement for dimensions",
@@ -1073,12 +1073,12 @@
         "Quantity": {
           "description": "Quantity of items being certified",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "Weight": {
           "description": "Total weight of the product",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "WeightUnit": {
           "description": "Unit of weight measurement",
@@ -1749,12 +1749,12 @@
         "MaxLoadWeight": {
           "description": "Maximum load weight capacity",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "ActualLoadWeight": {
           "description": "Actual weight of the load",
           "type": "number",
-          "minimum": 0
+          "exclusiveMinimum": 0
         },
         "WeightUnit": {
           "description": "Unit of weight measurement",
