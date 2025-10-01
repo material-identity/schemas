@@ -982,7 +982,7 @@
                       </fo:table-cell>
                     </fo:table-row>
                     
-                    <xsl:for-each select="$dmp/MechanicalProperties[not(PropertyName = preceding-sibling::MechanicalProperties/PropertyName)]">
+                    <xsl:for-each select="$dmp/MechanicalProperties">
                       <xsl:variable name="propertyName" select="PropertyName" />
                       <fo:table-row>
                         <xsl:choose>
