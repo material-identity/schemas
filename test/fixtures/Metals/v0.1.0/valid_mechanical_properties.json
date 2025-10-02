@@ -448,7 +448,7 @@
         "Method": "EN ISO 148-1",
         "TestConditions": "Test temperature: -20°C",
         "SpecimenSpecification": {
-          "Location": "1/2T",
+          "Location": "Top",
           "Orientation": "T-L"
         },
         "Unit": "J",
@@ -484,6 +484,59 @@
             "StandardDeviation": {
               "ResultType": "numeric",
               "Value": 2.0
+            },
+            "StandardDeviationType": "Sample",
+            "Method": "EN ISO 148-1 statistical analysis"
+          }
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 40
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertySymbol": "KV",
+        "PropertyName": "Charpy V-notch Impact Energy",
+        "Method": "EN ISO 148-1",
+        "TestConditions": "Test temperature: -20°C",
+        "SpecimenSpecification": {
+          "Location": "Bottom",
+          "Orientation": "T-L"
+        },
+        "Unit": "J",
+        "Actual": {
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 54
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 57
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 59
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 56.7
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 54
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 59
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 2.5
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 148-1 statistical analysis"
