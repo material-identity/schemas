@@ -34,6 +34,7 @@
           <xsl:variable name="Producer" select="Root/DigitalMaterialPassport/Producer" />
           <xsl:variable name="Creator" select="Root/DigitalMaterialPassport/Creator" />
           <xsl:variable name="HarvestUnits" select="Root/DigitalMaterialPassport/HarvestUnits" />
+          <xsl:variable name="HarvestUnitsDownloadURL" select="Root/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
           <xsl:variable name="Products" select="Root/DigitalMaterialPassport/Products" />
           <xsl:variable name="DueDiligenceStatement" select="Root/DigitalMaterialPassport/DueDiligenceStatement" />
           <xsl:variable name="Contacts" select="Root/DigitalMaterialPassport/Contacts" />
@@ -374,6 +375,17 @@
                   </xsl:for-each>
                 </fo:table-body>
               </fo:table>
+            </xsl:if>
+
+            <!-- HarvestUnitsDownloadURL -->
+            <xsl:if test="$HarvestUnitsDownloadURL">
+              <fo:block margin-top="8pt" margin-bottom="4pt">
+                <fo:basic-link external-destination="{$HarvestUnitsDownloadURL}">
+                  <fo:inline text-decoration="underline" color="blue">
+                    <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
+                  </fo:inline>
+                </fo:basic-link>
+              </fo:block>
             </xsl:if>
 
             <!-- HarvestUnits -->

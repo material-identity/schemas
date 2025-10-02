@@ -2,7 +2,7 @@
   "RefSchemaUrl": "https://schemas.materialidentity.org/forestry-output-schemas/v1.0.0/schema.json",
   "DigitalMaterialPassport": {
     "Languages": ["EN"],
-    "Id": "d4e5f6g7-8901-4345-9efg-4567890abcde",
+    "Id": "d4e5f6a7-8901-4345-9efc-4567890abcde",
     "Date": "2024-12-20",
     "GeneralInformation": {
       "UserDefinedId": "OUTPUT-CUSTOMS-2024-001",
