@@ -1036,10 +1036,6 @@
           "description": "Identification of the batch, charge, or lot",
           "type": "string"
         },
-        "HeatTreatment": {
-          "description": "Comprehensive heat treatment process information",
-          "$ref": "#/definitions/HeatTreatmentDetails"
-        },
         "SurfaceCondition": {
           "description": "Surface condition or finish of the product",
           "type": "string",
@@ -1986,6 +1982,10 @@
         "Product": {
           "description": "Information about the product being certified",
           "$ref": "#/definitions/Product"
+        },
+        "HeatTreatment": {
+          "description": "Heat treatment process information including temperature profiles, duration, cooling methods, and process identification",
+          "$ref": "#/definitions/HeatTreatmentDetails"
         },
         "ChemicalAnalysis": {
           "description": "Chemical composition of the material",
