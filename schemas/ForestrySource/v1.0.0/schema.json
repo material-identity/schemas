@@ -628,6 +628,13 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "HarvestUnitsDownloadURL": {
+          "description": "A URL to download a bundle containing all harvest units in GeoJSON format.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://.+",
+          "examples": ["https://example.com/bundles/harvest-units.zip"]
+        },
         "Products": {
           "description": "The products made from the harvested wood.",
           "type": "array",

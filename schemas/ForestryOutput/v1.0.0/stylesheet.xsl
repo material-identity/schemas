@@ -37,6 +37,7 @@
           <xsl:variable name="Delivery" select="Root/DigitalMaterialPassport/Delivery" />
           <xsl:variable name="SalesOrder" select="Root/DigitalMaterialPassport/SalesOrder" />
           <xsl:variable name="Products" select="Root/DigitalMaterialPassport/Products" />
+          <xsl:variable name="HarvestUnitsDownloadURL" select="Root/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
           <xsl:variable name="DMPReferences" select="Root/DigitalMaterialPassport/DMPReferences" />
           <xsl:variable name="EUDRReferences" select="Root/DigitalMaterialPassport/EUDRReferences" />
           <xsl:variable name="DueDiligenceStatement" select="Root/DigitalMaterialPassport/DueDiligenceStatement" />
@@ -553,6 +554,17 @@
                   <xsl:value-of select="." />
                 </fo:block>
               </xsl:for-each>
+            </xsl:if>
+
+            <!-- HarvestUnitsDownloadURL -->
+            <xsl:if test="$HarvestUnitsDownloadURL">
+              <fo:block margin-top="8pt" margin-bottom="4pt">
+                <fo:basic-link external-destination="{$HarvestUnitsDownloadURL}">
+                  <fo:inline text-decoration="underline" color="blue">
+                    <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
+                  </fo:inline>
+                </fo:basic-link>
+              </fo:block>
             </xsl:if>
 
             <!-- Footer -->
