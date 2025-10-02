@@ -51,12 +51,13 @@
         "Diameter": 80,
         "Length": 6000,
         "Unit": "mm"
-      },
-      "HeatTreatment": {
-        "Process": "Quenching and Tempering",
-        "HeatTreatmentLot": "HT-2024-11-15-B47",
-        "ChargeNumber": "FC-1234-02",
-        "Stages": [
+      }
+    },
+    "HeatTreatment": {
+      "Process": "Quenching and Tempering",
+      "HeatTreatmentLot": "HT-2024-11-15-B47",
+      "ChargeNumber": "FC-1234-02",
+      "Stages": [
           {
             "StageType": "Austenitizing",
             "Temperature": 850,
@@ -117,7 +118,6 @@
             "Timestamp": "2024-11-15T09:15:00Z"
           }
         ]
-      }
     },
     "MechanicalProperties": [
       {
