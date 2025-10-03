@@ -4,7 +4,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
-  
+
   <!-- Main template to process the XML input directly -->
   <xsl:template match="/">
     <fo:root xml:lang="en">
@@ -23,7 +23,7 @@
             <fo:page-number-citation-last ref-id="last-page" />
           </fo:block>
         </fo:static-content>
-        
+
         <!-- Body -->
         <fo:flow flow-name="xsl-region-body" font-family="NotoSans, NotoSansSC">
           <!-- Global variables -->
@@ -31,9 +31,9 @@
           <xsl:variable name="partyPaddingBottom" select="'4pt'" />
           <xsl:variable name="logoPaddingBottom" select="'10pt'" />
           <xsl:variable name="fontSizeSmall" select="'6pt'" />
-          
+
           <xsl:variable name="dmp" select="Root/DigitalMaterialPassport" />
-          
+
           <fo:block font-size="8pt">
             <!-- Parties Section with Logo -->
             <fo:table table-layout="fixed" width="100%">
@@ -45,9 +45,7 @@
                   <fo:table-cell number-columns-spanned="1" padding-bottom="{$logoPaddingBottom}">
                     <fo:block>
                       <xsl:if test="$dmp/TransactionData/Parties/Manufacturer/Logo">
-                        <fo:external-graphic fox:alt-text="Company Logo" 
-                                           src="{$dmp/TransactionData/Parties/Manufacturer/Logo}" 
-                                           content-height="48px" height="48px" />
+                        <fo:external-graphic fox:alt-text="Company Logo" src="{$dmp/TransactionData/Parties/Manufacturer/Logo}" content-height="48px" height="48px" />
                       </xsl:if>
                     </fo:block>
                   </fo:table-cell>
@@ -57,7 +55,7 @@
                     <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
-                
+
                 <!-- Row 2: Customer and next party (Subcustomer, GoodsReceiver, or CertificateReceiver) -->
                 <fo:table-row>
                   <xsl:call-template name="PartyInfo">
@@ -94,13 +92,13 @@
                     </xsl:otherwise>
                   </xsl:choose>
                 </fo:table-row>
-                
+
                 <!-- Row 3: Additional parties if 4+ parties exist -->
                 <xsl:variable name="hasSubcustomer" select="boolean($dmp/TransactionData/Parties/Subcustomer)" />
                 <xsl:variable name="hasGoodsReceiver" select="boolean($dmp/TransactionData/Parties/GoodsReceiver)" />
                 <xsl:variable name="hasCertificateReceiver" select="boolean($dmp/TransactionData/Parties/CertificateReceiver)" />
                 <xsl:variable name="partyCount" select="2 + number($hasSubcustomer) + number($hasGoodsReceiver) + number($hasCertificateReceiver)" />
-                
+
                 <xsl:if test="$partyCount >= 4">
                   <fo:table-row>
                     <!-- Row 3 Col 1: Third party -->
@@ -132,7 +130,7 @@
                         </fo:table-cell>
                       </xsl:otherwise>
                     </xsl:choose>
-                    
+
                     <!-- Row 3 Col 2: Fourth party -->
                     <xsl:choose>
                       <xsl:when test="$hasSubcustomer and $hasGoodsReceiver and $hasCertificateReceiver">
@@ -152,7 +150,7 @@
                 </xsl:if>
               </fo:table-body>
             </fo:table>
-            
+
             <!-- Document Title -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="'Digital Material Passport'" />
@@ -191,7 +189,7 @@
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
-            
+
             <!-- Business Transaction -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="'Business Transaction'" />
@@ -323,11 +321,6 @@
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
-                <xsl:if test="$dmp/Product/HeatTreatment">
-                  <xsl:call-template name="HeatTreatmentDetailsSection">
-                    <xsl:with-param name="details" select="$dmp/Product/HeatTreatment" />
-                  </xsl:call-template>
-                </xsl:if>
                 <xsl:if test="$dmp/Product/SurfaceCondition">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
@@ -433,7 +426,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-            
+
             <!-- Material Designations -->
             <xsl:if test="$dmp/Product/MaterialDesignations">
               <xsl:call-template name="SectionTitleSmall">
@@ -460,7 +453,7 @@
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-            
+
             <!-- Product Shape -->
             <xsl:if test="$dmp/Product/Shape">
               <xsl:call-template name="SectionTitleSmall">
@@ -752,6 +745,138 @@
               </xsl:if>
             </xsl:if>
 
+            <!-- Heat Treatment -->
+            <xsl:if test="$dmp/HeatTreatment">
+              <fo:block keep-together="always">
+                <xsl:call-template name="SectionTitle">
+                  <xsl:with-param name="title" select="'Heat Treatment'" />
+                </xsl:call-template>
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="25%" />
+                  <fo:table-column column-width="25%" />
+                  <fo:table-column column-width="25%" />
+                  <fo:table-column column-width="25%" />
+
+                  <fo:table-body>
+                    <!-- Header row -->
+                    <fo:table-row background-color="#f0f0f0">
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic" font-weight="bold">Process</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Lot</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Furnace</fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block font-style="italic">Date</fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Data row -->
+                    <fo:table-row>
+                      <fo:table-cell padding="2pt">
+                        <fo:block>
+                          <xsl:value-of select="$dmp/HeatTreatment/Process" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block>
+                          <xsl:value-of select="$dmp/HeatTreatment/HeatTreatmentLot" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block>
+                          <xsl:value-of select="$dmp/HeatTreatment/FurnaceId" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell padding="2pt">
+                        <fo:block>
+                          <xsl:value-of select="$dmp/HeatTreatment/ProcessDate" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+
+                    <!-- Stages table -->
+                    <xsl:if test="$dmp/HeatTreatment/Stages">
+                      <fo:table-row>
+                        <fo:table-cell number-columns-spanned="4" padding="6pt">
+                          <fo:block font-weight="bold" space-after="4pt">Stages</fo:block>
+                          <fo:table table-layout="fixed" width="100%">
+                            <fo:table-column column-width="20%" />
+                            <fo:table-column column-width="20%" />
+                            <fo:table-column column-width="15%" />
+                            <fo:table-column column-width="20%" />
+                            <fo:table-column column-width="25%" />
+
+                            <fo:table-body>
+                              <fo:table-row background-color="#f0f0f0">
+                                <fo:table-cell padding="2pt">
+                                  <fo:block font-style="italic" font-weight="bold">Stage</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
+                                  <fo:block font-style="italic">Temperature</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
+                                  <fo:block font-style="italic">Duration</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
+                                  <fo:block font-style="italic">Cooling</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
+                                  <fo:block font-style="italic">Atmosphere</fo:block>
+                                </fo:table-cell>
+                              </fo:table-row>
+                              <xsl:for-each select="$dmp/HeatTreatment/Stages">
+                                <fo:table-row>
+                                  <fo:table-cell padding="2pt">
+                                    <fo:block>
+                                      <xsl:value-of select="StageType" />
+                                    </fo:block>
+                                  </fo:table-cell>
+                                  <fo:table-cell padding="2pt">
+                                    <fo:block>
+                                      <xsl:value-of select="Temperature" />
+                                      <xsl:text> </xsl:text>
+                                      <xsl:value-of select="TemperatureUnit" />
+                                    </fo:block>
+                                  </fo:table-cell>
+                                  <fo:table-cell padding="2pt">
+                                    <fo:block>
+                                      <xsl:if test="Duration">
+                                        <xsl:value-of select="Duration" />
+                                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="DurationUnit" />
+                                      </xsl:if>
+                                    </fo:block>
+                                  </fo:table-cell>
+                                  <fo:table-cell padding="2pt">
+                                    <fo:block>
+                                      <xsl:if test="CoolingMedium">
+                                        <xsl:value-of select="CoolingMedium" />
+                                      </xsl:if>
+                                    </fo:block>
+                                  </fo:table-cell>
+                                  <fo:table-cell padding="2pt">
+                                    <fo:block>
+                                      <xsl:if test="AtmosphereType">
+                                        <xsl:value-of select="AtmosphereType" />
+                                      </xsl:if>
+                                    </fo:block>
+                                  </fo:table-cell>
+                                </fo:table-row>
+                              </xsl:for-each>
+                            </fo:table-body>
+                          </fo:table>
+                        </fo:table-cell>
+                      </fo:table-row>
+                    </xsl:if>
+                  </fo:table-body>
+                </fo:table>
+              </fo:block>
+            </xsl:if>
+
             <!-- Chemical Analysis -->
             <xsl:if test="$dmp/ChemicalAnalysis">
               <xsl:call-template name="SectionTitle">
@@ -806,20 +931,20 @@
                   </xsl:if>
                 </fo:table-body>
               </fo:table>
-              
+
               <!-- Chemical Elements Table -->
               <xsl:if test="$dmp/ChemicalAnalysis/Elements">
                 <fo:block keep-together="always">
                   <xsl:call-template name="SectionTitleSmall">
                     <xsl:with-param name="title" select="'Elements'" />
                   </xsl:call-template>
-                  
+
                   <fo:table id="chemical-composition-table" table-layout="fixed" width="100%">
                     <fo:table-column column-width="proportional-column-width(2)"/>
                     <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
                       <fo:table-column column-width="proportional-column-width(1)"/>
                     </xsl:for-each>
-                    
+
                     <fo:table-body>
                       <fo:table-row background-color="#f0f0f0">
                         <fo:table-cell padding="3pt">
@@ -833,7 +958,7 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
-                      
+
                       <fo:table-row>
                         <fo:table-cell padding="3pt">
                           <fo:block font-style="italic">Unit</fo:block>
@@ -847,7 +972,7 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
-                      
+
                       <fo:table-row>
                         <fo:table-cell padding="3pt">
                           <fo:block font-style="italic">Min</fo:block>
@@ -868,7 +993,7 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
-                      
+
                       <fo:table-row>
                         <fo:table-cell padding="3pt">
                           <fo:block font-style="italic">Max</fo:block>
@@ -889,7 +1014,7 @@
                           </fo:table-cell>
                         </xsl:for-each>
                       </fo:table-row>
-                      
+
                       <fo:table-row>
                         <fo:table-cell padding="3pt">
                           <fo:block font-style="italic">Actual</fo:block>
@@ -912,7 +1037,7 @@
                       </fo:table-row>
                     </fo:table-body>
                   </fo:table>
-                  
+
                   <!-- Formula Definitions -->
                   <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
                     <fo:block space-before="8pt">
@@ -921,7 +1046,9 @@
                       </xsl:call-template>
                       <xsl:for-each select="$dmp/ChemicalAnalysis/Elements[Formula][not(PropertySymbol = preceding-sibling::*/PropertySymbol)]">
                         <fo:block space-after="2pt">
-                          <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
+                          <fo:inline font-weight="bold">
+                            <xsl:value-of select="PropertySymbol" />
+                          </fo:inline>
                           <xsl:text> = </xsl:text>
                           <xsl:value-of select="Formula" />
                           <xsl:if test="Actual">
@@ -930,7 +1057,7 @@
                               <xsl:with-param name="result" select="Actual" />
                             </xsl:call-template>
                             <xsl:if test="Unit">
-                              <xsl:text> </xsl:text>
+                              <xsl:text></xsl:text>
                               <xsl:value-of select="Unit" />
                             </xsl:if>
                           </xsl:if>
@@ -941,7 +1068,7 @@
                 </fo:block>
               </xsl:if>
             </xsl:if>
-            
+
             <!-- Mechanical Properties -->
             <xsl:if test="$dmp/MechanicalProperties">
               <fo:block keep-together="always">
@@ -956,7 +1083,7 @@
                   <fo:table-column column-width="15%" />
                   <fo:table-column column-width="20%" />
                   <fo:table-column column-width="5%" />
-                  
+
                   <fo:table-body>
                     <fo:table-row background-color="#f0f0f0">
                       <fo:table-cell padding="2pt">
@@ -981,7 +1108,7 @@
                         <fo:block font-style="italic" text-align="center">Status</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
-                    
+
                     <xsl:for-each select="$dmp/MechanicalProperties">
                       <xsl:variable name="propertyName" select="PropertyName" />
                       <fo:table-row>
@@ -1040,7 +1167,8 @@
                                 <xsl:with-param name="result" select="Actual" />
                               </xsl:call-template>
                               <xsl:if test="Unit">
-                                <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                <xsl:text></xsl:text>
+                                <xsl:value-of select="Unit" />
                               </xsl:if>
                             </fo:block>
                           </fo:table-cell>
@@ -1051,7 +1179,8 @@
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:if>
                             </fo:block>
@@ -1063,7 +1192,8 @@
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:if>
                             </fo:block>
@@ -1108,7 +1238,7 @@
                 </fo:table>
               </fo:block>
             </xsl:if>
-            
+
             <!-- Physical Properties -->
             <xsl:if test="$dmp/PhysicalProperties">
               <fo:block keep-together="always">
@@ -1123,7 +1253,7 @@
                   <fo:table-column column-width="15%" />
                   <fo:table-column column-width="20%" />
                   <fo:table-column column-width="5%" />
-                  
+
                   <fo:table-body>
                     <fo:table-row background-color="#f0f0f0">
                       <fo:table-cell padding="2pt">
@@ -1148,7 +1278,7 @@
                         <fo:block font-style="italic" text-align="center">Status</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
-                    
+
                     <xsl:for-each select="$dmp/PhysicalProperties">
                       <fo:table-row>
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
@@ -1189,7 +1319,8 @@
                               </xsl:otherwise>
                             </xsl:choose>
                             <xsl:if test="Unit and not(Actual/ResultType = 'array') and not(Actual/ResultType = 'multiValue')">
-                              <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Unit" />
                             </xsl:if>
                           </fo:block>
                         </fo:table-cell>
@@ -1204,7 +1335,8 @@
                                   <xsl:with-param name="result" select="Target" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:when test="Minimum">
@@ -1212,7 +1344,8 @@
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
@@ -1230,7 +1363,8 @@
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
@@ -1276,7 +1410,7 @@
                 </fo:table>
               </fo:block>
             </xsl:if>
-            
+
             <!-- Supplementary Tests -->
             <xsl:if test="$dmp/SupplementaryTests">
               <fo:block keep-together="always">
@@ -1290,7 +1424,7 @@
                   <fo:table-column column-width="12%" />
                   <fo:table-column column-width="21%" />
                   <fo:table-column column-width="5%" />
-                  
+
                   <fo:table-body>
                     <fo:table-row background-color="#f0f0f0">
                       <fo:table-cell padding="2pt">
@@ -1312,7 +1446,7 @@
                         <fo:block font-style="italic" text-align="center">Status</fo:block>
                       </fo:table-cell>
                     </fo:table-row>
-                    
+
                     <xsl:for-each select="$dmp/SupplementaryTests">
                       <fo:table-row>
                         <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
@@ -1351,7 +1485,8 @@
                               </xsl:otherwise>
                             </xsl:choose>
                             <xsl:if test="Unit and not(Actual/ResultType = 'array') and not(Actual/ResultType = 'multiValue')">
-                              <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                              <xsl:text></xsl:text>
+                              <xsl:value-of select="Unit" />
                             </xsl:if>
                           </fo:block>
                         </fo:table-cell>
@@ -1366,7 +1501,8 @@
                                   <xsl:with-param name="result" select="Target" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:when test="Minimum">
@@ -1374,7 +1510,8 @@
                                   <xsl:with-param name="result" select="Minimum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
@@ -1392,7 +1529,8 @@
                                   <xsl:with-param name="result" select="Maximum" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
-                                  <xsl:text> </xsl:text><xsl:value-of select="Unit" />
+                                  <xsl:text></xsl:text>
+                                  <xsl:value-of select="Unit" />
                                 </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>-</xsl:otherwise>
@@ -1438,12 +1576,12 @@
                 </fo:table>
               </fo:block>
             </xsl:if>
-            
+
             <!-- Validation Information -->
             <xsl:call-template name="SectionTitle">
               <xsl:with-param name="title" select="'Validation'" />
             </xsl:call-template>
-            
+
             <!-- Validation Statement -->
             <fo:block space-before="4pt" space-after="8pt">
               <xsl:value-of select="$dmp/Validation/ValidationStatement/Statement" />
@@ -1520,28 +1658,32 @@
                           </fo:block>
                           <xsl:if test="StampImage">
                             <fo:block absolute-position="absolute" top="-5px" left="0px">
-                              <fo:external-graphic src="{StampImage}" 
-                                                   content-height="50px" 
-                                                   scaling="uniform" />
+                              <fo:external-graphic src="{StampImage}" content-height="50px" scaling="uniform" />
                             </fo:block>
                           </xsl:if>
                         </fo:block-container>
                       </fo:table-cell>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                        <fo:block><xsl:value-of select="Title" /></fo:block>
+                        <fo:block>
+                          <xsl:value-of select="Title" />
+                        </fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                        <fo:block><xsl:value-of select="Department" /></fo:block>
+                        <fo:block>
+                          <xsl:value-of select="Department" />
+                        </fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding-bottom="{$cellPaddingBottom}">
-                        <fo:block><xsl:value-of select="../ValidationDate" /></fo:block>
+                        <fo:block>
+                          <xsl:value-of select="../ValidationDate" />
+                        </fo:block>
                       </fo:table-cell>
                     </fo:table-row>
                   </xsl:for-each>
                 </fo:table-body>
               </fo:table>
             </xsl:if>
-            
+
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
               <fo:table-column column-width="40%" />
@@ -1567,7 +1709,7 @@
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
-            
+
             <!-- Used to get the last page number -->
             <fo:block id="last-page" />
           </fo:block>
@@ -1583,7 +1725,7 @@
       <xsl:value-of select="$title" />
     </fo:block>
   </xsl:template>
-  
+
   <xsl:template name="SectionTitleSmall">
     <xsl:param name="title" />
     <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">
@@ -1618,12 +1760,12 @@
       <fo:block font-weight="bold" padding-bottom="{$paddingBottom}">
         <xsl:value-of select="$party/Name" />
       </fo:block>
-      
+
       <!-- Use FormatAddress template for country-specific address formatting -->
       <xsl:call-template name="FormatAddress">
         <xsl:with-param name="party" select="$party" />
       </xsl:call-template>
-      
+
       <xsl:if test="$party/Email">
         <fo:block>
           <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
@@ -1635,7 +1777,7 @@
       </xsl:if>
     </fo:table-cell>
   </xsl:template>
-  
+
   <!-- Format the result based on its type -->
   <xsl:template name="FormatResult">
     <xsl:param name="result" />
@@ -1643,7 +1785,7 @@
       <xsl:when test="$result/ResultType = 'numeric'">
         <xsl:if test="$result/Operator and $result/Operator != '='">
           <xsl:value-of select="$result/Operator" />
-          <xsl:text> </xsl:text>
+          <xsl:text></xsl:text>
         </xsl:if>
         <xsl:value-of select="$result/Value" />
         <xsl:if test="$result/Uncertainty">
@@ -1834,7 +1976,7 @@
               <xsl:for-each select="$result/Values">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                   <fo:block text-align="center" font-size="8pt">
-                    #<xsl:value-of select="position()" />
+                    #                    <xsl:value-of select="position()" />
                   </fo:block>
                 </fo:table-cell>
               </xsl:for-each>
@@ -1845,7 +1987,8 @@
                 <fo:block text-align="left" font-size="8pt">
                   <xsl:choose>
                     <xsl:when test="$result/../Unit">
-                      Value [<xsl:value-of select="$result/../Unit" />]
+                      Value [<xsl:value-of select="$result/../Unit" />
+]
                     </xsl:when>
                     <xsl:otherwise>Value</xsl:otherwise>
                   </xsl:choose>
@@ -1927,7 +2070,8 @@
                       </xsl:call-template>
                       <xsl:if test="$result/Statistics/StandardDeviationType">
                         <fo:block font-size="6pt" color="gray">
-                          (<xsl:value-of select="$result/Statistics/StandardDeviationType" />)
+                          (                          <xsl:value-of select="$result/Statistics/StandardDeviationType" />
+)
                         </fo:block>
                       </xsl:if>
                     </xsl:if>
@@ -1953,16 +2097,18 @@
   <!-- Template for country-specific address formatting -->
   <xsl:template name="FormatAddress">
     <xsl:param name="party" />
-    
+
     <!-- Determine country code -->
     <xsl:variable name="countryCode" select="$party/Country" />
-    
+
     <xsl:choose>
       <!-- United States Format -->
       <xsl:when test="$countryCode = 'US'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City, State ZIP -->
         <fo:block>
@@ -1972,19 +2118,23 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Canada Format (similar to US) -->
       <xsl:when test="$countryCode = 'CA'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City, Province ZIP -->
         <fo:block>
@@ -1994,14 +2144,16 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Japan Format -->
       <xsl:when test="$countryCode = 'JP'">
         <!-- Postal code with 〒 symbol -->
@@ -2018,30 +2170,38 @@
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:if test="$party/StateProvince">
-              <xsl:text> </xsl:text>
+              <xsl:text></xsl:text>
             </xsl:if>
             <xsl:value-of select="$party/City" />
           </xsl:if>
           <xsl:if test="$party/District">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/District" />
           </xsl:if>
         </fo:block>
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- China Format -->
       <xsl:when test="$countryCode = 'CN'">
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
         <!-- Postal code -->
         <xsl:if test="$party/ZipCode">
-          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
         </xsl:if>
         <!-- Province City District -->
         <fo:block>
@@ -2050,44 +2210,56 @@
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:if test="$party/StateProvince">
-              <xsl:text> </xsl:text>
+              <xsl:text></xsl:text>
             </xsl:if>
             <xsl:value-of select="$party/City" />
           </xsl:if>
           <xsl:if test="$party/District">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/District" />
           </xsl:if>
         </fo:block>
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
       </xsl:when>
-      
+
       <!-- United Kingdom Format -->
       <xsl:when test="$countryCode = 'GB'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City -->
         <xsl:if test="$party/City">
-          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/City" />
+          </fo:block>
         </xsl:if>
         <!-- Postal code -->
         <xsl:if test="$party/ZipCode">
-          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
         </xsl:if>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Australia Format -->
       <xsl:when test="$countryCode = 'AU'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City State ZIP -->
         <fo:block>
@@ -2095,33 +2267,39 @@
             <xsl:value-of select="$party/City" />
           </xsl:if>
           <xsl:if test="$party/StateProvince">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Brazil Format -->
       <xsl:when test="$countryCode = 'BR'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- District (if present) -->
         <xsl:if test="$party/District">
-          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/District" />
+          </fo:block>
         </xsl:if>
         <!-- ZIP City - State -->
         <fo:block>
           <xsl:if test="$party/ZipCode">
             <xsl:value-of select="$party/ZipCode" />
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
@@ -2132,18 +2310,24 @@
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- India Format -->
       <xsl:when test="$countryCode = 'IN'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- District (if present) -->
         <xsl:if test="$party/District">
-          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/District" />
+          </fo:block>
         </xsl:if>
         <!-- City - ZIP -->
         <fo:block>
@@ -2157,23 +2341,29 @@
         </fo:block>
         <!-- State -->
         <xsl:if test="$party/StateProvince">
-          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/StateProvince" />
+          </fo:block>
         </xsl:if>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- South Korea Format -->
       <xsl:when test="$countryCode = 'KR'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- District City -->
         <fo:block>
           <xsl:if test="$party/District">
             <xsl:value-of select="$party/District" />
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
@@ -2185,19 +2375,23 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Mexico Format -->
       <xsl:when test="$countryCode = 'MX'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City, State -->
         <fo:block>
@@ -2211,21 +2405,29 @@
         </fo:block>
         <!-- ZIP -->
         <xsl:if test="$party/ZipCode">
-          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
         </xsl:if>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Russia Format -->
       <xsl:when test="$countryCode = 'RU'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- City -->
         <xsl:if test="$party/City">
-          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/City" />
+          </fo:block>
         </xsl:if>
         <!-- State ZIP -->
         <fo:block>
@@ -2238,53 +2440,71 @@
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Netherlands and EU Format -->
       <xsl:when test="$countryCode = 'NL' or $countryCode = 'DE' or $countryCode = 'FR' or $countryCode = 'IT' or $countryCode = 'ES' or $countryCode = 'AT' or $countryCode = 'BE' or $countryCode = 'CH'">
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- ZIP City -->
         <fo:block>
           <xsl:if test="$party/ZipCode">
             <xsl:value-of select="$party/ZipCode" />
-            <xsl:text> </xsl:text>
+            <xsl:text></xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
           </xsl:if>
         </fo:block>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:when>
-      
+
       <!-- Default/Fallback Format -->
       <xsl:otherwise>
         <!-- Street lines -->
         <xsl:for-each select="$party/Street">
-          <fo:block><xsl:value-of select="." /></fo:block>
+          <fo:block>
+            <xsl:value-of select="." />
+          </fo:block>
         </xsl:for-each>
         <!-- District (if present) -->
         <xsl:if test="$party/District">
-          <fo:block><xsl:value-of select="$party/District" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/District" />
+          </fo:block>
         </xsl:if>
         <!-- City -->
         <xsl:if test="$party/City">
-          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/City" />
+          </fo:block>
         </xsl:if>
         <!-- State/Province -->
         <xsl:if test="$party/StateProvince">
-          <fo:block><xsl:value-of select="$party/StateProvince" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/StateProvince" />
+          </fo:block>
         </xsl:if>
         <!-- ZIP -->
         <xsl:if test="$party/ZipCode">
-          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+          <fo:block>
+            <xsl:value-of select="$party/ZipCode" />
+          </fo:block>
         </xsl:if>
         <!-- Country -->
-        <fo:block><xsl:value-of select="$party/Country" /></fo:block>
+        <fo:block>
+          <xsl:value-of select="$party/Country" />
+        </fo:block>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -2325,11 +2545,7 @@
     <xsl:param name="details" />
 
     <fo:table-row>
-      <fo:table-cell number-columns-spanned="2" padding="6pt" border-top="1pt solid #cccccc">
-        <fo:block font-weight="bold" font-size="10pt" space-after="6pt">
-          Heat Treatment
-        </fo:block>
-
+      <fo:table-cell number-columns-spanned="2" padding="6pt">
         <!-- Process and Lot Info -->
         <fo:block space-after="4pt">
           <fo:inline font-weight="bold">Process: </fo:inline>
@@ -2407,7 +2623,7 @@
                     <fo:table-cell padding="3pt" border="0.5pt solid #cccccc">
                       <fo:block font-size="8pt">
                         <xsl:value-of select="Temperature" />
-                        <xsl:text> </xsl:text>
+                        <xsl:text></xsl:text>
                         <xsl:value-of select="TemperatureUnit" />
                         <xsl:if test="TemperatureTolerance">
                           <fo:block font-size="7pt" color="gray">
@@ -2420,7 +2636,7 @@
                       <fo:block font-size="8pt">
                         <xsl:if test="Duration">
                           <xsl:value-of select="Duration" />
-                          <xsl:text> </xsl:text>
+                          <xsl:text></xsl:text>
                           <xsl:value-of select="DurationUnit" />
                         </xsl:if>
                       </fo:block>
@@ -2432,7 +2648,8 @@
                         </xsl:if>
                         <xsl:if test="CoolingRate">
                           <fo:block font-size="7pt" color="gray">
-                            <xsl:value-of select="CoolingRate" />°/
+                            <xsl:value-of select="CoolingRate" />
+°/
                             <xsl:value-of select="DurationUnit" />
                           </fo:block>
                         </xsl:if>
@@ -2446,7 +2663,7 @@
                         <xsl:if test="AtmospherePressure">
                           <fo:block font-size="7pt" color="gray">
                             <xsl:value-of select="AtmospherePressure" />
-                            <xsl:text> </xsl:text>
+                            <xsl:text></xsl:text>
                             <xsl:value-of select="AtmospherePressureUnit" />
                           </fo:block>
                         </xsl:if>
@@ -2464,14 +2681,16 @@
           <fo:block space-before="4pt" font-size="8pt" color="gray">
             <fo:inline font-weight="bold">Bundling: </fo:inline>
             <xsl:if test="$details/ProcessBundling/ItemsPerCharge">
-              <xsl:value-of select="$details/ProcessBundling/ItemsPerCharge" /> items,
+              <xsl:value-of select="$details/ProcessBundling/ItemsPerCharge" />
+ items,
             </xsl:if>
             <xsl:if test="$details/ProcessBundling/ArrangementPattern">
-              <xsl:value-of select="$details/ProcessBundling/ArrangementPattern" />,
+              <xsl:value-of select="$details/ProcessBundling/ArrangementPattern" />
+,
             </xsl:if>
             <xsl:if test="$details/ProcessBundling/ActualLoadWeight">
               <xsl:value-of select="$details/ProcessBundling/ActualLoadWeight" />
-              <xsl:text> </xsl:text>
+              <xsl:text></xsl:text>
               <xsl:value-of select="$details/ProcessBundling/WeightUnit" />
             </xsl:if>
           </fo:block>
@@ -2483,10 +2702,13 @@
             <fo:inline font-weight="bold">Quality Checks:</fo:inline>
             <xsl:for-each select="$details/QualityChecks">
               <fo:block margin-left="6pt" space-before="2pt">
-                <fo:inline font-weight="bold"><xsl:value-of select="CheckType" />: </fo:inline>
+                <fo:inline font-weight="bold">
+                  <xsl:value-of select="CheckType" />
+: </fo:inline>
                 <xsl:value-of select="Result" />
                 <xsl:if test="Method">
-                  <fo:inline color="gray"> (<xsl:value-of select="Method" />)</fo:inline>
+                  <fo:inline color="gray"> (                    <xsl:value-of select="Method" />
+)</fo:inline>
                 </xsl:if>
               </fo:block>
             </xsl:for-each>

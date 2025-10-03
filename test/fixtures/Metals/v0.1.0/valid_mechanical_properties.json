@@ -1,7 +1,10 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.0/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": [
+      "EN",
+      "DE"
+    ],
     "Id": "DMP-METAL-002",
     "Version": "1.0.0",
     "IssueDate": "2025-05-14",
@@ -9,7 +12,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": ["Industrial Park 123"],
+          "Street": [
+            "Industrial Park 123"
+          ],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -30,7 +35,9 @@
         },
         "Customer": {
           "Name": "Engineering Solutions Ltd.",
-          "Street": ["Tech Park Way 45"],
+          "Street": [
+            "Tech Park Way 45"
+          ],
           "ZipCode": "CF14 5DU",
           "City": "Cardiff",
           "Country": "GB",
@@ -41,7 +48,10 @@
         },
         "Subcustomer": {
           "Name": "American Heavy Industries Inc.",
-          "Street": ["5000 Industrial Blvd", "Building C"],
+          "Street": [
+            "5000 Industrial Blvd",
+            "Building C"
+          ],
           "City": "Detroit",
           "StateProvince": "MI",
           "ZipCode": "48201",
@@ -50,9 +60,11 @@
         },
         "GoodsReceiver": {
           "Name": "Canadian Construction Corp",
-          "Street": ["777 Construction Ave"],
+          "Street": [
+            "777 Construction Ave"
+          ],
           "City": "Toronto",
-          "StateProvince": "ON", 
+          "StateProvince": "ON",
           "ZipCode": "M5H 2N2",
           "Country": "CA",
           "Email": "logistics@canconstruct.example.ca"
@@ -74,7 +86,9 @@
           "Quantity": 2000,
           "QuantityUnit": "kg",
           "InternalOrderId": "SO-12346",
-          "Transport": ["TRK-DE-AC-4579"]
+          "Transport": [
+            "TRK-DE-AC-4579"
+          ]
         }
       }
     },
@@ -101,44 +115,6 @@
         "Unit": "mm"
       },
       "BatchId": "H-10988-01",
-      "HeatTreatment": {
-        "Process": "Normalizing",
-        "HeatTreatmentLot": "NORM-2024-0823-A12",
-        "ChargeNumber": "NF-789",
-        "Stages": [
-          {
-            "StageType": "Austenitizing",
-            "Temperature": 920,
-            "TemperatureUnit": "C",
-            "TemperatureTolerance": "+/-15C",
-            "Duration": 60,
-            "DurationUnit": "min",
-            "HeatingRate": 40,
-            "AtmosphereType": "Air"
-          },
-          {
-            "StageType": "Cooling",
-            "Temperature": 20,
-            "TemperatureUnit": "C",
-            "CoolingMedium": "Air",
-            "CoolingRate": 15
-          }
-        ],
-        "ProcessBundling": {
-          "ItemsPerCharge": 20,
-          "ArrangementPattern": "stacked",
-          "SeparatorType": "ceramic_spacers",
-          "LoadConfiguration": "horizontal",
-          "ActualLoadWeight": 8500,
-          "WeightUnit": "kg"
-        },
-        "FurnaceId": "NF-LINE-02",
-        "ProcessDate": "2024-08-23",
-        "ProcessStartTime": "2024-08-23T10:00:00Z",
-        "ProcessEndTime": "2024-08-23T12:30:00Z",
-        "EquipmentCertification": "DIN-EN-ISO-9001",
-        "Operator": "H. Mueller"
-      },
       "SurfaceCondition": "Hot-rolled",
       "CountryOfOrigin": "DE",
       "ManufacturingLocation": "Aachen Plant",
@@ -146,6 +122,44 @@
       "Quantity": 1,
       "Weight": 2000,
       "WeightUnit": "kg"
+    },
+    "HeatTreatment": {
+      "Process": "Normalizing",
+      "HeatTreatmentLot": "NORM-2024-0823-A12",
+      "ChargeNumber": "NF-789",
+      "Stages": [
+        {
+          "StageType": "Austenitizing",
+          "Temperature": 920,
+          "TemperatureUnit": "C",
+          "TemperatureTolerance": "+/-15C",
+          "Duration": 60,
+          "DurationUnit": "min",
+          "HeatingRate": 40,
+          "AtmosphereType": "Air"
+        },
+        {
+          "StageType": "Cooling",
+          "Temperature": 20,
+          "TemperatureUnit": "C",
+          "CoolingMedium": "Air",
+          "CoolingRate": 15
+        }
+      ],
+      "ProcessBundling": {
+        "ItemsPerCharge": 20,
+        "ArrangementPattern": "stacked",
+        "SeparatorType": "ceramic_spacers",
+        "LoadConfiguration": "horizontal",
+        "ActualLoadWeight": 8500,
+        "WeightUnit": "kg"
+      },
+      "FurnaceId": "NF-LINE-02",
+      "ProcessDate": "2024-08-23",
+      "ProcessStartTime": "2024-08-23T10:00:00Z",
+      "ProcessEndTime": "2024-08-23T12:30:00Z",
+      "EquipmentCertification": "DIN-EN-ISO-9001",
+      "Operator": "H. Mueller"
     },
     "ChemicalAnalysis": {
       "MeltingProcess": "EAF+LF+VD",
@@ -165,7 +179,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.20
+            "Value": 0.2
           }
         },
         {
@@ -178,7 +192,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 1.60
+            "Value": 1.6
           }
         },
         {
@@ -191,7 +205,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.50
+            "Value": 0.5
           }
         },
         {
@@ -213,7 +227,7 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.010
+            "Value": 0.01
           },
           "Maximum": {
             "ResultType": "numeric",
@@ -242,7 +256,7 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C",
+        "TestConditions": "Test temperature: 20\u00b0C",
         "SpecimenSpecification": {
           "Location": "1/4T",
           "Orientation": "L"
@@ -299,7 +313,7 @@
         "PropertySymbol": "ReH",
         "PropertyName": "Yield Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20°C, 3 specimens tested",
+        "TestConditions": "Test temperature: 20\u00b0C, 3 specimens tested",
         "Unit": "MPa",
         "Actual": {
           "ResultType": "multiValue",
@@ -348,7 +362,7 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation after fracture",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Gauge length 5.65√S₀, 3 specimens tested",
+        "TestConditions": "Gauge length 5.65\u221aS\u2080, 3 specimens tested",
         "Unit": "%",
         "Actual": {
           "ResultType": "multiValue",
@@ -446,7 +460,7 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20°C",
+        "TestConditions": "Test temperature: -20\u00b0C",
         "SpecimenSpecification": {
           "Location": "Top",
           "Orientation": "T-L"
@@ -499,7 +513,7 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20°C",
+        "TestConditions": "Test temperature: -20\u00b0C",
         "SpecimenSpecification": {
           "Location": "Bottom",
           "Orientation": "T-L"
@@ -711,7 +725,7 @@
         },
         "Target": {
           "ResultType": "numeric",
-          "Value": 0.20
+          "Value": 0.2
         },
         "Interpretation": "In Specification"
       },
@@ -783,7 +797,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
-        "Standards": ["EN 10025-3:2019", "EN 10204:2004"],
+        "Standards": [
+          "EN 10025-3:2019",
+          "EN 10204:2004"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-05-14",
