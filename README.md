@@ -73,7 +73,7 @@ mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
 node scripts/json2pdf.js <input-file> [output-file]
 ```
 
-The script automatically detects the schema type and version from the certificate. By default, it saves the PDF in the same directory as the input JSON file with the same name but .pdf extension.
+The script automatically detects the schema type and version from the certificate. By default, it saves the PDF in the same directory as the input JSON file with the same name with .pdf extension.
 
 **Examples:**
 
