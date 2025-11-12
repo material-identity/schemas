@@ -200,7 +200,7 @@ public class SchemasServiceImpl implements SchemasService {
 
         Resource xsltResource = new ClassPathResource(xsltPath);
         String xsltSource = new String(
-                Files.readAllBytes(Paths.get(xsltResource.getURI())));
+                xsltResource.getInputStream().readAllBytes());
 
         PDFBuilder pdfBuilder = new PDFBuilder()
                 .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
