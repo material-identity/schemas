@@ -1,6 +1,8 @@
 server:
   port: ${PORT:8081}
   shutdown: graceful
+  tomcat:
+    connection-timeout: 90s 
   error:
     include-message: always
     include-binding-errors: always
