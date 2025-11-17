@@ -316,7 +316,7 @@
         <executions>
           <execution>
             <id>copy-dependencies</id>
-            <phase>package</phase>
+            <phase>process-test-resources</phase>
             <goals>
               <goal>copy-dependencies</goal>
             </goals>

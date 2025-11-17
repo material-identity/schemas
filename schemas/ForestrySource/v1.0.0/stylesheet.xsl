@@ -116,20 +116,34 @@
                 </xsl:if>
                 <xsl:if test="exists($GeneralInformation/Country)">
                   <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Country" />
-                      <xsl:with-param name="value" select="$GeneralInformation/Country" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Country" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}">
+                        <xsl:call-template name="CountryName">
+                          <xsl:with-param name="countryCode" select="$GeneralInformation/Country" />
+                        </xsl:call-template>
+                      </fo:block>
+                    </fo:table-cell>
                   </fo:table-row>
                 </xsl:if>
                 <xsl:if test="exists($GeneralInformation/State)">
                   <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/State" />
-                      <xsl:with-param name="value" select="$GeneralInformation/State" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}" font-family="NotoSans, NotoSansSC" font-style="italic">
+                        <xsl:call-template name="StateProvinceLabel">
+                          <xsl:with-param name="countryCode" select="$GeneralInformation/Country" />
+                        </xsl:call-template>
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block padding-bottom="{$cellPaddingBottom}">
+                        <xsl:value-of select="$GeneralInformation/State" />
+                      </fo:block>
+                    </fo:table-cell>
                   </fo:table-row>
                 </xsl:if>
                 <xsl:if test="exists($GeneralInformation/District)">
@@ -405,63 +419,35 @@
                   <fo:table-column column-width="35%"/>
                   <fo:table-body>
                     <fo:table-row>
-                      <fo:table-cell>
-                        <fo:block font-weight="bold" padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
-                          <xsl:value-of select="$i18n/DigitalMaterialPassport/Type" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block font-weight="bold" padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
-                          <xsl:value-of select="$i18n/DigitalMaterialPassport/Properties" />
-                        </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block font-weight="bold" padding-bottom="{$cellPaddingBottom}" padding-top="{$cellPaddingBottom}">
-                          <xsl:value-of select="$i18n/DigitalMaterialPassport/Geometry" />
-                        </fo:block>
-                      </fo:table-cell>
-                    </fo:table-row>
-                    <fo:table-row>
-                      <fo:table-cell >
-                        <fo:block >
+                      <fo:table-cell number-columns-spanned="3">
+                        <!-- Type line -->
+                        <fo:block padding-bottom="2pt">
+                          <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Type" />: </fo:inline>
                           <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = current()/type]" />
                         </fo:block>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:table table-layout="fixed" width="100%">
-                          <fo:table-column column-width="55%"/>
-                          <fo:table-column column-width="45%"/>
-                          <fo:table-body>
-                            <xsl:for-each select="properties/*">
-                              <fo:table-row>
-                                <xsl:call-template name="KeyValue">
-                                  <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
-                                  <xsl:with-param name="value" select="." />
-                                  <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                </xsl:call-template>
-                              </fo:table-row>
-                            </xsl:for-each>
-                          </fo:table-body>
-                        </fo:table>
-                      </fo:table-cell>
-                      <fo:table-cell>
-                        <fo:block>
-                          <fo:table table-layout="fixed" width="100%">
-                            <fo:table-column column-width="50%"/>
-                            <fo:table-column column-width="50%"/>
-                            <fo:table-body>
-                              <fo:table-row>
-                                <xsl:call-template name="KeyValue">
-                                  <xsl:with-param name="key" select="$i18n/DigitalMaterialPassport/Type" />
-                                  <xsl:with-param name="value" select="geometry/type" />
-                                  <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                </xsl:call-template>
-                              </fo:table-row>
-                            </fo:table-body>
-                          </fo:table>
+
+                        <!-- Geometry line -->
+                        <fo:block padding-bottom="2pt">
+                          <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Geometry" />: </fo:inline>
+                          <xsl:value-of select="geometry/type" />
                         </fo:block>
-                        
-                        <!-- Handle different geometry types -->
+
+                        <!-- Properties line -->
+                        <xsl:if test="properties/*">
+                          <fo:block padding-bottom="4pt">
+                            <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Properties" />: </fo:inline>
+                            <xsl:for-each select="properties/*">
+                              <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
+                              <xsl:text>: </xsl:text>
+                              <xsl:value-of select="." />
+                              <xsl:if test="position() != last()">
+                                <xsl:text>, </xsl:text>
+                              </xsl:if>
+                            </xsl:for-each>
+                          </fo:block>
+                        </xsl:if>
+
+                        <!-- Coordinates -->
                         <xsl:choose>
                           <!-- Case: Point geometry -->
                           <xsl:when test="geometry/type = 'Point'">
@@ -473,7 +459,7 @@
                               <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                             </xsl:call-template>
                           </xsl:when>
-                          
+
                           <!-- Case: Polygon geometry -->
                           <xsl:when test="geometry/type = 'Polygon'">
                             <xsl:call-template name="GenerateCoordinatesTable">
@@ -484,19 +470,19 @@
                               <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                             </xsl:call-template>
                           </xsl:when>
-                          
+
                           <!-- Case: GeometryCollection -->
                           <xsl:when test="geometry/type = 'GeometryCollection'">
                             <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
                               <xsl:value-of select="'Geometry Collection Contents'" />
                             </fo:block>
-                            
+
                             <!-- Loop through each geometry in the collection -->
                             <xsl:for-each select="geometry/geometries">
                               <fo:block font-weight="bold" padding-top="4pt" padding-bottom="2pt">
                                 <xsl:value-of select="concat('Type: ', type)" />
                               </fo:block>
-                              
+
                               <!-- Render each geometry based on its type -->
                               <xsl:choose>
                                 <!-- Point within GeometryCollection -->
@@ -509,7 +495,7 @@
                                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                                   </xsl:call-template>
                                 </xsl:when>
-                                
+
                                 <!-- Polygon within GeometryCollection -->
                                 <xsl:when test="type = 'Polygon'">
                                   <xsl:call-template name="GenerateCoordinatesTable">
@@ -521,7 +507,7 @@
                                   </xsl:call-template>
                                 </xsl:when>
                               </xsl:choose>
-                              
+
                               <!-- Add a separator between geometries -->
                               <xsl:if test="position() != last()">
                                 <fo:block border-bottom="dotted 1pt gray" margin-top="4pt" margin-bottom="4pt"/>
@@ -611,21 +597,9 @@
       <fo:block font-weight="bold">
         <xsl:value-of select="$party/Name" />
       </fo:block>
-      <fo:block>
-        <xsl:for-each select="$party/Street">
-          <fo:block>
-            <xsl:value-of select="." />
-          </fo:block>
-        </xsl:for-each>
-      </fo:block>
-      <xsl:for-each select="$party/Streets/Street">
-        <fo:block>
-          <xsl:value-of select="." />
-        </fo:block>
-      </xsl:for-each>
-      <fo:block>
-        <xsl:value-of select="concat($party/ZipCode, ' ', $party/City, ', ', $party/Country)" />
-      </fo:block>
+      <xsl:call-template name="FormatAddress">
+        <xsl:with-param name="party" select="$party" />
+      </xsl:call-template>
       <fo:block>
         <fo:basic-link external-destination="{concat('mailto:', $party/Email)}">
           <fo:inline text-decoration="underline">
@@ -642,44 +616,32 @@
     <xsl:param name="longitudeTranslation" />
     <xsl:param name="paddingBottom" select="'6pt'" />
 
-    <fo:table table-layout="fixed" width="100%">
-      <!-- Dynamically generate table columns based on the number of headers -->
-      <xsl:for-each select="$Section/Header">
-        <fo:table-column column-width="{100 div $headerCount}%"/>
+    <!-- Flat list format: 5 coordinate pairs per line for performance -->
+    <!-- Process every 2nd element (latitude at odd positions) and output 5 pairs per line -->
+    <fo:block font-size="7pt">
+      <xsl:for-each select="$Section[position() mod 2 = 1]">
+        <xsl:variable name="pairIndex" select="position()" />
+        <!-- Output coordinate pair: (lat, lon) -->
+        <xsl:text>(</xsl:text>
+        <xsl:value-of select="." />
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select="following-sibling::*[1]" />
+        <xsl:text>)</xsl:text>
+
+        <!-- Add comma separator or line break after 5 pairs -->
+        <xsl:choose>
+          <xsl:when test="$pairIndex mod 5 = 0 and following-sibling::*[2]">
+            <!-- After 5 pairs (and not the last), add line break -->
+            <xsl:text>,</xsl:text>
+            <fo:block/>
+          </xsl:when>
+          <xsl:when test="following-sibling::*[2]">
+            <!-- Not the last pair and not 5th pair, add comma and space -->
+            <xsl:text>, </xsl:text>
+          </xsl:when>
+        </xsl:choose>
       </xsl:for-each>
-      <fo:table-body>
-        <!-- Headers -->
-        <fo:table-row>
-          <fo:table-cell font-style="italic">
-            <fo:block padding-bottom="{$paddingBottom}">
-              <xsl:value-of select="$latitudeTranslation" />
-            </fo:block>
-          </fo:table-cell>
-          <fo:table-cell font-style="italic">
-            <fo:block padding-bottom="{$paddingBottom}">
-              <xsl:value-of select="$longitudeTranslation" />
-            </fo:block>
-          </fo:table-cell>
-        </fo:table-row>
-        <!-- Rows -->
-        <xsl:if test="$headerCount > 0">
-          <xsl:for-each select="$Section">
-            <xsl:variable name="pos" select="position()" />
-            <xsl:if test="($pos - 1) mod $headerCount = 0">
-              <fo:table-row>
-                <xsl:for-each select=".|following-sibling::*[position() &lt; $headerCount]">
-                  <fo:table-cell>
-                    <fo:block>
-                      <xsl:value-of select="." />
-                    </fo:block>
-                  </fo:table-cell>
-                </xsl:for-each>
-              </fo:table-row>
-            </xsl:if>
-          </xsl:for-each>
-        </xsl:if>
-      </fo:table-body>
-    </fo:table>
+    </fo:block>
   </xsl:template>
   <xsl:template name="GenerateSpeciesTable">
     <xsl:param name="Section" />
@@ -751,5 +713,187 @@
         </xsl:for-each>
       </fo:table-body>
     </fo:table>
+  </xsl:template>
+
+  <xsl:template name="CountryName">
+    <xsl:param name="countryCode" />
+    <xsl:choose>
+      <xsl:when test="$countryCode = 'AT'">Austria</xsl:when>
+      <xsl:when test="$countryCode = 'AU'">Australia</xsl:when>
+      <xsl:when test="$countryCode = 'BR'">Brazil</xsl:when>
+      <xsl:when test="$countryCode = 'CA'">Canada</xsl:when>
+      <xsl:when test="$countryCode = 'CH'">Switzerland</xsl:when>
+      <xsl:when test="$countryCode = 'CN'">China</xsl:when>
+      <xsl:when test="$countryCode = 'DE'">Germany</xsl:when>
+      <xsl:when test="$countryCode = 'ES'">Spain</xsl:when>
+      <xsl:when test="$countryCode = 'FR'">France</xsl:when>
+      <xsl:when test="$countryCode = 'GB'">United Kingdom</xsl:when>
+      <xsl:when test="$countryCode = 'IN'">India</xsl:when>
+      <xsl:when test="$countryCode = 'IT'">Italy</xsl:when>
+      <xsl:when test="$countryCode = 'JP'">Japan</xsl:when>
+      <xsl:when test="$countryCode = 'MX'">Mexico</xsl:when>
+      <xsl:when test="$countryCode = 'NL'">Netherlands</xsl:when>
+      <xsl:when test="$countryCode = 'NO'">Norway</xsl:when>
+      <xsl:when test="$countryCode = 'NZ'">New Zealand</xsl:when>
+      <xsl:when test="$countryCode = 'PL'">Poland</xsl:when>
+      <xsl:when test="$countryCode = 'RU'">Russia</xsl:when>
+      <xsl:when test="$countryCode = 'SE'">Sweden</xsl:when>
+      <xsl:when test="$countryCode = 'US'">United States</xsl:when>
+      <xsl:when test="$countryCode = 'ZA'">South Africa</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$countryCode" /></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="StateProvinceLabel">
+    <xsl:param name="countryCode" />
+    <xsl:choose>
+      <xsl:when test="$countryCode = 'CA'">Province</xsl:when>
+      <xsl:when test="$countryCode = 'US'">State</xsl:when>
+      <xsl:when test="$countryCode = 'AU'">State</xsl:when>
+      <xsl:when test="$countryCode = 'DE'">Land</xsl:when>
+      <xsl:when test="$countryCode = 'FR'">Région</xsl:when>
+      <xsl:when test="$countryCode = 'GB'">County</xsl:when>
+      <xsl:when test="$countryCode = 'CH'">Canton</xsl:when>
+      <xsl:when test="$countryCode = 'CN'">Province</xsl:when>
+      <xsl:when test="$countryCode = 'IN'">State</xsl:when>
+      <xsl:when test="$countryCode = 'BR'">State</xsl:when>
+      <xsl:when test="$countryCode = 'MX'">State</xsl:when>
+      <xsl:when test="$countryCode = 'JP'">Prefecture</xsl:when>
+      <xsl:otherwise>State/Province</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="FormatAddress">
+    <xsl:param name="party" />
+    <xsl:variable name="countryCode" select="$party/Country" />
+
+    <xsl:choose>
+      <!-- United States & Canada: Street / City, State ZIP / Country -->
+      <xsl:when test="$countryCode = 'US' or $countryCode = 'CA'">
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <fo:block>
+          <xsl:value-of select="$party/City" />
+          <xsl:if test="$party/State">
+            <xsl:text>, </xsl:text>
+            <xsl:value-of select="$party/State" />
+          </xsl:if>
+          <xsl:if test="$party/ZipCode">
+            <xsl:text>  </xsl:text>
+            <xsl:value-of select="$party/ZipCode" />
+          </xsl:if>
+        </fo:block>
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+      </xsl:when>
+
+      <!-- Japan: 〒ZIP / Prefecture City / Street / Country -->
+      <xsl:when test="$countryCode = 'JP'">
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:text>〒</xsl:text><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <fo:block>
+          <xsl:if test="$party/State"><xsl:value-of select="$party/State" /><xsl:text> </xsl:text></xsl:if>
+          <xsl:if test="$party/City"><xsl:value-of select="$party/City" /></xsl:if>
+        </fo:block>
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+      </xsl:when>
+
+      <!-- China: Country / ZIP / Province City / Street -->
+      <xsl:when test="$countryCode = 'CN'">
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <fo:block>
+          <xsl:if test="$party/State"><xsl:value-of select="$party/State" /><xsl:text> </xsl:text></xsl:if>
+          <xsl:if test="$party/City"><xsl:value-of select="$party/City" /></xsl:if>
+        </fo:block>
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+      </xsl:when>
+
+      <!-- UK: Street / City / POSTCODE / Country -->
+      <xsl:when test="$countryCode = 'GB'">
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <xsl:if test="$party/City">
+          <fo:block><xsl:value-of select="$party/City" /></fo:block>
+        </xsl:if>
+        <xsl:if test="$party/ZipCode">
+          <fo:block><xsl:value-of select="$party/ZipCode" /></fo:block>
+        </xsl:if>
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+      </xsl:when>
+
+      <!-- EU Countries (DE, FR, IT, ES, AT, BE, NL, CH, SE, NO, etc.): Street / ZIP City / Country -->
+      <xsl:when test="$countryCode = 'DE' or $countryCode = 'FR' or $countryCode = 'IT' or
+                      $countryCode = 'ES' or $countryCode = 'AT' or $countryCode = 'BE' or
+                      $countryCode = 'NL' or $countryCode = 'CH' or $countryCode = 'SE' or
+                      $countryCode = 'NO' or $countryCode = 'FI' or $countryCode = 'PL'">
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+      </xsl:when>
+
+      <!-- Default/Fallback Format -->
+      <xsl:otherwise>
+        <xsl:for-each select="$party/Street">
+          <fo:block><xsl:value-of select="." /></fo:block>
+        </xsl:for-each>
+        <fo:block>
+          <xsl:if test="$party/ZipCode">
+            <xsl:value-of select="$party/ZipCode" />
+            <xsl:text> </xsl:text>
+          </xsl:if>
+          <xsl:if test="$party/City">
+            <xsl:value-of select="$party/City" />
+          </xsl:if>
+        </fo:block>
+        <xsl:if test="$party/State">
+          <fo:block><xsl:value-of select="$party/State" /></fo:block>
+        </xsl:if>
+        <fo:block>
+          <xsl:call-template name="CountryName">
+            <xsl:with-param name="countryCode" select="$countryCode" />
+          </xsl:call-template>
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
