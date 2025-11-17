@@ -618,7 +618,7 @@
 
     <!-- Flat list format: 5 coordinate pairs per line for performance -->
     <!-- Process every 2nd element (latitude at odd positions) and output 5 pairs per line -->
-    <fo:block>
+    <fo:block font-size="7pt">
       <xsl:for-each select="$Section[position() mod 2 = 1]">
         <xsl:variable name="pairIndex" select="position()" />
         <!-- Output coordinate pair: (lat, lon) -->
