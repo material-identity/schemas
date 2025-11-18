@@ -45,13 +45,13 @@
       }
     },
     "Customer": {
-      "Name": "Wood Importers GmbH",
-      "Street": ["Holzstrasse 5"],
-      "ZipCode": "10115",
-      "City": "Berlin",
-      "Country": "DE",
+      "Name": "Nordic Timber Oy",
+      "Street": ["Puutie 15"],
+      "ZipCode": "00100",
+      "City": "Helsinki",
+      "Country": "FI",
       "Identifiers": {
-        "VAT": "DE987654321"
+        "VAT": "FI987654321"
       }
     },
     "Creator": {
