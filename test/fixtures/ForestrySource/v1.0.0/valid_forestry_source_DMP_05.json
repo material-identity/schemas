@@ -6,9 +6,9 @@
     "Date": "2025-03-15",
     "GeneralInformation": {
       "UserDefinedId": "MIXED-FOREST-2025-Q2",
-      "Country": "ID",
-      "State": "East Kalimantan",
-      "District": "Kutai Timur",
+      "Country": "MY",
+      "State": "Sabah",
+      "District": "Sandakan",
       "ForestConcessionNameOrNumber": "Kalimantan-EK-592",
       "CertificationNumber": "FSC-C012345",
       "CertificationClaim": "FSC 100%",
@@ -27,7 +27,7 @@
             "type": "Feature",
             "properties": {
               "ProducerName": "Borneo Sustainable Forestry",
-              "ProducerCountry": "ID",
+              "ProducerCountry": "MY",
               "ProductionPlace": "Kutai Conservation Forest",
               "Area": 3250,
               "Name": "Primary Harvest Area"
@@ -70,7 +70,7 @@
             "type": "Feature",
             "properties": {
               "ProducerName": "Borneo Sustainable Forestry",
-              "ProducerCountry": "ID",
+              "ProducerCountry": "MY",
               "ProductionPlace": "Kutai Conservation Forest",
               "Area": 850,
               "Name": "Secondary Harvest Area"
@@ -101,7 +101,7 @@
             "type": "Feature",
             "properties": {
               "ProducerName": "Borneo Sustainable Forestry",
-              "ProducerCountry": "ID",
+              "ProducerCountry": "MY",
               "ProductionPlace": "Kutai Conservation Forest",
               "Name": "Processing Facilities"
             },
@@ -127,7 +127,7 @@
             "type": "Feature",
             "properties": {
               "ProducerName": "Borneo Sustainable Forestry",
-              "ProducerCountry": "ID",
+              "ProducerCountry": "MY",
               "ProductionPlace": "Kutai Conservation Forest",
               "Name": "Protected Areas - No Harvesting"
             },
@@ -153,7 +153,7 @@
             "type": "Feature",
             "properties": {
               "ProducerName": "Borneo Sustainable Forestry",
-              "ProducerCountry": "ID",
+              "ProducerCountry": "MY",
               "ProductionPlace": "Mahakam River Delta",
               "Area": 1200,
               "Name": "River Delta Harvest Unit"
@@ -262,14 +262,14 @@
       }
     ],
     "Supplier": {
-      "Name": "East Kalimantan Forest Authority",
+      "Name": "Sabah Forest Authority",
       "Street": ["Jalan Pahlawan No. 123"],
-      "ZipCode": "75121",
-      "City": "Samarinda",
-      "State": "East Kalimantan",
-      "Country": "ID",
+      "ZipCode": "90000",
+      "City": "Sandakan",
+      "State": "Sabah",
+      "Country": "MY",
       "Identifiers": {
-        "VAT": "ID9876543210",
+        "VAT": "MY9876543210",
         "SystemId": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
       },
       "Email": "concessions@ekfa.gov.id",
@@ -278,12 +278,12 @@
     "Producer": {
       "Name": "Borneo Sustainable Forestry",
       "Street": ["Jalan Industri No. 456"],
-      "ZipCode": "75111",
-      "City": "Samarinda",
-      "State": "East Kalimantan",
-      "Country": "ID",
+      "ZipCode": "90001",
+      "City": "Sandakan",
+      "State": "Sabah",
+      "Country": "MY",
       "Identifiers": {
-        "VAT": "ID1234567890",
+        "VAT": "MY1234567890",
         "DUNS": "987654321"
       },
       "Email": "operations@borneosustainable.com",
