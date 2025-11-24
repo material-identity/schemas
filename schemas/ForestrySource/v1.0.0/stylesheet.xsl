@@ -510,7 +510,7 @@
 
                               <!-- Add a separator between geometries -->
                               <xsl:if test="position() != last()">
-                                <fo:block border-bottom="dotted 1pt gray" margin-top="4pt" margin-bottom="4pt"/>
+                                <fo:block border-bottom="dotted 0.5pt gray" margin-top="2pt" margin-bottom="2pt"/>
                               </xsl:if>
                             </xsl:for-each>
                           </xsl:when>
@@ -519,6 +519,9 @@
                     </fo:table-row>
                   </fo:table-body>
                 </fo:table>
+
+                <!-- Add separator after feature -->
+                <fo:block border-bottom="dotted 0.5pt #CCCCCC" margin-top="2pt" margin-bottom="2pt"/>
               </xsl:for-each>
             </xsl:for-each>
 
