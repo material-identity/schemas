@@ -46,8 +46,8 @@
         "DescriptionOfProduct": "Premium Nordic pine lumber with multi-regional customs classification",
         "HSCode": "4407.11.00",
         "CustomsClassification": {
-          "HTS": "4407.11.00.20",
-          "CN": "4407 11 00 10"
+          "HTS": "4407.11.0020",
+          "CN": "4407 11 00"
         },
         "ProductionPeriod": {
           "StartDate": "2024-12-10",

@@ -50,8 +50,8 @@
         "DescriptionOfProduct": "Fresh pine logs for export to multiple markets",
         "HSCode": "4403.20.00",
         "CustomsClassification": {
-          "HTS": "4403.20.00.40",
-          "CN": "4403 20 00 90"
+          "HTS": "4403.20.0040",
+          "CN": "4403 20 00"
         },
         "ProductionPeriod": {
           "StartDate": "2024-10-01",
