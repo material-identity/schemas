@@ -676,7 +676,7 @@
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/ChemicalComposition" />
                 </xsl:call-template>
-                <xsl:if test="C70">
+                <xsl:if test="ChemicalComposition/C70">
                   <fo:table table-layout="fixed" width="100%">
                     <fo:table-column column-width="50%" />
                     <fo:table-column column-width="50%" />
@@ -685,7 +685,7 @@
                         <xsl:call-template name="KeyValue">
                           <xsl:with-param name="number" select="concat('C70', ' ')" />
                           <xsl:with-param name="key" select="$i18n/Certificate/C70" />
-                          <xsl:with-param name="value" select="C70" />
+                          <xsl:with-param name="value" select="ChemicalComposition/C70" />
                           <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         </xsl:call-template>
                       </fo:table-row>

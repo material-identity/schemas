@@ -367,20 +367,20 @@
             "HTS": {
               "type": "string",
               "description": "US Harmonized Tariff Schedule code",
-              "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}\\.[0-9]{2}$",
-              "examples": ["4403.24.00.10"]
+              "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{4}$",
+              "examples": ["4403.24.0010"]
             },
             "CN": {
               "type": "string",
-              "description": "EU Combined Nomenclature code",
-              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}$",
-              "examples": ["4403 24 00 10"]
+              "description": "EU Combined Nomenclature code (8 digits)",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00"]
             },
             "TARIC": {
               "type": "string",
-              "description": "EU Integrated Tariff of the European Communities code",
-              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}$",
-              "examples": ["4403 24 00 10 00"]
+              "description": "10-digit TARIC code (CN 8 + 2)",
+              "pattern": "^[0-9]{4} [0-9]{2} [0-9]{2} [0-9]{2}$",
+              "examples": ["4403 24 00 10"]
             }
           },
           "additionalProperties": false
@@ -415,7 +415,15 @@
           "minItems": 1
         }
       },
-      "required": ["Measurements"]
+      "required": [
+        "Measurements",
+        "ListOfSpecies",
+        "ProductType",
+        "DescriptionOfProduct",
+        "HSCode",
+        "ProductionPeriod"
+      ],
+      "additionalProperties": false
     },
     "PurchaseOrder": {
       "title": "PurchaseOrder",
@@ -706,7 +714,7 @@
           "minItems": 1,
           "uniqueItems": true
         },
-       "HarvestUnitsDownloadURL": {
+        "HarvestUnitsDownloadURL": {
           "description": "A URL to download a bundle containing all harvest units in GeoJSON format.",
           "type": "string",
           "format": "uri",
