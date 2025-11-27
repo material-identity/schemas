@@ -1,0 +1,213 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "HT-TEST-001",
+    "Version": "0.1.0",
+    "IssueDate": "2024-11-15",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Steel Heat Treatment GmbH",
+          "Street": ["123 Industrial Park"],
+          "ZipCode": "40210",
+          "City": "Düsseldorf",
+          "Country": "DE"
+        },
+        "Customer": {
+          "Name": "Automotive Components Inc",
+          "Street": ["456 Manufacturing Drive"],
+          "ZipCode": "48220",
+          "City": "Detroit",
+          "Country": "US"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "ORD-2024-HT-047"
+        },
+        "Delivery": {
+          "Id": "DEL-2024-047",
+          "Quantity": 4750,
+          "QuantityUnit": "kg"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Carbon Steel Round Bar 42CrMo4",
+      "BatchId": "BATCH-2024-047",
+      "MaterialDesignations": [
+        {
+          "System": "EN",
+          "Designation": "42CrMo4"
+        },
+        {
+          "System": "AISI/SAE",
+          "Designation": "4140"
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 80,
+        "Length": 6000,
+        "Unit": "mm"
+      }
+    },
+    "HeatTreatment": {
+      "Process": "Quenching and Tempering",
+      "HeatTreatmentLot": "HT-2024-11-15-B47",
+      "ChargeNumber": "FC-1234-02",
+      "Stages": [
+          {
+            "StageType": "Austenitizing",
+            "Temperature": 850,
+            "TemperatureUnit": "C",
+            "TemperatureTolerance": "+/-10C",
+            "Duration": 45,
+            "DurationUnit": "min",
+            "HeatingRate": 50,
+            "AtmosphereType": "Air"
+          },
+          {
+            "StageType": "Quenching",
+            "Temperature": 60,
+            "TemperatureUnit": "C",
+            "CoolingRate": 200,
+            "CoolingMedium": "Oil",
+            "Duration": 10,
+            "DurationUnit": "min"
+          },
+          {
+            "StageType": "Tempering",
+            "Temperature": 550,
+            "TemperatureUnit": "C",
+            "TemperatureTolerance": "+/-5C",
+            "Duration": 120,
+            "DurationUnit": "min",
+            "HeatingRate": 30,
+            "CoolingRate": 25,
+            "CoolingMedium": "Air"
+          }
+        ],
+        "ProcessBundling": {
+          "ItemsPerCharge": 100,
+          "ArrangementPattern": "spaced",
+          "SeparatorType": "steel_racks",
+          "LoadConfiguration": "horizontal",
+          "MaxLoadWeight": 5000,
+          "ActualLoadWeight": 4750,
+          "WeightUnit": "kg"
+        },
+        "FurnaceId": "FURNACE-03",
+        "ProcessDate": "2024-11-15",
+        "ProcessStartTime": "2024-11-15T08:30:00Z",
+        "ProcessEndTime": "2024-11-15T14:45:00Z",
+        "EquipmentCertification": "ISO-17025-2024-CERT",
+        "Operator": "Shift-B-Team-2",
+        "QualityChecks": [
+          {
+            "CheckType": "Hardness",
+            "Method": "HRC per ASTM E18",
+            "Result": "32-34 HRC",
+            "Timestamp": "2024-11-15T15:00:00Z"
+          },
+          {
+            "CheckType": "Temperature",
+            "Method": "Thermocouple Type K",
+            "Result": "Within tolerance",
+            "Timestamp": "2024-11-15T09:15:00Z"
+          }
+        ]
+    },
+    "MechanicalProperties": [
+      {
+        "PropertyName": "Tensile Strength",
+        "PropertySymbol": "Rm",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 985
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 900
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 1100
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Yield Strength",
+        "PropertySymbol": "Re",
+        "Method": "EN ISO 6892-1",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 835
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 750
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Elongation",
+        "PropertySymbol": "A",
+        "Method": "EN ISO 6892-1",
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 14.5
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 10
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Rockwell Hardness",
+        "PropertySymbol": "HRC",
+        "Method": "ASTM E18",
+        "Unit": "HRC",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 33
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 28
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 35
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been heat treated and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
+        "Standards": ["EN 10083-3", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2024-11-15",
+      "Validators": [
+        {
+          "Name": "Dr. Klaus Schmidt",
+          "Title": "Quality Manager",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Düsseldorf, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}
