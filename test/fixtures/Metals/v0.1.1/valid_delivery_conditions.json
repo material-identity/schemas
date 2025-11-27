@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-X12345-2024-DC",
     "Version": "1.0.0",
     "IssueDate": "2024-04-22",
@@ -9,7 +11,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "华强钢铁有限公司",
-          "Street": ["工业开发区钢铁大道888号"],
+          "Street": [
+            "工业开发区钢铁大道888号"
+          ],
           "ZipCode": "518000",
           "City": "深圳市",
           "Country": "CN",
@@ -18,7 +22,9 @@
         },
         "Customer": {
           "Name": "GLOBAL INDUSTRIES",
-          "Street": ["Business Park"],
+          "Street": [
+            "Business Park"
+          ],
           "ZipCode": "20000",
           "City": "Commerce City",
           "Country": "FR"
@@ -34,7 +40,7 @@
         "Delivery": {
           "Id": "DEL45678-DC",
           "Date": "2024-02-27",
-          "Quantity": 250.0,
+          "Quantity": 250,
           "QuantityUnit": "kg"
         }
       }
@@ -43,8 +49,10 @@
       "Name": "Flat Bar Alloy 40 x 4 x 6000 mm (STD-101)",
       "MaterialDesignations": [
         {
-          "System": "AA",
-          "Designation": "Al 6060 T66"
+          "Name": {
+            "System": "AA",
+            "Value": "Al 6060 T66"
+          }
         }
       ],
       "Shape": {
@@ -57,7 +65,7 @@
       "BatchId": "B12345",
       "SurfaceCondition": "T66",
       "Quantity": 100,
-      "Weight": 250.0,
+      "Weight": 250,
       "WeightUnit": "kg",
       "DeliveryConditions": {
         "Coloring": {
@@ -135,7 +143,7 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.0850
+            "Value": 0.085
           },
           "Minimum": {
             "ResultType": "numeric",
@@ -152,7 +160,7 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.0430
+            "Value": 0.043
           },
           "Minimum": {
             "ResultType": "numeric",
@@ -186,11 +194,11 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.0250
+            "Value": 0.025
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 0.0
+            "Value": 0
           },
           "Maximum": {
             "ResultType": "numeric",
@@ -203,11 +211,11 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.0150
+            "Value": 0.015
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 0.0
+            "Value": 0
           },
           "Maximum": {
             "ResultType": "numeric",
@@ -220,11 +228,11 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.0080
+            "Value": 0.008
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 0.0
+            "Value": 0
           },
           "Maximum": {
             "ResultType": "numeric",
@@ -237,7 +245,7 @@
           "Unit": "%",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 98.5470
+            "Value": 98.547
           },
           "Minimum": {
             "ResultType": "numeric",
@@ -258,17 +266,44 @@
         "Actual": {
           "ResultType": "multiValue",
           "Values": [
-            {"ResultType": "numeric", "Value": 212},
-            {"ResultType": "numeric", "Value": 215},
-            {"ResultType": "numeric", "Value": 214},
-            {"ResultType": "numeric", "Value": 213},
-            {"ResultType": "numeric", "Value": 216}
+            {
+              "ResultType": "numeric",
+              "Value": 212
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 215
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 214
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 213
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 216
+            }
           ],
           "Statistics": {
-            "Mean": {"ResultType": "numeric", "Value": 214.0},
-            "Minimum": {"ResultType": "numeric", "Value": 212},
-            "Maximum": {"ResultType": "numeric", "Value": 216},
-            "StandardDeviation": {"ResultType": "numeric", "Value": 1.6},
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 214
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 212
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 216
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 1.6
+            },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 tensile testing of 5 specimens"
           }
@@ -285,17 +320,44 @@
         "Actual": {
           "ResultType": "multiValue",
           "Values": [
-            {"ResultType": "numeric", "Value": 243},
-            {"ResultType": "numeric", "Value": 247},
-            {"ResultType": "numeric", "Value": 245},
-            {"ResultType": "numeric", "Value": 244},
-            {"ResultType": "numeric", "Value": 246}
+            {
+              "ResultType": "numeric",
+              "Value": 243
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 247
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 245
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 244
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 246
+            }
           ],
           "Statistics": {
-            "Mean": {"ResultType": "numeric", "Value": 245.0},
-            "Minimum": {"ResultType": "numeric", "Value": 243},
-            "Maximum": {"ResultType": "numeric", "Value": 247},
-            "StandardDeviation": {"ResultType": "numeric", "Value": 1.6},
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 245
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 243
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 247
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 1.6
+            },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 tensile testing of 5 specimens"
           }
@@ -312,17 +374,44 @@
         "Actual": {
           "ResultType": "multiValue",
           "Values": [
-            {"ResultType": "numeric", "Value": 12.8},
-            {"ResultType": "numeric", "Value": 13.2},
-            {"ResultType": "numeric", "Value": 12.5},
-            {"ResultType": "numeric", "Value": 12.9},
-            {"ResultType": "numeric", "Value": 13.1}
+            {
+              "ResultType": "numeric",
+              "Value": 12.8
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 13.2
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 12.5
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 12.9
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 13.1
+            }
           ],
           "Statistics": {
-            "Mean": {"ResultType": "numeric", "Value": 12.9},
-            "Minimum": {"ResultType": "numeric", "Value": 12.5},
-            "Maximum": {"ResultType": "numeric", "Value": 13.2},
-            "StandardDeviation": {"ResultType": "numeric", "Value": 0.3},
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 12.9
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 12.5
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 13.2
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 0.3
+            },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 tensile testing of 5 specimens"
           }

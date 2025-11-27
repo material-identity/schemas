@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-METAL-BACKWARD-001",
     "Version": "1.0.0",
     "IssueDate": "2025-08-21",
@@ -9,7 +11,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "European Steel GmbH",
-          "Street": ["Industriestraße 42"],
+          "Street": [
+            "Industriestraße 42"
+          ],
           "ZipCode": "40235",
           "City": "Düsseldorf",
           "Country": "DE",
@@ -20,7 +24,10 @@
         },
         "Customer": {
           "Name": "Nordic Construction AS",
-          "Street": ["Storgata 123", "2. etasje"],
+          "Street": [
+            "Storgata 123",
+            "2. etasje"
+          ],
           "ZipCode": "0184",
           "City": "Oslo",
           "Country": "NO",
@@ -50,15 +57,16 @@
       "Name": "Structural Steel S355J2+N",
       "ProductNorms": [
         {
-          "Designation": "EN 10025-2",
-          "Year": "2019",
-          "Grade": "S355J2+N"
+          "Standard": "EN 10025-2",
+          "Year": "2019"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "1.0577"
+          "Name": {
+            "System": "EN",
+            "Value": "1.0577"
+          }
         }
       ],
       "Shape": {
@@ -83,7 +91,9 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "This certificate confirms that the steel products meet all specified requirements and quality standards.",
-        "Standards": ["EN 10025-2:2019"],
+        "Standards": [
+          "EN 10025-2:2019"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-08-21",

@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-2024-ARR-001",
     "Version": "0.1.0",
     "IssueDate": "2024-12-15",
@@ -9,7 +11,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "Advanced Steel Technologies GmbH",
-          "Street": ["Industriestraße 15"],
+          "Street": [
+            "Industriestraße 15"
+          ],
           "ZipCode": "52070",
           "City": "Aachen",
           "Country": "DE",
@@ -17,7 +21,9 @@
         },
         "Customer": {
           "Name": "Precision Engineering Ltd.",
-          "Street": ["Manufacturing Park 42"],
+          "Street": [
+            "Manufacturing Park 42"
+          ],
           "ZipCode": "B1 1AA",
           "City": "Birmingham",
           "Country": "GB",
@@ -40,9 +46,8 @@
       "BatchId": "HTB-2024-045",
       "MaterialNorms": [
         {
-          "Designation": "EN 10083-1",
-          "Year": "2006",
-          "Grade": "C45"
+          "Standard": "EN 10083-1",
+          "Year": "2006"
         }
       ],
       "Shape": {
@@ -71,7 +76,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.50
+            "Value": 0.5
           },
           "Interpretation": "In Specification"
         },
@@ -85,11 +90,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 0.50
+            "Value": 0.5
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.80
+            "Value": 0.8
           },
           "Interpretation": "In Specification"
         },
@@ -103,7 +108,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.40
+            "Value": 0.4
           },
           "Interpretation": "In Specification"
         },
@@ -117,7 +122,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.030
+            "Value": 0.03
           },
           "Interpretation": "In Specification"
         },
@@ -407,7 +412,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with EN 10083-1 and ISO 377. All hardenability requirements have been met.",
-        "Standards": ["EN 10083-1", "ISO 377"],
+        "Standards": [
+          "EN 10083-1",
+          "ISO 377"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2024-12-15",

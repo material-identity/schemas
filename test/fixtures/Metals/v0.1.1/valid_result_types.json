@@ -1,7 +1,10 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": [
+      "EN",
+      "DE"
+    ],
     "Id": "DMP-METAL-005",
     "Version": "1.0.0",
     "IssueDate": "2025-05-17",
@@ -9,7 +12,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": ["Industrial Park 123"],
+          "Street": [
+            "Industrial Park 123"
+          ],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -21,7 +26,9 @@
         },
         "Customer": {
           "Name": "European Research Institute",
-          "Street": ["Science Boulevard 42"],
+          "Street": [
+            "Science Boulevard 42"
+          ],
           "ZipCode": "75015",
           "City": "Paris",
           "Country": "FR",
@@ -54,14 +61,16 @@
       "Name": "Titanium Alloy Ti-6Al-4V ELI",
       "ProductNorms": [
         {
-          "Designation": "ASTM F136",
+          "Standard": "ASTM F136",
           "Year": "2022"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "UNS",
-          "Designation": "R56401"
+          "Number": {
+            "System": "UNS",
+            "Value": "R56401"
+          }
         }
       ],
       "Shape": {
@@ -274,7 +283,7 @@
         },
         "Target": {
           "ResultType": "range",
-          "Minimum": 0.80,
+          "Minimum": 0.8,
           "Maximum": 0.95,
           "Inclusive": true
         },
@@ -395,42 +404,42 @@
               }
             },
             {
-              "Parameter": 1.0,
+              "Parameter": 1,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 352
               }
             },
             {
-              "Parameter": 2.0,
+              "Parameter": 2,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 350
               }
             },
             {
-              "Parameter": 3.0,
+              "Parameter": 3,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 349
               }
             },
             {
-              "Parameter": 5.0,
+              "Parameter": 5,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 348
               }
             },
             {
-              "Parameter": 10.0,
+              "Parameter": 10,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 351
               }
             },
             {
-              "Parameter": 15.0,
+              "Parameter": 15,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 347
@@ -444,7 +453,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with ASTM F136 and meets all requirements for surgical implant applications.",
-        "Standards": ["ASTM F136:2022", "ISO 5832-3:2016"],
+        "Standards": [
+          "ASTM F136:2022",
+          "ISO 5832-3:2016"
+        ],
         "ComplianceType": "Certificate of Compliance"
       },
       "ValidationDate": "2025-05-17",

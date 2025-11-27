@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "TEST-SPECIMEN-001",
     "Version": "0.1.0",
     "IssueDate": "2025-09-29",
@@ -9,14 +11,18 @@
       "Parties": {
         "Manufacturer": {
           "Name": "Steel Testing Labs GmbH",
-          "Street": ["123 Test Street"],
+          "Street": [
+            "123 Test Street"
+          ],
           "ZipCode": "10115",
           "City": "Berlin",
           "Country": "DE"
         },
         "Customer": {
           "Name": "Customer Industries Inc",
-          "Street": ["456 Customer Ave"],
+          "Street": [
+            "456 Customer Ave"
+          ],
           "ZipCode": "12345",
           "City": "New York",
           "Country": "US"
@@ -161,7 +167,7 @@
               }
             },
             {
-              "Parameter": 1.0,
+              "Parameter": 1,
               "Value": {
                 "ResultType": "numeric",
                 "Value": 478
@@ -235,7 +241,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.20
+            "Value": 0.2
           }
         },
         {
@@ -248,11 +254,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 1.40
+            "Value": 1.4
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 1.70
+            "Value": 1.7
           }
         },
         {
@@ -265,7 +271,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.50
+            "Value": 0.5
           }
         },
         {
@@ -304,7 +310,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.30
+            "Value": 0.3
           }
         },
         {
@@ -317,7 +323,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.20
+            "Value": 0.2
           }
         },
         {
@@ -330,7 +336,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.10
+            "Value": 0.1
           }
         },
         {
@@ -356,11 +362,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 0.020
+            "Value": 0.02
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.050
+            "Value": 0.05
           }
         },
         {

@@ -96,15 +96,16 @@
       "Name": "Structural Steel S420N",
       "ProductNorms": [
         {
-          "Designation": "EN 10025-3",
-          "Year": "2019",
-          "Grade": "S420N"
+          "Standard": "EN 10025-3",
+          "Year": "2019"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "1.8902"
+          "Name": {
+            "System": "EN",
+            "Value": "1.8902"
+          }
         }
       ],
       "Shape": {
@@ -256,7 +257,7 @@
         "PropertySymbol": "Rm",
         "PropertyName": "Tensile Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20\u00b0C",
+        "TestConditions": "Test temperature: 20°C",
         "SpecimenSpecification": {
           "Location": "1/4T",
           "Orientation": "L"
@@ -281,7 +282,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 560.0
+              "Value": 560
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -293,7 +294,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 statistical analysis"
@@ -313,7 +314,7 @@
         "PropertySymbol": "ReH",
         "PropertyName": "Yield Strength",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Test temperature: 20\u00b0C, 3 specimens tested",
+        "TestConditions": "Test temperature: 20°C, 3 specimens tested",
         "Unit": "MPa",
         "Actual": {
           "ResultType": "multiValue",
@@ -334,7 +335,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 445.0
+              "Value": 445
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -346,7 +347,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 3.0
+              "Value": 3
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 statistical analysis"
@@ -362,7 +363,7 @@
         "PropertySymbol": "A",
         "PropertyName": "Elongation after fracture",
         "Method": "EN ISO 6892-1",
-        "TestConditions": "Gauge length 5.65\u221aS\u2080, 3 specimens tested",
+        "TestConditions": "Gauge length 5.65√S₀, 3 specimens tested",
         "Unit": "%",
         "Actual": {
           "ResultType": "multiValue",
@@ -383,7 +384,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 24.0
+              "Value": 24
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -395,7 +396,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 1.0
+              "Value": 1
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 statistical analysis"
@@ -432,7 +433,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 62.0
+              "Value": 62
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -444,7 +445,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 statistical analysis"
@@ -460,7 +461,7 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20\u00b0C",
+        "TestConditions": "Test temperature: -20°C",
         "SpecimenSpecification": {
           "Location": "Top",
           "Orientation": "T-L"
@@ -485,7 +486,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 58.0
+              "Value": 58
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -497,7 +498,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 148-1 statistical analysis"
@@ -513,7 +514,7 @@
         "PropertySymbol": "KV",
         "PropertyName": "Charpy V-notch Impact Energy",
         "Method": "EN ISO 148-1",
-        "TestConditions": "Test temperature: -20\u00b0C",
+        "TestConditions": "Test temperature: -20°C",
         "SpecimenSpecification": {
           "Location": "Bottom",
           "Orientation": "T-L"
@@ -595,7 +596,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 185.0
+              "Value": 185
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -656,7 +657,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 195.0
+              "Value": 195
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -740,7 +741,7 @@
         },
         "Minimum": {
           "ResultType": "numeric",
-          "Value": 1.0
+          "Value": 1
         },
         "Interpretation": "In Specification"
       },
@@ -769,7 +770,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 430.0
+              "Value": 430
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -781,7 +782,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 6892-1 statistical analysis"

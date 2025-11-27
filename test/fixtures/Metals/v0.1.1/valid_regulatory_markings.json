@@ -1,7 +1,10 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": [
+      "EN",
+      "DE"
+    ],
     "Id": "DMP-METAL-007",
     "Version": "1.0.0",
     "IssueDate": "2025-05-20",
@@ -9,7 +12,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": ["Industrial Park 123"],
+          "Street": [
+            "Industrial Park 123"
+          ],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -37,7 +42,9 @@
         },
         "Customer": {
           "Name": "Bridge Constructors Europe Ltd.",
-          "Street": ["Engineering Plaza 456"],
+          "Street": [
+            "Engineering Plaza 456"
+          ],
           "ZipCode": "75001",
           "City": "Paris",
           "Country": "FR",
@@ -48,7 +55,10 @@
         },
         "CertificateReceiver": {
           "Name": "Civil Infrastructure Authority",
-          "Street": ["Government Building 789", "Administration Wing"],
+          "Street": [
+            "Government Building 789",
+            "Administration Wing"
+          ],
           "ZipCode": "1000",
           "City": "Brussels",
           "Country": "BE",
@@ -74,7 +84,9 @@
           "Quantity": 20000,
           "QuantityUnit": "kg",
           "InternalOrderId": "SO-67890",
-          "Transport": ["TRK-DE-FR-7654"]
+          "Transport": [
+            "TRK-DE-FR-7654"
+          ]
         }
       }
     },
@@ -82,27 +94,20 @@
       "Name": "Structural Steel S420N Plate",
       "ProductNorms": [
         {
-          "Designation": "EN 10025-3",
-          "Year": "2019",
-          "Grade": "S420N"
+          "Standard": "EN 10025-3",
+          "Year": "2019"
         },
         {
-          "Designation": "EN 1090-2",
-          "Year": "2018",
-          "Grade": "EXC3"
+          "Standard": "EN 1090-2",
+          "Year": "2018"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "1.8902"
-        }
-      ],
-      "MassNorms": [
-        {
-          "Designation": "EN 10029",
-          "Year": "2010",
-          "Category": "Class A"
+          "Name": {
+            "System": "EN",
+            "Value": "1.8902"
+          }
         }
       ],
       "Shape": {
@@ -157,11 +162,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 1.00
+            "Value": 1
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 1.70
+            "Value": 1.7
           }
         },
         {
@@ -174,7 +179,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.60
+            "Value": 0.6
           }
         },
         {
@@ -200,7 +205,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.020
+            "Value": 0.02
           }
         },
         {
@@ -213,7 +218,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.050
+            "Value": 0.05
           }
         },
         {
@@ -226,7 +231,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.050
+            "Value": 0.05
           }
         },
         {
@@ -239,7 +244,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.030
+            "Value": 0.03
           }
         },
         {
@@ -249,7 +254,7 @@
           "Formula": "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
           "Actual": {
             "ResultType": "numeric",
-            "Value": 0.40
+            "Value": 0.4
           },
           "Maximum": {
             "ResultType": "numeric",
@@ -285,7 +290,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 550.0
+              "Value": 550
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -332,11 +337,11 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 440.0
+              "Value": 440
             },
             "Median": {
               "ResultType": "numeric",
-              "Value": 440.0
+              "Value": 440
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -369,7 +374,7 @@
             },
             {
               "ResultType": "numeric",
-              "Value": 21.0
+              "Value": 21
             },
             {
               "ResultType": "numeric",
@@ -379,7 +384,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 21.0
+              "Value": 21
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -422,7 +427,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 65.0
+              "Value": 65
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -434,7 +439,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 148-1 statistical analysis"
@@ -465,7 +470,11 @@
         "Actual": {
           "ResultType": "string",
           "Value": "Z25",
-          "AllowedValues": ["Z15", "Z25", "Z35"]
+          "AllowedValues": [
+            "Z15",
+            "Z25",
+            "Z35"
+          ]
         },
         "Interpretation": "In Specification"
       },
@@ -483,7 +492,12 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10025-3:2019 and EN 10204:2004 type 3.1. The product complies with the Construction Products Regulation (EU) No 305/2011 and is suitable for use in structural applications according to EN 1090-2:2018, up to and including Execution Class EXC3.",
-        "Standards": ["EN 10025-3:2019", "EN 10204:2004", "EN 1090-2:2018", "Regulation (EU) No 305/2011"],
+        "Standards": [
+          "EN 10025-3:2019",
+          "EN 10204:2004",
+          "EN 1090-2:2018",
+          "Regulation (EU) No 305/2011"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-05-20",
@@ -507,7 +521,7 @@
         "Type": "3.1"
       },
       "CEMarking": {
-       "CEImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABACAMAAACtO5DNAAAAmVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjHWqVAAAAMnRSTlMAzexb/E0FmyQJ+NLj3/Hn2qynhlOiuZJ8VzsqFQyf1caPjG5CMCEP9b6wgHVpHZRHHxEaALYAAAHuSURBVFjDxZjZcoMwDEUNYQ0QAoSUACFbsy9t9f8f14d2bIfgIjOj6X2+PgO2LEtiKh3tollH5tgyI5vh5Y2yJAgn1smMug1VZljANUJiHbsJQajD4d8N4MKjDxuTr+hGL28xgD66yvlvqtCLEEAfvdxysAr9mAMMQNth17JniwkD0M4GoA99BRiArtfQh3ZcGII+TKEP7STwInOdNG5zeWdqeTG0ZU3nqevmc+5pf/Mknx1Yr+qotSy4ln7Lkz07jIXPEFoGIGvs7jvC58mywmaNFGTljw7LlynvVeYgyXcZHHUfyVk+uxKd5cYgdDl2ekaSZeoxrOSr+6FIzbFErtHkmUTeKDyFsMQeQ2sllqWqCDLFCZZsyEcbqkjdCU/G8DJEOFcqTyDi2cGT98BVIDw2w2vLV4V+vydgGhJRtWP9+7HQIFcijyk/uu7x9J69i4ihlGlIZHd1Ni8G7Qfjb8vJQeRFT4PsWDyojRfd2pE/YRry4A+9/Zoiflt10CUGzRPIWQf9iUHzdJ7ooGeEaMIN+a9jJAw+witDcNEJ0hNdUqV8CggfMMpnl7JYICxxKAszynKStAimLN1JGw7SNom4uaNvSQkbacL2n2BoQTBqoRsQ0Y+16Idx9CNE+sEn/bhWDJnznyFzOHDI/A3NAGlA3stefgAAAABJRU5ErkJggg==",
+        "CEImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABACAMAAACtO5DNAAAAmVBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjHWqVAAAAMnRSTlMAzexb/E0FmyQJ+NLj3/Hn2qynhlOiuZJ8VzsqFQyf1caPjG5CMCEP9b6wgHVpHZRHHxEaALYAAAHuSURBVFjDxZjZcoMwDEUNYQ0QAoSUACFbsy9t9f8f14d2bIfgIjOj6X2+PgO2LEtiKh3tollH5tgyI5vh5Y2yJAgn1smMug1VZljANUJiHbsJQajD4d8N4MKjDxuTr+hGL28xgD66yvlvqtCLEEAfvdxysAr9mAMMQNth17JniwkD0M4GoA99BRiArtfQh3ZcGII+TKEP7STwInOdNG5zeWdqeTG0ZU3nqevmc+5pf/Mknx1Yr+qotSy4ln7Lkz07jIXPEFoGIGvs7jvC58mywmaNFGTljw7LlynvVeYgyXcZHHUfyVk+uxKd5cYgdDl2ekaSZeoxrOSr+6FIzbFErtHkmUTeKDyFsMQeQ2sllqWqCDLFCZZsyEcbqkjdCU/G8DJEOFcqTyDi2cGT98BVIDw2w2vLV4V+vydgGhJRtWP9+7HQIFcijyk/uu7x9J69i4ihlGlIZHd1Ni8G7Qfjb8vJQeRFT4PsWDyojRfd2pE/YRry4A+9/Zoiflt10CUGzRPIWQf9iUHzdJ7ooGeEaMIN+a9jJAw+witDcNEJ0hNdUqV8CggfMMpnl7JYICxxKAszynKStAimLN1JGw7SNom4uaNvSQkbacL2n2BoQTBqoRsQ0Y+16Idx9CNE+sEn/bhWDJnznyFzOHDI/A3NAGlA3stefgAAAABJRU5ErkJggg==",
         "NotifiedBodyNumber": "0123",
         "DoCYear": "23",
         "DoCNumber": "CPR-23-05-01",

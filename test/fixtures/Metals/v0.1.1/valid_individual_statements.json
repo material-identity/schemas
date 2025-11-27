@@ -73,21 +73,16 @@
       "Name": "Structural Steel S355J2",
       "ProductNorms": [
         {
-          "Designation": "EN 10025-2",
-          "Year": "2019",
-          "Grade": "S355J2"
+          "Standard": "EN 10025-2",
+          "Year": "2019"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "1.0577"
-        }
-      ],
-      "MassNorms": [
-        {
-          "Designation": "EN 10060",
-          "Year": "2003"
+          "Name": {
+            "System": "EN",
+            "Value": "1.0577"
+          }
         }
       ],
       "Shape": {
@@ -272,7 +267,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 510.0
+              "Value": 510
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -318,11 +313,11 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 380.0
+              "Value": 380
             },
             "Median": {
               "ResultType": "numeric",
-              "Value": 380.0
+              "Value": 380
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -354,7 +349,7 @@
             },
             {
               "ResultType": "numeric",
-              "Value": 22.0
+              "Value": 22
             },
             {
               "ResultType": "numeric",
@@ -364,7 +359,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 22.0
+              "Value": 22
             },
             "Minimum": {
               "ResultType": "numeric",

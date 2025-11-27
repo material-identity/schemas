@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-METAL-INTL-001",
     "Version": "1.0.0",
     "IssueDate": "2025-08-21",
@@ -9,7 +11,11 @@
       "Parties": {
         "Manufacturer": {
           "Name": "Canadian Steel Works Ltd.",
-          "Street": ["1234 Steel Avenue", "Industrial Complex B", "Unit 456"],
+          "Street": [
+            "1234 Steel Avenue",
+            "Industrial Complex B",
+            "Unit 456"
+          ],
           "City": "Toronto",
           "StateProvince": "ON",
           "ZipCode": "M5V 2A8",
@@ -21,7 +27,10 @@
         },
         "Customer": {
           "Name": "Australian Mining Corporation",
-          "Street": ["789 Mining Road", "Industrial Park"],
+          "Street": [
+            "789 Mining Road",
+            "Industrial Park"
+          ],
           "City": "Perth",
           "StateProvince": "WA",
           "ZipCode": "6000",
@@ -30,7 +39,10 @@
         },
         "Subcustomer": {
           "Name": "Metalúrgica do Brasil S.A.",
-          "Street": ["Rua das Indústrias, 567", "Distrito Industrial"],
+          "Street": [
+            "Rua das Indústrias, 567",
+            "Distrito Industrial"
+          ],
           "District": "Vila Industrial",
           "City": "São Paulo",
           "StateProvince": "SP",
@@ -40,7 +52,11 @@
         },
         "GoodsReceiver": {
           "Name": "Mumbai Steel Industries Pvt Ltd",
-          "Street": ["Plot No. 123", "MIDC Industrial Estate", "Andheri East"],
+          "Street": [
+            "Plot No. 123",
+            "MIDC Industrial Estate",
+            "Andheri East"
+          ],
           "District": "Mumbai Suburban",
           "City": "Mumbai",
           "StateProvince": "Maharashtra",
@@ -86,14 +102,16 @@
       "Name": "International Grade Steel",
       "ProductNorms": [
         {
-          "Designation": "ISO 630",
+          "Standard": "ISO 630",
           "Year": "2021"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "ISO",
-          "Designation": "1.0577"
+          "Name": {
+            "System": "ISO",
+            "Value": "1.0577"
+          }
         }
       ],
       "Shape": {
@@ -115,7 +133,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "This certificate demonstrates international address formatting standards compliance across multiple countries and regions.",
-        "Standards": ["ISO 630:2021", "ISO 3166-1"],
+        "Standards": [
+          "ISO 630:2021",
+          "ISO 3166-1"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-08-21",

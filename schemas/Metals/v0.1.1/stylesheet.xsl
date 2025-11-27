@@ -422,16 +422,16 @@
                   <xsl:for-each select="$dmp/Product/ProductNorms">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
-                        <xsl:with-param name="key" select="'Designation'" />
-                        <xsl:with-param name="value" select="concat(Designation, if(Year) then concat(' (', Year, ')') else '')" />
+                        <xsl:with-param name="key" select="'Standard'" />
+                        <xsl:with-param name="value" select="concat(Standard, if(Year) then concat(' (', Year, ')') else '')" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
-                    <xsl:if test="Grade">
+                    <xsl:if test="ToleranceClass">
                       <fo:table-row>
                         <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Grade'" />
-                          <xsl:with-param name="value" select="Grade" />
+                          <xsl:with-param name="key" select="'ToleranceClass'" />
+                          <xsl:with-param name="value" select="ToleranceClass" />
                           <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         </xsl:call-template>
                       </fo:table-row>
@@ -450,20 +450,26 @@
                 <fo:table-column column-width="50%" />
                 <fo:table-column column-width="50%" />
                 <fo:table-body>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="'System'" />
-                      <xsl:with-param name="value" select="$dmp/Product/MaterialDesignations/System" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
-                  <fo:table-row>
-                    <xsl:call-template name="KeyValue">
-                      <xsl:with-param name="key" select="'Designation'" />
-                      <xsl:with-param name="value" select="$dmp/Product/MaterialDesignations/Designation" />
-                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                    </xsl:call-template>
-                  </fo:table-row>
+                  <xsl:for-each select="$dmp/Product/MaterialDesignations">
+                    <xsl:if test="Name">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="concat('Name', if(Name/System) then concat(' (', Name/System, ')') else '')" />
+                          <xsl:with-param name="value" select="Name/Value" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                    <xsl:if test="Number">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="concat('Number', if(Number/System) then concat(' (', Number/System, ')') else '')" />
+                          <xsl:with-param name="value" select="Number/Value" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:if>
+                  </xsl:for-each>
                 </fo:table-body>
               </fo:table>
             </xsl:if>

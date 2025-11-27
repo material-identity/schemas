@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-METAL-CERT-001",
     "Version": "1.0.0",
     "IssueDate": "2025-08-21",
@@ -9,7 +11,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "Test Steel Works Ltd.",
-          "Street": ["123 Test Street"],
+          "Street": [
+            "123 Test Street"
+          ],
           "City": "Test City",
           "ZipCode": "12345",
           "Country": "US",
@@ -17,7 +21,9 @@
         },
         "Customer": {
           "Name": "Customer Corp",
-          "Street": ["456 Customer Ave"],
+          "Street": [
+            "456 Customer Ave"
+          ],
           "City": "Customer City",
           "ZipCode": "67890",
           "Country": "US",
@@ -25,7 +31,9 @@
         },
         "CertificateReceiver": {
           "Name": "Certificate Handling Ltd",
-          "Street": ["789 Certificate Blvd"],
+          "Street": [
+            "789 Certificate Blvd"
+          ],
           "City": "Cert City",
           "ZipCode": "11111",
           "Country": "US",
@@ -51,19 +59,38 @@
     },
     "Product": {
       "Name": "Test Steel",
-      "ProductNorms": [{"Designation": "TEST", "Year": "2025"}],
-      "Shape": {"Form": "RoundBar", "Diameter": 10, "Length": 1000, "Unit": "mm"},
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 10,
+        "Length": 1000,
+        "Unit": "mm"
+      },
       "BatchId": "TEST-001",
       "Quantity": 1,
       "Weight": 100,
       "WeightUnit": "kg"
     },
     "Validation": {
-      "ValidationStatement": {"Statement": "Test validation", "Standards": ["TEST"], "ComplianceType": "Declaration of Conformity"},
+      "ValidationStatement": {
+        "Statement": "Test validation",
+        "Standards": [
+          "TEST"
+        ],
+        "ComplianceType": "Declaration of Conformity"
+      },
       "ValidationDate": "2025-08-21",
-      "Validators": [{"Name": "Test Validator", "Title": "Tester", "Department": "QA"}],
+      "Validators": [
+        {
+          "Name": "Test Validator",
+          "Title": "Tester",
+          "Department": "QA"
+        }
+      ],
       "ValidationPlace": "Test City",
-      "CertificateType": {"Standard": "TEST", "Type": "3.1"}
+      "CertificateType": {
+        "Standard": "TEST",
+        "Type": "3.1"
+      }
     }
   }
 }

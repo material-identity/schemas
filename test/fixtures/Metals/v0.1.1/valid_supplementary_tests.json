@@ -1,7 +1,10 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": [
+      "EN",
+      "DE"
+    ],
     "Id": "DMP-METAL-004",
     "Version": "1.0.0",
     "IssueDate": "2025-05-16",
@@ -9,7 +12,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": ["Industrial Park 123"],
+          "Street": [
+            "Industrial Park 123"
+          ],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -21,7 +26,9 @@
         },
         "Customer": {
           "Name": "Advanced Nuclear Systems Ltd.",
-          "Street": ["Energy Square 456"],
+          "Street": [
+            "Energy Square 456"
+          ],
           "ZipCode": "OX14 3DB",
           "City": "Abingdon",
           "Country": "GB",
@@ -54,19 +61,22 @@
       "Name": "Stainless Steel 316L",
       "ProductNorms": [
         {
-          "Designation": "ASTM A240",
-          "Year": "2023",
-          "Grade": "316L"
+          "Standard": "ASTM A240",
+          "Year": "2023"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "UNS",
-          "Designation": "S31603"
+          "Number": {
+            "System": "UNS",
+            "Value": "S31603"
+          }
         },
         {
-          "System": "EN",
-          "Designation": "1.4404"
+          "Name": {
+            "System": "EN",
+            "Value": "1.4404"
+          }
         }
       ],
       "Shape": {
@@ -129,11 +139,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 16.0
+            "Value": 16
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 18.0
+            "Value": 18
           }
         },
         {
@@ -146,11 +156,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 10.0
+            "Value": 10
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 14.0
+            "Value": 14
           }
         },
         {
@@ -163,11 +173,11 @@
           },
           "Minimum": {
             "ResultType": "numeric",
-            "Value": 2.0
+            "Value": 2
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 3.0
+            "Value": 3
           }
         },
         {
@@ -180,7 +190,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 2.0
+            "Value": 2
           }
         },
         {
@@ -264,7 +274,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 580.0
+              "Value": 580
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -307,11 +317,11 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 240.0
+              "Value": 240
             },
             "Median": {
               "ResultType": "numeric",
-              "Value": 240.0
+              "Value": 240
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -323,7 +333,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "ASTM E8 statistical analysis"
@@ -360,7 +370,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 52.0
+              "Value": 52
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -401,7 +411,7 @@
         },
         "Maximum": {
           "ResultType": "numeric",
-          "Value": 4.0
+          "Value": 4
         },
         "Interpretation": "In Specification"
       },
@@ -437,7 +447,7 @@
         },
         "Maximum": {
           "ResultType": "numeric",
-          "Value": 5.0
+          "Value": 5
         },
         "Interpretation": "In Specification"
       },
@@ -499,7 +509,7 @@
         },
         "Maximum": {
           "ResultType": "numeric",
-          "Value": 1.0
+          "Value": 1
         },
         "Interpretation": "In Specification"
       },
@@ -526,7 +536,7 @@
         },
         "Minimum": {
           "ResultType": "numeric",
-          "Value": 24.0
+          "Value": 24
         },
         "Interpretation": "In Specification"
       },
@@ -574,7 +584,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with ASTM A240/A240M and meets all specified requirements. This material is suitable for nuclear applications in accordance with RCC-M code.",
-        "Standards": ["ASTM A240/A240M:2023", "RCC-M:2020"],
+        "Standards": [
+          "ASTM A240/A240M:2023",
+          "RCC-M:2020"
+        ],
         "ComplianceType": "Certificate of Compliance"
       },
       "ValidationDate": "2025-05-16",

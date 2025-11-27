@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "DMP-X12345-2024",
     "Version": "1.0.0",
     "IssueDate": "2024-04-22",
@@ -9,7 +11,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "华强钢铁有限公司",
-          "Street": ["工业开发区钢铁大道888号"],
+          "Street": [
+            "工业开发区钢铁大道888号"
+          ],
           "ZipCode": "518000",
           "City": "深圳市",
           "Country": "CN",
@@ -18,7 +22,9 @@
         },
         "Customer": {
           "Name": "GLOBAL INDUSTRIES",
-          "Street": ["Business Park"],
+          "Street": [
+            "Business Park"
+          ],
           "ZipCode": "20000",
           "City": "Commerce City",
           "Country": "FR"
@@ -34,7 +40,7 @@
         "Delivery": {
           "Id": "DEL45678",
           "Date": "2024-02-27",
-          "Quantity": 250.0,
+          "Quantity": 250,
           "QuantityUnit": "kg"
         }
       }
@@ -43,8 +49,10 @@
       "Name": "Flat Bar Alloy 40 x 4 x 6000 mm (STD-101)",
       "MaterialDesignations": [
         {
-          "System": "AA",
-          "Designation": "Al 6060 T66"
+          "Name": {
+            "System": "AA",
+            "Value": "Al 6060 T66"
+          }
         }
       ],
       "Shape": {
@@ -57,7 +65,7 @@
       "BatchId": "B12345",
       "SurfaceCondition": "T66",
       "Quantity": 100,
-      "Weight": 250.0,
+      "Weight": 250,
       "WeightUnit": "kg"
     },
     "ChemicalAnalysis": {
@@ -239,7 +247,7 @@
             },
             {
               "ResultType": "numeric",
-              "Value": 174.0
+              "Value": 174
             }
           ],
           "Statistics": {
@@ -253,7 +261,7 @@
             },
             "Maximum": {
               "ResultType": "numeric",
-              "Value": 174.0
+              "Value": 174
             }
           }
         }
@@ -275,7 +283,7 @@
             },
             {
               "ResultType": "numeric",
-              "Value": 221.0
+              "Value": 221
             }
           ],
           "Statistics": {
@@ -293,7 +301,7 @@
             },
             "Maximum": {
               "ResultType": "numeric",
-              "Value": 221.0
+              "Value": 221
             }
           }
         }

@@ -1,7 +1,10 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": [
+      "EN",
+      "DE"
+    ],
     "Id": "DMP-METAL-006",
     "Version": "1.0.0",
     "IssueDate": "2025-05-18",
@@ -9,7 +12,9 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": ["Industrial Park 123"],
+          "Street": [
+            "Industrial Park 123"
+          ],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -21,7 +26,9 @@
         },
         "Customer": {
           "Name": "Global Steel Trading Ltd.",
-          "Street": ["Commerce Way 789"],
+          "Street": [
+            "Commerce Way 789"
+          ],
           "ZipCode": "2000",
           "City": "Antwerp",
           "Country": "BE",
@@ -32,7 +39,10 @@
         },
         "GoodsReceiver": {
           "Name": "Global Steel Trading Ltd. - Rotterdam Warehouse",
-          "Street": ["Harbor District 45", "Pier 7"],
+          "Street": [
+            "Harbor District 45",
+            "Pier 7"
+          ],
           "ZipCode": "3089",
           "City": "Rotterdam",
           "Country": "NL"
@@ -54,7 +64,10 @@
           "Quantity": 75000,
           "QuantityUnit": "kg",
           "InternalOrderId": "SO-87432",
-          "Transport": ["VESSEL-MS-EUROPA", "CONTAINER-ACEU1234567"]
+          "Transport": [
+            "VESSEL-MS-EUROPA",
+            "CONTAINER-ACEU1234567"
+          ]
         }
       }
     },
@@ -62,15 +75,16 @@
       "Name": "Structural Steel S355J2+N - Various Shapes",
       "ProductNorms": [
         {
-          "Designation": "EN 10025-2",
-          "Year": "2019",
-          "Grade": "S355J2+N"
+          "Standard": "EN 10025-2",
+          "Year": "2019"
         }
       ],
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "1.0577"
+          "Name": {
+            "System": "EN",
+            "Value": "1.0577"
+          }
         }
       ],
       "BatchId": "H-79513-03",
@@ -137,7 +151,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.20
+            "Value": 0.2
           }
         },
         {
@@ -150,7 +164,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 1.60
+            "Value": 1.6
           }
         },
         {
@@ -163,7 +177,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.50
+            "Value": 0.5
           }
         },
         {
@@ -189,7 +203,7 @@
           },
           "Maximum": {
             "ResultType": "numeric",
-            "Value": 0.020
+            "Value": 0.02
           }
         },
         {
@@ -235,7 +249,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 525.0
+              "Value": 525
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -281,11 +295,11 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 385.0
+              "Value": 385
             },
             "Median": {
               "ResultType": "numeric",
-              "Value": 385.0
+              "Value": 385
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -317,7 +331,7 @@
             },
             {
               "ResultType": "numeric",
-              "Value": 23.0
+              "Value": 23
             },
             {
               "ResultType": "numeric",
@@ -327,7 +341,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 23.0
+              "Value": 23
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -369,7 +383,7 @@
           "Statistics": {
             "Mean": {
               "ResultType": "numeric",
-              "Value": 42.0
+              "Value": 42
             },
             "Minimum": {
               "ResultType": "numeric",
@@ -381,7 +395,7 @@
             },
             "StandardDeviation": {
               "ResultType": "numeric",
-              "Value": 2.0
+              "Value": 2
             },
             "StandardDeviationType": "Sample",
             "Method": "EN ISO 148-1 statistical analysis"
@@ -393,12 +407,14 @@
         }
       }
     ],
-    "SupplementaryTests": [
-    ],
+    "SupplementaryTests": [],
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that all material described above has been manufactured and tested in accordance with the requirements of EN 10025-2:2019 and EN 10204:2004 type 3.1. The results comply with the requirements for S355J2+N steel grade.",
-        "Standards": ["EN 10025-2:2019", "EN 10204:2004"],
+        "Standards": [
+          "EN 10025-2:2019",
+          "EN 10204:2004"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-05-18",

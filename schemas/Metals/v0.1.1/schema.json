@@ -783,99 +783,93 @@
 
     "ProductNorm": {
       "title": "ProductNorm",
-      "description": "Standard defining product properties and requirements",
+      "description": "Standard defining product form, dimensions, and tolerances",
       "type": "object",
       "properties": {
-        "Designation": {
-          "description": "The designation of the product norm",
+        "Standard": {
+          "description": "The product norm identifier",
           "type": "string",
-          "examples": ["EN 10025-2", "ASTM A36", "API 5L"]
+          "examples": ["EN 10029", "EN 10060", "EN 10210-2", "ASTM A6"]
         },
         "Year": {
-          "description": "The year of publication of the norm",
+          "description": "Year of publication",
           "type": "string",
           "pattern": "^[0-9]{4}$",
           "examples": ["2019", "2004"]
         },
-        "Grade": {
-          "description": "The material grade according to the norm",
+        "ToleranceClass": {
+          "description": "Tolerance class or category per the standard",
           "type": "string",
-          "examples": ["S355J2", "X52", "Grade B"]
+          "examples": ["Class A", "Class B", "Schedule 40", "H9"]
         }
       },
-      "required": ["Designation"],
+      "required": ["Standard"],
       "additionalProperties": false
     },
 
     "MaterialNorm": {
       "title": "MaterialNorm",
-      "description": "Standard defining material properties and composition",
+      "description": "Standard defining material properties and composition requirements",
       "type": "object",
       "properties": {
-        "Designation": {
-          "description": "The designation of the material norm",
+        "Standard": {
+          "description": "The material norm identifier",
           "type": "string",
-          "examples": ["EN 10025", "ASTM A36", "JIS G3101"]
+          "examples": ["EN 10025-2", "EN 10083-3", "EN 10088-3", "ASTM A36"]
         },
         "Year": {
-          "description": "The year of publication of the norm",
+          "description": "Year of publication",
           "type": "string",
           "pattern": "^[0-9]{4}$",
           "examples": ["2019", "2004"]
-        },
-        "Grade": {
-          "description": "The material grade according to the norm",
-          "type": "string",
-          "examples": ["S355J2", "SS400", "Grade B"]
         }
       },
-      "required": ["Designation"],
+      "required": ["Standard"],
       "additionalProperties": false
     },
 
     "MaterialDesignation": {
       "title": "MaterialDesignation",
-      "description": "Standard designation for material or alloy composition",
+      "description": "Material identification according to designation systems",
       "type": "object",
       "properties": {
-        "System": {
-          "description": "The designation system",
-          "type": "string",
-          "examples": ["EN", "AISI/SAE", "UNS", "Werkstoffnummer", "AA"]
+        "Name": {
+          "description": "Symbolic designation (e.g., per EN 10027-1)",
+          "type": "object",
+          "properties": {
+            "System": {
+              "description": "The naming system standard",
+              "type": "string",
+              "examples": ["EN 10027-1", "ASTM", "JIS", "GB"]
+            },
+            "Value": {
+              "description": "The symbolic name of the material",
+              "type": "string",
+              "examples": ["S355J2", "X5CrNi18-10", "42CrMo4", "SS400"]
+            }
+          },
+          "required": ["Value"],
+          "additionalProperties": false
         },
-        "Designation": {
-          "description": "The material designation according to the system",
-          "type": "string",
-          "examples": ["1.0570", "1045", "S31603", "X5CrNi18-10", "Al 6060 T66"]
+        "Number": {
+          "description": "Numerical designation (e.g., per EN 10027-2)",
+          "type": "object",
+          "properties": {
+            "System": {
+              "description": "The numbering system standard",
+              "type": "string",
+              "examples": ["EN 10027-2", "UNS", "Werkstoffnummer"]
+            },
+            "Value": {
+              "description": "The numerical identifier of the material",
+              "type": "string",
+              "examples": ["1.0577", "1.4404", "S31603"]
+            }
+          },
+          "required": ["Value"],
+          "additionalProperties": false
         }
       },
-      "required": ["System", "Designation"],
-      "additionalProperties": false
-    },
-
-    "MassNorm": {
-      "title": "MassNorm",
-      "description": "Standard defining mass, weight, or dimensional requirements",
-      "type": "object",
-      "properties": {
-        "Designation": {
-          "description": "The designation of the mass norm",
-          "type": "string",
-          "examples": ["EN 10060", "ASTM A6", "API 5L"]
-        },
-        "Year": {
-          "description": "The year of publication of the norm",
-          "type": "string",
-          "pattern": "^[0-9]{4}$",
-          "examples": ["2019", "2004"]
-        },
-        "Category": {
-          "description": "The category or class according to the norm",
-          "type": "string",
-          "examples": ["Class 1", "Schedule 40", "Type S"]
-        }
-      },
-      "required": ["Designation"],
       "additionalProperties": false
     },
 
@@ -1017,14 +1011,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/MaterialDesignation"
-          },
-          "minItems": 0
-        },
-        "MassNorms": {
-          "description": "List of mass or dimensional norms applicable to the product",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MassNorm"
           },
           "minItems": 0
         },
