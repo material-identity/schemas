@@ -362,6 +362,15 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <xsl:if test="$dmp/Product/DeliveryCondition/Code">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Delivery Condition'" />
+                      <xsl:with-param name="value" select="concat($dmp/Product/DeliveryCondition/Code, if($dmp/Product/DeliveryCondition/Description) then concat(' - ', $dmp/Product/DeliveryCondition/Description) else '')" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
 

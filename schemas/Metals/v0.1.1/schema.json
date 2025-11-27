@@ -981,6 +981,50 @@
       "additionalProperties": false
     },
 
+    "DeliveryCondition": {
+      "title": "DeliveryCondition",
+      "description": "Material condition at delivery per applicable standard. Required when mechanical properties are reported.",
+      "type": "object",
+      "properties": {
+        "Code": {
+          "description": "Standardized delivery condition symbol",
+          "type": "string",
+          "enum": [
+            "+U",
+            "+AR",
+            "+N",
+            "+NT",
+            "+QT",
+            "+M",
+            "+TM",
+            "+A",
+            "+AC",
+            "+AT",
+            "+P",
+            "+C",
+            "+LC",
+            "+CR",
+            "+SR",
+            "+FP",
+            "+RA",
+            "+WW"
+          ]
+        },
+        "Description": {
+          "description": "Human-readable description of the condition",
+          "type": "string",
+          "maxLength": 200
+        },
+        "Standard": {
+          "description": "Reference standard defining this condition",
+          "type": "string",
+          "examples": ["EN 10025-2", "EN 10083-3", "EN 10088-3"]
+        }
+      },
+      "required": ["Code"],
+      "additionalProperties": false
+    },
+
     "Product": {
       "title": "Product",
       "description": "Complete description of the product being certified",
@@ -1164,6 +1208,10 @@
           },
           "required": ["Name", "Revision"],
           "additionalProperties": false
+        },
+        "DeliveryCondition": {
+          "description": "Material condition at delivery (e.g., +N normalized, +QT quenched and tempered)",
+          "$ref": "#/definitions/DeliveryCondition"
         },
         "DeliveryConditions": {
           "description": "Physical delivery conditions and specifications for the product",

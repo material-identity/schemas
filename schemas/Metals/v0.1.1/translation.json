@@ -121,6 +121,11 @@
       "Creator": "Creator",
       "BaseStandard": "Base Standard",
 
+      "DeliveryCondition": "Delivery Condition",
+      "Code": "Code",
+      "Description": "Description",
+      "Standard": "Standard",
+
       "CN8": "CN8",
       "TARIC": "TARIC",
       "HTS": "HTS",
@@ -198,6 +203,7 @@
       "ProductNorms": "Product Norms",
       "MaterialNorms": "Material Norms",
       "MaterialDesignations": "Material Designations",
+      "MassNorms": "Mass Norms",
       "Shape": "Shape",
       "BatchId": "Batch ID",
       "HeatTreatment": "Heat Treatment",
@@ -485,6 +491,11 @@
       "Creator": "Ersteller",
       "BaseStandard": "Basisnorm",
 
+      "DeliveryCondition": "Lieferzustand",
+      "Code": "Code",
+      "Description": "Beschreibung",
+      "Standard": "Norm",
+
       "CN8": "CN8",
       "TARIC": "TARIC",
       "HTS": "HTS",
@@ -562,6 +573,7 @@
       "ProductNorms": "Produktnormen",
       "MaterialNorms": "Materialnormen",
       "MaterialDesignations": "Materialbezeichnungen",
+      "MassNorms": "Massennormen",
       "Shape": "Form",
       "BatchId": "Chargen-ID",
       "HeatTreatment": "Wärmebehandlung",

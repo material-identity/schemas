@@ -1,7 +1,9 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN"],
+    "Languages": [
+      "EN"
+    ],
     "Id": "HT-TEST-001",
     "Version": "0.1.0",
     "IssueDate": "2024-11-15",
@@ -9,14 +11,18 @@
       "Parties": {
         "Manufacturer": {
           "Name": "Steel Heat Treatment GmbH",
-          "Street": ["123 Industrial Park"],
+          "Street": [
+            "123 Industrial Park"
+          ],
           "ZipCode": "40210",
           "City": "Düsseldorf",
           "Country": "DE"
         },
         "Customer": {
           "Name": "Automotive Components Inc",
-          "Street": ["456 Manufacturing Drive"],
+          "Street": [
+            "456 Manufacturing Drive"
+          ],
           "ZipCode": "48220",
           "City": "Detroit",
           "Country": "US"
@@ -38,12 +44,20 @@
       "BatchId": "BATCH-2024-047",
       "MaterialDesignations": [
         {
-          "System": "EN",
-          "Designation": "42CrMo4"
+          "Name": {
+            "System": "EN 10027-1",
+            "Value": "42CrMo4"
+          },
+          "Number": {
+            "System": "EN 10027-2",
+            "Value": "1.7225"
+          }
         },
         {
-          "System": "AISI/SAE",
-          "Designation": "4140"
+          "Name": {
+            "System": "AISI/SAE",
+            "Value": "4140"
+          }
         }
       ],
       "Shape": {
@@ -51,6 +65,11 @@
         "Diameter": 80,
         "Length": 6000,
         "Unit": "mm"
+      },
+      "DeliveryCondition": {
+        "Code": "+QT",
+        "Description": "Quenched and Tempered",
+        "Standard": "EN 10083-3"
       }
     },
     "HeatTreatment": {
@@ -58,66 +77,66 @@
       "HeatTreatmentLot": "HT-2024-11-15-B47",
       "ChargeNumber": "FC-1234-02",
       "Stages": [
-          {
-            "StageType": "Austenitizing",
-            "Temperature": 850,
-            "TemperatureUnit": "C",
-            "TemperatureTolerance": "+/-10C",
-            "Duration": 45,
-            "DurationUnit": "min",
-            "HeatingRate": 50,
-            "AtmosphereType": "Air"
-          },
-          {
-            "StageType": "Quenching",
-            "Temperature": 60,
-            "TemperatureUnit": "C",
-            "CoolingRate": 200,
-            "CoolingMedium": "Oil",
-            "Duration": 10,
-            "DurationUnit": "min"
-          },
-          {
-            "StageType": "Tempering",
-            "Temperature": 550,
-            "TemperatureUnit": "C",
-            "TemperatureTolerance": "+/-5C",
-            "Duration": 120,
-            "DurationUnit": "min",
-            "HeatingRate": 30,
-            "CoolingRate": 25,
-            "CoolingMedium": "Air"
-          }
-        ],
-        "ProcessBundling": {
-          "ItemsPerCharge": 100,
-          "ArrangementPattern": "spaced",
-          "SeparatorType": "steel_racks",
-          "LoadConfiguration": "horizontal",
-          "MaxLoadWeight": 5000,
-          "ActualLoadWeight": 4750,
-          "WeightUnit": "kg"
+        {
+          "StageType": "Austenitizing",
+          "Temperature": 850,
+          "TemperatureUnit": "C",
+          "TemperatureTolerance": "+/-10C",
+          "Duration": 45,
+          "DurationUnit": "min",
+          "HeatingRate": 50,
+          "AtmosphereType": "Air"
         },
-        "FurnaceId": "FURNACE-03",
-        "ProcessDate": "2024-11-15",
-        "ProcessStartTime": "2024-11-15T08:30:00Z",
-        "ProcessEndTime": "2024-11-15T14:45:00Z",
-        "EquipmentCertification": "ISO-17025-2024-CERT",
-        "Operator": "Shift-B-Team-2",
-        "QualityChecks": [
-          {
-            "CheckType": "Hardness",
-            "Method": "HRC per ASTM E18",
-            "Result": "32-34 HRC",
-            "Timestamp": "2024-11-15T15:00:00Z"
-          },
-          {
-            "CheckType": "Temperature",
-            "Method": "Thermocouple Type K",
-            "Result": "Within tolerance",
-            "Timestamp": "2024-11-15T09:15:00Z"
-          }
-        ]
+        {
+          "StageType": "Quenching",
+          "Temperature": 60,
+          "TemperatureUnit": "C",
+          "CoolingRate": 200,
+          "CoolingMedium": "Oil",
+          "Duration": 10,
+          "DurationUnit": "min"
+        },
+        {
+          "StageType": "Tempering",
+          "Temperature": 550,
+          "TemperatureUnit": "C",
+          "TemperatureTolerance": "+/-5C",
+          "Duration": 120,
+          "DurationUnit": "min",
+          "HeatingRate": 30,
+          "CoolingRate": 25,
+          "CoolingMedium": "Air"
+        }
+      ],
+      "ProcessBundling": {
+        "ItemsPerCharge": 100,
+        "ArrangementPattern": "spaced",
+        "SeparatorType": "steel_racks",
+        "LoadConfiguration": "horizontal",
+        "MaxLoadWeight": 5000,
+        "ActualLoadWeight": 4750,
+        "WeightUnit": "kg"
+      },
+      "FurnaceId": "FURNACE-03",
+      "ProcessDate": "2024-11-15",
+      "ProcessStartTime": "2024-11-15T08:30:00Z",
+      "ProcessEndTime": "2024-11-15T14:45:00Z",
+      "EquipmentCertification": "ISO-17025-2024-CERT",
+      "Operator": "Shift-B-Team-2",
+      "QualityChecks": [
+        {
+          "CheckType": "Hardness",
+          "Method": "HRC per ASTM E18",
+          "Result": "32-34 HRC",
+          "Timestamp": "2024-11-15T15:00:00Z"
+        },
+        {
+          "CheckType": "Temperature",
+          "Method": "Thermocouple Type K",
+          "Result": "Within tolerance",
+          "Timestamp": "2024-11-15T09:15:00Z"
+        }
+      ]
     },
     "MechanicalProperties": [
       {
@@ -192,7 +211,10 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been heat treated and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
-        "Standards": ["EN 10083-3", "EN 10204:2004"],
+        "Standards": [
+          "EN 10083-3",
+          "EN 10204:2004"
+        ],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2024-11-15",
