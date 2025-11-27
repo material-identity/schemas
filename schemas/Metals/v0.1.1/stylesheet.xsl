@@ -1151,7 +1151,7 @@
                                 </xsl:call-template>
                               </fo:block>
                               <xsl:if test="TestConditions">
-                                <fo:block font-size="6pt" color="gray">
+                                <fo:block font-size="7pt" color="#4A4A4A">
                                   <xsl:value-of select="TestConditions" />
                                 </fo:block>
                               </xsl:if>
@@ -1170,7 +1170,7 @@
                                 </xsl:call-template>
                               </fo:block>
                               <xsl:if test="TestConditions">
-                                <fo:block font-size="6pt" color="gray">
+                                <fo:block font-size="7pt" color="#4A4A4A">
                                   <xsl:value-of select="TestConditions" />
                                 </fo:block>
                               </xsl:if>
@@ -1485,7 +1485,7 @@
                             </xsl:call-template>
                           </fo:block>
                           <xsl:if test="TestConditions">
-                            <fo:block font-size="6pt" color="gray">
+                            <fo:block font-size="7pt" color="#4A4A4A">
                               <xsl:value-of select="TestConditions" />
                             </fo:block>
                           </xsl:if>
@@ -1727,7 +1727,7 @@
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
-                    <fo:block color="gray" text-align="right">
+                    <fo:block color="#666666" text-align="right">
                       <fo:basic-link external-destination="{/Root/RefSchemaUrl}">
                         <fo:inline text-decoration="underline">
                           <xsl:value-of select="/Root/RefSchemaUrl" />
@@ -1828,7 +1828,7 @@
           <xsl:otherwise>No</xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$result/Description">
-          <fo:block font-size="6pt" color="gray">
+          <fo:block font-size="7pt" color="#4A4A4A">
             <xsl:value-of select="$result/Description" />
           </fo:block>
         </xsl:if>
@@ -2098,7 +2098,7 @@
                         <xsl:with-param name="result" select="$result/Statistics/StandardDeviation" />
                       </xsl:call-template>
                       <xsl:if test="$result/Statistics/StandardDeviationType">
-                        <fo:block font-size="6pt" color="gray">
+                        <fo:block font-size="6pt" color="#555555">
                           (                          <xsl:value-of select="$result/Statistics/StandardDeviationType" />
 )
                         </fo:block>
@@ -2542,7 +2542,7 @@
   <xsl:template name="FormatSpecimenSpecification">
     <xsl:param name="specimen" />
     <xsl:if test="$specimen/Location or $specimen/Orientation or $specimen/Identifier">
-      <fo:block font-size="6pt" color="gray">
+      <fo:block font-size="6pt" color="#4A4A4A">
         <xsl:text>Specimen: </xsl:text>
         <xsl:if test="$specimen/Location">
           <xsl:value-of select="$specimen/Location" />
@@ -2592,7 +2592,7 @@
         </fo:block>
 
         <!-- Equipment and Date Info -->
-        <fo:block space-after="4pt" font-size="8pt" color="gray">
+        <fo:block space-after="4pt" font-size="8pt" color="#555555">
           <xsl:if test="$details/FurnaceId">
             <fo:inline font-weight="bold">Furnace: </fo:inline>
             <xsl:value-of select="$details/FurnaceId" />
@@ -2655,7 +2655,7 @@
                         <xsl:text></xsl:text>
                         <xsl:value-of select="TemperatureUnit" />
                         <xsl:if test="TemperatureTolerance">
-                          <fo:block font-size="7pt" color="gray">
+                          <fo:block font-size="7pt" color="#555555">
                             <xsl:value-of select="TemperatureTolerance" />
                           </fo:block>
                         </xsl:if>
@@ -2676,7 +2676,7 @@
                           <xsl:value-of select="CoolingMedium" />
                         </xsl:if>
                         <xsl:if test="CoolingRate">
-                          <fo:block font-size="7pt" color="gray">
+                          <fo:block font-size="7pt" color="#555555">
                             <xsl:value-of select="CoolingRate" />
 °/
                             <xsl:value-of select="DurationUnit" />
@@ -2690,7 +2690,7 @@
                           <xsl:value-of select="AtmosphereType" />
                         </xsl:if>
                         <xsl:if test="AtmospherePressure">
-                          <fo:block font-size="7pt" color="gray">
+                          <fo:block font-size="7pt" color="#555555">
                             <xsl:value-of select="AtmospherePressure" />
                             <xsl:text></xsl:text>
                             <xsl:value-of select="AtmospherePressureUnit" />
@@ -2707,7 +2707,7 @@
 
         <!-- Process Bundling Info -->
         <xsl:if test="$details/ProcessBundling">
-          <fo:block space-before="4pt" font-size="8pt" color="gray">
+          <fo:block space-before="4pt" font-size="8pt" color="#555555">
             <fo:inline font-weight="bold">Bundling: </fo:inline>
             <xsl:if test="$details/ProcessBundling/ItemsPerCharge">
               <xsl:value-of select="$details/ProcessBundling/ItemsPerCharge" />
@@ -2736,7 +2736,7 @@
 : </fo:inline>
                 <xsl:value-of select="Result" />
                 <xsl:if test="Method">
-                  <fo:inline color="gray"> (                    <xsl:value-of select="Method" />
+                  <fo:inline color="#555555"> (                    <xsl:value-of select="Method" />
 )</fo:inline>
                 </xsl:if>
               </fo:block>
@@ -2746,7 +2746,7 @@
 
         <!-- Equipment Certification -->
         <xsl:if test="$details/EquipmentCertification">
-          <fo:block space-before="4pt" font-size="7pt" color="gray">
+          <fo:block space-before="4pt" font-size="7pt" color="#555555">
             <fo:inline font-weight="bold">Certification: </fo:inline>
             <xsl:value-of select="$details/EquipmentCertification" />
           </fo:block>
