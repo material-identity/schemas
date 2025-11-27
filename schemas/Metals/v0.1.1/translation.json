@@ -118,6 +118,7 @@
       "SpecificationReference": "Specification Reference",
       "Name": "Name",
       "Revision": "Revision",
+      "RevisionDate": "Revision Date",
       "Creator": "Creator",
       "BaseStandard": "Base Standard",
 
@@ -479,6 +480,7 @@
       "SpecificationReference": "Spezifikationsreferenz",
       "Name": "Name",
       "Revision": "Revision",
+      "RevisionDate": "Revisionsdatum",
       "Creator": "Ersteller",
       "BaseStandard": "Basisnorm",
 

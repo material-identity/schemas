@@ -281,6 +281,20 @@
                       <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                     </xsl:call-template>
                   </fo:table-row>
+                  <xsl:if test="$dmp/Product/SpecificationReference/RevisionDate">
+                    <fo:table-row>
+                       <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="''" />
+                        <xsl:with-param name="value" select="''" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Revision Date'" />
+                        <xsl:with-param name="value" select="$dmp/Product/SpecificationReference/RevisionDate" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
                   <xsl:if test="$dmp/Product/SpecificationReference/Creator or $dmp/Product/SpecificationReference/BaseStandard">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">

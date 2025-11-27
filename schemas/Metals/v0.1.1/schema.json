@@ -1156,7 +1156,14 @@
               "description": "Revision, version, or issue number of the specification",
               "type": "string",
               "pattern": "^[A-Za-z0-9\\.\\-\\/]+$",
-              "examples": ["2019", "2018", "Rev. 5", "v2.1.0", "2024-11-07"]
+              "examples": ["2019", "2018", "Rev. 5", "v2.1.0"]
+            },
+            "RevisionDate": {
+              "description": "Date when this revision of the specification was published or became effective",
+              "type": "string",
+              "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "examples": ["2019-11-01", "2018-03-15", "2024-06-30"]
             },
             "Creator": {
               "description": "Organization that created the specification (if custom)",

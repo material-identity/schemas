@@ -127,7 +127,8 @@
       },
       "SpecificationReference": {
         "Name": "EN 10025-2",
-        "Revision": "2019"
+        "Revision": "2019",
+        "RevisionDate": "2019-11-01"
       }
     },
     "HeatTreatment": {
