@@ -539,239 +539,56 @@
               </fo:table>
             </xsl:if>
 
-            <!-- Delivery Conditions -->
-            <xsl:if test="$dmp/Product/DeliveryConditions">
-              <xsl:call-template name="SectionTitle">
-                <xsl:with-param name="title" select="'Delivery Conditions'" />
+            <!-- Packaging and Marking -->
+            <xsl:if test="$dmp/Product/PackagingAndMarking">
+              <xsl:call-template name="SectionTitleSmall">
+                <xsl:with-param name="title" select="'Packaging and Marking'" />
               </xsl:call-template>
-
-              <!-- Coloring -->
-              <xsl:if test="$dmp/Product/DeliveryConditions/Coloring">
-                <xsl:call-template name="SectionTitleSmall">
-                  <xsl:with-param name="title" select="'Coloring'" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Coloring/Method">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Method'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Coloring/Method" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Coloring/Color">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Color'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Coloring/Color" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Coloring/Coverage">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Coverage'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Coloring/Coverage" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Coloring/Purpose">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Purpose'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Coloring/Purpose" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                  </fo:table-body>
-                </fo:table>
-              </xsl:if>
-
-              <!-- Marking -->
-              <xsl:if test="$dmp/Product/DeliveryConditions/Marking">
-                <xsl:call-template name="SectionTitleSmall">
-                  <xsl:with-param name="title" select="'Marking'" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Marking/Type">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Type'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Marking/Type" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Marking/Content">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Content'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Marking/Content" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Marking/Location">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Location'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Marking/Location" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Marking/Legibility">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Legibility'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Marking/Legibility" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                  </fo:table-body>
-                </fo:table>
-              </xsl:if>
-
-              <!-- Bundles -->
-              <xsl:if test="$dmp/Product/DeliveryConditions/Bundles">
-                <xsl:call-template name="SectionTitleSmall">
-                  <xsl:with-param name="title" select="'Bundles'" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Type">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Type'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Bundles/Type" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Quantity">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Quantity'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Bundles/Quantity" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Weight">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Bundle Weight'" />
-                          <xsl:with-param name="value" select="concat($dmp/Product/DeliveryConditions/Bundles/Weight, ' ', $dmp/Product/DeliveryConditions/Bundles/WeightUnit)" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Dimensions">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Dimensions'" />
-                          <xsl:with-param name="value" select="concat(
-                            if($dmp/Product/DeliveryConditions/Bundles/Dimensions/Length) then concat($dmp/Product/DeliveryConditions/Bundles/Dimensions/Length, ' × ') else '',
-                            if($dmp/Product/DeliveryConditions/Bundles/Dimensions/Width) then concat($dmp/Product/DeliveryConditions/Bundles/Dimensions/Width, ' × ') else '',
-                            if($dmp/Product/DeliveryConditions/Bundles/Dimensions/Height) then $dmp/Product/DeliveryConditions/Bundles/Dimensions/Height else '',
-                            ' ', $dmp/Product/DeliveryConditions/Bundles/Dimensions/Unit
-                          )" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Material">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Material'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Bundles/Material" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Bundles/Condition">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Condition'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Bundles/Condition" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                  </fo:table-body>
-                </fo:table>
-              </xsl:if>
-
-              <!-- Stamping -->
-              <xsl:if test="$dmp/Product/DeliveryConditions/Stamping">
-                <xsl:call-template name="SectionTitleSmall">
-                  <xsl:with-param name="title" select="'Stamping'" />
-                </xsl:call-template>
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="50%" />
-                  <fo:table-column column-width="50%" />
-                  <fo:table-body>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Stamping/Location">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Location'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Stamping/Location" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Stamping/Content">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Content'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Stamping/Content" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Stamping/Depth">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Depth'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Stamping/Depth" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Stamping/Legibility">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Legibility'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Stamping/Legibility" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                    <xsl:if test="$dmp/Product/DeliveryConditions/Stamping/Equipment">
-                      <fo:table-row>
-                        <xsl:call-template name="KeyValue">
-                          <xsl:with-param name="key" select="'Equipment'" />
-                          <xsl:with-param name="value" select="$dmp/Product/DeliveryConditions/Stamping/Equipment" />
-                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                        </xsl:call-template>
-                      </fo:table-row>
-                    </xsl:if>
-                  </fo:table-body>
-                </fo:table>
-              </xsl:if>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="100%" />
+                <fo:table-body>
+                  <xsl:if test="$dmp/Product/PackagingAndMarking/Marking">
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-style="italic">Marking</fo:block>
+                        <fo:block>
+                          <xsl:value-of select="$dmp/Product/PackagingAndMarking/Marking" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/PackagingAndMarking/Packaging">
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-style="italic">Packaging</fo:block>
+                        <fo:block>
+                          <xsl:value-of select="$dmp/Product/PackagingAndMarking/Packaging" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/PackagingAndMarking/Coloring">
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-style="italic">Coloring</fo:block>
+                        <fo:block>
+                          <xsl:value-of select="$dmp/Product/PackagingAndMarking/Coloring" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/PackagingAndMarking/SpecialInstructions">
+                    <fo:table-row>
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-style="italic">Special Instructions</fo:block>
+                        <fo:block>
+                          <xsl:value-of select="$dmp/Product/PackagingAndMarking/SpecialInstructions" />
+                        </fo:block>
+                      </fo:table-cell>
+                    </fo:table-row>
+                  </xsl:if>
+                </fo:table-body>
+              </fo:table>
             </xsl:if>
 
             <!-- Heat Treatment -->

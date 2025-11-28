@@ -93,19 +93,9 @@
       "ProductionDate": "2025-05-14",
       "Weight": 200,
       "WeightUnit": "kg",
-      "DeliveryConditions": {
-        "Coloring": {
-          "Method": "Other",
-          "Color": "Natural",
-          "Coverage": "Full",
-          "Purpose": "Protection"
-        },
-        "Stamping": {
-          "Content": "316L",
-          "Location": "Corner",
-          "Depth": "Medium",
-          "Legibility": "Good"
-        }
+      "PackagingAndMarking": {
+        "Marking": "316L stamped on corner with medium depth and good legibility.",
+        "Coloring": "Natural finish with full coverage for protection."
       }
     },
     "ChemicalAnalysis": {

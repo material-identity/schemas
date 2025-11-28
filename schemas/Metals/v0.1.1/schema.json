@@ -1213,171 +1213,35 @@
           "description": "Material condition at delivery (e.g., +N normalized, +QT quenched and tempered)",
           "$ref": "#/definitions/DeliveryCondition"
         },
-        "DeliveryConditions": {
-          "description": "Physical delivery conditions and specifications for the product",
-          "$ref": "#/definitions/DeliveryConditions"
+        "PackagingAndMarking": {
+          "description": "Packaging, bundling, coloring and marking details",
+          "$ref": "#/definitions/PackagingAndMarking"
         }
       },
       "required": ["Name", "BatchId"],
       "additionalProperties": false
     },
 
-    "DeliveryConditions": {
-      "title": "DeliveryConditions",
-      "description": "Physical delivery conditions and specifications for metal products",
+    "PackagingAndMarking": {
+      "title": "PackagingAndMarking",
+      "description": "Free-text description of packaging, bundling, coloring and marking details as agreed between supplier and customer (conceptually aligned with EN 10168 D01)",
       "type": "object",
       "properties": {
-        "Coloring": {
-          "description": "Color specifications applied to the product for identification or protection",
-          "type": "object",
-          "properties": {
-            "Method": {
-              "description": "Method used for coloring the product",
-              "type": "string",
-              "enum": ["Paint", "Powder Coating", "Anodizing", "Other"]
-            },
-            "Color": {
-              "description": "Specific color applied to the product",
-              "type": "string",
-              "examples": ["Red", "Blue", "Yellow", "Green", "Orange", "RAL 3020", "Pantone 186 C"]
-            },
-            "Coverage": {
-              "description": "Extent of color coverage on the product",
-              "type": "string",
-              "enum": ["Full", "Partial", "Ends Only", "Other"]
-            },
-            "Purpose": {
-              "description": "Purpose of the coloring application",
-              "type": "string",
-              "enum": ["Identification", "Safety", "Protection", "Aesthetic", "Other"]
-            }
-          },
-          "additionalProperties": false
-        },
         "Marking": {
-          "description": "Physical markings applied to the product for identification and traceability",
-          "type": "object",
-          "properties": {
-            "Type": {
-              "description": "Method used for marking the product",
-              "type": "string",
-              "enum": ["Stamped", "Etched", "Laser", "Other"]
-            },
-            "Content": {
-              "description": "Text or symbols included in the marking",
-              "type": "string",
-              "examples": ["Grade designation", "Heat number", "Manufacturer code", "Size specification"]
-            },
-            "Location": {
-              "description": "Physical location of the marking on the product",
-              "type": "string",
-              "examples": ["End face", "Side surface", "Top surface", "Tag attached"]
-            },
-            "Legibility": {
-              "description": "Assessment of marking visibility and readability",
-              "type": "string",
-              "enum": ["Clear", "Faint", "Partially Obscured", "Other"]
-            }
-          },
-          "additionalProperties": false
+          "type": "string",
+          "description": "Free-text description of all markings on the product (e.g. grade, heat number, delivery condition symbol, position, method)"
         },
-        "Bundles": {
-          "description": "Bundling and packaging specifications for the delivered product",
-          "type": "object",
-          "properties": {
-            "Type": {
-              "description": "Type of bundling or packaging used",
-              "type": "string",
-              "enum": ["Hexagonal", "Crated", "Loose", "Other"]
-            },
-            "Quantity": {
-              "description": "Number of items per bundle",
-              "type": "integer",
-              "minimum": 1
-            },
-            "Weight": {
-              "description": "Total weight of the bundle",
-              "type": "number",
-              "minimum": 0
-            },
-            "WeightUnit": {
-              "description": "Unit of weight measurement for the bundle",
-              "type": "string",
-              "enum": ["kg", "t", "lb"],
-              "default": "kg"
-            },
-            "Dimensions": {
-              "description": "Physical dimensions of the bundle",
-              "type": "object",
-              "properties": {
-                "Length": {
-                  "description": "Length of the bundle",
-                  "type": "number",
-                  "minimum": 0
-                },
-                "Width": {
-                  "description": "Width of the bundle",
-                  "type": "number",
-                  "minimum": 0
-                },
-                "Height": {
-                  "description": "Height of the bundle",
-                  "type": "number",
-                  "minimum": 0
-                },
-                "Unit": {
-                  "description": "Unit of measurement for bundle dimensions",
-                  "type": "string",
-                  "enum": ["mm", "cm", "m", "in", "ft"],
-                  "default": "mm"
-                }
-              },
-              "additionalProperties": false
-            },
-            "Material": {
-              "description": "Material used for bundling (straps, wrapping, etc.)",
-              "type": "string",
-              "examples": ["Steel straps", "Plastic wrapping", "Wooden crate", "Cardboard"]
-            },
-            "Condition": {
-              "description": "Condition of the bundling material and packaging",
-              "type": "string",
-              "enum": ["Good", "Fair", "Damaged", "Other"]
-            }
-          },
-          "additionalProperties": false
+        "Packaging": {
+          "type": "string",
+          "description": "Free-text description of packaging and bundling (e.g. hexagonal bundles, strapped, crated, shrink-wrapped)"
         },
-        "Stamping": {
-          "description": "Detailed stamping specifications for traceability and identification",
-          "type": "object",
-          "properties": {
-            "Location": {
-              "description": "Specific location where stamping was applied",
-              "type": "string",
-              "examples": ["End face", "Side surface", "Near end", "Multiple locations"]
-            },
-            "Content": {
-              "description": "Information included in the stamped marking",
-              "type": "string",
-              "examples": ["Heat number", "Grade + size", "Manufacturer + date", "Full traceability code"]
-            },
-            "Depth": {
-              "description": "Depth of the stamped impression",
-              "type": "string",
-              "enum": ["Deep", "Medium", "Shallow", "Other"]
-            },
-            "Legibility": {
-              "description": "Clarity and readability of the stamped marking",
-              "type": "string",
-              "enum": ["Excellent", "Good", "Fair", "Poor", "Other"]
-            },
-            "Equipment": {
-              "description": "Type of equipment used for stamping",
-              "type": "string",
-              "examples": ["Pneumatic stamper", "Hydraulic press", "Manual punch", "Automated system"]
-            }
-          },
-          "additionalProperties": false
+        "Coloring": {
+          "type": "string",
+          "description": "Free-text description of any coloring / painting / end colour codes used for identification or protection"
+        },
+        "SpecialInstructions": {
+          "type": "string",
+          "description": "Any special customer or project-specific instructions for marking, labeling, or packaging"
         }
       },
       "additionalProperties": false

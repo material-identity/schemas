@@ -67,37 +67,10 @@
       "Quantity": 100,
       "Weight": 250,
       "WeightUnit": "kg",
-      "DeliveryConditions": {
-        "Coloring": {
-          "Method": "Anodizing",
-          "Color": "Silver",
-          "Coverage": "Full",
-          "Purpose": "Protection"
-        },
-        "Marking": {
-          "Type": "Laser",
-          "Content": "B12345-AL6060-T66",
-          "Location": "End face",
-          "Legibility": "Clear"
-        },
-        "Bundles": {
-          "Type": "Crated",
-          "Quantity": 25,
-          "Dimensions": {
-            "Length": 6000,
-            "Width": 200,
-            "Height": 150,
-            "Unit": "mm"
-          },
-          "Material": "Wooden crate",
-          "Condition": "Good"
-        },
-        "Stamping": {
-          "Content": "6060-T66",
-          "Location": "Side surface",
-          "Depth": "Deep",
-          "Legibility": "Excellent"
-        }
+      "PackagingAndMarking": {
+        "Marking": "Batch number B12345-AL6060-T66 laser marked on end face with clear legibility. Material grade 6060-T66 deeply stamped on side surface with excellent legibility.",
+        "Packaging": "Wooden crates, 25 pieces per crate. Crate dimensions 6000 × 200 × 150 mm in good condition.",
+        "Coloring": "Full anodizing in silver color for protection."
       }
     },
     "ChemicalAnalysis": {

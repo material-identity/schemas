@@ -112,13 +112,8 @@
           }
         ]
       },
-      "DeliveryConditions": {
-        "Bundles": {
-          "Type": "Hexagonal",
-          "Quantity": 5,
-          "Material": "Wire binding",
-          "Condition": "Good"
-        }
+      "PackagingAndMarking": {
+        "Packaging": "Hexagonal bundles of 5 pieces with wire binding in good condition."
       },
       "SpecificationReference": {
         "Name": "EN 10025-2",

@@ -112,19 +112,9 @@
           }
         ]
       },
-      "DeliveryConditions": {
-        "Marking": {
-          "Type": "Laser",
-          "Content": "S355J2+N",
-          "Location": "Web surface",
-          "Legibility": "Clear"
-        },
-        "Bundles": {
-          "Type": "Crated",
-          "Quantity": 10,
-          "Material": "Steel straps",
-          "Condition": "Good"
-        }
+      "PackagingAndMarking": {
+        "Marking": "S355J2+N laser marked on web surface with clear legibility.",
+        "Packaging": "Crated bundles of 10 pieces with steel straps in good condition."
       },
       "SpecificationReference": {
         "Name": "1180-1/ ISO GENERIC - HR",

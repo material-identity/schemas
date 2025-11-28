@@ -126,6 +126,12 @@
       "Description": "Description",
       "Standard": "Standard",
 
+      "PackagingAndMarking": "Packaging and Marking",
+      "Marking": "Marking",
+      "Packaging": "Packaging",
+      "Coloring": "Coloring",
+      "SpecialInstructions": "Special Instructions",
+
       "CN8": "CN8",
       "TARIC": "TARIC",
       "HTS": "HTS",
@@ -495,6 +501,12 @@
       "Code": "Code",
       "Description": "Beschreibung",
       "Standard": "Norm",
+
+      "PackagingAndMarking": "Verpackung und Kennzeichnung",
+      "Marking": "Kennzeichnung",
+      "Packaging": "Verpackung",
+      "Coloring": "Farbmarkierung",
+      "SpecialInstructions": "Besondere Anweisungen",
 
       "CN8": "CN8",
       "TARIC": "TARIC",
