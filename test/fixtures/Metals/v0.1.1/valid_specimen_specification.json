@@ -1,0 +1,415 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": [
+      "EN"
+    ],
+    "Id": "TEST-SPECIMEN-001",
+    "Version": "0.1.0",
+    "IssueDate": "2025-09-29",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Steel Testing Labs GmbH",
+          "Street": [
+            "123 Test Street"
+          ],
+          "ZipCode": "10115",
+          "City": "Berlin",
+          "Country": "DE"
+        },
+        "Customer": {
+          "Name": "Customer Industries Inc",
+          "Street": [
+            "456 Customer Ave"
+          ],
+          "ZipCode": "12345",
+          "City": "New York",
+          "Country": "US"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "ORD-2025-001"
+        },
+        "Delivery": {
+          "Id": "DEL-2025-001",
+          "Quantity": 1000,
+          "QuantityUnit": "kg"
+        }
+      }
+    },
+    "Product": {
+      "Name": "High Strength Steel Plate",
+      "BatchId": "BATCH-2025-001",
+      "Shape": {
+        "Form": "Plate",
+        "Thickness": 50,
+        "Width": 2000,
+        "Length": 6000,
+        "Unit": "mm"
+      }
+    },
+    "MechanicalProperties": [
+      {
+        "PropertyName": "Tensile Strength",
+        "PropertySymbol": "Rm",
+        "Method": "ASTM E8",
+        "TestConditions": "Room temperature",
+        "SpecimenSpecification": {
+          "Location": "1/4T",
+          "Orientation": "L"
+        },
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 485
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 450
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 600
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Charpy V-Notch Impact",
+        "PropertySymbol": "KV",
+        "Method": "ASTM E23",
+        "TestConditions": "Temperature: -40°C",
+        "SpecimenSpecification": {
+          "Location": "1/4T",
+          "Orientation": "L-T"
+        },
+        "Unit": "J",
+        "Actual": {
+          "ResultType": "multiValue",
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 48
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 52
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 45
+            }
+          ],
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 48.3
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 45
+            },
+            "Maximum": {
+              "ResultType": "numeric",
+              "Value": 52
+            },
+            "StandardDeviation": {
+              "ResultType": "numeric",
+              "Value": 3.5
+            },
+            "StandardDeviationType": "Sample"
+          }
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 40
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Through-Thickness Tensile",
+        "PropertySymbol": "Rm-Z",
+        "Method": "EN 10164",
+        "TestConditions": "Room temperature, through-thickness direction",
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "array",
+          "ParameterName": "Location",
+          "ParameterUnit": "position",
+          "Data": [
+            {
+              "Parameter": 0,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 475
+              }
+            },
+            {
+              "Parameter": 0.25,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 485
+              }
+            },
+            {
+              "Parameter": 0.5,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 490
+              }
+            },
+            {
+              "Parameter": 0.75,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 487
+              }
+            },
+            {
+              "Parameter": 1,
+              "Value": {
+                "ResultType": "numeric",
+                "Value": 478
+              }
+            }
+          ]
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 450
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Yield Strength",
+        "PropertySymbol": "Re",
+        "Method": "ASTM E8",
+        "TestConditions": "Room temperature",
+        "SpecimenSpecification": {
+          "Location": "Surface",
+          "Orientation": "T",
+          "Identifier": "YS-SURF-T-001"
+        },
+        "Unit": "MPa",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 355
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 335
+        },
+        "Interpretation": "In Specification"
+      },
+      {
+        "PropertyName": "Elongation",
+        "PropertySymbol": "A",
+        "Method": "ASTM E8",
+        "TestConditions": "Room temperature",
+        "SpecimenSpecification": {
+          "Location": "Custom",
+          "CustomLocation": "Mid-radius at end section",
+          "Orientation": "C",
+          "Identifier": "ELONG-MR-001"
+        },
+        "Unit": "%",
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 22
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 20
+        },
+        "Interpretation": "In Specification"
+      }
+    ],
+    "ChemicalAnalysis": {
+      "HeatNumber": "H123456",
+      "CastingDate": "2025-09-28",
+      "CastingMethod": "ContinuousCasting",
+      "MeltingProcess": "EAF+LF",
+      "Elements": [
+        {
+          "PropertySymbol": "C",
+          "PropertyName": "Carbon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.18
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.2
+          }
+        },
+        {
+          "PropertySymbol": "Mn",
+          "PropertyName": "Manganese",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.45
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 1.4
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 1.7
+          }
+        },
+        {
+          "PropertySymbol": "Si",
+          "PropertyName": "Silicon",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.35
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.5
+          }
+        },
+        {
+          "PropertySymbol": "P",
+          "PropertyName": "Phosphorus",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.012
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          }
+        },
+        {
+          "PropertySymbol": "S",
+          "PropertyName": "Sulfur",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.008
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          }
+        },
+        {
+          "PropertySymbol": "Cr",
+          "PropertyName": "Chromium",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.3
+          }
+        },
+        {
+          "PropertySymbol": "Ni",
+          "PropertyName": "Nickel",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.15
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.2
+          }
+        },
+        {
+          "PropertySymbol": "Mo",
+          "PropertyName": "Molybdenum",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.08
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.1
+          }
+        },
+        {
+          "PropertySymbol": "Cu",
+          "PropertyName": "Copper",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.18
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.25
+          }
+        },
+        {
+          "PropertySymbol": "Al",
+          "PropertyName": "Aluminum",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.02
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.05
+          }
+        },
+        {
+          "PropertySymbol": "N",
+          "PropertyName": "Nitrogen",
+          "Unit": "%",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.008
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.012
+          }
+        },
+        {
+          "PropertySymbol": "CEV",
+          "PropertyName": "Carbon Equivalent Value",
+          "Unit": "%",
+          "Formula": "C+Mn/6+(Cr+Mo+V)/5+(Ni+Cu)/15",
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.42
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.45
+          }
+        }
+      ],
+      "AnalysisStandard": "ASTM E415"
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We certify that the material described herein has been tested and inspected in accordance with the specified standards and meets all requirements."
+      },
+      "ValidationDate": "2025-09-29",
+      "Validators": [
+        {
+          "Name": "Dr. Hans Schmidt",
+          "Title": "Quality Manager"
+        }
+      ]
+    }
+  }
+}

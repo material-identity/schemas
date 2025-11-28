@@ -36,8 +36,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+import org.apache.pdfbox.text.PDFTextStripper;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = App.class)
@@ -225,19 +224,22 @@ class RenderTest {
 				.jsonPath("$.message").isEqualTo("Certificate type 'invalid' is not supported.");
 	}
 
-	private void assertPdfContentEquals(byte[] expectedPdfContent, byte[] actualPdfContent, 
+	private void assertPdfContentEquals(byte[] expectedPdfContent, byte[] actualPdfContent,
 			String fileName) throws Exception {
-		PdfReader expectedReader = new PdfReader(new ByteArrayInputStream(expectedPdfContent));
-		PdfReader actualReader = new PdfReader(new ByteArrayInputStream(actualPdfContent));
+		try (PDDocument expectedDoc = Loader.loadPDF(expectedPdfContent);
+				PDDocument actualDoc = Loader.loadPDF(actualPdfContent)) {
+			PDFTextStripper stripper = new PDFTextStripper();
+			stripper.setStartPage(1);
+			stripper.setEndPage(1);
+			String expectedText = stripper.getText(expectedDoc);
+			String actualText = stripper.getText(actualDoc);
 
-		String expectedText = PdfTextExtractor.getTextFromPage(expectedReader, 1);
-		String actualText = PdfTextExtractor.getTextFromPage(actualReader, 1);
-
-		if (!expectedText.equals(actualText)) {
-			String diffMessage = generateTextDiff(expectedText, actualText);
-			throw new AssertionFailedError(
-					"PDF content does not match for file: " + fileName + "\n" + diffMessage,
-					expectedText, actualText);
+			if (!expectedText.equals(actualText)) {
+				String diffMessage = generateTextDiff(expectedText, actualText);
+				throw new AssertionFailedError(
+						"PDF content does not match for file: " + fileName + "\n" + diffMessage,
+						expectedText, actualText);
+			}
 		}
 	}
 

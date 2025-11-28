@@ -1,0 +1,157 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": [
+      "EN"
+    ],
+    "Id": "DMP-METAL-INTL-001",
+    "Version": "1.0.0",
+    "IssueDate": "2025-08-21",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Canadian Steel Works Ltd.",
+          "Street": [
+            "1234 Steel Avenue",
+            "Industrial Complex B",
+            "Unit 456"
+          ],
+          "City": "Toronto",
+          "StateProvince": "ON",
+          "ZipCode": "M5V 2A8",
+          "Country": "CA",
+          "Email": "production@cansteel.example.ca",
+          "Identifiers": {
+            "VAT": "CA123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Australian Mining Corporation",
+          "Street": [
+            "789 Mining Road",
+            "Industrial Park"
+          ],
+          "City": "Perth",
+          "StateProvince": "WA",
+          "ZipCode": "6000",
+          "Country": "AU",
+          "Email": "procurement@ausmine.example.com.au"
+        },
+        "Subcustomer": {
+          "Name": "Metalúrgica do Brasil S.A.",
+          "Street": [
+            "Rua das Indústrias, 567",
+            "Distrito Industrial"
+          ],
+          "District": "Vila Industrial",
+          "City": "São Paulo",
+          "StateProvince": "SP",
+          "ZipCode": "01234-567",
+          "Country": "BR",
+          "Email": "comercial@metalbrasil.example.com.br"
+        },
+        "GoodsReceiver": {
+          "Name": "Mumbai Steel Industries Pvt Ltd",
+          "Street": [
+            "Plot No. 123",
+            "MIDC Industrial Estate",
+            "Andheri East"
+          ],
+          "District": "Mumbai Suburban",
+          "City": "Mumbai",
+          "StateProvince": "Maharashtra",
+          "ZipCode": "400093",
+          "Country": "IN",
+          "Email": "logistics@mumbaiSteel.example.co.in"
+        },
+        "CertificateReceiver": {
+          "Name": "Seoul Heavy Industries Co., Ltd.",
+          "Street": [
+            "567 Industrial-ro",
+            "Guro Digital Complex",
+            "Building A, Floor 12"
+          ],
+          "District": "Guro-gu",
+          "City": "Seoul",
+          "StateProvince": "Seoul Special City",
+          "ZipCode": "08380",
+          "Country": "KR",
+          "Email": "quality@seoulheavy.example.co.kr"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-INTL-001",
+          "Position": "1",
+          "Date": "2025-08-01",
+          "Quantity": 2000,
+          "QuantityUnit": "kg",
+          "CustomerProductId": "STEEL-INTL-001"
+        },
+        "Delivery": {
+          "Id": "DN-INTL-001",
+          "Position": "1",
+          "Date": "2025-08-20",
+          "Quantity": 2000,
+          "QuantityUnit": "kg",
+          "InternalOrderId": "SO-INTL-001"
+        }
+      }
+    },
+    "Product": {
+      "Name": "International Grade Steel",
+      "ProductNorms": [
+        {
+          "Standard": "ISO 630",
+          "Year": "2021"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "Name": {
+            "System": "ISO",
+            "Value": "1.0577"
+          }
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 100,
+        "Length": 6000,
+        "Unit": "mm"
+      },
+      "BatchId": "INTL-2025-001",
+      "SurfaceCondition": "Hot-rolled",
+      "CountryOfOrigin": "CA",
+      "ManufacturingLocation": "Toronto Plant",
+      "ProductionDate": "2025-08-18",
+      "Marking": "CSW S355 INTL-2025-001",
+      "Quantity": 20,
+      "Weight": 2000,
+      "WeightUnit": "kg"
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "This certificate demonstrates international address formatting standards compliance across multiple countries and regions.",
+        "Standards": [
+          "ISO 630:2021",
+          "ISO 3166-1"
+        ],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-08-21",
+      "Validators": [
+        {
+          "Name": "Sarah Mitchell",
+          "Title": "International Quality Manager",
+          "Department": "Global Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Toronto, Canada",
+      "CertificateType": {
+        "Standard": "ISO",
+        "Type": "3.1"
+      }
+    }
+  }
+}
