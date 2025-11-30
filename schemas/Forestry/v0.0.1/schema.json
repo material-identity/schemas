@@ -305,7 +305,8 @@
         "HTSCode": {
           "type": "string",
           "description": "The Harmonized Tariff Schedule code for the product",
-          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"
+          "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}([0-9]{2})?$",
+          "examples": ["4403.24.00", "4403.24.0010"]
         },
         "ProductionPeriod": {
           "description": "The period when the product was produced",
