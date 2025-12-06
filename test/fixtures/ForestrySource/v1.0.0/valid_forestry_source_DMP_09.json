@@ -38,7 +38,7 @@
       {
         "ProductType": "Logs (Saw)",
         "DescriptionOfProduct": "Douglas-fir saw logs",
-        "HSCode": "4403.24.00",
+        "HSCode": "4403.24",
         "CustomsClassification": {
           "HTS": "4403.24.0010",
           "CN": "4403 24 00"

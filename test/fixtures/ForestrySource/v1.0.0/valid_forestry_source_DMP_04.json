@@ -53,7 +53,7 @@
       {
         "ProductType": "Sawn Timber",
         "DescriptionOfProduct": "Kiln-dried hardwood boards",
-        "HSCode": "4407.29.01",
+        "HSCode": "4407.29",
         "ProductionPeriod": {
           "StartDate": "2024-04-15",
           "EndDate": "2024-04-30"

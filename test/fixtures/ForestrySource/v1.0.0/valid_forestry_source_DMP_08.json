@@ -139,7 +139,7 @@
       {
         "ProductType": "Specialty Lumber",
         "DescriptionOfProduct": "High-grade lumber with specialized measurements",
-        "HSCode": "4407.91.00",
+        "HSCode": "4407.91",
         "ProductionPeriod": {
           "StartDate": "2024-11-15",
           "EndDate": "2024-11-30"

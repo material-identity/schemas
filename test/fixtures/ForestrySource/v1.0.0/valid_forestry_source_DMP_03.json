@@ -65,7 +65,7 @@
       {
         "ProductType": "Logs (Saw)",
         "DescriptionOfProduct": "Douglas-fir saw logs",
-        "HSCode": "4403.24.00",
+        "HSCode": "4403.24",
         "ProductionPeriod": {
           "StartDate": "2024-09-01",
           "EndDate": "2025-04-30"
@@ -93,7 +93,7 @@
       {
         "ProductType": "Logs (Pulp)",
         "DescriptionOfProduct": "Western Hemlock pulp logs",
-        "HSCode": "4403.25.00",
+        "HSCode": "4403.25",
         "ProductionPeriod": {
           "StartDate": "2024-09-01",
           "EndDate": "2025-04-30"

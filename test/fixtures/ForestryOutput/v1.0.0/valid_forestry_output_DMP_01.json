@@ -13,7 +13,7 @@
       {
         "ProductType": "Logs",
         "DescriptionOfProduct": "Oak Logs",
-        "HSCode": "4403.11.00",
+        "HSCode": "4403.11",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"

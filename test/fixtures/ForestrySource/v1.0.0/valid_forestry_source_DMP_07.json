@@ -48,7 +48,7 @@
       {
         "ProductType": "Coniferous Logs",
         "DescriptionOfProduct": "Fresh pine logs for export to multiple markets",
-        "HSCode": "4403.20.00",
+        "HSCode": "4403.20",
         "CustomsClassification": {
           "HTS": "4403.20.0040",
           "CN": "4403 20 00"
