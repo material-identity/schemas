@@ -157,7 +157,7 @@
             "Unit": "%"
           },
           "SupplementaryInformation": {
-            "C110": {
+            "C116": {
               "Key": "Sample Identifier",
               "Value": "10001011/175508",
               "Type": "string"
