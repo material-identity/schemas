@@ -120,18 +120,30 @@
       }
     ],
     "Supplier": {
-      "Name": "British Columbia Timber Sales",
-      "Street": ["370 S. Dogwood Street"],
-      "ZipCode": "V9W 6Y7",
-      "City": "Campbell River",
-      "State": "British Columbia",
-      "Country": "CA",
+      "Name": "Tokyo Wood Trading Co., Ltd.",
+      "Street": ["2-3-4 Nihonbashi", "Chuo-ku"],
+      "ZipCode": "103-0027",
+      "City": "Tokyo",
+      "State": "Tokyo",
+      "Country": "JP",
       "Identifiers": {
-        "VAT": "123456789BC",
-        "CBN": "123456789RT0001"
+        "DUNS": "123456782"
       },
-      "Email": "StraitofGeorgiaTimberSalesOffice@gov.bc.ca",
-      "PhoneNumber": "+12502869300"
+      "Email": "info@tokyo-wood.co.jp",
+      "PhoneNumber": "+81 3 1234 5678"
+    },
+    "Producer": {
+      "Name": "Maharashtra Timber Industries Pvt Ltd",
+      "Street": ["Plot No. 45, MIDC Industrial Area", "Phase III"],
+      "City": "Mumbai",
+      "ZipCode": "400051",
+      "State": "Maharashtra",
+      "Country": "IN",
+      "Identifiers": {
+        "DUNS": "123456783"
+      },
+      "Email": "info@maharashtra-timber.in",
+      "PhoneNumber": "+91 22 1234 5678"
     },
     "Creator": {
       "Name": "Forest Management Services Inc.",

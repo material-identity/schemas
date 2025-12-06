@@ -45,23 +45,25 @@
       }
     ],
     "Supplier": {
-      "Name": "Green Forest Products Inc.",
-      "Street": ["456 Woodland Road"],
-      "ZipCode": "12345",
-      "City": "Forestville",
-      "Country": "US",
+      "Name": "China National Timber Corporation",
+      "Street": ["No. 88 Jianguo Road", "Building 15, Floor 8"],
+      "ZipCode": "100025",
+      "State": "Beijing",
+      "City": "Beijing",
+      "Country": "CN",
       "Identifiers": {
-        "DUNS": "123456789"
+        "DUNS": "123456784"
       }
     },
     "Customer": {
-      "Name": "Wood Importers GmbH",
-      "Street": ["Holzstrasse 5"],
-      "ZipCode": "10115",
-      "City": "Berlin",
-      "Country": "DE",
+      "Name": "New Zealand Forest Products Ltd",
+      "Street": ["125 The Strand"],
+      "City": "Auckland",
+      "State": "Auckland",
+      "ZipCode": "1010",
+      "Country": "NZ",
       "Identifiers": {
-        "VAT": "DE987654321"
+        "DUNS": "123456785"
       }
     },
     "Creator": {

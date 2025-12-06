@@ -41,23 +41,25 @@
       }
     ],
     "Supplier": {
-      "Name": "Green Forest Products Inc.",
-      "Street": ["456 Woodland Road"],
-      "ZipCode": "12345",
-      "City": "Forestville",
-      "Country": "US",
+      "Name": "Tokyo Wood Trading Co., Ltd.",
+      "Street": ["2-3-4 Nihonbashi", "Chuo-ku"],
+      "ZipCode": "103-0027",
+      "City": "Tokyo",
+      "State": "Tokyo",
+      "Country": "JP",
       "Identifiers": {
-        "DUNS": "123456789"
+        "DUNS": "123456782"
       }
     },
     "Customer": {
-      "Name": "Wood Importers GmbH",
-      "Street": ["Holzstrasse 5"],
-      "ZipCode": "10115",
-      "City": "Berlin",
-      "Country": "DE",
+      "Name": "Maharashtra Timber Industries Pvt Ltd",
+      "Street": ["Plot No. 45, MIDC Industrial Area", "Phase III"],
+      "City": "Mumbai",
+      "ZipCode": "400051",
+      "State": "Maharashtra",
+      "Country": "IN",
       "Identifiers": {
-        "VAT": "DE987654321"
+        "DUNS": "123456783"
       }
     },
     "Creator": {
