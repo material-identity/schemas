@@ -47,7 +47,7 @@
       {
         "ProductType": "Veneer",
         "DescriptionOfProduct": "Canadian Birch Veneer Sheets - Export Grade A",
-        "HSCode": "4408.10.00",
+        "HSCode": "4408.10",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-20"

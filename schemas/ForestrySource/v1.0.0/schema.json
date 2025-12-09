@@ -529,9 +529,9 @@
         },
         "HSCode": {
           "type": "string",
-          "description": "The Harmonized System code for international trade classification",
-          "pattern": "^[0-9]{4}\\.[0-9]{2}(\\.[0-9]{2})?$",
-          "examples": ["4403.24", "4403.24.00"]
+          "description": "The 6-digit Harmonized System code for international trade classification",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}$",
+          "examples": ["4403.11", "4403.24", "4407.12", "4412.31"]
         },
         "CustomsClassification": {
           "type": "object",

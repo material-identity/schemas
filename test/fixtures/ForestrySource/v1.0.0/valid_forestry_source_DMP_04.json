@@ -53,7 +53,7 @@
       {
         "ProductType": "Sawn Timber",
         "DescriptionOfProduct": "Kiln-dried hardwood boards",
-        "HSCode": "4407.29.01",
+        "HSCode": "4407.29",
         "ProductionPeriod": {
           "StartDate": "2024-04-15",
           "EndDate": "2024-04-30"
@@ -77,23 +77,25 @@
       }
     ],
     "Supplier": {
-      "Name": "Amazonia Forestry Ltd",
-      "Street": ["Rua das Palmeiras, 123"],
-      "ZipCode": "69980-000",
-      "City": "Rio Branco",
-      "Country": "BR",
+      "Name": "China National Timber Corporation",
+      "Street": ["No. 88 Jianguo Road", "Building 15, Floor 8"],
+      "ZipCode": "100025",
+      "State": "Beijing",
+      "City": "Beijing",
+      "Country": "CN",
       "Identifiers": {
-        "CNPJ": "12345678901234"
+        "DUNS": "123456784"
       }
     },
     "Producer": {
-      "Name": "Sustainable Timber Corp",
-      "Street": ["Avenida Principal, 456"],
-      "ZipCode": "69980-000",
-      "City": "Rio Branco",
-      "Country": "BR",
+      "Name": "New Zealand Forest Products Ltd",
+      "Street": ["125 The Strand"],
+      "City": "Auckland",
+      "State": "Auckland",
+      "ZipCode": "1010",
+      "Country": "NZ",
       "Identifiers": {
-        "CNPJ": "98765432109876"
+        "DUNS": "123456785"
       }
     },
     "Creator": {

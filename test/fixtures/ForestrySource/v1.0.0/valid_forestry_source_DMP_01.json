@@ -37,7 +37,7 @@
       {
         "ProductType": "Logs (Saw)",
         "DescriptionOfProduct": "Douglas-fir saw logs",
-        "HSCode": "4403.24.00",
+        "HSCode": "4403.24",
         "CustomsClassification": {
           "HTS": "4403.24.0010",
           "CN": "4403 24 00"
@@ -64,23 +64,25 @@
       }
     ],
     "Supplier": {
-      "Name": "British Columbia Timber Sales",
-      "Street": ["370 S. Dogwood Street"],
-      "ZipCode": "V9W 6Y7",
-      "City": "Campbell River",
-      "Country": "CA",
+      "Name": "Pacific Timber Trading Ltd",
+      "Street": ["23/F, Tower 1", "Admiralty Centre"],
+      "State": "Central",
+      "City": "Hong Kong",
+      "ZipCode": "000000",
+      "Country": "HK",
       "Identifiers": {
-        "VAT": "123456789BC"
+        "DUNS": "123456780"
       }
     },
     "Producer": {
-      "Name": "Zimmermann Forest Products Ltd.",
-      "Street": ["2218 D Airport Drive"],
-      "ZipCode": "V9H 0E2",
-      "City": "Campbell River",
-      "Country": "CA",
+      "Name": "Australian Timber Mills Pty Ltd",
+      "Street": ["45 Industrial Drive"],
+      "City": "Melbourne",
+      "State": "VIC",
+      "ZipCode": "3000",
+      "Country": "AU",
       "Identifiers": {
-        "CBN": "123456222RT0001"
+        "DUNS": "123456781"
       }
     },
     "Creator": {

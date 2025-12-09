@@ -13,7 +13,7 @@
       {
         "ProductType": "Logs",
         "DescriptionOfProduct": "Oak Logs",
-        "HSCode": "4403.11.00",
+        "HSCode": "4403.11",
         "ProductionPeriod": {
           "StartDate": "2024-07-01",
           "EndDate": "2024-07-15"
@@ -35,23 +35,24 @@
       ]
     }],
     "Supplier": {
-      "Name": "Green Forest Products Inc.",
-      "Street": ["456 Woodland Road"],
-      "ZipCode": "12345",
-      "City": "Forestville",
-      "Country": "US",
+      "Name": "Pacific Timber Trading Ltd",
+      "Street": ["23/F, Tower 1", "Admiralty Centre"],
+      "State": "Central",
+      "City": "Hong Kong",
+      "ZipCode": "000000",
+      "Country": "HK",
       "Identifiers": {
-        "DUNS": "123456789"
+        "DUNS": "123456780"
       }
     },
     "Customer": {
-      "Name": "Nordic Timber Oy",
-      "Street": ["Puutie 15"],
-      "ZipCode": "00100",
-      "City": "Helsinki",
-      "Country": "FI",
+      "Name": "British Timber Imports Ltd",
+      "Street": ["15 Riverside Trading Estate", "Thames Road"],
+      "City": "London",
+      "ZipCode": "SW18 1LP",
+      "Country": "GB",
       "Identifiers": {
-        "VAT": "FI987654321"
+        "VAT": "GB123456789"
       }
     },
     "Creator": {

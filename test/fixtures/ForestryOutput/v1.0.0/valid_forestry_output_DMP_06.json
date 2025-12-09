@@ -44,7 +44,7 @@
       {
         "ProductType": "Sawn Lumber",
         "DescriptionOfProduct": "Premium Nordic pine lumber with multi-regional customs classification",
-        "HSCode": "4407.11.00",
+        "HSCode": "4407.11",
         "CustomsClassification": {
           "HTS": "4407.11.0020",
           "CN": "4407 11 00"

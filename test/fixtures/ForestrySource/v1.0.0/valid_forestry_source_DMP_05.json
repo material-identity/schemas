@@ -187,7 +187,7 @@
       {
         "ProductType": "Hardwood Logs",
         "DescriptionOfProduct": "Raw logs of tropical hardwood species",
-        "HSCode": "4403.49.01",
+        "HSCode": "4403.49",
         "ProductionPeriod": {
           "StartDate": "2025-03-15",
           "EndDate": "2025-04-30"
@@ -234,7 +234,7 @@
       {
         "ProductType": "Sawn Timber",
         "DescriptionOfProduct": "Mill-cut boards from tropical hardwood",
-        "HSCode": "4407.29.01",
+        "HSCode": "4407.29",
         "ProductionPeriod": {
           "StartDate": "2025-04-01",
           "EndDate": "2025-05-15"
