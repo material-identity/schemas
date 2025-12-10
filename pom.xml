@@ -14,12 +14,19 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jackson.version>2.18.2</jackson.version>
     <sentry.skip>true</sentry.skip>
+    <!-- Security: Override vulnerable transitive dependency versions -->
+    <tomcat.version>10.1.45</tomcat.version>
+    <netty.version>4.1.125.Final</netty.version>
+    <commons-io.version>2.14.0</commons-io.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
+    <httpclient5.version>5.4.3</httpclient5.version>
+    <json-smart.version>2.5.2</json-smart.version>
   </properties>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.1</version>
+    <version>3.4.5</version>
   </parent>
 
   <dependencies>
