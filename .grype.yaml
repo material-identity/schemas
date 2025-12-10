@@ -9,11 +9,8 @@ fail-on-severity: medium
 check-for-app-update: true
 
 # Configure output formatting
-output:
-  # Default to table format for CLI usage
-  format: table
-  # Show suppressed vulnerabilities in output
-  show-suppressed: true
+# Use CLI flags for output format (e.g., grype . -o table)
+# output: table
 
 # Vulnerability matching configuration
 match:
