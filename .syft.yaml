@@ -4,14 +4,7 @@
 
 # Package cataloger configuration
 package:
-  # Search for packages in these locations
   cataloger:
-    # Enable specific catalogers
-    enabled:
-      - javascript-package-cataloger     # npm/yarn/pnpm packages
-      - java-archive-cataloger           # JAR/WAR/EAR files
-      - java-pom-cataloger               # Maven pom.xml
-      - python-package-cataloger         # pip packages
     # Package cataloging scope
     scope: all-layers
 
@@ -67,24 +60,9 @@ metadata:
 
 # Cataloger-specific configuration
 catalogers:
-  # JavaScript/Node.js specific
-  javascript:
-    # Search for package.json files
-    search-local-app-manifests: true
-    # Include dev dependencies
-    include-dev-dependencies: true
-
-  # Java/Maven specific
-  java:
-    # Use Maven for dependency resolution
-    use-network: false  # Don't fetch from Maven central during scan
-    # Include Maven plugin dependencies
-    include-maven-plugin-dependencies: false
-
-  # Python specific
-  python:
-    # Search for requirements.txt and setup.py
-    search-local-app-manifests: true
+  # Enable all default catalogers for comprehensive coverage
+  enabled:
+    - "all"
 
 # Exclusions (paths to ignore)
 exclude:
