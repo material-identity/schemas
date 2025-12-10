@@ -58,11 +58,9 @@ metadata:
   # License for the SBOM document itself
   # license: CC0-1.0
 
-# Cataloger-specific configuration
+# Catalogers configuration - list of cataloger names to enable
 catalogers:
-  # Enable all default catalogers for comprehensive coverage
-  enabled:
-    - "all"
+  - "all"
 
 # Exclusions (paths to ignore)
 exclude:
