@@ -32,29 +32,33 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
       - name: Run Grype vulnerability scanner
-        uses: anchore/scan-action@v4
         id: grype
-        with:
-          path: "."
-          fail-build: true
-          severity-cutoff: medium  # Fail on medium severity or higher
-          output-format: sarif
+        run: |
+          grype . -o sarif --file grype-results.sarif --fail-on medium
+        continue-on-error: true
+
+      - name: Check scan results
+        run: |
+          if [ ${{ steps.grype.outcome }} == 'failure' ]; then
+            echo "::error::Vulnerabilities found at medium severity or higher"
+            exit 1
+          fi
 
       - name: Upload SARIF report to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()  # Upload results even if scan fails
         with:
-          sarif_file: ${{ steps.grype.outputs.sarif }}
+          sarif_file: grype-results.sarif
 
       - name: Generate JSON vulnerability report
         if: always()
-        uses: anchore/scan-action@v4
-        with:
-          path: "."
-          fail-build: false  # Don't fail - we already did that
-          output-format: json
-          output-file: grype-vulnerabilities.json
+        run: |
+          grype . -o json --file grype-vulnerabilities.json || true
 
       - name: Upload vulnerability report as artifact
         if: always()
