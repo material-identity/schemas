@@ -1,0 +1,65 @@
+name: Security Vulnerability Scan
+
+# Set permissions for GitHub Security tab integration
+permissions:
+  contents: read
+  security-events: write  # Required for uploading SARIF results
+  actions: read
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    branches:
+      - main
+  schedule:
+    # Run weekly vulnerability scan every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  vulnerability-scan:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || !github.event.pull_request.draft }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Grype vulnerability scanner
+        uses: anchore/scan-action@v4
+        id: grype
+        with:
+          path: "."
+          fail-build: true
+          severity-cutoff: medium  # Fail on medium severity or higher
+          output-format: sarif
+
+      - name: Upload SARIF report to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()  # Upload results even if scan fails
+        with:
+          sarif_file: ${{ steps.grype.outputs.sarif }}
+
+      - name: Generate JSON vulnerability report
+        if: always()
+        uses: anchore/scan-action@v4
+        with:
+          path: "."
+          fail-build: false  # Don't fail - we already did that
+          output-format: json
+          output-file: grype-vulnerabilities.json
+
+      - name: Upload vulnerability report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grype-vulnerability-report
+          path: grype-vulnerabilities.json
+          retention-days: 90
