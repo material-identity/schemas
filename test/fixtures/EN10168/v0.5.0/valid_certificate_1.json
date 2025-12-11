@@ -50,6 +50,11 @@
           "Key": "Reference Date",
           "Value": "2018-10-23",
           "Type": "date"
+        },
+        "A95": {
+          "Key": "Custom Field A95",
+          "Value": "This field should be valid in SupplementaryInformation",
+          "Type": "string"
         }
       }
     },
