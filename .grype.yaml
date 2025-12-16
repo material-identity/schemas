@@ -1,0 +1,72 @@
+# Grype vulnerability scanner configuration
+# For EU Cyber Resilience Act (CRA) compliance
+# Documentation: https://github.com/anchore/grype#configuration
+
+# Fail build on medium severity or higher
+fail-on-severity: medium
+
+# Check for database updates before scanning
+check-for-app-update: true
+
+# Configure output formatting
+# Use CLI flags for output format (e.g., grype . -o table)
+# output: table
+
+# Vulnerability matching configuration
+match:
+  # Match strategies
+  java:
+    # Use Maven coordinates for Java dependencies
+    using-cpes: false
+  javascript:
+    # Use npm package metadata
+    using-cpes: false
+  python:
+    # Use PyPI metadata
+    using-cpes: false
+
+# Ignore rules for known false positives or accepted risks
+# Add entries here as needed during development
+ignore:
+  # Temporary: Ignore Go stdlib vulnerabilities in development tools (Syft/Grype)
+  # These are NOT production dependencies - they exist in the scanning tools themselves
+  # TODO: Remove once Anchore rebuilds Syft/Grype with Go 1.25.5+ (tracked in issue)
+  - package:
+      name: stdlib
+      type: go-module
+    reason: "Development tool vulnerabilities (Syft/Grype binaries) - not production dependencies. Will be resolved when Anchore updates their tools to Go 1.25.5+"
+    expires: 2025-03-31  # Re-evaluate quarterly
+
+# Registry configuration (if needed for private registries)
+# registry:
+#   auth:
+#     - authority: registry.example.com
+#       username: ${REGISTRY_USER}
+#       password: ${REGISTRY_PASSWORD}
+
+# Scope configuration
+scope: all-layers  # Scan all dependency layers
+
+# Database configuration
+db:
+  # Automatically update vulnerability database
+  auto-update: true
+  # Cache directory
+  cache-dir: ~/.cache/grype/db
+  # Update check frequency
+  update-available-timeout: 60s
+  # Validate database checksum
+  validate-by-hash-on-start: true
+
+# Logging configuration
+log:
+  # Log level: error, warn, info, debug, trace
+  level: info
+  # Write logs to file
+  # file: grype.log
+
+# Exclude paths from scanning (if needed)
+exclude:
+  # Example: Exclude test fixtures
+  # - "**/test/**"
+  # - "**/fixtures/**"

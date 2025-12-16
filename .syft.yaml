@@ -1,0 +1,85 @@
+# Syft SBOM generation configuration
+# For EU Cyber Resilience Act (CRA) compliance
+# Documentation: https://github.com/anchore/syft#configuration
+
+# Package cataloger configuration
+package:
+  cataloger:
+    # Package cataloging scope
+    scope: all-layers
+
+# File cataloger configuration
+file:
+  metadata:
+    # Catalog file metadata (checksums, MIME types)
+    enabled: true
+    # Generate file digests
+    digests:
+      - sha256
+  # File classification
+  classification:
+    enabled: true
+
+# Relationship configuration (dependency graphs)
+relationships:
+  # Include package-to-package relationships
+  package-to-package: true
+  # Exclude file-to-package relationships to reduce SBOM size
+  file-to-package: false
+
+# Search configuration
+search:
+  # Scope of search
+  scope: all-layers
+  # Include directories in search
+  include-indexed-archives: true
+  # Include nested archives (JARs within JARs)
+  include-unindexed-archives: true
+
+# Output configuration
+output:
+  # Default format (can be overridden by CLI)
+  format: spdx-json
+  # Pretty print JSON output
+  pretty: true
+
+# SBOM metadata
+metadata:
+  # Supplier information
+  supplier:
+    name: "S1Seven GmbH"
+    # url: "https://s1seven.com"
+
+  # Author information (for SPDX)
+  authors:
+    - name: "S1Seven Engineering Team"
+      # email: "engineering@s1seven.com"
+
+  # License for the SBOM document itself
+  # license: CC0-1.0
+
+# Catalogers configuration - list of cataloger names to enable
+catalogers:
+  - "all"
+
+# Exclusions (paths to ignore)
+exclude:
+  # Exclude common non-production paths
+  - "**/node_modules/**/test/**"
+  - "**/node_modules/**/tests/**"
+  - "**/.git/**"
+  - "**/target/test-classes/**"
+
+# Logging configuration
+log:
+  # Log level: error, warn, info, debug, trace
+  level: info
+  # Write logs to file
+  # file: syft.log
+
+# Registry configuration (if needed for private registries)
+# registry:
+#   auth:
+#     - authority: registry.example.com
+#       username: ${REGISTRY_USER}
+#       password: ${REGISTRY_PASSWORD}

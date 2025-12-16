@@ -164,3 +164,67 @@ npm run json2xml test/fixtures/CoA/v1.1.0/valid_certificate_1.json
 ```
 
 It will save the resulting file to the same directory as the original .json file.
+
+## Security & Compliance
+
+### Vulnerability Scanning
+
+This project uses [Grype](https://github.com/anchore/grype) for automated vulnerability scanning to ensure compliance with the EU Cyber Resilience Act (CRA). Vulnerability scans run automatically on:
+
+- Every pull request
+- Every push to `main`
+- Weekly schedule (Mondays at 9 AM UTC)
+
+**Severity Threshold**: Builds fail on **medium** severity or higher vulnerabilities.
+
+**Viewing Results**:
+- Navigate to the [Security tab](../../security) to view vulnerability reports
+- Vulnerability reports are also available as workflow artifacts
+
+**Configuration**: See [`.grype.yaml`](.grype.yaml) for scan configuration and ignore rules.
+
+### Software Bill of Materials (SBOM)
+
+In compliance with the EU Cyber Resilience Act, we automatically generate Software Bill of Materials (SBOM) for each release using [Syft](https://github.com/anchore/syft).
+
+**Accessing SBOMs**:
+- **GitHub Releases**: SBOM files are attached to each [release](../../releases) as assets
+- **Repository**: Version-tagged SBOMs are stored in the [`sbom/`](sbom/) directory
+- **Formats**: Both SPDX (ISO/IEC 5962) and CycloneDX (OWASP) formats are provided
+
+**SBOM Contents**:
+- Complete inventory of all dependencies (direct and transitive)
+- Component metadata (names, versions, licenses, suppliers)
+- Dependency relationships and hierarchy
+- Package checksums for integrity verification
+
+**For more information**, see the [SBOM documentation](sbom/README.md).
+
+**Configuration**: See [`.syft.yaml`](.syft.yaml) for SBOM generation configuration.
+
+### Manual Security Operations
+
+**Run vulnerability scan locally**:
+```bash
+# Install Grype
+curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+# Scan project
+grype .
+```
+
+**Generate SBOM locally**:
+```bash
+# Install Syft
+curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+# Generate SPDX format
+syft . -o spdx-json --file sbom-spdx.json
+
+# Generate CycloneDX format
+syft . -o cyclonedx-json --file sbom-cyclonedx.json
+```
+
+### Reporting Security Issues
+
+Please report security vulnerabilities by opening a [security advisory](../../security/advisories/new) or contacting the security team directly.
