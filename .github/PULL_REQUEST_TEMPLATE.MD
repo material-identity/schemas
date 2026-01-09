@@ -9,6 +9,17 @@ List any related issues or tickets that this pull request addresses or resolves.
 - Resolves #123 (issue number)
 - Relates to #456 (issue number)
 
+## Type of Change
+
+- [ ] Bug fix (non-breaking change fixing an issue)
+- [ ] New feature (non-breaking change adding functionality)
+- [ ] Breaking change (fix or feature causing existing functionality to change)
+- [ ] Security fix (addresses a vulnerability)
+- [ ] Documentation update
+- [ ] Dependency update
+- [ ] Configuration change
+- [ ] Chore/maintenance (refactoring, tooling, etc.)
+
 ## Changes
 
 Describe the changes in detail:
@@ -19,46 +30,104 @@ Describe the changes in detail:
 
 ## Testing
 
-Describe the tests you have performed to validate the changes, and any additional tests that need to be performed:
+### Manual Testing Performed
+Describe what you manually tested (if applicable):
 
-- [ ] Manual testing steps:
- 1. Step 1
- 2. Step 2
- 3. ...
-- [ ] Automated tests:
- - Unit tests
- - Integration tests
- - End-to-end tests
+**Testing steps:**
+1.
+2.
+3.
 
-## Review
+**Tested environments:**
+- [ ] Local development
+- [ ] Other: _____________
 
-Describe the items the reviewer should focus on:
+**N/A** - No manual testing needed (e.g., documentation change, automated tests sufficient)
 
-1. Item
-2. 
+---
 
-## Documentation
+## 🤖 Automated Verification (CI/CD)
 
-- [ ] I have updated the documentation accordingly.
-- [ ] No documentation update is required.
+The following checks are **automatically verified** by CI/CD - you don't need to check these manually:
 
-## Screenshots (if applicable)
+✅ **Automated Tests**
+- Unit tests (Java Maven + Node.js Jest)
+- Integration tests
+- Code quality (ESLint, Prettier)
 
-If applicable, add screenshots to help explain your changes.
+✅ **Security Scanning**
+- Grype vulnerability scanning (fails on medium+ severity)
+- Dependency vulnerability checks
+- SARIF security report uploaded to GitHub Security tab
 
-## Additional Information
+✅ **SBOM Generation**
+- SPDX and CycloneDX SBOMs generated
+- Available in PR artifacts for review
 
-Provide any additional information or context that might be helpful for the reviewer.
+**Status**: Check CI results above ☝️ - all checks must pass before merge
 
-## Checklist
+---
 
-Please complete the following checklist before submitting the pull request:
+## 👤 Manual Review Required
 
-  - [ ] My code follows the project's coding style guidelines.
-  - [ ] I have performed a self-review of my code.
-  - [ ] I have commented my code, particularly in hard-to-understand areas.
-  - [ ] I have made corresponding changes to the documentation.
-  - [ ] My changes generate no new warnings or errors.
-  - [ ] I have added tests that prove my fix is effective or that my feature works.
-  - [ ] New and existing unit tests pass locally with my changes.
-  - [ ] Any dependent changes have been merged and published in downstream modules.
+**⚠️ IMPORTANT: This PR will be automatically released to production after merge**
+
+### Author Self-Review
+Before requesting review, confirm:
+
+- [ ] **Code quality**: I have reviewed my own code for logic errors, edge cases, and code smells
+- [ ] **Security**: I have considered security implications of these changes (authentication, authorization, input validation, data exposure)
+- [ ] **Breaking changes**: I have identified and documented any breaking changes
+- [ ] **Documentation**: I have updated relevant documentation (README, API docs, code comments)
+
+### Reviewer Checklist
+
+**Reviewers must verify:**
+
+- [ ] **Business logic**: Changes implement the intended functionality correctly
+- [ ] **Security**: No obvious security issues (focus on: data exposure, access control, input handling)
+- [ ] **Breaking changes**: Any breaking changes are justified and documented
+- [ ] **Code quality**: Code is readable, maintainable, and follows project conventions
+- [ ] **Test coverage**: Changes are adequately tested (new tests added where needed)
+
+**For security-sensitive changes** (authentication, authorization, data access, external integrations):
+- [ ] **Second reviewer**: Security-sensitive change reviewed by second maintainer
+
+---
+
+## Production Deployment Impact
+
+### Breaking Changes
+- [ ] **No breaking changes**
+- [ ] **Breaking changes documented below**
+
+**Breaking change details** (if applicable):
+- What breaks:
+- Migration steps:
+- Backwards compatibility:
+
+### Rollback Plan
+- [ ] **Low risk** - Standard rollback (revert commit)
+- [ ] **High risk** - Rollback plan documented below
+
+**Rollback details** (if high-risk):
+- Rollback approach:
+- Data considerations:
+- Configuration changes:
+
+---
+
+## Additional Context
+
+### Review Focus
+What should reviewers pay special attention to?
+
+1.
+2.
+3.
+
+### Screenshots/Videos (if applicable)
+<!-- Add screenshots or videos to help explain your changes -->
+
+### Additional Notes
+<!-- Any other context helpful for review or production deployment -->

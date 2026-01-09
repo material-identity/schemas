@@ -1,6 +1,6 @@
 # Software Bill of Materials (SBOM)
 
-This directory contains Software Bill of Materials (SBOM) files for each release of this project, generated in compliance with the EU Cyber Resilience Act (CRA) requirements.
+SBOM files for each release of this project are generated in compliance with the EU Cyber Resilience Act (CRA) requirements.
 
 ## What is an SBOM?
 
@@ -26,17 +26,13 @@ We provide SBOMs in two industry-standard formats:
 
 ### For Released Versions
 
-1. **GitHub Releases**: SBOM files are attached to each release as assets
-   - Navigate to [Releases](../../releases)
-   - Download `sbom-spdx.json` or `sbom-cyclonedx.json` from the release assets
-
-2. **Repository**: Version-tagged SBOMs are stored in this directory
-   - Path: `sbom/<version>/`
-   - Contains both SPDX and CycloneDX formats
+**GitHub Releases**: SBOM files are attached to each release as assets
+- Navigate to [Releases](https://github.com/material-identity/schemas/releases)
+- Download `sbom-spdx.json` or `sbom-cyclonedx.json` from the release assets
 
 ### For Pull Requests
 
-SBOM files are generated for each pull request and available as workflow artifacts for review purposes.
+SBOM files are generated for each pull request and available as workflow artifacts (30-day retention) for review purposes.
 
 ## SBOM Contents
 
@@ -56,7 +52,7 @@ SBOMs can be consumed by vulnerability scanners like [Grype](https://github.com/
 
 ```bash
 # Download SBOM from release
-curl -L -o sbom-spdx.json https://github.com/<org>/<repo>/releases/download/<version>/sbom-spdx.json
+curl -L -o sbom-spdx.json https://github.com/material-identity/schemas/releases/download/<version>/sbom-spdx.json
 
 # Scan for vulnerabilities
 grype sbom:sbom-spdx.json
@@ -82,8 +78,7 @@ SBOMs are automatically generated using [Syft](https://github.com/anchore/syft) 
 1. Scans the entire project directory
 2. Catalogs all dependencies (npm, Maven, Python, etc.)
 3. Generates SBOMs in both SPDX and CycloneDX formats
-4. Attaches SBOMs to GitHub releases
-5. Commits version-tagged SBOMs to this directory
+4. Attaches SBOMs to GitHub release assets
 
 ## Manual Generation
 
@@ -111,7 +106,7 @@ These SBOMs are provided to ensure:
 
 ## Questions or Issues?
 
-For questions about SBOM contents, formats, or usage, please [open an issue](../../issues) or contact the security team.
+For questions about SBOM contents, formats, or usage, please [open an issue](https://github.com/material-identity/schemas/issues) or contact the security team.
 
 ## References
 

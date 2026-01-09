@@ -30,3 +30,6 @@ test/fixtures/TKR/*
 test/fixtures/Bluemint/*
 test/fixtures/HKM/*
 
+# SBOM files (stored in release assets, not in repo)
+sbom-*.json
+

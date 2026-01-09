@@ -43,13 +43,6 @@ jobs:
           output-file: sbom-cyclonedx.json
           upload-artifact: false
 
-      - name: Create SBOM directory structure
-        if: github.event_name == 'release'
-        run: |
-          mkdir -p sbom/${{ github.event.release.tag_name }}
-          cp sbom-spdx.json sbom/${{ github.event.release.tag_name }}/
-          cp sbom-cyclonedx.json sbom/${{ github.event.release.tag_name }}/
-
       - name: Upload SBOM artifacts for PR review
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
@@ -59,15 +52,6 @@ jobs:
             sbom-spdx.json
             sbom-cyclonedx.json
           retention-days: 30
-
-      - name: Commit SBOM files to repository
-        if: github.event_name == 'release'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add sbom/${{ github.event.release.tag_name }}/
-          git commit -m "chore: Add SBOM for release ${{ github.event.release.tag_name }}" || echo "No changes to commit"
-          git push origin HEAD:main || echo "Failed to push - may need manual intervention"
 
       - name: Upload SBOM to release assets
         if: github.event_name == 'release'
@@ -93,5 +77,4 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### Release Assets:" >> $GITHUB_STEP_SUMMARY
             echo "SBOM files attached to release \`${{ github.event.release.tag_name }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "Stored in repository: \`sbom/${{ github.event.release.tag_name }}/\`" >> $GITHUB_STEP_SUMMARY
           fi
