@@ -185,22 +185,9 @@ This project uses [Grype](https://github.com/anchore/grype) for automated vulner
 
 ### Software Bill of Materials (SBOM)
 
-In compliance with the EU Cyber Resilience Act, we automatically generate Software Bill of Materials (SBOM) for each release using [Syft](https://github.com/anchore/syft).
+In compliance with the EU Cyber Resilience Act, we automatically generate Software Bill of Materials (SBOM) for each release using [Syft](https://github.com/anchore/syft). SBOMs are available in both SPDX and CycloneDX formats as [release assets](../../releases).
 
-**Accessing SBOMs**:
-- **GitHub Releases**: SBOM files are attached to each [release](../../releases) as assets
-- **Repository**: Version-tagged SBOMs are stored in the [`sbom/`](sbom/) directory
-- **Formats**: Both SPDX (ISO/IEC 5962) and CycloneDX (OWASP) formats are provided
-
-**SBOM Contents**:
-- Complete inventory of all dependencies (direct and transitive)
-- Component metadata (names, versions, licenses, suppliers)
-- Dependency relationships and hierarchy
-- Package checksums for integrity verification
-
-**For more information**, see the [SBOM documentation](sbom/README.md).
-
-**Configuration**: See [`.syft.yaml`](.syft.yaml) for SBOM generation configuration.
+**For detailed information**, see [README_SBOM.md](README_SBOM.md).
 
 ### Manual Security Operations
 
