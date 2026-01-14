@@ -1025,6 +1025,44 @@
       "additionalProperties": false
     },
 
+    "DimensionalTolerances": {
+      "title": "DimensionalTolerances",
+      "description": "Dimensional tolerance specifications per EN 10029 for hot-rolled flat products",
+      "type": "object",
+      "properties": {
+        "Standard": {
+          "type": "string",
+          "description": "Reference standard for tolerances",
+          "examples": ["EN 10029:2010"]
+        },
+        "ThicknessClass": {
+          "type": "string",
+          "enum": ["A", "B", "C", "D"],
+          "description": "A=variable minus, B=fixed -0.3mm, C=fixed -0.0mm, D=symmetric"
+        },
+        "FlatnessClass": {
+          "type": "string",
+          "enum": ["N", "S"],
+          "description": "N=Normal (normaleben), S=Special/eingeschränkt (feineben)"
+        },
+        "SteelType": {
+          "type": "string",
+          "enum": ["L", "H"],
+          "description": "L=Re≤460MPa not Q&T, H=Re>460MPa or quenched/tempered"
+        },
+        "EdgeCondition": {
+          "type": "string",
+          "enum": ["G", "NK"],
+          "description": "G=trimmed (besäumt), NK=untrimmed (unbesäumt)"
+        },
+        "LimitedCamberAndSquareness": {
+          "type": "boolean",
+          "description": "True if limited edge camber (0.25% length) and out-of-squareness (1% width) apply"
+        }
+      },
+      "additionalProperties": false
+    },
+
     "Product": {
       "title": "Product",
       "description": "Complete description of the product being certified",
@@ -1212,6 +1250,10 @@
         "DeliveryCondition": {
           "description": "Material condition at delivery (e.g., +N normalized, +QT quenched and tempered)",
           "$ref": "#/definitions/DeliveryCondition"
+        },
+        "DimensionalTolerances": {
+          "description": "Dimensional tolerance specifications per EN 10029 for hot-rolled flat products",
+          "$ref": "#/definitions/DimensionalTolerances"
         },
         "PackagingAndMarking": {
           "description": "Packaging, bundling, coloring and marking details",
