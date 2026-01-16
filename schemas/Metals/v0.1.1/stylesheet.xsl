@@ -371,6 +371,52 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <xsl:if test="$dmp/Product/DimensionalTolerances">
+                  <xsl:if test="$dmp/Product/DimensionalTolerances/Standard">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Tolerance Standard'" />
+                        <xsl:with-param name="value" select="$dmp/Product/DimensionalTolerances/Standard" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/DimensionalTolerances/ThicknessClass">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Thickness Tolerance'" />
+                        <xsl:with-param name="value" select="concat('Class ', $dmp/Product/DimensionalTolerances/ThicknessClass, ' - ',
+                          if($dmp/Product/DimensionalTolerances/ThicknessClass = 'A') then 'Variable minus'
+                          else if($dmp/Product/DimensionalTolerances/ThicknessClass = 'B') then 'Fixed -0.3mm'
+                          else if($dmp/Product/DimensionalTolerances/ThicknessClass = 'C') then 'Fixed -0.0mm'
+                          else if($dmp/Product/DimensionalTolerances/ThicknessClass = 'D') then 'Symmetric ±'
+                          else '')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/DimensionalTolerances/FlatnessClass">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Flatness Tolerance'" />
+                        <xsl:with-param name="value" select="concat('Class ', $dmp/Product/DimensionalTolerances/FlatnessClass, ' - ',
+                          if($dmp/Product/DimensionalTolerances/FlatnessClass = 'N') then 'Normal'
+                          else if($dmp/Product/DimensionalTolerances/FlatnessClass = 'S') then 'Special (tighter)'
+                          else '')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/DimensionalTolerances/EdgeCondition">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Edge Condition'" />
+                        <xsl:with-param name="value" select="if($dmp/Product/DimensionalTolerances/EdgeCondition = 'G') then 'Trimmed (G)' else if($dmp/Product/DimensionalTolerances/EdgeCondition = 'NK') then 'Untrimmed (NK)' else $dmp/Product/DimensionalTolerances/EdgeCondition" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                </xsl:if>
               </fo:table-body>
             </fo:table>
 
