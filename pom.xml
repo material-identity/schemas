@@ -16,7 +16,7 @@
     <sentry.skip>true</sentry.skip>
     <!-- Security: Override vulnerable transitive dependency versions -->
     <tomcat.version>10.1.45</tomcat.version>
-    <netty.version>4.1.125.Final</netty.version>
+    <netty.version>4.1.129.Final</netty.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <httpclient5.version>5.4.3</httpclient5.version>

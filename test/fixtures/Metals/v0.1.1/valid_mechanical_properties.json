@@ -115,6 +115,9 @@
         "Thickness": 25,
         "Unit": "mm"
       },
+      "DimensionalTolerances": {
+        "FlatnessClass": "N"
+      },
       "BatchId": "H-10988-01",
       "SurfaceCondition": "Hot-rolled",
       "CountryOfOrigin": "DE",
