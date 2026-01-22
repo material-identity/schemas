@@ -317,11 +317,12 @@
                 <xsl:with-param name="title" select="$i18n/Certificate/Inspection" />
               </xsl:call-template>
 
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="50%" />
-                <fo:table-column column-width="50%" />
-                <fo:table-body>
-                  <xsl:for-each select="*[starts-with(local-name(), 'C0') or local-name() = 'C10']">
+              <xsl:if test="*[starts-with(local-name(), 'C0') or local-name() = 'C10']">
+                <fo:table table-layout="fixed" width="100%">
+                  <fo:table-column column-width="50%" />
+                  <fo:table-column column-width="50%" />
+                  <fo:table-body>
+                    <xsl:for-each select="*[starts-with(local-name(), 'C0') or local-name() = 'C10']">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
@@ -330,10 +331,11 @@
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
-                  </xsl:for-each>
-                </fo:table-body>
-              </fo:table>
-              <xsl:if test="$Inspection/SupplementaryInformation">
+                    </xsl:for-each>
+                  </fo:table-body>
+                </fo:table>
+              </xsl:if>
+              <xsl:if test="SupplementaryInformation/*[substring(local-name(), 2) &gt;= '04' and substring(local-name(), 2) &lt;= '09']">
                 <xsl:call-template name="SectionSubTitle">
                   <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
                 </xsl:call-template>
@@ -375,7 +377,7 @@
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
-                <xsl:if test="TensileTest/SupplementaryInformation">
+                <xsl:if test="TensileTest/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '14' and substring(local-name(), 2) &lt;= '29']">
                   <xsl:call-template name="SectionSubTitle">
                     <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
                   </xsl:call-template>
@@ -484,7 +486,7 @@
                   </fo:table-body>
                 </fo:table>
 
-                <xsl:if test="HardnessTest/SupplementaryInformation">
+                <xsl:if test="HardnessTest/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '33' and substring(local-name(), 2) &lt;= '39']">
                   <xsl:call-template name="SectionSubTitle">
                     <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
                   </xsl:call-template>
@@ -607,7 +609,7 @@
                   </fo:table-body>
                 </fo:table>
 
-                <xsl:if test="NotchedBarImpactTest/SupplementaryInformation">
+                <xsl:if test="NotchedBarImpactTest/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '44' and substring(local-name(), 2) &lt;= '49']">
                   <xsl:call-template name="SectionSubTitle">
                     <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
                   </xsl:call-template>
@@ -631,7 +633,7 @@
                 </xsl:if>
               </xsl:if>
 
-              <xsl:if test="OtherMechanicalTests">
+              <xsl:if test="OtherMechanicalTests/*[substring(local-name(), 2) &gt;= '50' and substring(local-name(), 2) &lt;= '69']">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/OtherMechanicalTests" />
                 </xsl:call-template>
@@ -1102,7 +1104,7 @@
                 </xsl:if>
 
                 <!-- Supplementary Information -->
-                <xsl:if test="ChemicalComposition/SupplementaryInformation">
+                <xsl:if test="ChemicalComposition/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '116' and substring(local-name(), 2) &lt;= '120']">
                   <xsl:call-template name="SectionSubTitle">
                     <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
                   </xsl:call-template>
@@ -1152,7 +1154,7 @@
                   </fo:table-body>
                 </fo:table>
               </xsl:if>
-              <xsl:if test="NonDestructiveTests">
+              <xsl:if test="NonDestructiveTests/*[substring(local-name(), 2) &gt;= '02' and substring(local-name(), 2) &lt;= '50']">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/NonDestructiveTests" />
                 </xsl:call-template>
@@ -1189,7 +1191,7 @@
                   </fo:table-body>
                 </fo:table>
               </xsl:if>
-              <xsl:if test="OtherProductTests">
+              <xsl:if test="OtherProductTests/*[substring(local-name(), 2) &gt;= '51' and substring(local-name(), 2) &lt;= '99 ']">
                 <xsl:call-template name="SectionTitleSmall">
                   <xsl:with-param name="title" select="$i18n/Certificate/OtherProductTests" />
                 </xsl:call-template>
@@ -1389,7 +1391,7 @@
 
 
             <!-- Supplementary Information -->
-            <xsl:if test="$Validation/SupplementaryInformation">
+            <xsl:if test="$Validation/SupplementaryInformation/*[substring(local-name(), 2) &gt;= '05' and substring(local-name(), 2) &lt;= '19']">
               <xsl:call-template name="SectionSubTitle">
                 <xsl:with-param name="subtitle" select="$i18n/Certificate/SupplementaryInformation" />
               </xsl:call-template>
