@@ -54,7 +54,7 @@ jobs:
         if: always() # Upload results even if scan fails
         with:
           sarif_file: grype-results.sarif
-          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          ref: ${{ github.event_name == 'pull_request' && format('refs/heads/{0}', github.event.pull_request.head.ref) || github.ref }}
           sha: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Generate JSON vulnerability report
