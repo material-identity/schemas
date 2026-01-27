@@ -318,7 +318,7 @@
           ]
         }
       },
-      "required": [ "Actual"],
+      "required": ["Actual"],
       "additionalProperties": false
     },
 
@@ -402,7 +402,7 @@
           "type": "string"
         }
       },
-      "required": [ "Actual"],
+      "required": ["Actual"],
       "additionalProperties": false
     },
 
@@ -1759,6 +1759,7 @@
             "1/4T",
             "1/2T",
             "3/4T",
+            "1/3R",
             "Center",
             "Edge",
             "Top",

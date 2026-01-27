@@ -1,10 +1,7 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": [
-      "EN",
-      "DE"
-    ],
+    "Languages": ["EN", "DE"],
     "Id": "DMP-METAL-002",
     "Version": "1.0.0",
     "IssueDate": "2025-05-14",
@@ -12,9 +9,7 @@
       "Parties": {
         "Manufacturer": {
           "Name": "ACME Metal Works GmbH",
-          "Street": [
-            "Industrial Park 123"
-          ],
+          "Street": ["Industrial Park 123"],
           "ZipCode": "52066",
           "City": "Aachen",
           "Country": "DE",
@@ -35,9 +30,7 @@
         },
         "Customer": {
           "Name": "Engineering Solutions Ltd.",
-          "Street": [
-            "Tech Park Way 45"
-          ],
+          "Street": ["Tech Park Way 45"],
           "ZipCode": "CF14 5DU",
           "City": "Cardiff",
           "Country": "GB",
@@ -48,10 +41,7 @@
         },
         "Subcustomer": {
           "Name": "American Heavy Industries Inc.",
-          "Street": [
-            "5000 Industrial Blvd",
-            "Building C"
-          ],
+          "Street": ["5000 Industrial Blvd", "Building C"],
           "City": "Detroit",
           "StateProvince": "MI",
           "ZipCode": "48201",
@@ -60,9 +50,7 @@
         },
         "GoodsReceiver": {
           "Name": "Canadian Construction Corp",
-          "Street": [
-            "777 Construction Ave"
-          ],
+          "Street": ["777 Construction Ave"],
           "City": "Toronto",
           "StateProvince": "ON",
           "ZipCode": "M5H 2N2",
@@ -86,9 +74,7 @@
           "Quantity": 2000,
           "QuantityUnit": "kg",
           "InternalOrderId": "SO-12346",
-          "Transport": [
-            "TRK-DE-AC-4579"
-          ]
+          "Transport": ["TRK-DE-AC-4579"]
         }
       }
     },
@@ -262,7 +248,7 @@
         "Method": "EN ISO 6892-1",
         "TestConditions": "Test temperature: 20°C",
         "SpecimenSpecification": {
-          "Location": "1/4T",
+          "Location": "1/3R",
           "Orientation": "L"
         },
         "Unit": "MPa",
@@ -801,10 +787,7 @@
     "Validation": {
       "ValidationStatement": {
         "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
-        "Standards": [
-          "EN 10025-3:2019",
-          "EN 10204:2004"
-        ],
+        "Standards": ["EN 10025-3:2019", "EN 10204:2004"],
         "ComplianceType": "Declaration of Conformity"
       },
       "ValidationDate": "2025-05-14",
