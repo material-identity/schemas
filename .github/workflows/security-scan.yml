@@ -3,7 +3,7 @@ name: Security Vulnerability Scan
 # Set permissions for GitHub Security tab integration
 permissions:
   contents: read
-  security-events: write  # Required for uploading SARIF results
+  security-events: write # Required for uploading SARIF results
   actions: read
 
 on:
@@ -21,7 +21,7 @@ on:
   schedule:
     # Run weekly vulnerability scan every Monday at 9 AM UTC
     - cron: '0 9 * * 1'
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
   vulnerability-scan:
@@ -51,9 +51,11 @@ jobs:
 
       - name: Upload SARIF report to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v4
-        if: always()  # Upload results even if scan fails
+        if: always() # Upload results even if scan fails
         with:
           sarif_file: grype-results.sarif
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          sha: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Generate JSON vulnerability report
         if: always()
