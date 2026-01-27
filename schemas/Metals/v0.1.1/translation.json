@@ -31,7 +31,6 @@
       "OtherMarkings": "Other Markings",
       "Validation": "Validation",
       "DigitalMaterialPassport": "Digital Material Passport",
-      
       "ResultType": "Result Type",
       "Value": "Value",
       "Operator": "Operator",
@@ -48,7 +47,7 @@
       "ParameterUnit": "Parameter Unit",
       "DataPoints": "Data Points",
       "ParameterUnits": "Parameter Units",
-      
+
       "PropertyId": "Property ID",
       "PropertyName": "Property Name",
       "PropertySymbol": "Property Symbol",
@@ -64,6 +63,7 @@
       "1/4T": "1/4 Thickness",
       "1/2T": "1/2 Thickness",
       "3/4T": "3/4 Thickness",
+      "1/3R": "1/3 Radial",
       "Center": "Center",
       "Edge": "Edge",
       "Top": "Top",
@@ -86,7 +86,7 @@
       "Target": "Target",
       "PropertiesStandard": "Properties Standard",
       "Interpretation": "Interpretation",
-      
+
       "Formula": "Formula",
       "HeatNumber": "Heat Number",
       "CastingDate": "Casting Date",
@@ -143,17 +143,17 @@
       "SampleType": "Sample Type",
       "Elements": "Elements",
       "AnalysisStandard": "Analysis Standard",
-      
+
       "Name": "Name",
       "Role": "Role",
       "Department": "Department",
       "Email": "Email",
       "Phone": "Phone",
-      
+
       "CageCode": "CAGE Code",
       "VAT": "VAT",
       "DUNS": "DUNS",
-      
+
       "Street": "Street",
       "ZipCode": "ZIP Code",
       "City": "City",
@@ -161,13 +161,13 @@
       "Logo": "Logo",
       "Identifiers": "Identifiers",
       "Contacts": "Contacts",
-      
+
       "Manufacturer": "Manufacturer",
       "Customer": "Customer",
       "Subcustomer": "Subcustomer",
       "GoodsReceiver": "Goods Receiver",
       "CertificateReceiver": "Certificate Receiver",
-      
+
       "Id": "ID",
       "Position": "Position",
       "Date": "Date",
@@ -176,11 +176,11 @@
       "CustomerProductId": "Customer Product ID",
       "CustomerProductName": "Customer Product Name",
       "GoodsReceiptId": "Goods Receipt ID",
-      
+
       "InternalOrderId": "Internal Order ID",
       "InternalOrderPosition": "Internal Order Position",
       "Transport": "Transport",
-      
+
       "Designation": "Designation",
       "Standard": "Standard",
       "Year": "Year",
@@ -190,7 +190,7 @@
       "Category": "Category",
       "Name": "Name",
       "Number": "Number",
-      
+
       "Form": "Form",
       "Length": "Length",
       "Width": "Width",
@@ -205,7 +205,7 @@
       "WebThickness": "Web Thickness",
       "Area": "Area",
       "OtherDimensions": "Other Dimensions",
-      
+
       "ProductNorms": "Product Norms",
       "MaterialNorms": "Material Norms",
       "MaterialDesignations": "Material Designations",
@@ -287,7 +287,7 @@
       "Weight": "Weight",
       "WeightUnit": "Weight Unit",
       "SupplementaryStandards": "Supplementary Standards",
-      
+
       "IndividualStatement": "Individual Statement",
       "StatementId": "Statement ID",
       "StatementText": "Statement Text",
@@ -298,30 +298,30 @@
       "Statement": "Statement",
       "Standards": "Standards",
       "ComplianceType": "Compliance Type",
-      
+
       "Title": "Title",
       "Signature": "Signature",
-      
+
       "CEImage": "CE Image",
       "NotifiedBodyNumber": "Notified Body Number",
       "DoCYear": "DoC Year",
       "DoCNumber": "DoC Number",
       "Directives": "Directives",
       "HarmonizedStandards": "Harmonized Standards",
-      
+
       "MarkingType": "Marking Type",
       "MarkingImage": "Marking Image",
       "CertificateNumber": "Certificate Number",
       "IssuingBody": "Issuing Body",
       "ExpiryDate": "Expiry Date",
-      
+
       "ValidationDate": "Validation Date",
       "Validators": "Validators",
       "Disclaimer": "Disclaimer",
       "ValidationPlace": "Validation Place",
       "CertificateType": "Certificate Type",
       "Type": "Type",
-      
+
       "Version": "Version",
       "IssueDate": "Issue Date",
       "ExpirationDate": "Expiration Date",
@@ -330,17 +330,17 @@
       "SupplementaryTests": "Supplementary Tests",
       "Languages": "Languages",
       "RefSchemaUrl": "Reference Schema URL",
-      
+
       "DeclarationOfConformity": "Declaration of Conformity",
       "CertificateOfCompliance": "Certificate of Compliance",
       "StatementOfCompliance": "Statement of Compliance",
       "TypeApproval": "Type Approval",
-      
+
       "InSpecification": "In Specification",
       "OutOfSpecification": "Out of Specification",
       "ConditionallyAcceptable": "Conditionally Acceptable",
       "NotEvaluated": "Not Evaluated",
-      
+
       "Plate": "Plate",
       "Sheet": "Sheet",
       "Coil": "Coil",
@@ -360,7 +360,7 @@
       "Forging": "Forging",
       "Casting": "Casting",
       "Other": "Other",
-      
+
       "CommercialTransaction": "Commercial Transaction",
       "ProductDescription": "Product Description",
       "Inspection": "Inspection",
@@ -407,7 +407,7 @@
       "OtherMarkings": "Andere Kennzeichnungen",
       "Validation": "Validierung",
       "DigitalMaterialPassport": "Digitaler Materialpass",
-      
+
       "ResultType": "Ergebnistyp",
       "Value": "Wert",
       "Operator": "Operator",
@@ -424,7 +424,7 @@
       "ParameterUnit": "Parametereinheit",
       "DataPoints": "Datenpunkte",
       "ParameterUnits": "Parametereinheiten",
-      
+
       "PropertyId": "Eigenschafts-ID",
       "PropertyName": "Eigenschaftsname",
       "PropertySymbol": "Eigenschaftssymbol",
@@ -440,6 +440,7 @@
       "1/4T": "1/4 Dicke",
       "1/2T": "1/2 Dicke",
       "3/4T": "3/4 Dicke",
+      "1/3R": "1/3 Radial",
       "Center": "Mitte",
       "Edge": "Kante",
       "Top": "Oben",
@@ -462,7 +463,7 @@
       "Target": "Soll-Wert",
       "PropertiesStandard": "Eigenschaftsstandard",
       "Interpretation": "Interpretation",
-      
+
       "Formula": "Formel",
       "HeatNumber": "Schmelzennummer",
       "CastingDate": "Gießdatum",
@@ -519,17 +520,17 @@
       "SampleType": "Probentyp",
       "Elements": "Elemente",
       "AnalysisStandard": "Analysestandard",
-      
+
       "Name": "Name",
       "Role": "Rolle",
       "Department": "Abteilung",
       "Email": "E-Mail",
       "Phone": "Telefon",
-      
+
       "CageCode": "CAGE-Code",
       "VAT": "USt-IdNr.",
       "DUNS": "DUNS",
-      
+
       "Street": "Straße",
       "ZipCode": "PLZ",
       "City": "Stadt",
@@ -537,13 +538,13 @@
       "Logo": "Logo",
       "Identifiers": "Kennungen",
       "Contacts": "Kontakte",
-      
+
       "Manufacturer": "Hersteller",
       "Customer": "Kunde",
       "Subcustomer": "Unterkunde",
       "GoodsReceiver": "Warenempfänger",
       "CertificateReceiver": "Zertifikatsempfänger",
-      
+
       "Id": "ID",
       "Position": "Position",
       "Date": "Datum",
@@ -552,11 +553,11 @@
       "CustomerProductId": "Kunden-Produkt-ID",
       "CustomerProductName": "Kunden-Produktname",
       "GoodsReceiptId": "Wareneingags-ID",
-      
+
       "InternalOrderId": "Interne Bestellnummer",
       "InternalOrderPosition": "Interne Bestellposition",
       "Transport": "Transport",
-      
+
       "Designation": "Bezeichnung",
       "Standard": "Norm",
       "Year": "Jahr",
@@ -566,7 +567,7 @@
       "Category": "Kategorie",
       "Name": "Name",
       "Number": "Nummer",
-      
+
       "Form": "Form",
       "Length": "Länge",
       "Width": "Breite",
@@ -581,7 +582,7 @@
       "WebThickness": "Stegdicke",
       "Area": "Fläche",
       "OtherDimensions": "Andere Abmessungen",
-      
+
       "ProductNorms": "Produktnormen",
       "MaterialNorms": "Materialnormen",
       "MaterialDesignations": "Materialbezeichnungen",
@@ -663,7 +664,7 @@
       "Weight": "Gewicht",
       "WeightUnit": "Gewichtseinheit",
       "SupplementaryStandards": "Zusätzliche Standards",
-      
+
       "IndividualStatement": "Individuelle Erklärung",
       "StatementId": "Erklärungskennung",
       "StatementText": "Erklärungstext",
@@ -674,24 +675,24 @@
       "Statement": "Erklärung",
       "Standards": "Standards",
       "ComplianceType": "Konformitätstyp",
-      
+
       "Title": "Titel",
       "Signature": "Unterschrift",
-      
+
       "CEImage": "CE-Bild",
       "NotifiedBodyNumber": "Nummer der benannten Stelle",
       "DoCYear": "Jahr der Konformitätserklärung",
       "DoCNumber": "Nummer der Konformitätserklärung",
       "Directives": "Richtlinien",
       "HarmonizedStandards": "Harmonisierte Normen",
-      
+
       "MarkingType": "Kennzeichnungstyp",
       "MarkingImage": "Kennzeichnungsbild",
       "CertificateNumber": "Zertifikatsnummer",
       "IssuingBody": "Ausstellende Stelle",
       "IssueDate": "Ausstellungsdatum",
       "ExpiryDate": "Ablaufdatum",
-      
+
       "ValidationStatement": "Validierungserklärung",
       "ValidationDate": "Validierungsdatum",
       "Validators": "Validierer",
@@ -699,7 +700,7 @@
       "ValidationPlace": "Validierungsort",
       "CertificateType": "Zertifikatstyp",
       "Type": "Typ",
-      
+
       "Version": "Version",
       "ExpirationDate": "Ablaufdatum",
       "MechanicalProperties": "Mechanische Eigenschaften",
@@ -707,17 +708,17 @@
       "SupplementaryTests": "Ergänzende Tests",
       "Languages": "Sprachen",
       "RefSchemaUrl": "Referenz-Schema-URL",
-      
+
       "DeclarationOfConformity": "Konformitätserklärung",
       "CertificateOfCompliance": "Konformitätsbescheinigung",
       "StatementOfCompliance": "Konformitätsaussage",
       "TypeApproval": "Typengenehmigung",
-      
+
       "InSpecification": "In Spezifikation",
       "OutOfSpecification": "Außerhalb der Spezifikation",
       "ConditionallyAcceptable": "Bedingt akzeptabel",
       "NotEvaluated": "Nicht bewertet",
-      
+
       "Plate": "Platte",
       "Sheet": "Blech",
       "Coil": "Coil",
@@ -737,7 +738,7 @@
       "Forging": "Schmiedestück",
       "Casting": "Gussstück",
       "Other": "Sonstiges",
-      
+
       "CommercialTransaction": "Angaben zum Geschäftsvorgang",
       "ProductDescription": "Beschreibung des Erzeugnisses",
       "Inspection": "Prüfung",
