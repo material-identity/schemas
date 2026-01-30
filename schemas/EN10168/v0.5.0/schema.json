@@ -163,8 +163,7 @@
           "properties": {
             "Value": {
               "type": "string",
-              "description": "The measured value as a string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+              "description": "The measured value as a string"
             },
             "Operator": {
               "type": "string",
@@ -181,8 +180,7 @@
           "properties": {
             "Value": {
               "type": "string",
-              "description": "The measured value as a string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+              "description": "The measured value as a string"
             },
             "Operator": {
               "type": "string",
@@ -199,8 +197,7 @@
           "properties": {
             "Value": {
               "type": "string",
-              "description": "The measured value as a string",
-              "pattern": "^(?:[0-9]{1,2}(\\.\\d{1,5})?|100)$"
+              "description": "The measured value as a string"
             },
             "Operator": {
               "type": "string",
