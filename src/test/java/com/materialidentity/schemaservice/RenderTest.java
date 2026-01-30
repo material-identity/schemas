@@ -59,7 +59,8 @@ class RenderTest {
 	void renderEndpointTest(Path jsonFilePath, Path pdfFilePath) throws Exception {
 		String jsonContent = Files.readString(jsonFilePath);
 		byte[] expectedPdfContent = Files.readAllBytes(pdfFilePath);
-		String fileName = jsonFilePath.getFileName().toString();
+		Path basePath = Paths.get("src", "test", "resources", "schemas");
+		String fileName = basePath.relativize(jsonFilePath).toString();
 
 		webClient
 				.post().uri(uriBuilder -> uriBuilder
@@ -229,8 +230,6 @@ class RenderTest {
 		try (PDDocument expectedDoc = Loader.loadPDF(expectedPdfContent);
 				PDDocument actualDoc = Loader.loadPDF(actualPdfContent)) {
 			PDFTextStripper stripper = new PDFTextStripper();
-			stripper.setStartPage(1);
-			stripper.setEndPage(1);
 			String expectedText = stripper.getText(expectedDoc);
 			String actualText = stripper.getText(actualDoc);
 
