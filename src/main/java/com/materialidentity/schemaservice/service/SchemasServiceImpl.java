@@ -230,6 +230,11 @@ public class SchemasServiceImpl implements SchemasService {
     private String deriveClasspathRootUri(Resource xsltResource, String xsltPath) {
         try {
             String resourceUrl = xsltResource.getURL().toExternalForm();
+            // For jar: URIs (e.g., on Heroku), Saxon can't resolve json-doc()
+            // against jar: protocol. Fall back to CWD where schemas/ exists.
+            if (resourceUrl.startsWith("jar:")) {
+                return java.nio.file.Paths.get("").toUri().toString();
+            }
             String normalizedPath = xsltPath.replace(java.io.File.separator, "/");
             int index = resourceUrl.lastIndexOf(normalizedPath);
             if (index >= 0) {
