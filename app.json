@@ -23,8 +23,9 @@
     "SCHEMAS_PRIVATE_AWS_SECRET_ACCESS_KEY": {
       "required": true
     },
-    "SCHEMAS_PRIVATE_AWS_REGION": {},
+    "SCHEMAS_PRIVATE_AWS_REGION": {
       "required": true
+    }
   },
   "stack": "heroku-24",
   "buildpacks": [

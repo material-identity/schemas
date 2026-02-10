@@ -202,8 +202,11 @@ public class SchemasServiceImpl implements SchemasService {
         String xsltSource = new String(
                 xsltResource.getInputStream().readAllBytes());
 
+        // Derive classpath root URI so json-doc() can resolve relative paths
+        String baseUri = deriveClasspathRootUri(xsltResource, xsltPath);
+
         PDFBuilder pdfBuilder = new PDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
+                .withXsltTransformer(new XsltTransformer(xsltSource, certificate, baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(
                         new AttachmentManager(certificateJson,
@@ -222,6 +225,25 @@ public class SchemasServiceImpl implements SchemasService {
                                 SchemaControllerConstants.PDF_RENDERED_OUTPUT_FILE_NAME))
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
+    }
+
+    private String deriveClasspathRootUri(Resource xsltResource, String xsltPath) {
+        try {
+            String resourceUrl = xsltResource.getURL().toExternalForm();
+            // For jar: URIs (e.g., on Heroku), Saxon can't resolve json-doc()
+            // against jar: protocol. Fall back to CWD where schemas/ exists.
+            if (resourceUrl.startsWith("jar:")) {
+                return java.nio.file.Paths.get("").toUri().toString();
+            }
+            String normalizedPath = xsltPath.replace(java.io.File.separator, "/");
+            int index = resourceUrl.lastIndexOf(normalizedPath);
+            if (index >= 0) {
+                return resourceUrl.substring(0, index);
+            }
+        } catch (IOException e) {
+            logger.warn("Could not derive classpath root URI for XSLT transformation", e);
+        }
+        return null;
     }
 
     public void validateSchemaTypeAndVersion(String schemaType, String version) {

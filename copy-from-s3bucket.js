@@ -40,7 +40,7 @@ async function listFiles() {
 
   } catch (error) {
     console.error('🚨 Error listing files:', error.message);
-    return [];
+    process.exit(1);
   }
 }
 
@@ -83,12 +83,13 @@ async function downloadFile(fullFileName) {
     console.log(`✅ Successfully downloaded: ${localFilePath}`);
   } catch (error) {
     console.error(`🚨 Error downloading ${fullFileName}:`, error.message);
+    process.exit(1);
   }
 }
 
 async function main() {
   if (!SCHEMAS_PRIVATE_S3_BUCKET_NAME) {
-    console.error('❌ SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping download.');
+    console.warn('⚠️ SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping private schemas download.');
     return;
   }
 
