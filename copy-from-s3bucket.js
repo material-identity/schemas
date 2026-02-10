@@ -89,8 +89,8 @@ async function downloadFile(fullFileName) {
 
 async function main() {
   if (!SCHEMAS_PRIVATE_S3_BUCKET_NAME) {
-    console.error('❌ SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Build cannot continue.');
-    process.exit(1);
+    console.warn('⚠️ SCHEMAS_PRIVATE_S3_BUCKET_NAME is not defined. Skipping private schemas download.');
+    return;
   }
 
   const files = await listFiles();
