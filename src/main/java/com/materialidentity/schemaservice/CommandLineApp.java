@@ -163,7 +163,8 @@ public class CommandLineApp {
                 .toString();
 
         String xsltSource;
-        
+        String baseUri = null;
+
         if (xsltPath != null && !xsltPath.isEmpty()) {
             // Load XSLT from provided file path
             Path customXsltPath = Paths.get(xsltPath);
@@ -172,6 +173,7 @@ public class CommandLineApp {
             }
             logger.info("Loading custom XSLT from: {}", xsltPath);
             xsltSource = Files.readString(customXsltPath);
+            baseUri = Paths.get("").toUri().toString();
         } else {
             // Load default XSLT from classpath
             String defaultXsltPath = Paths
@@ -179,11 +181,12 @@ public class CommandLineApp {
                     .toString();
             org.springframework.core.io.Resource xsltResource = new org.springframework.core.io.ClassPathResource(defaultXsltPath);
             xsltSource = new String(Files.readAllBytes(Paths.get(xsltResource.getURI())));
+            baseUri = Paths.get("").toUri().toString();
         }
 
         // Build PDF using the command-line builder pattern (with font loading fixes)
         CommandLinePDFBuilder pdfBuilder = new CommandLinePDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, certificate))
+                .withXsltTransformer(new XsltTransformer(xsltSource, certificate, baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(new AttachmentManager(jsonContent, 
                                                      Paths.get(outputFile).getFileName().toString().replace(".pdf", ""), 

@@ -27,10 +27,16 @@ public class XsltTransformer {
     private final String xsltSource;
     @Getter
     private final JsonNode source;
+    private final String baseUri;
 
     public XsltTransformer(String xsltSource, JsonNode source) {
+        this(xsltSource, source, null);
+    }
+
+    public XsltTransformer(String xsltSource, JsonNode source, String baseUri) {
         this.xsltSource = xsltSource;
         this.source = source;
+        this.baseUri = baseUri;
     }
 
     public String transform() throws TransformerException, IOException {
@@ -53,7 +59,9 @@ public class XsltTransformer {
             throw new TransformerException("Failed to parse XML securely", e);
         }
 
-        Source xsltInput = new StreamSource(new StringReader(xsltSource));
+        Source xsltInput = (baseUri != null)
+                ? new StreamSource(new StringReader(xsltSource), baseUri)
+                : new StreamSource(new StringReader(xsltSource));
         StringWriter outputWriter = new StringWriter();
 
         TransformerFactory factory = new TransformerFactoryImpl();
