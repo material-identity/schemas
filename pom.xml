@@ -12,54 +12,25 @@
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jackson.version>2.18.6</jackson.version>
     <sentry.skip>true</sentry.skip>
     <!-- Security: Override vulnerable transitive dependency versions -->
-    <tomcat.version>10.1.45</tomcat.version>
-    <netty.version>4.1.129.Final</netty.version>
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
-    <httpclient5.version>5.4.3</httpclient5.version>
-    <json-smart.version>2.5.2</json-smart.version>
-    <spring-framework.version>6.2.11</spring-framework.version>
-    <reactor-netty.version>1.2.8</reactor-netty.version>
   </properties>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.5</version>
+    <version>3.5.13</version>
   </parent>
 
   <dependencyManagement>
     <dependencies>
-      <!-- Override vulnerable transitive dependencies -->
+      <!-- Security: Override vulnerable transitive dependency versions -->
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>net.minidev</groupId>
-        <artifactId>json-smart</artifactId>
-        <version>${json-smart.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>${spring-framework.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.projectreactor.netty</groupId>
-        <artifactId>reactor-netty-http</artifactId>
-        <version>${reactor-netty.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -68,22 +39,18 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-xml</artifactId>
-      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
