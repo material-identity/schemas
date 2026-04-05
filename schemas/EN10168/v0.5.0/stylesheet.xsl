@@ -13,11 +13,20 @@
         </fo:simple-page-master>
       </fo:layout-master-set>
       <fo:page-sequence master-reference="simple" id="last-page">
-        <!-- Page number -->
+        <!-- Footer: issuer, certificate number (left) and page number (right) -->
         <fo:static-content flow-name="xsl-region-after">
-          <fo:block font-size="8pt" text-align="center" margin-right="1cm" font-family="NotoSans">
-            <fo:page-number />
- /            <fo:page-number-citation-last ref-id="last-page" />
+          <fo:block font-size="8pt" font-family="NotoSans" margin-left="0.25cm" margin-right="0.25cm" text-align-last="justify">
+            <fo:inline>
+              <xsl:value-of select="Root/Certificate/CommercialTransaction/A01/Name" />
+              <xsl:text>  |  </xsl:text>
+              <xsl:value-of select="Root/Translations/Certificate/A03" />
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="Root/Certificate/CommercialTransaction/A03" />
+            </fo:inline>
+            <fo:leader leader-pattern="space" />
+            <fo:inline>
+              <fo:page-number /> / <fo:page-number-citation-last ref-id="last-page" />
+            </fo:inline>
           </fo:block>
         </fo:static-content>
         <!-- Body -->
