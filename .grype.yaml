@@ -27,15 +27,7 @@ match:
 
 # Ignore rules for known false positives or accepted risks
 # Add entries here as needed during development
-ignore:
-  # Temporary: Ignore Go stdlib vulnerabilities in development tools (Syft/Grype)
-  # These are NOT production dependencies - they exist in the scanning tools themselves
-  # TODO: Remove once Anchore rebuilds Syft/Grype with Go 1.25.5+ (tracked in issue)
-  - package:
-      name: stdlib
-      type: go-module
-    reason: "Development tool vulnerabilities (Syft/Grype binaries) - not production dependencies. Will be resolved when Anchore updates their tools to Go 1.25.5+"
-    expires: 2025-03-31  # Re-evaluate quarterly
+ignore: []
 
 # Registry configuration (if needed for private registries)
 # registry:
