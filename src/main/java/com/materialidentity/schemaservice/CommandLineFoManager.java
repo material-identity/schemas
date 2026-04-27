@@ -96,7 +96,11 @@ public class CommandLineFoManager {
             Source src = new StreamSource(new StringReader(xslFoInput));
             Result res = new SAXResult(fop.getDefaultHandler());
 
-            transformer.transform(src, res);
+            try {
+                transformer.transform(src, res);
+            } catch (RuntimeException e) {
+                throw new IOException(FoManager.getPdfGenerationErrorMessage(e), e);
+            }
 
             return outStream.toByteArray();
         }

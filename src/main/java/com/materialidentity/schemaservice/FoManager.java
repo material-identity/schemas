@@ -61,9 +61,27 @@ public class FoManager {
             Source src = new StreamSource(new StringReader(xslFoInput));
             Result res = new SAXResult(fop.getDefaultHandler());
 
-            transformer.transform(src, res);
+            try {
+                transformer.transform(src, res);
+            } catch (RuntimeException e) {
+                throw new IOException(getPdfGenerationErrorMessage(e), e);
+            }
 
             return outStream.toByteArray();
         }
+    }
+
+    static String getPdfGenerationErrorMessage(RuntimeException e) {
+        for (Throwable t = e; t != null; t = t.getCause()) {
+            if (t.getStackTrace().length > 0) {
+                String className = t.getStackTrace()[0].getClassName();
+                if (className.contains("PNGImage") || className.contains("PNGImageDecoder")) {
+                    return "An embedded image contains a malformed or truncated PNG. "
+                            + "Please check that all base64-encoded images in the certificate are valid PNG files.";
+                }
+            }
+        }
+        return "PDF generation failed due to invalid certificate data. "
+                + "Please verify all embedded resources are valid.";
     }
 }
