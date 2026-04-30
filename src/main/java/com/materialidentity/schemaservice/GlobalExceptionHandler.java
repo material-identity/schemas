@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         Sentry.captureException(e);
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         log.error("I/O error occurred", e);
-        apiError.setMessage("An I/O error occurred. Please try again.");
+        apiError.setMessage(e.getMessage() != null ? e.getMessage() : "An I/O error occurred. Please try again.");
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
@@ -79,6 +79,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         log.error("IllegalArgumentException occurred", e);
         apiError.setMessage(e.getMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    protected ResponseEntity<Object> handleRuntimeException(RuntimeException e) {
+        Sentry.captureException(e);
+        ApiError apiError = new ApiError(HttpStatus.UNPROCESSABLE_ENTITY);
+        log.error("Unhandled runtime exception", e);
+        apiError.setMessage(
+                "The request could not be processed. Please verify the certificate data is valid and try again.");
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

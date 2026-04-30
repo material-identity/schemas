@@ -225,6 +225,31 @@ class RenderTest {
 				.jsonPath("$.message").isEqualTo("Certificate type 'invalid' is not supported.");
 	}
 
+	@Test
+	void CoA_renderEndpointTest_MalformedEmbeddedPdf() throws Exception {
+		Path fixturesDirectory = Paths.get("test", "fixtures");
+		String fixturesPath = fixturesDirectory.toFile().getAbsolutePath();
+		String fileName = "malformed_embedded_pdf.json";
+
+		String jsonContent = new String(
+				Files.readAllBytes(Paths.get(fixturesPath + "/CoA/v1.1.0/" + fileName)));
+
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("attachJson", true)
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").value(message -> {
+					String msg = (String) message;
+					assertTrue(msg.contains("position 1"), "Should mention position: " + msg);
+					assertTrue(msg.contains("corrupt or not a valid PDF"), "Should mention corrupt PDF: " + msg);
+				});
+	}
+
 	private void assertPdfContentEquals(byte[] expectedPdfContent, byte[] actualPdfContent,
 			String fileName) throws Exception {
 		try (PDDocument expectedDoc = Loader.loadPDF(expectedPdfContent);

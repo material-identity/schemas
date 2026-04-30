@@ -24,7 +24,8 @@ describe('json2pdf.js command-line tool', () => {
       'test_certificatePath.pdf',
       'test_chinese.pdf',
       'test_custom_xslt.pdf',
-      'test_invalid_xslt.pdf'
+      'test_invalid_xslt.pdf',
+      'test_malformed_logo.pdf'
     ];
     testFiles.forEach(file => {
       const filePath = path.join(tmpDir, file);
@@ -224,6 +225,32 @@ describe('json2pdf.js command-line tool', () => {
       const errorMessage = error.stderr ? error.stderr.toString() : error.stdout.toString();
       expect(errorMessage).toContain('Error: XSLT file not found');
     }
+  });
+
+  test('should fail gracefully with malformed PNG logo (truncated image)', () => {
+    const inputFile = path.join(fixturesDir, 'EN10168/v0.5.0/malformed_logo.json');
+    const outputFile = path.join(tmpDir, 'test_malformed_logo.pdf');
+
+    if (fs.existsSync(outputFile)) {
+      fs.unlinkSync(outputFile);
+    }
+
+    expect(() => {
+      execSync(`node "${json2pdfScript}" "${inputFile}" "${outputFile}" --skip-validation`, { encoding: 'utf8', stdio: 'pipe' });
+    }).toThrow();
+
+    try {
+      execSync(`node "${json2pdfScript}" "${inputFile}" "${outputFile}" --skip-validation`, { encoding: 'utf8', stdio: 'pipe' });
+    } catch (error) {
+      const errorMessage = error.stderr ? error.stderr.toString() : error.stdout.toString();
+      // Should mention malformed/truncated PNG specifically
+      expect(errorMessage).toContain('malformed or truncated PNG');
+      // Should NOT leak internal Java class names or stack traces
+      expect(errorMessage).not.toContain('NullPointerException');
+    }
+
+    // PDF should not be created
+    expect(fs.existsSync(outputFile)).toBe(false);
   });
 
   test('should check for Maven build dependencies', () => {
