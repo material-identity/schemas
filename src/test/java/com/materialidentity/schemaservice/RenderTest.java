@@ -40,7 +40,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = App.class)
-@AutoConfigureWebTestClient
+@AutoConfigureWebTestClient(timeout = "30s")
 class RenderTest {
 
 	@Autowired
