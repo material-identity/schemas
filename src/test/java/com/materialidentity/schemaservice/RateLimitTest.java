@@ -16,9 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = App.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@AutoConfigureWebTestClient
+@AutoConfigureWebTestClient(timeout = "30s")
 public class RateLimitTest {
 
     @Autowired

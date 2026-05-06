@@ -17,7 +17,7 @@
     "prettier": "^3.3.1"
   },
   "overrides": {
-    "fast-xml-parser": "^5.7.0",
+    "fast-xml-parser": "~5.6.0",
     "follow-redirects": "^1.16.0"
   },
   "scripts": {
