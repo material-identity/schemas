@@ -1,0 +1,708 @@
+{
+  "DigitalMaterialPassport": {
+    "ChemicalAnalysis": {
+      "CastingMethod": "IngotCasting",
+      "Elements": [
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.17
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.22
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.1
+          },
+          "PropertySymbol": "C",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.28
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.55
+          },
+          "PropertySymbol": "Si",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 1.38
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 1.65
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 1.1
+          },
+          "PropertySymbol": "Mn",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.014
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.03
+          },
+          "PropertySymbol": "P",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.022
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.03
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          },
+          "PropertySymbol": "S",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.18
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.35
+          },
+          "PropertySymbol": "Cr",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.14
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.35
+          },
+          "PropertySymbol": "Ni",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.05
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.1
+          },
+          "PropertySymbol": "Mo",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.22
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.3
+          },
+          "PropertySymbol": "Cu",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.0004
+          },
+          "PropertySymbol": "B",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.028
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.06
+          },
+          "Minimum": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          },
+          "PropertySymbol": "Al",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.012
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.025
+          },
+          "PropertySymbol": "V",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.006
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          },
+          "PropertySymbol": "Sn",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.004
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.006
+          },
+          "PropertySymbol": "Ti",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.0012
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.003
+          },
+          "PropertySymbol": "Sb",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 2.1
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 3.0
+          },
+          "PropertySymbol": "Ti",
+          "Unit": "ppm"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.38
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.5
+          },
+          "PropertySymbol": "Sb",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.37
+          },
+          "Formula": "Cr+Ni+Mo",
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.52
+          },
+          "PropertySymbol": "F1",
+          "Unit": "%"
+        }
+      ],
+      "HeatNumber": "H-2025-7832",
+      "MeltingProcess": "EAF+LF+VD"
+    },
+    "HeatTreatment": {
+      "FurnaceId": "FURNACE-07",
+      "HeatTreatmentLot": "HT-LOT-2025-0315-B",
+      "Process": "Normalizing",
+      "ProcessDate": "2025-03-15",
+      "Stages": [
+        {
+          "AtmosphereType": "Air",
+          "HeatingRate": 75,
+          "StageType": "Austenitizing",
+          "Temperature": 910,
+          "TemperatureTolerance": "+/-10C",
+          "TemperatureUnit": "C"
+        }
+      ]
+    },
+    "Id": "DMP-TEST-MULTIROW-001",
+    "IssueDate": "2025-04-10",
+    "Languages": [
+      "EN"
+    ],
+    "MechanicalProperties": [
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 548
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 630
+        },
+        "Method": "EN ISO 6892-1/B1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 440
+        },
+        "PropertyName": "Tensile Strength",
+        "PropertySymbol": "Rm",
+        "SpecimenSpecification": {
+          "Identifier": "TS-001",
+          "Location": "1/2T",
+          "Orientation": "L"
+        },
+        "TestConditions": "in delivery condition",
+        "Unit": "N/mm\u00b2"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 372
+        },
+        "Method": "EN ISO 6892-1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 320
+        },
+        "PropertyName": "Yield Strength",
+        "PropertySymbol": "Re",
+        "SpecimenSpecification": {
+          "Identifier": "YS-001",
+          "Location": "1/2T",
+          "Orientation": "L"
+        },
+        "TestConditions": "in delivery condition",
+        "Unit": "N/mm\u00b2"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 26
+        },
+        "Method": "EN ISO 6892-1/B1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 17
+        },
+        "PropertyName": "Elongation",
+        "PropertySymbol": "A",
+        "SpecimenSpecification": {
+          "Identifier": "EL-L-001",
+          "Location": "1/2T",
+          "Orientation": "L"
+        },
+        "TestConditions": "in delivery condition",
+        "Unit": "%"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 20
+        },
+        "Method": "EN ISO 6892-1/B1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 14
+        },
+        "PropertyName": "Elongation",
+        "PropertySymbol": "A",
+        "SpecimenSpecification": {
+          "Identifier": "EL-T-001",
+          "Location": "1/2T",
+          "Orientation": "T"
+        },
+        "TestConditions": "in delivery condition",
+        "Unit": "%"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 48
+        },
+        "Method": "EN ISO 6892-1",
+        "PropertyName": "Reduction of area",
+        "PropertySymbol": "Z",
+        "SpecimenSpecification": {
+          "Identifier": "RA-001",
+          "Location": "1/2T",
+          "Orientation": "L"
+        },
+        "TestConditions": "in delivery condition",
+        "Unit": "%"
+      },
+      {
+        "Actual": {
+          "ResultType": "multiValue",
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 34.33
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 22
+            }
+          },
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 36
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 30
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 37
+            }
+          ]
+        },
+        "Method": "EN ISO 148-1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 22
+        },
+        "PropertyName": "Impact test ISO-V",
+        "SpecimenSpecification": {
+          "Identifier": "IT-T-001",
+          "Location": "1/2T",
+          "Orientation": "T"
+        },
+        "TestConditions": "-20\u00b0C, in delivery condition",
+        "Unit": "J"
+      },
+      {
+        "Actual": {
+          "ResultType": "multiValue",
+          "Statistics": {
+            "Mean": {
+              "ResultType": "numeric",
+              "Value": 61.67
+            },
+            "Minimum": {
+              "ResultType": "numeric",
+              "Value": 38
+            }
+          },
+          "Values": [
+            {
+              "ResultType": "numeric",
+              "Value": 62
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 65
+            },
+            {
+              "ResultType": "numeric",
+              "Value": 58
+            }
+          ]
+        },
+        "Method": "EN ISO 148-1",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 38
+        },
+        "PropertyName": "Impact test ISO-V",
+        "SpecimenSpecification": {
+          "Identifier": "IT-L-001",
+          "Location": "1/2T",
+          "Orientation": "L"
+        },
+        "TestConditions": "-20\u00b0C, in delivery condition",
+        "Unit": "J"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 162
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 180
+        },
+        "PropertyName": "Surface hardness",
+        "Unit": "HB"
+      }
+    ],
+    "PhysicalProperties": [
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 6
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 9
+        },
+        "Method": "ASTM E112",
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 4
+        },
+        "PropertyName": "Grain size"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 20
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 35
+        },
+        "Method": "DIN 50602",
+        "PropertyName": "Purity K4(ox)"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 25
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 35
+        },
+        "Method": "DIN 50602",
+        "PropertyName": "Purity K4(s)"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 1.2
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 2.0
+        },
+        "PropertyName": "Straightness",
+        "Unit": "mm/m"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 3.8
+        },
+        "Minimum": {
+          "ResultType": "numeric",
+          "Value": 3.0
+        },
+        "PropertyName": "Reduction ratio"
+      },
+      {
+        "Actual": {
+          "ResultType": "numeric",
+          "Value": 5
+        },
+        "Maximum": {
+          "ResultType": "numeric",
+          "Value": 10
+        },
+        "PropertyName": "Residual magnetism",
+        "Unit": "A/cm"
+      },
+      {
+        "Actual": {
+          "ResultType": "boolean",
+          "Value": true
+        },
+        "PropertyName": "fully formed structure, no residue of dendritic cast structure"
+      }
+    ],
+    "Product": {
+      "BatchId": "BATCH-2025-03-7832",
+      "DeliveryCondition": {
+        "Code": "+N",
+        "Description": "(Normalized)"
+      },
+      "MaterialDesignations": [
+        {
+          "Name": {
+            "System": "EN 10027-1",
+            "Value": "S355J2 +N"
+          },
+          "Number": {
+            "System": "EN 10027-2",
+            "Value": "1.0577 +N"
+          }
+        }
+      ],
+      "Name": "Forged round bars",
+      "PackagingAndMarking": {
+        "Coloring": "blue",
+        "Marking": "Both ends stamped with grade and heat number.",
+        "Packaging": "Bundled, max 20 MT"
+      },
+      "ProductNorms": [
+        {
+          "Standard": "EN 10250-1"
+        },
+        {
+          "Standard": "EN 10250-2"
+        }
+      ],
+      "Shape": {
+        "Diameter": 350,
+        "Form": "RoundBar",
+        "Length": 2800,
+        "Unit": "mm"
+      },
+      "SurfaceCondition": "Rough turned"
+    },
+    "SupplementaryTests": [
+      {
+        "Actual": {
+          "Description": "Pass",
+          "ResultType": "boolean",
+          "Value": true
+        },
+        "Method": "EN 10228-3 class 3",
+        "PropertyName": "Ultrasonic test",
+        "TestConditions": "100%"
+      },
+      {
+        "Actual": {
+          "Description": "100% visually inspected, surface free from defects",
+          "ResultType": "boolean",
+          "Value": true
+        },
+        "PropertyName": "Surface test"
+      },
+      {
+        "Actual": {
+          "Description": "max 100 Bq/kg",
+          "ResultType": "boolean",
+          "Value": true
+        },
+        "PropertyName": "Radioactivity",
+        "Unit": "Bq/kg"
+      }
+    ],
+    "TransactionData": {
+      "BusinessTransaction": {
+        "Delivery": {
+          "Id": "DLV-2025-4455",
+          "Quantity": 18000,
+          "QuantityUnit": "kg"
+        },
+        "Order": {
+          "Id": "ORD-2025-3312",
+          "Quantity": 18000,
+          "QuantityUnit": "kg"
+        }
+      },
+      "Parties": {
+        "Customer": {
+          "City": "Stuttgart",
+          "Contacts": [
+            {
+              "Department": "Procurement",
+              "Email": "procurement@example.com",
+              "Name": "Anna Mueller",
+              "Role": "Buyer"
+            }
+          ],
+          "Country": "DE",
+          "Email": "info@example-customer.com",
+          "Identifiers": {
+            "VAT": "DE111222333"
+          },
+          "Name": "Example Steel Trading GmbH",
+          "Street": [
+            "Musterstrasse 10"
+          ],
+          "ZipCode": "70173"
+        },
+        "Manufacturer": {
+          "City": "Duisburg",
+          "Contacts": [
+            {
+              "Department": "Quality Assurance",
+              "Email": "qa@example-forge.com",
+              "Name": "Thomas Bauer",
+              "Phone": "+49 203 5550100",
+              "Role": "Quality Manager"
+            }
+          ],
+          "Country": "DE",
+          "Email": "info@example-forge.com",
+          "Identifiers": {
+            "VAT": "DE444555666"
+          },
+          "Name": "Example Forge Works GmbH",
+          "Street": [
+            "Stahlweg 8"
+          ],
+          "ZipCode": "47051"
+        }
+      }
+    },
+    "Validation": {
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      },
+      "ValidationDate": "2025-04-10",
+      "ValidationStatement": {
+        "ComplianceType": "Declaration of Conformity",
+        "IndividualStatements": [
+          {
+            "Confirmed": {
+              "ResultType": "boolean",
+              "Value": true
+            },
+            "RegulatoryReference": "EU Regulation No. 833/2014",
+            "StatementId": "NON-RU-ORIGIN",
+            "StatementText": "Material is of non-Russian origin"
+          }
+        ],
+        "Standards": [
+          "EN 10204",
+          "EN 10250-2"
+        ],
+        "Statement": "We hereby certify that the material described above has been manufactured, tested and inspected in accordance with the requirements of the applicable specifications and standards, and that the results comply with the specified requirements."
+      },
+      "Validators": [
+        {
+          "Department": "Quality Assurance",
+          "Email": "qa-lead@example-forge.com",
+          "Name": "Dr. Maria Fischer",
+          "Phone": "+49 203 5550200",
+          "Title": "Head of Quality Assurance"
+        }
+      ]
+    },
+    "Version": "1.0.0"
+  },
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json"
+}

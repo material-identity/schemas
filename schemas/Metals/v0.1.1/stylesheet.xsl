@@ -826,109 +826,37 @@
 
               <!-- Chemical Elements Table -->
               <xsl:if test="$dmp/ChemicalAnalysis/Elements">
-                <fo:block keep-together="always">
+                <fo:block>
                   <xsl:call-template name="SectionTitleSmall">
                     <xsl:with-param name="title" select="'Elements'" />
                   </xsl:call-template>
 
-                  <fo:table id="chemical-composition-table" table-layout="fixed" width="100%">
-                    <fo:table-column column-width="proportional-column-width(2)"/>
-                    <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                      <fo:table-column column-width="proportional-column-width(1)"/>
-                    </xsl:for-each>
+                  <xsl:variable name="allElements" select="$dmp/ChemicalAnalysis/Elements" />
+                  <xsl:variable name="totalElements" select="count($allElements)" as="xs:integer" />
+                  <xsl:variable name="maxPerRow" select="10" as="xs:integer" />
+                  <xsl:variable name="numRows" select="xs:integer(min((3, ceiling($totalElements div $maxPerRow))))" as="xs:integer" />
+                  <xsl:variable name="elementsPerRow" select="xs:integer(ceiling($totalElements div $numRows))" as="xs:integer" />
 
-                    <fo:table-body>
-                      <fo:table-row background-color="#f0f0f0">
-                        <fo:table-cell padding="3pt">
-                          <fo:block font-style="italic">Symbol</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                          <fo:table-cell padding="3pt">
-                            <fo:block font-weight="bold" text-align="center">
-                              <xsl:value-of select="."/>
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
+                  <!-- First row of elements -->
+                  <xsl:call-template name="RenderChemicalElementsRow">
+                    <xsl:with-param name="elements" select="subsequence($allElements, 1, $elementsPerRow)" />
+                  </xsl:call-template>
 
-                      <fo:table-row>
-                        <fo:table-cell padding="3pt">
-                          <fo:block font-style="italic">Unit</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                          <xsl:variable name="currentSymbol" select="." />
-                          <fo:table-cell padding="3pt">
-                            <fo:block text-align="center">
-                              <xsl:value-of select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol][1]/Unit" />
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
+                  <!-- Second row if needed -->
+                  <xsl:if test="$numRows gt 1">
+                    <fo:block space-before="4pt" />
+                    <xsl:call-template name="RenderChemicalElementsRow">
+                      <xsl:with-param name="elements" select="subsequence($allElements, $elementsPerRow + 1, $elementsPerRow)" />
+                    </xsl:call-template>
+                  </xsl:if>
 
-                      <fo:table-row>
-                        <fo:table-cell padding="3pt">
-                          <fo:block font-style="italic">Min</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                          <xsl:variable name="currentSymbol" select="." />
-                          <fo:table-cell padding="3pt">
-                            <fo:block text-align="center">
-                              <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Minimum[1]">
-                                  <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Minimum[1]" />
-                                  </xsl:call-template>
-                                </xsl:when>
-                                <xsl:otherwise>-</xsl:otherwise>
-                              </xsl:choose>
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-
-                      <fo:table-row>
-                        <fo:table-cell padding="3pt">
-                          <fo:block font-style="italic">Max</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                          <xsl:variable name="currentSymbol" select="." />
-                          <fo:table-cell padding="3pt">
-                            <fo:block text-align="center">
-                              <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Maximum[1]">
-                                  <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Maximum[1]" />
-                                  </xsl:call-template>
-                                </xsl:when>
-                                <xsl:otherwise>-</xsl:otherwise>
-                              </xsl:choose>
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-
-                      <fo:table-row>
-                        <fo:table-cell padding="3pt">
-                          <fo:block font-style="italic">Actual</fo:block>
-                        </fo:table-cell>
-                        <xsl:for-each select="$dmp/ChemicalAnalysis/Elements/PropertySymbol[not(. = preceding-sibling::PropertySymbol)]">
-                          <xsl:variable name="currentSymbol" select="." />
-                          <fo:table-cell padding="3pt">
-                            <fo:block text-align="center">
-                              <xsl:choose>
-                                <xsl:when test="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Actual[1]">
-                                  <xsl:call-template name="FormatResult">
-                                    <xsl:with-param name="result" select="$dmp/ChemicalAnalysis/Elements[PropertySymbol = $currentSymbol]/Actual[1]" />
-                                  </xsl:call-template>
-                                </xsl:when>
-                                <xsl:otherwise>-</xsl:otherwise>
-                              </xsl:choose>
-                            </fo:block>
-                          </fo:table-cell>
-                        </xsl:for-each>
-                      </fo:table-row>
-                    </fo:table-body>
-                  </fo:table>
+                  <!-- Third row if needed -->
+                  <xsl:if test="$numRows gt 2">
+                    <fo:block space-before="4pt" />
+                    <xsl:call-template name="RenderChemicalElementsRow">
+                      <xsl:with-param name="elements" select="subsequence($allElements, $elementsPerRow * 2 + 1)" />
+                    </xsl:call-template>
+                  </xsl:if>
 
                   <!-- Formula Definitions -->
                   <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
@@ -1611,6 +1539,112 @@
   </xsl:template>
 
   <!-- TEMPLATES -->
+
+  <!-- Renders one row (table) of chemical elements. Called once per chunk when splitting across multiple rows. -->
+  <xsl:template name="RenderChemicalElementsRow">
+    <xsl:param name="elements" />
+
+    <fo:table table-layout="fixed" width="100%">
+      <fo:table-column column-width="proportional-column-width(2)"/>
+      <xsl:for-each select="$elements">
+        <fo:table-column column-width="proportional-column-width(1)"/>
+      </xsl:for-each>
+
+      <fo:table-body>
+        <!-- Symbol header -->
+        <fo:table-row background-color="#f0f0f0">
+          <fo:table-cell padding="3pt">
+            <fo:block font-style="italic">Symbol</fo:block>
+          </fo:table-cell>
+          <xsl:for-each select="$elements">
+            <fo:table-cell padding="3pt">
+              <fo:block font-weight="bold" text-align="center">
+                <xsl:value-of select="PropertySymbol"/>
+              </fo:block>
+            </fo:table-cell>
+          </xsl:for-each>
+        </fo:table-row>
+
+        <!-- Unit -->
+        <fo:table-row>
+          <fo:table-cell padding="3pt">
+            <fo:block font-style="italic">Unit</fo:block>
+          </fo:table-cell>
+          <xsl:for-each select="$elements">
+            <fo:table-cell padding="3pt">
+              <fo:block text-align="center">
+                <xsl:value-of select="Unit" />
+              </fo:block>
+            </fo:table-cell>
+          </xsl:for-each>
+        </fo:table-row>
+
+        <!-- Min -->
+        <fo:table-row>
+          <fo:table-cell padding="3pt">
+            <fo:block font-style="italic">Min</fo:block>
+          </fo:table-cell>
+          <xsl:for-each select="$elements">
+            <fo:table-cell padding="3pt">
+              <fo:block text-align="center">
+                <xsl:choose>
+                  <xsl:when test="Minimum">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Minimum" />
+                    </xsl:call-template>
+                  </xsl:when>
+                  <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+              </fo:block>
+            </fo:table-cell>
+          </xsl:for-each>
+        </fo:table-row>
+
+        <!-- Max -->
+        <fo:table-row>
+          <fo:table-cell padding="3pt">
+            <fo:block font-style="italic">Max</fo:block>
+          </fo:table-cell>
+          <xsl:for-each select="$elements">
+            <fo:table-cell padding="3pt">
+              <fo:block text-align="center">
+                <xsl:choose>
+                  <xsl:when test="Maximum">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Maximum" />
+                    </xsl:call-template>
+                  </xsl:when>
+                  <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+              </fo:block>
+            </fo:table-cell>
+          </xsl:for-each>
+        </fo:table-row>
+
+        <!-- Actual -->
+        <fo:table-row>
+          <fo:table-cell padding="3pt">
+            <fo:block font-style="italic">Actual</fo:block>
+          </fo:table-cell>
+          <xsl:for-each select="$elements">
+            <fo:table-cell padding="3pt">
+              <fo:block text-align="center">
+                <xsl:choose>
+                  <xsl:when test="Actual">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Actual" />
+                    </xsl:call-template>
+                  </xsl:when>
+                  <xsl:otherwise>-</xsl:otherwise>
+                </xsl:choose>
+              </fo:block>
+            </fo:table-cell>
+          </xsl:for-each>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </xsl:template>
+
   <xsl:template name="SectionTitle">
     <xsl:param name="title" />
     <fo:block font-size="10pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt" border-bottom="solid 1pt black">
