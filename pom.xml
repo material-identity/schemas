@@ -16,12 +16,13 @@
     <!-- Security: Override vulnerable transitive dependency versions -->
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
+    <netty.version>4.1.133.Final</netty.version>
   </properties>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.13</version>
+    <version>3.5.14</version>
   </parent>
 
   <dependencyManagement>
