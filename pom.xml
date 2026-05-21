@@ -17,6 +17,9 @@
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <netty.version>4.1.133.Final</netty.version>
+    <!-- Tomcat 10.1.55 fixes GHSA-r29c-68gh-xp6x, GHSA-h6fc-48rj-7qqh, GHSA-5m62-pw8w-7w9f
+         (Critical) plus 3 High + 1 Low. Remove once Spring Boot 3.5.15 ships with it. -->
+    <tomcat.version>10.1.55</tomcat.version>
   </properties>
 
   <parent>
