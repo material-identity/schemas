@@ -6,7 +6,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -188,9 +190,17 @@ public class CommandLineApp {
         CommandLinePDFBuilder pdfBuilder = new CommandLinePDFBuilder()
                 .withXsltTransformer(new XsltTransformer(xsltSource, certificate, baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
-                .withAttachment(new AttachmentManager(jsonContent, 
-                                                     Paths.get(outputFile).getFileName().toString().replace(".pdf", ""), 
+                .withAttachment(new AttachmentManager(jsonContent,
+                                                     Paths.get(outputFile).getFileName().toString().replace(".pdf", ""),
                                                      false));
+
+        if ("EN10168".equals(schemaType) && "v0.5.0".equals(schemaVersion)) {
+            String[] pdfAttachments = extractPdfAttachments(certificate);
+            if (pdfAttachments.length > 0) {
+                logger.info("Appending {} PDF attachment(s) to rendered output", pdfAttachments.length);
+                pdfBuilder.withEmbeddedPdf(new EmbedManager(pdfAttachments, null));
+            }
+        }
 
         byte[] pdfBytes = pdfBuilder.build();
 
@@ -204,6 +214,21 @@ public class CommandLineApp {
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             fos.write(pdfBytes);
         }
+    }
+
+    private static String[] extractPdfAttachments(JsonNode certificate) {
+        JsonNode attachmentsNode = certificate.path("Certificate").path("Attachments");
+        if (!attachmentsNode.isArray()) {
+            return new String[0];
+        }
+        List<String> pdfDataList = new ArrayList<>();
+        for (JsonNode attachment : attachmentsNode) {
+            String data = attachment.path("Data").asText(null);
+            if (data != null && data.startsWith("data:application/pdf;base64")) {
+                pdfDataList.add(data);
+            }
+        }
+        return pdfDataList.toArray(String[]::new);
     }
 
     private static String[] extractLanguages(JsonNode certificate) {

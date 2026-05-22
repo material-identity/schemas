@@ -27,7 +27,16 @@ match:
 
 # Ignore rules for known false positives or accepted risks
 # Add entries here as needed during development
-ignore: []
+ignore:
+  # esbuild ships precompiled Go binaries with Go stdlib statically linked.
+  # esbuild is a dev-only bundler pulled transitively by @angular-devkit/build-angular;
+  # the binary runs only at build time and is never deployed to production.
+  # Go stdlib CVEs are not reachable through esbuild's actual code paths
+  # (read .ts/.js, write bundled output). Re-evaluate when esbuild releases
+  # a build with a newer Go runtime, picked up via an Angular CLI update.
+  - package:
+      name: stdlib
+      location: "**/bin/esbuild"
 
 # Registry configuration (if needed for private registries)
 # registry:
