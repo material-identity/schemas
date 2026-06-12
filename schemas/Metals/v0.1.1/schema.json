@@ -1015,28 +1015,11 @@
       "type": "object",
       "properties": {
         "Code": {
-          "description": "Standardized delivery condition symbol",
+          "description": "Material condition at delivery. Steel: delivery-condition symbols per EN 10025/EN 10083 (+U, +AR, +N, +NT, +QT, +M, +TM, +A, +AC, +AT, +P, +C, +LC, +CR, +SR, +FP, +RA, +WW). Aluminium: temper designations per EN 515 (T6, T66, ...). The set of valid values is governed by the applicable standard or external catalogue and is intentionally not enumerated here.",
           "type": "string",
-          "enum": [
-            "+U",
-            "+AR",
-            "+N",
-            "+NT",
-            "+QT",
-            "+M",
-            "+TM",
-            "+A",
-            "+AC",
-            "+AT",
-            "+P",
-            "+C",
-            "+LC",
-            "+CR",
-            "+SR",
-            "+FP",
-            "+RA",
-            "+WW"
-          ]
+          "minLength": 1,
+          "maxLength": 10,
+          "examples": ["+N", "+QT", "+AR", "T6", "T66"]
         },
         "Description": {
           "description": "Human-readable description of the condition",
