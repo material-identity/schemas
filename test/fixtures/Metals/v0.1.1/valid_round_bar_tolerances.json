@@ -1,0 +1,142 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-RB-2025-00214",
+    "Version": "1.0.0",
+    "IssueDate": "2025-06-05",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Engineering Solutions Ltd.",
+          "Street": ["Tech Park Way 45"],
+          "ZipCode": "CF14 5DU",
+          "City": "Cardiff",
+          "Country": "GB",
+          "Email": "procurement@engisolutions.example.com",
+          "Identifiers": {
+            "VAT": "GB987654321"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-82455",
+          "Position": "10",
+          "Date": "2025-05-02",
+          "Quantity": 12000,
+          "QuantityUnit": "kg"
+        },
+        "Delivery": {
+          "Id": "DN-61233",
+          "Position": "1",
+          "Date": "2025-06-03",
+          "Quantity": 12000,
+          "QuantityUnit": "kg"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Hot-rolled round bars C45E",
+      "ProductNorms": [
+        {
+          "Standard": "EN 10060",
+          "Year": "2003"
+        }
+      ],
+      "MaterialNorms": [
+        {
+          "Standard": "EN 10083-2",
+          "Year": "2006"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "Name": {
+            "System": "EN 10027-1",
+            "Value": "C45E"
+          },
+          "Number": {
+            "System": "EN 10027-2",
+            "Value": "1.1191"
+          }
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 260,
+        "Length": 6000,
+        "Unit": "mm",
+        "MassPerLength": 416.7,
+        "MassPerLengthUnit": "kg/m"
+      },
+      "BatchId": "H-22871-01",
+      "SurfaceCondition": "Hot-rolled",
+      "CountryOfOrigin": "DE",
+      "ProductionDate": "2025-05-26",
+      "Quantity": 12,
+      "Weight": 12000,
+      "WeightUnit": "kg",
+      "DeliveryCondition": {
+        "Code": "+AR",
+        "Description": "As rolled",
+        "Standard": "EN 10083-2"
+      },
+      "DimensionalTolerances": {
+        "Standard": "EN 10060:2003",
+        "Tolerances": {
+          "Diameter": {
+            "UpperDeviation": 3,
+            "LowerDeviation": 0,
+            "Unit": "mm",
+            "OutOfRoundnessMax": 1.5,
+            "Ranges": [
+              {
+                "AppliesToMin": 250,
+                "AppliesToMax": 270,
+                "UpperDeviation": 4,
+                "LowerDeviation": -4
+              }
+            ]
+          },
+          "Length": {
+            "UpperDeviation": 100,
+            "LowerDeviation": 0,
+            "Unit": "mm"
+          }
+        }
+      }
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
+        "Standards": ["EN 10060:2003", "EN 10083-2:2006", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-06-05",
+      "Validators": [
+        {
+          "Name": "Johann Weber",
+          "Title": "Quality Inspector",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

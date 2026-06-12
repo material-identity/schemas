@@ -454,6 +454,41 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
+                  <xsl:for-each select="$dmp/Product/DimensionalTolerances/Tolerances/*">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="concat(replace(name(), '([a-z])([A-Z])', '$1 $2'), ' Tolerance')" />
+                        <xsl:with-param name="value" select="string-join((
+                          if (UpperDeviation) then concat(
+                            if (number(UpperDeviation) &gt;= 0) then concat('+', UpperDeviation) else string(UpperDeviation),
+                            '/',
+                            if (number(LowerDeviation) &gt; 0) then concat('+', LowerDeviation) else if (number(LowerDeviation) = 0) then '-0' else string(LowerDeviation),
+                            ' ',
+                            if (Unit) then Unit else 'mm'
+                          ) else (),
+                          if (ToleranceClass) then string(ToleranceClass) else (),
+                          if (OutOfRoundnessMax) then concat('out-of-roundness max ', OutOfRoundnessMax, ' ', if (Unit) then Unit else 'mm') else (),
+                          if (Standard) then concat('per ', Standard) else ()
+                        ), ', ')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                    <xsl:for-each select="Ranges">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="concat(replace(name(..), '([a-z])([A-Z])', '$1 $2'), ' Tolerance (', AppliesToMin, '-', AppliesToMax, ' ', if (../Unit) then ../Unit else 'mm', ')')" />
+                          <xsl:with-param name="value" select="concat(
+                            if (number(UpperDeviation) &gt;= 0) then concat('+', UpperDeviation) else string(UpperDeviation),
+                            '/',
+                            if (number(LowerDeviation) &gt; 0) then concat('+', LowerDeviation) else if (number(LowerDeviation) = 0) then '-0' else string(LowerDeviation),
+                            ' ',
+                            if (../Unit) then ../Unit else 'mm'
+                          )" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </xsl:for-each>
                 </xsl:if>
               </fo:table-body>
             </fo:table>

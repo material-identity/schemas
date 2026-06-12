@@ -210,6 +210,16 @@
       "MassPerLengthUnit": "Mass per Length Unit",
       "OtherDimensions": "Other Dimensions",
 
+      "DimensionalTolerances": "Dimensional Tolerances",
+      "Tolerances": "Tolerances",
+      "DimensionTolerance": "Dimension Tolerance",
+      "UpperDeviation": "Upper Deviation",
+      "LowerDeviation": "Lower Deviation",
+      "OutOfRoundnessMax": "Max. Out-of-Roundness",
+      "Ranges": "Ranges",
+      "AppliesToMin": "Applies From",
+      "AppliesToMax": "Applies To",
+
       "ProductNorms": "Product Norms",
       "MaterialNorms": "Material Norms",
       "MaterialDesignations": "Material Designations",
@@ -592,6 +602,16 @@
       "MassPerLength": "Längengewicht",
       "MassPerLengthUnit": "Einheit Längengewicht",
       "OtherDimensions": "Andere Abmessungen",
+
+      "DimensionalTolerances": "Maßtoleranzen",
+      "Tolerances": "Toleranzen",
+      "DimensionTolerance": "Maßtoleranz",
+      "UpperDeviation": "Oberes Abmaß",
+      "LowerDeviation": "Unteres Abmaß",
+      "OutOfRoundnessMax": "Max. Unrundheit",
+      "Ranges": "Bereiche",
+      "AppliesToMin": "Nennmaß von",
+      "AppliesToMax": "Nennmaß bis",
 
       "ProductNorms": "Produktnormen",
       "MaterialNorms": "Materialnormen",

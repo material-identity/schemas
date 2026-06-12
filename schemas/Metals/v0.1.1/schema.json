@@ -1048,15 +1048,111 @@
       "additionalProperties": false
     },
 
+    "DimensionTolerance": {
+      "title": "DimensionTolerance",
+      "description": "Tolerance on a single nominal dimension. Deviations are signed values, never magnitudes, with UpperDeviation >= LowerDeviation: +3/-0 mm -> Upper 3, Lower 0; +1/+4 mm -> Upper 4, Lower 1; +1/-4 mm -> Upper 1, Lower -4; +/-4 mm -> Upper 4, Lower -4.",
+      "type": "object",
+      "properties": {
+        "UpperDeviation": {
+          "description": "Signed upper deviation from the nominal dimension (e.g. 3 for +3 mm, 4 for the upper bound of a +1/+4 mm machining allowance)",
+          "type": "number",
+          "examples": [3, 4, 1]
+        },
+        "LowerDeviation": {
+          "description": "Signed lower deviation from the nominal dimension (e.g. 0 for -0 mm, 1 for +1 mm, -4 for -4 mm). Must be less than or equal to UpperDeviation.",
+          "type": "number",
+          "examples": [0, 1, -4]
+        },
+        "Unit": {
+          "description": "The unit of measurement for the deviations",
+          "type": "string",
+          "enum": ["mm", "in", "m", "ft"],
+          "default": "mm"
+        },
+        "ToleranceClass": {
+          "description": "Named tolerance class per the standard",
+          "type": "string",
+          "examples": ["h11", "js9", "EN 10060 Table 1"]
+        },
+        "Standard": {
+          "description": "Reference standard for this tolerance; overrides the document-level Standard",
+          "type": "string",
+          "examples": ["EN 10060"]
+        },
+        "OutOfRoundnessMax": {
+          "description": "Maximum out-of-roundness in the given unit, when separately stated; meaningful for Diameter only",
+          "type": "number",
+          "minimum": 0
+        },
+        "Ranges": {
+          "description": "Size-dependent tolerances applying only within a nominal dimension range (e.g. +/-4 mm only for diameters 250-270 mm)",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "AppliesToMin": {
+                "description": "Lower bound of the nominal dimension range this tolerance applies to",
+                "type": "number",
+                "minimum": 0
+              },
+              "AppliesToMax": {
+                "description": "Upper bound of the nominal dimension range this tolerance applies to. Must be greater than or equal to AppliesToMin.",
+                "type": "number",
+                "minimum": 0
+              },
+              "UpperDeviation": {
+                "description": "Signed upper deviation from nominal within this range",
+                "type": "number"
+              },
+              "LowerDeviation": {
+                "description": "Signed lower deviation from nominal within this range",
+                "type": "number"
+              }
+            },
+            "required": [
+              "AppliesToMin",
+              "AppliesToMax",
+              "UpperDeviation",
+              "LowerDeviation"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "UpperDeviation": true,
+            "LowerDeviation": true
+          },
+          "required": ["UpperDeviation", "LowerDeviation"]
+        },
+        {
+          "properties": {
+            "ToleranceClass": true
+          },
+          "required": ["ToleranceClass"]
+        },
+        {
+          "properties": {
+            "Ranges": true
+          },
+          "required": ["Ranges"]
+        }
+      ],
+      "additionalProperties": false
+    },
+
     "DimensionalTolerances": {
       "title": "DimensionalTolerances",
-      "description": "Dimensional tolerance specifications per EN 10029 for hot-rolled flat products",
+      "description": "Dimensional tolerance specifications for flat and long/round products (e.g. EN 10029 hot-rolled flat products, EN 10060 hot-rolled round bars)",
       "type": "object",
       "properties": {
         "Standard": {
           "type": "string",
           "description": "Reference standard for tolerances",
-          "examples": ["EN 10029:2010"]
+          "examples": ["EN 10029:2010", "EN 10060:2003"]
         },
         "ThicknessClass": {
           "type": "string",
@@ -1081,6 +1177,46 @@
         "LimitedCamberAndSquareness": {
           "type": "boolean",
           "description": "True if limited edge camber (0.25% length) and out-of-squareness (1% width) apply"
+        },
+        "Tolerances": {
+          "description": "Per-dimension numeric tolerances, keyed by the ProductShape dimension they apply to",
+          "type": "object",
+          "properties": {
+            "Length": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "Width": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "Thickness": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "Diameter": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "OuterDiameter": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "InnerDiameter": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "WallThickness": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "Height": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "FlangeWidth": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "FlangeThickness": {
+              "$ref": "#/definitions/DimensionTolerance"
+            },
+            "WebThickness": {
+              "$ref": "#/definitions/DimensionTolerance"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -1282,7 +1418,7 @@
           "$ref": "#/definitions/DeliveryCondition"
         },
         "DimensionalTolerances": {
-          "description": "Dimensional tolerance specifications per EN 10029 for hot-rolled flat products",
+          "description": "Dimensional tolerance specifications for flat and long/round products (e.g. EN 10029, EN 10060)",
           "$ref": "#/definitions/DimensionalTolerances"
         },
         "PackagingAndMarking": {
