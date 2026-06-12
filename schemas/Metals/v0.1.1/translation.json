@@ -177,6 +177,8 @@
       "CustomerProductName": "Customer Product Name",
       "GoodsReceiptId": "Goods Receipt ID",
 
+      "Contract": "Contract",
+
       "InternalOrderId": "Internal Order ID",
       "InternalOrderPosition": "Internal Order Position",
       "Transport": "Transport",
@@ -553,6 +555,8 @@
       "CustomerProductId": "Kunden-Produkt-ID",
       "CustomerProductName": "Kunden-Produktname",
       "GoodsReceiptId": "Wareneingags-ID",
+
+      "Contract": "Vertrag",
 
       "InternalOrderId": "Interne Bestellnummer",
       "InternalOrderPosition": "Interne Bestellposition",

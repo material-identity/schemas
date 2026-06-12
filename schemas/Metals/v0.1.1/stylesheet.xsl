@@ -262,6 +262,35 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <!-- Contract -->
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Contract">
+                  <fo:table-row>
+                    <fo:table-cell number-columns-spanned="4" padding-top="8pt">
+                      <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Contract</fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Contract ID'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Id" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:if test="$dmp/TransactionData/BusinessTransaction/Contract/Description">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Description'" />
+                        <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Description" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                </xsl:if>
                 <!-- Specification Reference -->
                 <xsl:if test="$dmp/Product/SpecificationReference">
                   <fo:table-row>

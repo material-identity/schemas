@@ -749,11 +749,39 @@
       "additionalProperties": false
     },
 
-    "BusinessTransaction": {
-      "title": "BusinessTransaction",
-      "description": "All information about the underlying commercial transaction including order and delivery.",
+    "Contract": {
+      "title": "Contract",
+      "description": "Reference to the framework contract between Customer and Manufacturer governing the order.",
       "type": "object",
       "properties": {
+        "Id": {
+          "description": "The contract number.",
+          "type": "string",
+          "minLength": 1
+        },
+        "Date": {
+          "description": "The date the contract was concluded.",
+          "type": "string",
+          "format": "date",
+          "examples": ["2024-01-10"]
+        },
+        "Description": {
+          "description": "Human-readable description of the contract.",
+          "type": "string"
+        }
+      },
+      "required": ["Id"],
+      "additionalProperties": false
+    },
+
+    "BusinessTransaction": {
+      "title": "BusinessTransaction",
+      "description": "All information about the underlying commercial transaction including contract, order and delivery.",
+      "type": "object",
+      "properties": {
+        "Contract": {
+          "$ref": "#/definitions/Contract"
+        },
         "Order": {
           "$ref": "#/definitions/Order"
         },
