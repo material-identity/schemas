@@ -907,7 +907,7 @@
       "type": "object",
       "properties": {
         "Form": {
-          "description": "The basic form of the product",
+          "description": "The basic form of the product. Convention for tubular products: Tube = round tubular product, Hollow = square/rectangular hollow section (SHS/RHS), Pipe = round product specified to a pipe standard (NPS/schedule).",
           "type": "string",
           "enum": [
             "Plate",
@@ -922,6 +922,7 @@
             "Channel",
             "Angle",
             "Tee",
+            "ZProfile",
             "Tube",
             "Pipe",
             "Hollow",
