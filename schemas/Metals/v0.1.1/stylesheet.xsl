@@ -610,6 +610,15 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
+                  <xsl:if test="$dmp/Product/Shape/MassPerLength">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Mass per Length'" />
+                        <xsl:with-param name="value" select="concat($dmp/Product/Shape/MassPerLength, ' ', if($dmp/Product/Shape/MassPerLengthUnit) then $dmp/Product/Shape/MassPerLengthUnit else 'kg/m')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
                 </fo:table-body>
               </fo:table>
             </xsl:if>

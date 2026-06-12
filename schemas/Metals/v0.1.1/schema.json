@@ -998,6 +998,17 @@
           "enum": ["mm", "in", "m", "ft"],
           "default": "mm"
         },
+        "MassPerLength": {
+          "description": "Mass per unit length of the product (for bars, tubes, profiles and other long products)",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "MassPerLengthUnit": {
+          "description": "Unit for MassPerLength",
+          "type": "string",
+          "enum": ["kg/m", "lb/ft"],
+          "default": "kg/m"
+        },
         "OtherDimensions": {
           "description": "Additional dimensions not covered by standard fields",
           "type": "object",

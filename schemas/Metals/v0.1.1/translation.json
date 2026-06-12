@@ -206,6 +206,8 @@
       "FlangeThickness": "Flange Thickness",
       "WebThickness": "Web Thickness",
       "Area": "Area",
+      "MassPerLength": "Mass per Length",
+      "MassPerLengthUnit": "Mass per Length Unit",
       "OtherDimensions": "Other Dimensions",
 
       "ProductNorms": "Product Norms",
@@ -586,6 +588,8 @@
       "FlangeThickness": "Flanschdicke",
       "WebThickness": "Stegdicke",
       "Area": "Fläche",
+      "MassPerLength": "Längengewicht",
+      "MassPerLengthUnit": "Einheit Längengewicht",
       "OtherDimensions": "Andere Abmessungen",
 
       "ProductNorms": "Produktnormen",
