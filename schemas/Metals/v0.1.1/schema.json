@@ -1127,6 +1127,13 @@
           "description": "Identification of the batch, charge, or lot",
           "type": "string"
         },
+        "ToolingId": {
+          "description": "Identifier of the die, matrix, mould or section/tooling used to produce the product (e.g. extrusion die number).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "examples": ["NM520-3", "IP302-1", "HT404-1"]
+        },
         "SurfaceCondition": {
           "description": "Surface condition or finish of the product",
           "type": "string",

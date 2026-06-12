@@ -364,6 +364,15 @@
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
+                <xsl:if test="$dmp/Product/ToolingId">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Tooling ID'" />
+                      <xsl:with-param name="value" select="$dmp/Product/ToolingId" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
                 <xsl:if test="$dmp/Product/SurfaceCondition">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
