@@ -654,6 +654,15 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
+                  <xsl:if test="$dmp/Product/Shape/Height">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Height'" />
+                        <xsl:with-param name="value" select="concat($dmp/Product/Shape/Height, ' ', $dmp/Product/Shape/Unit)" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
                   <xsl:if test="$dmp/Product/Shape/MassPerLength">
                     <fo:table-row>
                       <xsl:call-template name="KeyValue">
