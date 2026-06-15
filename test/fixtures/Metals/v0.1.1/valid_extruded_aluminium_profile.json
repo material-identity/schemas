@@ -1,0 +1,129 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-AL-2025-00731",
+    "Version": "1.0.0",
+    "IssueDate": "2025-06-02",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Aluminium Extrusions S.A.",
+          "Street": ["Industrial Zone B, Plot 17"],
+          "ZipCode": "57022",
+          "City": "Thessaloniki",
+          "Country": "GR",
+          "Email": "quality@acme-aluminium.example.com",
+          "Identifiers": {
+            "VAT": "EL123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Window Systems GmbH",
+          "Street": ["Fensterstraße 12"],
+          "ZipCode": "70173",
+          "City": "Stuttgart",
+          "Country": "DE",
+          "Email": "purchasing@windowsystems.example.com",
+          "Identifiers": {
+            "VAT": "DE987654321"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Contract": {
+          "Id": "CT-2025-0042",
+          "Date": "2025-01-10",
+          "Description": "Frame agreement for extruded aluminium profiles 2025"
+        },
+        "Order": {
+          "Id": "PO-2025-1187",
+          "Position": "30",
+          "Date": "2025-04-14",
+          "Quantity": 2400,
+          "QuantityUnit": "m",
+          "CustomerProductId": "WS-Z-6060-T66"
+        },
+        "Delivery": {
+          "Id": "DN-2025-0466",
+          "Position": "2",
+          "Date": "2025-05-28",
+          "Quantity": 2400,
+          "QuantityUnit": "m",
+          "InternalOrderId": "SO-88123"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Extruded aluminium Z-profile EN AW-6060 T66",
+      "ProductNorms": [
+        {
+          "Standard": "EN 755-2",
+          "Year": "2016"
+        }
+      ],
+      "MaterialNorms": [
+        {
+          "Standard": "EN 573-3",
+          "Year": "2019"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "Name": {
+            "System": "EN 573-2",
+            "Value": "EN AW-AlMgSi"
+          },
+          "Number": {
+            "System": "EN 573-1",
+            "Value": "EN AW-6060"
+          }
+        }
+      ],
+      "Shape": {
+        "Form": "ZProfile",
+        "Length": 6000,
+        "Height": 40,
+        "Width": 25,
+        "Thickness": 2.5,
+        "Unit": "mm",
+        "MassPerLength": 1.85,
+        "MassPerLengthUnit": "kg/m"
+      },
+      "BatchId": "EXT-2025-05-0173",
+      "ToolingId": "NM520-3",
+      "SurfaceCondition": "Mill finish",
+      "CountryOfOrigin": "GR",
+      "ManufacturingLocation": "Thessaloniki Plant",
+      "ProductionDate": "2025-05-21",
+      "Quantity": 400,
+      "Weight": 4440,
+      "WeightUnit": "kg",
+      "DeliveryCondition": {
+        "Code": "T66",
+        "Description": "Solution heat-treated and artificially aged - improved mechanical properties",
+        "Standard": "EN 515"
+      }
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
+        "Standards": ["EN 755-2:2016", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-06-02",
+      "Validators": [
+        {
+          "Name": "Eleni Papadopoulou",
+          "Title": "Quality Inspector",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Thessaloniki, Greece",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

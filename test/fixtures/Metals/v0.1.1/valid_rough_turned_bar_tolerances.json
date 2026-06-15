@@ -1,0 +1,125 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "DMP-FB-2025-00377",
+    "Version": "1.0.0",
+    "IssueDate": "2025-06-09",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "ACME Metal Works GmbH",
+          "Street": ["Industrial Park 123"],
+          "ZipCode": "52066",
+          "City": "Aachen",
+          "Country": "DE",
+          "Email": "quality@acme-metal.example.com",
+          "Identifiers": {
+            "VAT": "DE123456789"
+          }
+        },
+        "Customer": {
+          "Name": "Engineering Solutions Ltd.",
+          "Street": ["Tech Park Way 45"],
+          "ZipCode": "CF14 5DU",
+          "City": "Cardiff",
+          "Country": "GB",
+          "Email": "procurement@engisolutions.example.com",
+          "Identifiers": {
+            "VAT": "GB987654321"
+          }
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-82990",
+          "Position": "20",
+          "Date": "2025-05-12",
+          "Quantity": 8400,
+          "QuantityUnit": "kg"
+        },
+        "Delivery": {
+          "Id": "DN-61480",
+          "Position": "1",
+          "Date": "2025-06-06",
+          "Quantity": 8400,
+          "QuantityUnit": "kg"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Forged round bars, rough turned",
+      "ProductNorms": [
+        {
+          "Standard": "EN 10250-1",
+          "Year": "2022"
+        }
+      ],
+      "MaterialNorms": [
+        {
+          "Standard": "EN 10083-3",
+          "Year": "2006"
+        }
+      ],
+      "MaterialDesignations": [
+        {
+          "Name": {
+            "System": "EN 10027-1",
+            "Value": "42CrMo4"
+          },
+          "Number": {
+            "System": "EN 10027-2",
+            "Value": "1.7225"
+          }
+        }
+      ],
+      "Shape": {
+        "Form": "RoundBar",
+        "Diameter": 320,
+        "Length": 4000,
+        "Unit": "mm"
+      },
+      "BatchId": "H-23104-03",
+      "SurfaceCondition": "Rough turned",
+      "CountryOfOrigin": "DE",
+      "ProductionDate": "2025-05-30",
+      "Quantity": 4,
+      "Weight": 8400,
+      "WeightUnit": "kg",
+      "DeliveryCondition": {
+        "Code": "+QT",
+        "Description": "Quenched and tempered",
+        "Standard": "EN 10083-3"
+      },
+      "DimensionalTolerances": {
+        "Tolerances": {
+          "Diameter": {
+            "UpperDeviation": 4,
+            "LowerDeviation": 1,
+            "Unit": "mm"
+          }
+        }
+      }
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the material described above has been manufactured and tested in accordance with the requirements of EN 10204:2004 type 3.1 and the specified standards. The results comply with the requirements.",
+        "Standards": ["EN 10250-1:2022", "EN 10083-3:2006", "EN 10204:2004"],
+        "ComplianceType": "Declaration of Conformity"
+      },
+      "ValidationDate": "2025-06-09",
+      "Validators": [
+        {
+          "Name": "Johann Weber",
+          "Title": "Quality Inspector",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "ValidationPlace": "Aachen, Germany",
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "3.1"
+      }
+    }
+  }
+}

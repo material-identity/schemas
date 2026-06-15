@@ -262,6 +262,35 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <!-- Contract -->
+                <xsl:if test="$dmp/TransactionData/BusinessTransaction/Contract">
+                  <fo:table-row>
+                    <fo:table-cell number-columns-spanned="4" padding-top="8pt">
+                      <fo:block font-size="8pt" font-weight="bold" text-align="left" space-before="12pt" space-after="6pt">Contract</fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Contract ID'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Id" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Date'" />
+                      <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Date" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                  <xsl:if test="$dmp/TransactionData/BusinessTransaction/Contract/Description">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Description'" />
+                        <xsl:with-param name="value" select="$dmp/TransactionData/BusinessTransaction/Contract/Description" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                </xsl:if>
                 <!-- Specification Reference -->
                 <xsl:if test="$dmp/Product/SpecificationReference">
                   <fo:table-row>
@@ -335,6 +364,15 @@
                     <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                   </xsl:call-template>
                 </fo:table-row>
+                <xsl:if test="$dmp/Product/ToolingId">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Tooling ID'" />
+                      <xsl:with-param name="value" select="$dmp/Product/ToolingId" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
                 <xsl:if test="$dmp/Product/SurfaceCondition">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
@@ -416,6 +454,41 @@
                       </xsl:call-template>
                     </fo:table-row>
                   </xsl:if>
+                  <xsl:for-each select="$dmp/Product/DimensionalTolerances/Tolerances/*">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="concat(replace(name(), '([a-z])([A-Z])', '$1 $2'), ' Tolerance')" />
+                        <xsl:with-param name="value" select="string-join((
+                          if (UpperDeviation) then concat(
+                            if (number(UpperDeviation) &gt;= 0) then concat('+', UpperDeviation) else string(UpperDeviation),
+                            '/',
+                            if (number(LowerDeviation) &gt; 0) then concat('+', LowerDeviation) else if (number(LowerDeviation) = 0) then '-0' else string(LowerDeviation),
+                            ' ',
+                            if (Unit) then Unit else 'mm'
+                          ) else (),
+                          if (ToleranceClass) then string(ToleranceClass) else (),
+                          if (OutOfRoundnessMax) then concat('out-of-roundness max ', OutOfRoundnessMax, ' ', if (Unit) then Unit else 'mm') else (),
+                          if (Standard) then concat('per ', Standard) else ()
+                        ), ', ')" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                    <xsl:for-each select="Ranges">
+                      <fo:table-row>
+                        <xsl:call-template name="KeyValue">
+                          <xsl:with-param name="key" select="concat(replace(name(..), '([a-z])([A-Z])', '$1 $2'), ' Tolerance (', AppliesToMin, '-', AppliesToMax, ' ', if (../Unit) then ../Unit else 'mm', ')')" />
+                          <xsl:with-param name="value" select="concat(
+                            if (number(UpperDeviation) &gt;= 0) then concat('+', UpperDeviation) else string(UpperDeviation),
+                            '/',
+                            if (number(LowerDeviation) &gt; 0) then concat('+', LowerDeviation) else if (number(LowerDeviation) = 0) then '-0' else string(LowerDeviation),
+                            ' ',
+                            if (../Unit) then ../Unit else 'mm'
+                          )" />
+                          <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                        </xsl:call-template>
+                      </fo:table-row>
+                    </xsl:for-each>
+                  </xsl:for-each>
                 </xsl:if>
               </fo:table-body>
             </fo:table>
@@ -577,6 +650,24 @@
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="key" select="'Diameter'" />
                         <xsl:with-param name="value" select="concat($dmp/Product/Shape/Diameter, ' ', $dmp/Product/Shape/Unit)" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/Shape/Height">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Height'" />
+                        <xsl:with-param name="value" select="concat($dmp/Product/Shape/Height, ' ', $dmp/Product/Shape/Unit)" />
+                        <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </xsl:call-template>
+                    </fo:table-row>
+                  </xsl:if>
+                  <xsl:if test="$dmp/Product/Shape/MassPerLength">
+                    <fo:table-row>
+                      <xsl:call-template name="KeyValue">
+                        <xsl:with-param name="key" select="'Mass per Length'" />
+                        <xsl:with-param name="value" select="concat($dmp/Product/Shape/MassPerLength, ' ', if($dmp/Product/Shape/MassPerLengthUnit) then $dmp/Product/Shape/MassPerLengthUnit else 'kg/m')" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                       </xsl:call-template>
                     </fo:table-row>
