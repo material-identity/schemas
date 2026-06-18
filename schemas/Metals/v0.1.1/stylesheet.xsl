@@ -991,7 +991,7 @@
 
             <!-- Mechanical Properties -->
             <xsl:if test="$dmp/MechanicalProperties">
-              <fo:block keep-together="always">
+              <fo:block>
                 <xsl:call-template name="SectionTitle">
                   <xsl:with-param name="title" select="'Mechanical Properties'" />
                 </xsl:call-template>
@@ -1031,7 +1031,10 @@
 
                     <xsl:for-each select="$dmp/MechanicalProperties">
                       <xsl:variable name="propertyName" select="PropertyName" />
-                      <fo:table-row>
+                      <fo:table-row keep-together.within-page="always">
+                        <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
+                          <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
+                        </xsl:if>
                         <xsl:choose>
                           <xsl:when test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
                             <!-- For ArrayResult/MultiValueResult: Property name spans Property + Symbol + Actual + Min + Max columns -->
@@ -1145,7 +1148,7 @@
                       </fo:table-row>
                       <!-- Add spanning row for Array/MultiValue result types -->
                       <xsl:if test="Actual/ResultType = 'array' or Actual/ResultType = 'multiValue'">
-                        <fo:table-row>
+                        <fo:table-row keep-together.within-page="always">
                           <fo:table-cell number-columns-spanned="7" padding="4pt">
                             <xsl:call-template name="FormatResult">
                               <xsl:with-param name="result" select="Actual" />
