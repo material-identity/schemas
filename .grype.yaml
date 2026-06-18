@@ -38,6 +38,16 @@ ignore:
       name: stdlib
       location: "**/bin/esbuild"
 
+  # Angular 19.x advisories with NO fix anywhere in the 19.2.x line
+  # (patched only in 20.3.25 / 21.2.17 / 22.0.1 — i.e. a major upgrade).
+  # We are on Angular 19 and have already taken every available 19.2.x
+  # patch (framework bumped to 19.2.25). Accepted risk until the planned
+  # Angular v20 upgrade; remove these entries once that lands.
+  - vulnerability: GHSA-39pv-4j6c-2g6v # @angular/common: HttpTransferCache weak 32-bit cache-key hashing
+  - vulnerability: GHSA-48r7-hpm6-gfxm # @angular/common: formatDate DoS (OOM)
+  - vulnerability: GHSA-rgjc-h3x7-9mwg # @angular/core: hydration DOM clobbering / response-cache poisoning
+  - vulnerability: GHSA-58w9-8g37-x9v5 # @angular/compiler: two-way binding sanitization bypass (XSS)
+
 # Registry configuration (if needed for private registries)
 # registry:
 #   auth:
