@@ -382,6 +382,15 @@
                     </xsl:call-template>
                   </fo:table-row>
                 </xsl:if>
+                <xsl:if test="$dmp/Product/Weight">
+                  <fo:table-row>
+                    <xsl:call-template name="KeyValue">
+                      <xsl:with-param name="key" select="'Weight'" />
+                      <xsl:with-param name="value" select="concat($dmp/Product/Weight, ' ', if ($dmp/Product/WeightUnit) then $dmp/Product/WeightUnit else 'kg')" />
+                      <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                    </xsl:call-template>
+                  </fo:table-row>
+                </xsl:if>
                 <xsl:if test="$dmp/Product/ProductionDate">
                   <fo:table-row>
                     <xsl:call-template name="KeyValue">
