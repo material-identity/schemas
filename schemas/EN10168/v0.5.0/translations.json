@@ -100,6 +100,11 @@
       "Height": "Height",
       "SideLength": "Side length",
       "Unit": "Unit",
+      "Symbol": "Symbol",
+      "Actual": "Actual",
+      "Min": "Min",
+      "Max": "Max",
+      "Formula": "Formula",
       "Attachments": "Attachments"
     }
   },
@@ -204,6 +209,11 @@
       "Height": "Höhe",
       "SideLength": "Seitenlänge",
       "Unit": "Einheit",
+      "Symbol": "Symbol",
+      "Actual": "Ist",
+      "Min": "Min",
+      "Max": "Max",
+      "Formula": "Formel",
       "Attachments": "Anlagen"
     }
   },
@@ -308,6 +318,11 @@
       "Height": "Hauteur",
       "SideLength": "Longueur de la face",
       "Unit": "Unité",
+      "Symbol": "Symbole",
+      "Actual": "Réel",
+      "Min": "Min",
+      "Max": "Max",
+      "Formula": "Formule",
       "Attachments": "Pièces jointes"
     }
   },
@@ -412,6 +427,11 @@
       "Height": "Wysokość",
       "SideLength": "Długość boku",
       "Unit": "Jednostka",
+      "Symbol": "Symbol",
+      "Actual": "Wartość",
+      "Min": "Min",
+      "Max": "Max",
+      "Formula": "Wzór",
       "Attachments": "Załączniki"
     }
   }
