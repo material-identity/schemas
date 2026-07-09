@@ -16,6 +16,7 @@ public class PDFBuilder {
     private AttachmentManager attachmentManager;
     private XsltTransformer xsltTransformer;
     private EmbedManager embedManager;
+    private WatermarkManager watermarkManager;
 
     public PDFBuilder(FoManager foManager) {
         this.foManager = foManager;
@@ -45,6 +46,11 @@ public class PDFBuilder {
         return this;
     }
 
+    public PDFBuilder withWatermark(WatermarkManager watermarkManager) {
+        this.watermarkManager = watermarkManager;
+        return this;
+    }
+
     public byte[] build() throws TransformerException, IOException, SAXException {
         byte[] pdf = generatePdf();
         return pdf;
@@ -65,6 +71,11 @@ public class PDFBuilder {
 
             if (embedManager != null) {
                 pdf = embedManager.embed(pdf);
+            }
+
+            // After embed so that merged/appended pages are stamped too (schema#181).
+            if (watermarkManager != null) {
+                pdf = watermarkManager.stamp(pdf);
             }
 
             if (attachmentManager != null) {

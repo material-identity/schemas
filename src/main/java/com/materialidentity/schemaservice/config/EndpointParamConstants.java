@@ -4,6 +4,7 @@ public final class EndpointParamConstants {
     // endpoint parameters constants
     public static final String JSON_FILENAME = "filename";
     public static final String ATTACH_JSON = "attachJson";
+    public static final String MODE = "mode";
 
     private EndpointParamConstants() {
     }

@@ -33,6 +33,7 @@ import com.materialidentity.schemaservice.AttachmentManager;
 import com.materialidentity.schemaservice.EmbedManager;
 import com.materialidentity.schemaservice.PDFBuilder;
 import com.materialidentity.schemaservice.TranslationLoader;
+import com.materialidentity.schemaservice.WatermarkManager;
 import com.materialidentity.schemaservice.XsltTransformer;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 import com.materialidentity.schemaservice.config.SchemasAndVersions;
@@ -174,15 +175,16 @@ public class SchemasServiceImpl implements SchemasService {
     }
 
     @Override
-    public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate, String filename)
+    public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate, String filename, String mode)
             throws IOException, TransformerException, SAXException {
+        boolean testMode = parseTestMode(mode);
         String[] languages = extractLanguages(certificate);
         String[] encodedData = extractPdfData(certificate);
         String[] dataFromS3 = extractPdfDataFromS3(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
-        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}, filename: {}", schemaType,
-                schemaVersion, languages, attachJson, filename);
+        logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}, filename: {}, mode: {}", schemaType,
+                schemaVersion, languages, attachJson, filename, mode);
 
         // TODO: throw error if language is not supported
         validateSchemaTypeAndVersion(schemaType, schemaVersion);
@@ -217,6 +219,13 @@ public class SchemasServiceImpl implements SchemasService {
             pdfBuilder.withEmbeddedPdf(new EmbedManager(encodedData, dataFromS3));
         }
 
+        // material-identity/schema#181: test-mode renders carry a preview watermark on every page,
+        // in the certificate's primary language. Deliberately non-PDF/A.
+        if (testMode) {
+            pdfBuilder.withWatermark(new WatermarkManager(
+                    WatermarkManager.resolveText(translationsPattern, languages[0])));
+        }
+
         byte[] pdfBytes = pdfBuilder.build();
 
         return ResponseEntity.ok()
@@ -225,6 +234,16 @@ public class SchemasServiceImpl implements SchemasService {
                                 SchemaControllerConstants.PDF_RENDERED_OUTPUT_FILE_NAME))
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
+    }
+
+    /** Parse the render {@code mode} param (material-identity/schema#181): test | live only. */
+    private static boolean parseTestMode(String mode) {
+        return switch (mode) {
+            case "test" -> true;
+            case "live" -> false;
+            default -> throw new IllegalArgumentException(
+                    "Invalid mode: " + mode + ". Expected 'test' or 'live'");
+        };
     }
 
     private String deriveClasspathRootUri(Resource xsltResource, String xsltPath) {
