@@ -18,14 +18,15 @@ export class SchemaService {
 
   async render(
     certificate: Record<string, unknown>,
-    attachJson: boolean = true
+    attachJson: boolean = true,
+    mode: 'live' | 'test' = 'live'
   ) {
     const url = `${this.getServerUrl()}/api/render`;
 
     try {
       const res = await firstValueFrom(
         this.http.post(url, certificate, {
-          params: { attachJson: attachJson.toString() },
+          params: { attachJson: attachJson.toString(), mode },
           responseType: 'blob',
         })
       );

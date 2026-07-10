@@ -12,6 +12,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { UploaderComponent } from './uploader.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { SchemaService } from './schema.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -24,6 +26,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
         UploaderComponent,
         MatCheckboxModule,
         MatIconModule,
+        MatFormFieldModule,
+        MatSelectModule,
         ReactiveFormsModule,
     ],
     template: `
@@ -37,7 +41,16 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     <section>
       <mat-checkbox [formControl]="attachJson">
         Attach DMP
-      </mat-checkbox> 
+      </mat-checkbox>
+    </section>
+    <section>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Render mode</mat-label>
+        <mat-select [formControl]="mode">
+          <mat-option value="live">Live</mat-option>
+          <mat-option value="test">Test (preview watermark)</mat-option>
+        </mat-select>
+      </mat-form-field>
     </section>
     <span class="flex-1"></span>
     <div class="flex gap-2 justify-start">
@@ -53,11 +66,13 @@ export class FormComponent {
   @HostBinding('class') class = 'flex flex-col gap-8';
   readonly certificateControl = new FormControl<File | null>(null);
   readonly attachJson = new FormControl<boolean>(true);
+  readonly mode = new FormControl<'live' | 'test'>('live', { nonNullable: true });
   private readonly schemaService = inject(SchemaService);
 
   render() {
     const file = this.certificateControl.value;
     const attachJson = this.attachJson.value ?? false;
+    const mode = this.mode.value;
     if (!file) return;
     const reader = new FileReader();
 
@@ -65,7 +80,7 @@ export class FormComponent {
       const text = e.target.result; // This is the content of the file as a string
       console.log('File content:', text, JSON.parse(text));
       const certificate = JSON.parse(text);
-      this.schemaService.render(certificate, attachJson);
+      this.schemaService.render(certificate, attachJson, mode);
     };
 
     reader.onerror = () => {
