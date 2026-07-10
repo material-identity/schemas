@@ -24,15 +24,24 @@
     <xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>
   </xsl:attribute-set>
 
-  <!-- Parties: manufacturer's mark/logo (A04) full width on its own row, then A01 + A06 (or
-       A06.1) + whichever of A06.2/A06.3/A06.4 exist in a single row beneath. -->
+  <!-- Parties: manufacturer's mark/logo (A04), sized to match the A01 column beneath it (not
+       full page width) — the column width depends on how many of A06/A06.1..A06.4 are present,
+       so the logo and party row share the same column-width computation. -->
   <xsl:template name="RenderParties">
     <xsl:param name="i18n" />
     <xsl:param name="CommercialTransaction" />
     <xsl:param name="partyPaddingBottom" />
 
+    <xsl:variable name="secondPartyName" select="if (exists($CommercialTransaction/A06)) then 'A06' else 'A06.1'" />
+    <xsl:variable name="extraPartyNames" select="for $index in 2 to 4
+                                                  return concat('A06.', $index)[exists($CommercialTransaction/*[name() = concat('A06.', $index)])]" />
+    <xsl:variable name="partyNames" select="('A01', $secondPartyName, $extraPartyNames)" />
+    <xsl:variable name="partyCount" select="count($partyNames)" />
+
     <fo:table table-layout="fixed" width="100%">
-      <fo:table-column column-width="100%" />
+      <xsl:for-each select="1 to $partyCount">
+        <fo:table-column column-width="{100 div $partyCount}%" />
+      </xsl:for-each>
       <fo:table-body>
         <fo:table-row>
           <fo:table-cell padding-bottom="{$partyPaddingBottom}">
@@ -45,12 +54,6 @@
         </fo:table-row>
       </fo:table-body>
     </fo:table>
-
-    <xsl:variable name="secondPartyName" select="if (exists($CommercialTransaction/A06)) then 'A06' else 'A06.1'" />
-    <xsl:variable name="extraPartyNames" select="for $index in 2 to 4
-                                                  return concat('A06.', $index)[exists($CommercialTransaction/*[name() = concat('A06.', $index)])]" />
-    <xsl:variable name="partyNames" select="('A01', $secondPartyName, $extraPartyNames)" />
-    <xsl:variable name="partyCount" select="count($partyNames)" />
 
     <fo:table table-layout="fixed" width="100%">
       <xsl:for-each select="1 to $partyCount">
