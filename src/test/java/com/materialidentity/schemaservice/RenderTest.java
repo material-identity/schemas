@@ -1,6 +1,7 @@
 package com.materialidentity.schemaservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -248,6 +249,98 @@ class RenderTest {
 					assertTrue(msg.contains("position 1"), "Should mention position: " + msg);
 					assertTrue(msg.contains("corrupt or not a valid PDF"), "Should mention corrupt PDF: " + msg);
 				});
+	}
+
+	// ---- render mode=test watermark (material-identity/schema#181, #289) ----
+
+	private static final String WATERMARK_DE = "VORSCHAU — KEIN GÜLTIGES ZERTIFIKAT";
+	private static final String WATERMARK_EN = "PREVIEW — NOT A VALID CERTIFICATE";
+
+	@Test
+	void testModeStampsWatermarkOnEveryPageInPrimaryLanguage() throws Exception {
+		// EN10168 valid_certificate_1 declares CertificateLanguages ["DE","EN"] — primary is DE.
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "EN10168", "v0.5.0", "valid_certificate_1.json"));
+		byte[] pdf = renderWithMode(jsonContent, "test");
+		try (PDDocument doc = Loader.loadPDF(pdf)) {
+			PDFTextStripper stripper = new PDFTextStripper();
+			for (int page = 1; page <= doc.getNumberOfPages(); page++) {
+				stripper.setStartPage(page);
+				stripper.setEndPage(page);
+				assertTrue(containsWatermark(stripper.getText(doc), WATERMARK_DE),
+						"watermark missing on page " + page + "/" + doc.getNumberOfPages());
+			}
+		}
+	}
+
+	@Test
+	void testModeFallsBackToEnglishWhenFamilyHasNoTranslations() throws Exception {
+		// Bluemint ships no translations file at all — the English fallback must stamp.
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "Bluemint", "v1.0.0", "valid_certificate_1.json"));
+		byte[] pdf = renderWithMode(jsonContent, "test");
+		try (PDDocument doc = Loader.loadPDF(pdf)) {
+			assertTrue(containsWatermark(new PDFTextStripper().getText(doc), WATERMARK_EN),
+					"English fallback watermark expected");
+		}
+	}
+
+	@Test
+	void liveAndDefaultModeRenderWithoutWatermark() throws Exception {
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "EN10168", "v0.5.0", "valid_certificate_1.json"));
+		byte[] defaultPdf = renderWithMode(jsonContent, null);
+		byte[] livePdf = renderWithMode(jsonContent, "live");
+		try (PDDocument defaultDoc = Loader.loadPDF(defaultPdf);
+				PDDocument liveDoc = Loader.loadPDF(livePdf)) {
+			PDFTextStripper stripper = new PDFTextStripper();
+			assertFalse(containsWatermark(stripper.getText(defaultDoc), WATERMARK_DE),
+					"default render must not be watermarked");
+			assertFalse(containsWatermark(stripper.getText(liveDoc), WATERMARK_DE),
+					"mode=live render must not be watermarked");
+		}
+	}
+
+	@Test
+	void invalidModeReturnsBadRequest() throws Exception {
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "EN10168", "v0.5.0", "valid_certificate_1.json"));
+		webClient
+				.post().uri(uriBuilder -> uriBuilder
+						.path("/api/render")
+						.queryParam("mode", "bogus")
+						.build())
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").value(message -> assertTrue(
+						((String) message).contains("Invalid mode"),
+						"Should mention invalid mode: " + message));
+	}
+
+	private byte[] renderWithMode(String jsonContent, String mode) {
+		return webClient
+				.post().uri(uriBuilder -> {
+					uriBuilder.path("/api/render");
+					if (mode != null) {
+						uriBuilder.queryParam("mode", mode);
+					}
+					return uriBuilder.build();
+				})
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.returnResult().getResponseBody();
+	}
+
+	/**
+	 * PDFTextStripper fragments the rotated watermark into short positional runs, so matching is
+	 * whitespace-insensitive: both sides are compared with all whitespace removed.
+	 */
+	private static boolean containsWatermark(String extracted, String watermark) {
+		return extracted.replaceAll("\\s+", "").contains(watermark.replaceAll("\\s+", ""));
 	}
 
 	private void assertPdfContentEquals(byte[] expectedPdfContent, byte[] actualPdfContent,

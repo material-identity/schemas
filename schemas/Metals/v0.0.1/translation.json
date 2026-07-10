@@ -1,5 +1,6 @@
 {
   "EN": {
+    "WatermarkPreview": "PREVIEW — NOT A VALID CERTIFICATE",
     "DigitalMaterialPassport": {
       "NumericResult": "Numeric Result",
       "BooleanResult": "Boolean Result",
@@ -225,6 +226,7 @@
     }
   },
   "DE": {
+    "WatermarkPreview": "VORSCHAU — KEIN GÜLTIGES ZERTIFIKAT",
     "DigitalMaterialPassport": {
       "NumericResult": "Numerisches Ergebnis",
       "BooleanResult": "Boolesches Ergebnis",

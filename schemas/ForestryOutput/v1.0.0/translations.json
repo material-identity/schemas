@@ -1,5 +1,6 @@
 {
   "EN": {
+    "WatermarkPreview": "PREVIEW — NOT A VALID CERTIFICATE",
     "DigitalMaterialPassport": {
       "Languages": "Languages",
       "Id": "ID",
@@ -122,6 +123,7 @@
     }
   },
   "DE": {
+    "WatermarkPreview": "VORSCHAU — KEIN GÜLTIGES ZERTIFIKAT",
     "DigitalMaterialPassport": {
       "Languages": "Sprachen",
       "Id": "DMP-ID",
@@ -243,6 +245,7 @@
     }
   },
   "CN": {
+    "WatermarkPreview": "预览 — 非有效证书",
     "DigitalMaterialPassport": {
       "Languages": "语言",
       "Id": "DMP标识",

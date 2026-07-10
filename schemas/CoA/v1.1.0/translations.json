@@ -1,5 +1,6 @@
 {
   "EN": {
+    "WatermarkPreview": "PREVIEW — NOT A VALID CERTIFICATE",
     "Certificate": {
       "Customer": "Customer",
       "Receiver": "Certificate recipient",
@@ -57,6 +58,7 @@
     }
   },
   "DE": {
+    "WatermarkPreview": "VORSCHAU — KEIN GÜLTIGES ZERTIFIKAT",
     "Certificate": {
       "Customer": "Kunde",
       "Receiver": "Zertifikatsempfänger",
@@ -114,6 +116,7 @@
     }
   },
   "CN": {
+    "WatermarkPreview": "预览 — 非有效证书",
     "Certificate": {
       "Customer": "客户",
       "Receiver": "证书收件人",
@@ -171,6 +174,7 @@
     }
   },
   "ES": {
+    "WatermarkPreview": "VISTA PREVIA — CERTIFICADO NO VÁLIDO",
     "Certificate": {
       "Customer": "Cliente",
       "Receiver": "Receptor de la certificado",
@@ -228,6 +232,7 @@
     }
   },
   "IT": {
+    "WatermarkPreview": "ANTEPRIMA — CERTIFICATO NON VALIDO",
     "Certificate": {
       "Customer": "Cliente",
       "Receiver": "Destinatario del certificato",
@@ -285,6 +290,7 @@
     }
   },
   "FR": {
+    "WatermarkPreview": "APERÇU — PAS UN CERTIFICAT VALIDE",
     "Certificate": {
       "Customer": "Client",
       "Receiver": "Réceptionnaire du certificat",
@@ -342,6 +348,7 @@
     }
   },
   "PL": {
+    "WatermarkPreview": "PODGLĄD — NIEWAŻNY CERTYFIKAT",
     "Certificate": {
       "Customer": "Klient",
       "Receiver": "Odbiorca certyfikatu",
@@ -399,6 +406,7 @@
     }
   },
   "TR": {
+    "WatermarkPreview": "ÖNİZLEME — GEÇERLİ BİR SERTİFİKA DEĞİLDİR",
     "Certificate": {
       "Customer": "Müşteri",
       "Receiver": "Sertifika alıcısı",

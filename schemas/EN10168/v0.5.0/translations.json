@@ -1,5 +1,6 @@
 {
   "EN": {
+    "WatermarkPreview": "PREVIEW — NOT A VALID CERTIFICATE",
     "Certificate": {
       "A01": "Manufacturer's plant",
       "A02": "Type of inspection document",
@@ -109,6 +110,7 @@
     }
   },
   "DE": {
+    "WatermarkPreview": "VORSCHAU — KEIN GÜLTIGES ZERTIFIKAT",
     "Certificate": {
       "A01": "Herstellerwerk",
       "A02": "Art der Prüfbescheinigung",
@@ -218,6 +220,7 @@
     }
   },
   "FR": {
+    "WatermarkPreview": "APERÇU — PAS UN CERTIFICAT VALIDE",
     "Certificate": {
       "A01": "Usine productrice",
       "A02": "Type de document de contrôle",
@@ -327,6 +330,7 @@
     }
   },
   "PL": {
+    "WatermarkPreview": "PODGLĄD — NIEWAŻNY CERTYFIKAT",
     "Certificate": {
       "A01": "Zakład produkcyjny",
       "A02": "Typ certyfikatu badania",

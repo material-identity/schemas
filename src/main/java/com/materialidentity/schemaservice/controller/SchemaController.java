@@ -37,11 +37,12 @@ public class SchemaController {
 
     @PostMapping("/render")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Render a JSON DMP as a PDF")
+    @Operation(summary = "Render a JSON DMP as a PDF. mode=test stamps a preview watermark on every page (non-PDF/A); mode=live (default) renders unchanged.")
     public ResponseEntity<byte[]> render(
             @RequestParam(value = EndpointParamConstants.ATTACH_JSON, defaultValue = "true") Boolean attachJson,
             @RequestParam(value = EndpointParamConstants.JSON_FILENAME, defaultValue = SchemaControllerConstants.DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME) String filename,
+            @RequestParam(value = EndpointParamConstants.MODE, defaultValue = "live") String mode,
             @RequestBody JsonNode dmp) throws TransformerException, IOException, SAXException {
-        return schemasService.renderPdf(attachJson, dmp, filename);
+        return schemasService.renderPdf(attachJson, dmp, filename, mode);
     }
 }
