@@ -30,6 +30,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.materialidentity.schemaservice.AttachmentManager;
+import com.materialidentity.schemaservice.CustomerLayouts;
 import com.materialidentity.schemaservice.EmbedManager;
 import com.materialidentity.schemaservice.PDFBuilder;
 import com.materialidentity.schemaservice.TranslationLoader;
@@ -196,9 +197,7 @@ public class SchemasServiceImpl implements SchemasService {
 
         String certificateJson = jsonToString(certificate);
 
-        String xsltPath = Paths
-                .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
-                .toString();
+        String xsltPath = resolveXsltPath(certificate, schemaType, schemaVersion);
 
         Resource xsltResource = new ClassPathResource(xsltPath);
         String xsltSource = new String(
@@ -236,6 +235,27 @@ public class SchemasServiceImpl implements SchemasService {
                 .body(pdfBytes);
     }
 
+    /**
+     * Resolve the stylesheet path for a cert: the family's default stylesheet, unless the
+     * producer's VAT maps to a registered per-customer layout that actually exists on the
+     * classpath (material-identity/schema#181/HKM), in which case that layout's stylesheet is
+     * used instead.
+     */
+    private String resolveXsltPath(JsonNode certificate, String schemaType, String schemaVersion) {
+        Optional<String> layout = CustomerLayouts.resolve(certificate)
+                .filter(name -> new ClassPathResource(Paths
+                        .get("schemas", schemaType, schemaVersion, "layouts", name, SchemaControllerConstants.XSLT_FILE_NAME)
+                        .toString()).exists());
+
+        return layout
+                .map(name -> Paths
+                        .get("schemas", schemaType, schemaVersion, "layouts", name, SchemaControllerConstants.XSLT_FILE_NAME)
+                        .toString())
+                .orElseGet(() -> Paths
+                        .get("schemas", schemaType, schemaVersion, SchemaControllerConstants.XSLT_FILE_NAME)
+                        .toString());
+    }
+
     /** Parse the render {@code mode} param (material-identity/schema#181): test | live only. */
     private static boolean parseTestMode(String mode) {
         return switch (mode) {
@@ -249,15 +269,17 @@ public class SchemasServiceImpl implements SchemasService {
     private String deriveClasspathRootUri(Resource xsltResource, String xsltPath) {
         try {
             String resourceUrl = xsltResource.getURL().toExternalForm();
-            // For jar: URIs (e.g., on Heroku), Saxon can't resolve json-doc()
-            // against jar: protocol. Fall back to CWD where schemas/ exists.
-            if (resourceUrl.startsWith("jar:")) {
-                return java.nio.file.Paths.get("").toUri().toString();
-            }
             String normalizedPath = xsltPath.replace(java.io.File.separator, "/");
             int index = resourceUrl.lastIndexOf(normalizedPath);
             if (index >= 0) {
+                // Works for both file: and jar:...!/ URLs — Saxon resolves xsl:import hrefs (and
+                // Java natively opens jar: streams) against either scheme without further help.
                 return resourceUrl.substring(0, index);
+            }
+            // xsltPath wasn't found verbatim in the resource's own URL (shouldn't normally
+            // happen, e.g. on Heroku) — best effort against the working directory.
+            if (resourceUrl.startsWith("jar:")) {
+                return java.nio.file.Paths.get("").toUri().toString();
             }
         } catch (IOException e) {
             logger.warn("Could not derive classpath root URI for XSLT transformation", e);

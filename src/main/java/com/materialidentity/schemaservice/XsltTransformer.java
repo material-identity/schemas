@@ -66,10 +66,12 @@ public class XsltTransformer {
 
         TransformerFactory factory = new TransformerFactoryImpl();
         
-        // Security: Disable external entity access to prevent XXE attacks
-        // but allow file access for legitimate translation files
+        // Security: Disable external entity access to prevent XXE attacks, but allow legitimate
+        // translation-file loads and xsl:import of packaged per-customer layout overrides
+        // (material-identity/schema#181/HKM) — both always resolve against our own packaged
+        // classpath resources (file: exploded, jar: packaged), never user input.
         factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
-        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "file");
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalStylesheet", "file,jar");
         
         // Allow file access for json-doc() function to load translation files
         factory.setFeature("http://saxon.sf.net/feature/allow-external-functions", true);

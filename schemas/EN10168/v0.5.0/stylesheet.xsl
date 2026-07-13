@@ -4,6 +4,11 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
+  <!-- Overridable hooks for per-customer layouts (e.g. legacy/schemas/EN10168/v0.5.0/layouts/HKM/):
+       empty by default, no visual effect on the standard render. -->
+  <xsl:attribute-set name="chem-table-symbol-row" />
+  <xsl:attribute-set name="chem-table-max-row" />
+
   <xsl:template match="/">
     <fo:root xml:lang="en">
       <fo:layout-master-set>
@@ -47,70 +52,11 @@
           <xsl:variable name="languageCount" select="count(Root/Certificate/CertificateLanguages)" />
           <fo:block font-size="8pt">
             <!-- Parties -->
-            <fo:table table-layout="fixed" width="100%">
-              <fo:table-column column-width="33%" />
-              <fo:table-column column-width="33%" />
-              <fo:table-column column-width="33%" />
-              <fo:table-body>
-                <fo:table-row>
-                  <fo:table-cell padding-bottom="{$partyPaddingBottom}">
-                    <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
-                    </fo:block>
-                    <fo:block>
-                      <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
-                    </fo:block>
-                  </fo:table-cell>
-                  <xsl:call-template name="PartyInfo">
-                    <xsl:with-param name="number" select="'A01 '" />
-                    <xsl:with-param name="title" select="$i18n/Certificate/A01" />
-                    <xsl:with-param name="party" select="$CommercialTransaction/A01" />
-                    <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
-                  </xsl:call-template>
-                  <xsl:choose>
-                    <xsl:when test="exists($CommercialTransaction/A06)">
-                      <xsl:call-template name="PartyInfo">
-                        <xsl:with-param name="number" select="'A06 '" />
-                        <xsl:with-param name="title" select="$i18n/Certificate/A06" />
-                        <xsl:with-param name="party" select="$CommercialTransaction/A06" />
-                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
-                      </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:call-template name="PartyInfo">
-                        <xsl:with-param name="number" select="'A06.1 '" />
-                        <xsl:with-param name="title" select="$i18n/Certificate/A06.1" />
-                        <xsl:with-param name="party" select="$CommercialTransaction/A06.1" />
-                        <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
-                      </xsl:call-template>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </fo:table-row>
-              </fo:table-body>
-            </fo:table>
-
-            <xsl:if test="count($CommercialTransaction/A06.2) + count($CommercialTransaction/A06.3) + count($CommercialTransaction/A06.4)> 0">
-              <fo:table table-layout="fixed" width="100%">
-                <fo:table-column column-width="33%" />
-                <fo:table-column column-width="33%" />
-                <fo:table-column column-width="33%" />
-                <fo:table-body>
-                  <fo:table-row>
-                    <xsl:for-each select="2 to 4">
-                      <xsl:variable name="index" select="." />
-                      <xsl:variable name="elementName" select="concat('A06.', $index)" />
-                      <xsl:if test="exists($CommercialTransaction/*[name() = $elementName])">
-                        <xsl:call-template name="PartyInfo">
-                          <xsl:with-param name="number" select="concat('A06.', $index, ' ')" />
-                          <xsl:with-param name="title" select="$i18n/Certificate/*[name() = $elementName]" />
-                          <xsl:with-param name="party" select="$CommercialTransaction/*[name() = $elementName]" />
-                          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
-                        </xsl:call-template>
-                      </xsl:if>
-                    </xsl:for-each>
-                  </fo:table-row>
-                </fo:table-body>
-              </fo:table>
-            </xsl:if>
+            <xsl:call-template name="RenderParties">
+              <xsl:with-param name="i18n" select="$i18n" />
+              <xsl:with-param name="CommercialTransaction" select="$CommercialTransaction" />
+              <xsl:with-param name="partyPaddingBottom" select="$partyPaddingBottom" />
+            </xsl:call-template>
 
             <!-- Commercial Transaction -->
             <xsl:call-template name="SectionTitle">
@@ -744,11 +690,11 @@
                       </xsl:for-each>
                     </fo:table-row>
                     <fo:table-row>
-                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                      <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                         <fo:block><xsl:value-of select="$i18n/Certificate/Symbol" /></fo:block>
                       </fo:table-cell>
                       <xsl:for-each select="$keys1">
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                           <fo:block>
                             <xsl:value-of select="Symbol" />
                           </fo:block>
@@ -785,11 +731,11 @@
                     </xsl:if>
                     <xsl:if test="count($keys1[Maximum != '']) &gt; 0">
                       <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                           <fo:block><xsl:value-of select="$i18n/Certificate/Max" /></fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys1">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                             <fo:block>
                               <xsl:value-of select="Maximum/Operator" />
                               <xsl:text></xsl:text>
@@ -838,11 +784,11 @@
                         </xsl:for-each>
                       </fo:table-row>
                       <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                           <fo:block><xsl:value-of select="$i18n/Certificate/Symbol" /></fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys2">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                             <fo:block>
                               <xsl:value-of select="Symbol" />
                             </fo:block>
@@ -879,11 +825,11 @@
                       </xsl:if>
                       <xsl:if test="count($keys2[Maximum != '']) &gt; 0">
                         <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                             <fo:block><xsl:value-of select="$i18n/Certificate/Max" /></fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys2">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                               <fo:block>
                                 <xsl:value-of select="Maximum/Operator" />
                                 <xsl:text></xsl:text>
@@ -932,11 +878,11 @@
                         </xsl:for-each>
                       </fo:table-row>
                       <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                           <fo:block><xsl:value-of select="$i18n/Certificate/Symbol" /></fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys3">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                             <fo:block>
                               <xsl:value-of select="Symbol" />
                             </fo:block>
@@ -973,11 +919,11 @@
                       </xsl:if>
                       <xsl:if test="count($keys3[Maximum != '']) &gt; 0">
                         <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                             <fo:block><xsl:value-of select="$i18n/Certificate/Max" /></fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys3">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                               <fo:block>
                                 <xsl:value-of select="Maximum/Operator" />
                                 <xsl:text></xsl:text>
@@ -1026,11 +972,11 @@
                         </xsl:for-each>
                       </fo:table-row>
                       <fo:table-row>
-                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                        <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                           <fo:block><xsl:value-of select="$i18n/Certificate/Symbol" /></fo:block>
                         </fo:table-cell>
                         <xsl:for-each select="$keys4">
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-symbol-row">
                             <fo:block>
                               <xsl:value-of select="Symbol" />
                             </fo:block>
@@ -1067,11 +1013,11 @@
                       </xsl:if>
                       <xsl:if test="count($keys4[Maximum != '']) &gt; 0">
                         <fo:table-row>
-                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                          <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                             <fo:block><xsl:value-of select="$i18n/Certificate/Max" /></fo:block>
                           </fo:table-cell>
                           <xsl:for-each select="$keys4">
-                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}">
+                            <fo:table-cell padding-bottom="{$cellPaddingBottomChemical}" xsl:use-attribute-sets="chem-table-max-row">
                               <fo:block>
                                 <xsl:value-of select="Maximum/Operator" />
                                 <xsl:text></xsl:text>
@@ -1494,6 +1440,76 @@
       </fo:flow>
     </fo:page-sequence>
   </fo:root>
+</xsl:template>
+
+<xsl:template name="RenderParties">
+  <xsl:param name="i18n" />
+  <xsl:param name="CommercialTransaction" />
+  <xsl:param name="partyPaddingBottom" />
+  <fo:table table-layout="fixed" width="100%">
+    <fo:table-column column-width="33%" />
+    <fo:table-column column-width="33%" />
+    <fo:table-column column-width="33%" />
+    <fo:table-body>
+      <fo:table-row>
+        <fo:table-cell padding-bottom="{$partyPaddingBottom}">
+          <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
+          </fo:block>
+          <fo:block>
+            <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
+          </fo:block>
+        </fo:table-cell>
+        <xsl:call-template name="PartyInfo">
+          <xsl:with-param name="number" select="'A01 '" />
+          <xsl:with-param name="title" select="$i18n/Certificate/A01" />
+          <xsl:with-param name="party" select="$CommercialTransaction/A01" />
+          <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+        </xsl:call-template>
+        <xsl:choose>
+          <xsl:when test="exists($CommercialTransaction/A06)">
+            <xsl:call-template name="PartyInfo">
+              <xsl:with-param name="number" select="'A06 '" />
+              <xsl:with-param name="title" select="$i18n/Certificate/A06" />
+              <xsl:with-param name="party" select="$CommercialTransaction/A06" />
+              <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="PartyInfo">
+              <xsl:with-param name="number" select="'A06.1 '" />
+              <xsl:with-param name="title" select="$i18n/Certificate/A06.1" />
+              <xsl:with-param name="party" select="$CommercialTransaction/A06.1" />
+              <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+            </xsl:call-template>
+          </xsl:otherwise>
+        </xsl:choose>
+      </fo:table-row>
+    </fo:table-body>
+  </fo:table>
+
+  <xsl:if test="count($CommercialTransaction/A06.2) + count($CommercialTransaction/A06.3) + count($CommercialTransaction/A06.4)> 0">
+    <fo:table table-layout="fixed" width="100%">
+      <fo:table-column column-width="33%" />
+      <fo:table-column column-width="33%" />
+      <fo:table-column column-width="33%" />
+      <fo:table-body>
+        <fo:table-row>
+          <xsl:for-each select="2 to 4">
+            <xsl:variable name="index" select="." />
+            <xsl:variable name="elementName" select="concat('A06.', $index)" />
+            <xsl:if test="exists($CommercialTransaction/*[name() = $elementName])">
+              <xsl:call-template name="PartyInfo">
+                <xsl:with-param name="number" select="concat('A06.', $index, ' ')" />
+                <xsl:with-param name="title" select="$i18n/Certificate/*[name() = $elementName]" />
+                <xsl:with-param name="party" select="$CommercialTransaction/*[name() = $elementName]" />
+                <xsl:with-param name="paddingBottom" select="$partyPaddingBottom" />
+              </xsl:call-template>
+            </xsl:if>
+          </xsl:for-each>
+        </fo:table-row>
+      </fo:table-body>
+    </fo:table>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template name="SectionTitle">
