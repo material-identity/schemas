@@ -38,6 +38,13 @@
     <xsl:variable name="partyNames" select="('A01', $secondPartyName, $extraPartyNames)" />
     <xsl:variable name="partyCount" select="count($partyNames)" />
 
+    <!-- Usable body width (page-width 21cm minus the 1cm page margin and 0.25cm region-body
+         margin on each side, per the base stylesheet's fo:simple-page-master/fo:region-body).
+         Computed absolutely rather than via a "100%"-percentage graphic width: FOP does not
+         reliably resolve fo:external-graphic percentages against a table cell that is the only
+         cell in a multi-column row (the graphic rendered far wider than the cell in testing). -->
+    <xsl:variable name="logoColumnWidth" select="18.5 div $partyCount" />
+
     <fo:table table-layout="fixed" width="100%">
       <xsl:for-each select="1 to $partyCount">
         <fo:table-column column-width="{100 div $partyCount}%" />
@@ -48,7 +55,7 @@
             <fo:block padding-bottom="{$partyPaddingBottom}" font-style="italic"> A04 <xsl:value-of select="$i18n/Certificate/A04" />
             </fo:block>
             <fo:block>
-              <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" content-height="48px" height="48px" />
+              <fo:external-graphic fox:alt-text="Company Logo" src="{$CommercialTransaction/A04}" width="{$logoColumnWidth}cm" content-width="{$logoColumnWidth}cm" scaling="uniform" />
             </fo:block>
           </fo:table-cell>
         </fo:table-row>
