@@ -1594,7 +1594,7 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
@@ -1620,7 +1620,7 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
@@ -1743,11 +1743,11 @@
             <xsl:value-of select="$party/City" />
           </xsl:if>
           <xsl:if test="$party/StateProvince">
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
@@ -1775,7 +1775,7 @@
         <fo:block>
           <xsl:if test="$party/ZipCode">
             <xsl:value-of select="$party/ZipCode" />
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
@@ -1839,7 +1839,7 @@
         <fo:block>
           <xsl:if test="$party/District">
             <xsl:value-of select="$party/District" />
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
@@ -1851,7 +1851,7 @@
             <xsl:value-of select="$party/StateProvince" />
           </xsl:if>
           <xsl:if test="$party/ZipCode">
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="$party/ZipCode" />
           </xsl:if>
         </fo:block>
@@ -1933,7 +1933,7 @@
         <fo:block>
           <xsl:if test="$party/ZipCode">
             <xsl:value-of select="$party/ZipCode" />
-            <xsl:text></xsl:text>
+            <xsl:text> </xsl:text>
           </xsl:if>
           <xsl:if test="$party/City">
             <xsl:value-of select="$party/City" />
