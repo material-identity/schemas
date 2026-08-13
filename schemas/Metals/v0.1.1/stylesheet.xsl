@@ -4,7 +4,7 @@
   Derived from the standard stylesheet; same input document (Root/DigitalMaterialPassport),
   same helper templates, restructured layout:
     - Status columns render only when at least one row carries an Interpretation
-    - MultiValue results (impact) render inline: "v1 / v2 / v3 Unit - Mean m - Min x"
+    - MultiValue results (impact) render inline: "v1 / v2 / v3 Unit - Average a - Min x"
     - TestConditions shared by 2+ mechanical items become one footnote under the table
     - Chemical elements render as rows (Symbol|Unit|Min|Max|Actual) in two side-by-side halves
     - Product Information / Material Designations / Shape / Packaging merge into one Product section
@@ -1407,7 +1407,7 @@
         <xsl:value-of select="$result/Maximum" />
       </xsl:when>
       <xsl:when test="$result/ResultType = 'multiValue'">
-        <!-- Inline: "v1 / v2 / v3 Unit - Mean m - Min x" (no sub-tables, no empty statistics) -->
+        <!-- Inline: "v1 / v2 / v3 Unit - Average a - Min x" (no sub-tables, no empty statistics) -->
         <xsl:for-each select="$result/Values">
           <xsl:if test="position() gt 1"><xsl:text> / </xsl:text></xsl:if>
           <xsl:call-template name="FormatResult">
@@ -1419,7 +1419,7 @@
           <xsl:value-of select="$result/../Unit" />
         </xsl:if>
         <xsl:if test="$result/Statistics/Mean">
-          <xsl:text> - Mean </xsl:text>
+          <xsl:text> - Average </xsl:text>
           <xsl:call-template name="FormatResult">
             <xsl:with-param name="result" select="$result/Statistics/Mean" />
           </xsl:call-template>
