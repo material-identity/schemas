@@ -107,9 +107,9 @@
 
             <!-- Parties + Business Transaction band -->
             <fo:table table-layout="fixed" width="100%" space-before="6pt" border-top="0.8pt solid #2b4a6f">
-              <fo:table-column column-width="27%" />
+              <fo:table-column column-width="30%" />
+              <fo:table-column column-width="30%" />
               <fo:table-column column-width="40%" />
-              <fo:table-column column-width="33%" />
               <fo:table-body>
                 <fo:table-row border-bottom="0.4pt solid #bfbfbf">
                   <fo:table-cell padding="2pt">
@@ -130,7 +130,7 @@
                     <xsl:with-param name="party" select="$dmp/TransactionData/Parties/Customer" />
                   </xsl:call-template>
                   <fo:table-cell padding="2pt">
-                    <xsl:call-template name="BusinessTransactionCompact">
+                    <xsl:call-template name="BusinessTransactionGrid">
                       <xsl:with-param name="dmp" select="$dmp" />
                     </xsl:call-template>
                   </fo:table-cell>
@@ -1274,58 +1274,49 @@
     </fo:table-cell>
   </xsl:template>
 
-  <!-- Compact business transaction block: Order / Delivery / Contract as lines -->
-  <xsl:template name="BusinessTransactionCompact">
+  <!-- Business transaction grid: Order / Delivery / Contract as rows, Type
+       column sized to its content ("Delivery" is the longest label) rather
+       than a percentage, Details column taking the remainder. No header
+       row, no borders - reads as plain aligned text like the Party cells
+       either side of it. -->
+  <xsl:template name="BusinessTransactionGrid">
     <xsl:param name="dmp" />
     <xsl:variable name="bt" select="$dmp/TransactionData/BusinessTransaction" />
-    <xsl:if test="$bt/Order">
-      <fo:block>
-        <fo:inline font-style="italic">Order ID </fo:inline>
-        <fo:inline font-weight="bold"><xsl:value-of select="$bt/Order/Id" /></fo:inline>
-        <xsl:if test="$bt/Order/Position">
-          <xsl:text> - Pos. </xsl:text><xsl:value-of select="$bt/Order/Position" />
-        </xsl:if>
-        <xsl:if test="$bt/Order/Date">
-          <xsl:text> - </xsl:text><xsl:value-of select="$bt/Order/Date" />
-        </xsl:if>
-        <xsl:if test="$bt/Order/Quantity">
-          <xsl:text> - Quantity </xsl:text>
-          <fo:inline font-weight="bold">
-            <xsl:value-of select="concat($bt/Order/Quantity, ' ', $bt/Order/QuantityUnit)" />
-          </fo:inline>
-        </xsl:if>
-      </fo:block>
-    </xsl:if>
-    <xsl:if test="$bt/Delivery">
-      <fo:block>
-        <fo:inline font-style="italic">Delivery ID </fo:inline>
-        <fo:inline font-weight="bold"><xsl:value-of select="$bt/Delivery/Id" /></fo:inline>
-        <xsl:if test="$bt/Delivery/Position">
-          <xsl:text> - Pos. </xsl:text><xsl:value-of select="$bt/Delivery/Position" />
-        </xsl:if>
-        <xsl:if test="$bt/Delivery/Date">
-          <xsl:text> - </xsl:text><xsl:value-of select="$bt/Delivery/Date" />
-        </xsl:if>
-        <xsl:if test="$bt/Delivery/Quantity">
-          <xsl:text> - Quantity </xsl:text>
-          <fo:inline font-weight="bold">
-            <xsl:value-of select="concat($bt/Delivery/Quantity, ' ', $bt/Delivery/QuantityUnit)" />
-          </fo:inline>
-        </xsl:if>
-      </fo:block>
-    </xsl:if>
-    <xsl:if test="$bt/Contract">
-      <fo:block>
-        <fo:inline font-style="italic">Contract ID </fo:inline>
-        <fo:inline font-weight="bold"><xsl:value-of select="$bt/Contract/Id" /></fo:inline>
-        <xsl:if test="$bt/Contract/Date">
-          <xsl:text> - </xsl:text><xsl:value-of select="$bt/Contract/Date" />
-        </xsl:if>
-        <xsl:if test="$bt/Contract/Description">
-          <xsl:text> - </xsl:text><xsl:value-of select="$bt/Contract/Description" />
-        </xsl:if>
-      </fo:block>
-    </xsl:if>
+    <fo:table table-layout="fixed" width="100%">
+      <fo:table-column column-width="18mm" />
+      <fo:table-column column-width="proportional-column-width(1)" />
+      <fo:table-body>
+        <xsl:for-each select="$bt/Order | $bt/Delivery | $bt/Contract">
+          <xsl:variable name="label" select="name()" />
+          <fo:table-row>
+            <fo:table-cell padding="2pt">
+              <fo:block font-weight="bold"><xsl:value-of select="$label" /></fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding="2pt">
+              <fo:block>
+                <xsl:value-of select="Id" />
+                <xsl:if test="Quantity">
+                  <xsl:text> &#183; </xsl:text>
+                  <fo:inline font-weight="bold"><xsl:value-of select="concat(Quantity, ' ', QuantityUnit)" /></fo:inline>
+                </xsl:if>
+                <xsl:if test="Description">
+                  <xsl:text> &#183; </xsl:text><xsl:value-of select="Description" />
+                </xsl:if>
+              </fo:block>
+              <xsl:if test="Position or Date">
+                <fo:block font-size="6.5pt" color="#4A4A4A">
+                  <xsl:if test="Position">
+                    <xsl:text>Pos. </xsl:text><xsl:value-of select="Position" />
+                  </xsl:if>
+                  <xsl:if test="Position and Date"><xsl:text> &#183; </xsl:text></xsl:if>
+                  <xsl:if test="Date"><xsl:value-of select="Date" /></xsl:if>
+                </fo:block>
+              </xsl:if>
+            </fo:table-cell>
+          </fo:table-row>
+        </xsl:for-each>
+      </fo:table-body>
+    </fo:table>
   </xsl:template>
 
   <!-- Status icon for Interpretation values -->
