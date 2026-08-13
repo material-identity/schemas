@@ -188,8 +188,8 @@
           "type": "object",
           "description": "Statistical calculations for the test values",
           "properties": {
-            "Mean": {
-              "description": "Arithmetic mean of the values",
+            "Average": {
+              "description": "Arithmetic average of the values",
               "$ref": "#/definitions/NumericResult"
             },
             "Median": {

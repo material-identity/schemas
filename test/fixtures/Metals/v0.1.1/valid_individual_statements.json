@@ -260,7 +260,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 510
             },
@@ -306,7 +306,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 380
             },
@@ -352,7 +352,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 22
             },

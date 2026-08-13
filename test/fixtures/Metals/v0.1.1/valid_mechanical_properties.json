@@ -269,7 +269,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 560
             },
@@ -322,7 +322,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 445
             },
@@ -371,7 +371,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 24
             },
@@ -420,7 +420,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 62
             },
@@ -473,7 +473,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 58
             },
@@ -526,7 +526,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 56.7
             },
@@ -583,7 +583,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 185
             },
@@ -644,7 +644,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 195
             },
@@ -757,7 +757,7 @@
             }
           ],
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 430
             },

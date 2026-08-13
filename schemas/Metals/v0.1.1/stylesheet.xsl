@@ -1409,10 +1409,10 @@
           <xsl:text> </xsl:text>
           <xsl:value-of select="$result/../Unit" />
         </xsl:if>
-        <xsl:if test="$result/Statistics/Mean">
+        <xsl:if test="$result/Statistics/Average">
           <xsl:text> - Average </xsl:text>
           <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="$result/Statistics/Mean" />
+            <xsl:with-param name="result" select="$result/Statistics/Average" />
           </xsl:call-template>
         </xsl:if>
         <xsl:if test="$result/Statistics/Minimum">
