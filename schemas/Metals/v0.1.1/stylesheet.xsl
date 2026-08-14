@@ -544,6 +544,7 @@
               <xsl:variable name="mechItems" select="$dmp/MechanicalProperties" />
               <xsl:variable name="mechHasStatus" select="exists($mechItems[Interpretation])" as="xs:boolean" />
               <xsl:variable name="mechHasSymbol" select="exists($mechItems[PropertySymbol])" as="xs:boolean" />
+              <xsl:variable name="mechAllMultiValue" select="every $m in $mechItems satisfies $m/Actual/ResultType = 'multiValue'" as="xs:boolean" />
               <xsl:variable name="allTC" select="$mechItems/TestConditions" />
               <xsl:variable name="sharedTC" as="xs:string*"
                 select="distinct-values(for $t in distinct-values($allTC) return if (count($allTC[. eq $t]) ge 2) then $t else ())" />
@@ -551,6 +552,44 @@
                 <xsl:call-template name="SectionTitle">
                   <xsl:with-param name="title" select="'Mechanical Properties'" />
                 </xsl:call-template>
+                <xsl:if test="$mechAllMultiValue">
+                  <!-- Every property here is a multiValue result: the generic Property/Actual/
+                       Minimum/Maximum header would never be populated, so skip it and render one
+                       self-contained sub-table per property instead (title, values, statistics,
+                       spec limits, method and status all in one place). -->
+                  <xsl:for-each select="$mechItems">
+                    <xsl:variable name="titleContent" as="node()*">
+                      <fo:block font-size="7pt" font-weight="bold">
+                        <xsl:call-template name="AddWordWrapBreaks">
+                          <xsl:with-param name="text" select="PropertyName" />
+                        </xsl:call-template>
+                        <xsl:if test="TestConditions and (TestConditions = $sharedTC)">
+                          <fo:inline font-size="5pt" baseline-shift="super">
+                            <xsl:value-of select="index-of($sharedTC, TestConditions)" />
+                          </fo:inline>
+                        </xsl:if>
+                      </fo:block>
+                      <xsl:if test="TestConditions and not(TestConditions = $sharedTC)">
+                        <fo:block font-size="6.5pt" color="#4A4A4A">
+                          <xsl:value-of select="TestConditions" />
+                        </fo:block>
+                      </xsl:if>
+                      <xsl:if test="SpecimenSpecification">
+                        <xsl:call-template name="FormatSpecimenSpecification">
+                          <xsl:with-param name="specimen" select="SpecimenSpecification" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </xsl:variable>
+                    <fo:block space-after="6pt" keep-together.within-page="always">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="Actual" />
+                        <xsl:with-param name="titleContent" select="$titleContent" />
+                        <xsl:with-param name="showMethodStatus" select="true()" />
+                      </xsl:call-template>
+                    </fo:block>
+                  </xsl:for-each>
+                </xsl:if>
+                <xsl:if test="not($mechAllMultiValue)">
                 <fo:table id="mechanical-properties-table" table-layout="fixed" width="100%">
                   <fo:table-column column-width="{if ($mechHasSymbol) then '28%' else '36%'}" />
                   <xsl:if test="$mechHasSymbol">
@@ -579,7 +618,7 @@
                     </fo:table-row>
 
                     <xsl:for-each select="$mechItems">
-                      <xsl:variable name="isSpanning" select="Actual/ResultType = 'array'" as="xs:boolean" />
+                      <xsl:variable name="isSpanning" select="Actual/ResultType = ('array', 'multiValue')" as="xs:boolean" />
                       <fo:table-row keep-together.within-page="always">
                         <xsl:if test="$isSpanning">
                           <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
@@ -680,7 +719,7 @@
                       <!-- Spanning row for array results -->
                       <xsl:if test="$isSpanning">
                         <fo:table-row keep-together.within-page="always">
-                          <fo:table-cell padding="4pt">
+                          <fo:table-cell padding-top="{if (Actual/ResultType = 'multiValue') then '0pt' else '4pt'}" padding-right="4pt" padding-bottom="4pt" padding-left="4pt">
                             <xsl:attribute name="number-columns-spanned">
                               <xsl:value-of select="5 + (if ($mechHasSymbol) then 1 else 0) + (if ($mechHasStatus) then 1 else 0)" />
                             </xsl:attribute>
@@ -693,6 +732,7 @@
                     </xsl:for-each>
                   </fo:table-body>
                 </fo:table>
+                </xsl:if>
                 <!-- Footnotes: TestConditions shared by 2+ items -->
                 <xsl:if test="exists($sharedTC)">
                   <fo:block space-before="2pt" font-size="6.5pt" color="#555555">
@@ -718,13 +758,41 @@
               <xsl:variable name="tableItems" select="$dmp/PhysicalProperties except ((if ($purityMatrixOk) then $purityItems else ()) | $checklistItems)" />
               <xsl:variable name="physHasStatus" select="exists($dmp/PhysicalProperties[Interpretation])" as="xs:boolean" />
               <xsl:variable name="physHasSymbol" select="exists($tableItems[PropertySymbol])" as="xs:boolean" />
+              <xsl:variable name="physAllMultiValue" select="exists($tableItems) and (every $t in $tableItems satisfies $t/Actual/ResultType = 'multiValue')" as="xs:boolean" />
 
               <fo:block>
                 <xsl:call-template name="SectionTitle">
                   <xsl:with-param name="title" select="'Physical Properties'" />
                 </xsl:call-template>
 
-                <xsl:if test="exists($tableItems)">
+                <xsl:if test="$physAllMultiValue">
+                  <!-- Every property here is a multiValue result: skip the generic header and
+                       render one self-contained sub-table per property instead (see the matching
+                       Mechanical Properties treatment above). -->
+                  <xsl:for-each select="$tableItems">
+                    <xsl:variable name="titleContent" as="node()*">
+                      <fo:block font-size="7pt" font-weight="bold">
+                        <xsl:call-template name="AddWordWrapBreaks">
+                          <xsl:with-param name="text" select="PropertyName" />
+                        </xsl:call-template>
+                      </fo:block>
+                      <xsl:if test="TestConditions">
+                        <fo:block font-size="6.5pt" color="#4A4A4A">
+                          <xsl:value-of select="TestConditions" />
+                        </fo:block>
+                      </xsl:if>
+                    </xsl:variable>
+                    <fo:block space-after="6pt" keep-together.within-page="always">
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="Actual" />
+                        <xsl:with-param name="titleContent" select="$titleContent" />
+                        <xsl:with-param name="showMethodStatus" select="true()" />
+                      </xsl:call-template>
+                    </fo:block>
+                  </xsl:for-each>
+                </xsl:if>
+
+                <xsl:if test="exists($tableItems) and not($physAllMultiValue)">
                   <fo:table id="physical-properties-table" table-layout="fixed" width="100%">
                     <fo:table-column column-width="{if ($physHasSymbol) then '28%' else '36%'}" />
                     <xsl:if test="$physHasSymbol">
@@ -752,7 +820,7 @@
                         </xsl:if>
                       </fo:table-row>
                       <xsl:for-each select="$tableItems">
-                        <xsl:variable name="isSpanning" select="Actual/ResultType = 'array'" as="xs:boolean" />
+                        <xsl:variable name="isSpanning" select="Actual/ResultType = ('array', 'multiValue')" as="xs:boolean" />
                         <fo:table-row keep-together.within-page="always">
                           <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                             <xsl:if test="$isSpanning">
@@ -840,7 +908,7 @@
                         </fo:table-row>
                         <xsl:if test="$isSpanning">
                           <fo:table-row keep-together.within-page="always">
-                            <fo:table-cell padding="4pt">
+                            <fo:table-cell padding-top="{if (Actual/ResultType = 'multiValue') then '0pt' else '4pt'}" padding-right="4pt" padding-bottom="4pt" padding-left="4pt">
                               <xsl:attribute name="number-columns-spanned">
                                 <xsl:value-of select="5 + (if ($physHasSymbol) then 1 else 0) + (if ($physHasStatus) then 1 else 0)" />
                               </xsl:attribute>
@@ -928,8 +996,8 @@
             <!-- Supplementary Tests -->
             <xsl:if test="$dmp/SupplementaryTests">
               <xsl:variable name="suppChecklistItems" select="$dmp/SupplementaryTests[Actual/ResultType = 'boolean' and not(Method) and not(Minimum) and not(Maximum) and not(Unit) and not(TestConditions)]" />
-              <xsl:variable name="suppArrayItems" select="$dmp/SupplementaryTests[Actual/ResultType = 'array']" />
-              <xsl:variable name="suppTableItems" select="$dmp/SupplementaryTests except ($suppChecklistItems | $suppArrayItems)" />
+              <xsl:variable name="suppSubtableItems" select="$dmp/SupplementaryTests[Actual/ResultType = ('array', 'multiValue')]" />
+              <xsl:variable name="suppTableItems" select="$dmp/SupplementaryTests except ($suppChecklistItems | $suppSubtableItems)" />
               <xsl:variable name="suppHasStatus" select="exists($dmp/SupplementaryTests[Interpretation])" as="xs:boolean" />
 
               <fo:block>
@@ -1042,15 +1110,16 @@
                   </fo:block>
                 </xsl:if>
 
-                <!-- Array results (e.g. Jominy hardenability) as labelled matrices -->
-                <xsl:for-each select="$suppArrayItems">
+                <!-- Array and multiValue results (e.g. Jominy hardenability, repeated impact tests)
+                     as labelled sub-tables - too wide/detailed for the narrow result column above -->
+                <xsl:for-each select="$suppSubtableItems">
                   <fo:block space-before="4pt" keep-together.within-page="always">
                     <fo:block space-after="2pt">
                       <fo:inline font-weight="bold"><xsl:value-of select="PropertyName" /></fo:inline>
                       <xsl:if test="Method">
                         <xsl:text> (</xsl:text><xsl:value-of select="Method" /><xsl:text>)</xsl:text>
                       </xsl:if>
-                      <xsl:if test="Unit">
+                      <xsl:if test="Unit and not(Actual/ResultType = 'multiValue')">
                         <xsl:text>, values in </xsl:text><xsl:value-of select="Unit" />
                       </xsl:if>
                       <xsl:if test="TestConditions">
@@ -1370,6 +1439,11 @@
   <!-- Format the result based on its type -->
   <xsl:template name="FormatResult">
     <xsl:param name="result" />
+    <!-- multiValue only: replaces the "No." corner cell with richer content (e.g. property
+         title/test conditions), and appends Method/Status columns - used when the surrounding
+         property row/header has been dropped because the whole section is self-contained. -->
+    <xsl:param name="titleContent" as="node()*" select="()" />
+    <xsl:param name="showMethodStatus" as="xs:boolean" select="false()" />
     <xsl:choose>
       <xsl:when test="$result/ResultType = 'numeric'">
         <xsl:if test="$result/Operator and $result/Operator != '='">
@@ -1402,41 +1476,198 @@
         <xsl:value-of select="$result/Maximum" />
       </xsl:when>
       <xsl:when test="$result/ResultType = 'multiValue'">
-        <!-- Inline: "v1 / v2 / v3 Unit - Average a - Min x" (no sub-tables, no empty statistics) -->
-        <xsl:for-each select="$result/Values">
-          <xsl:if test="position() gt 1"><xsl:text> / </xsl:text></xsl:if>
-          <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="." />
-          </xsl:call-template>
-        </xsl:for-each>
-        <xsl:if test="$result/../Unit">
-          <xsl:text> </xsl:text>
-          <xsl:value-of select="$result/../Unit" />
-        </xsl:if>
-        <xsl:if test="$result/Statistics/Average">
-          <xsl:text> - Average </xsl:text>
-          <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="$result/Statistics/Average" />
-          </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="$result/Statistics/Minimum">
-          <xsl:text> - Min </xsl:text>
-          <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="$result/Statistics/Minimum" />
-          </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="$result/Statistics/Maximum">
-          <xsl:text> - Max </xsl:text>
-          <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="$result/Statistics/Maximum" />
-          </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="$result/Statistics/StandardDeviation">
-          <xsl:text> - Std Dev </xsl:text>
-          <xsl:call-template name="FormatResult">
-            <xsl:with-param name="result" select="$result/Statistics/StandardDeviation" />
-          </xsl:call-template>
-        </xsl:if>
+        <!-- Sub-table (like array results): one column per raw value, then the computed
+             statistics and the specification limits as further columns, so nothing is
+             crammed into a single running line of text. -->
+        <xsl:variable name="stats" select="$result/Statistics" />
+        <xsl:variable name="specMin" select="$result/../Minimum" />
+        <xsl:variable name="specMax" select="$result/../Maximum" />
+        <xsl:variable name="method" select="if ($showMethodStatus) then $result/../Method else ()" />
+        <xsl:variable name="status" select="if ($showMethodStatus) then $result/../Interpretation else ()" />
+        <xsl:variable name="symbol" select="if ($showMethodStatus) then $result/../PropertySymbol else ()" />
+        <fo:table table-layout="fixed" width="100%">
+          <fo:table-column column-width="{if (exists($titleContent)) then 'proportional-column-width(4)' else 'proportional-column-width(3)'}"/>
+          <xsl:if test="$symbol"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:for-each select="$result/Values">
+            <fo:table-column column-width="proportional-column-width(2)"/>
+          </xsl:for-each>
+          <xsl:if test="$stats/Average"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$stats/Minimum"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$stats/Maximum"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$stats/StandardDeviation"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$specMin"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$specMax"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$method"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <xsl:if test="$status"><fo:table-column column-width="proportional-column-width(2)"/></xsl:if>
+          <fo:table-body>
+            <!-- Header row: position of each raw value, then labels for the derived columns -->
+            <fo:table-row background-color="#f8f8f8">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <xsl:choose>
+                  <xsl:when test="exists($titleContent)">
+                    <xsl:sequence select="$titleContent" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <fo:block text-align="left" font-size="7pt">No.</fo:block>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </fo:table-cell>
+              <xsl:if test="$symbol">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic">Symbol</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:for-each select="$result/Values">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold">
+                    <xsl:value-of select="position()" />
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+              <xsl:if test="$stats/Average">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Average</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/Minimum">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Min</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/Maximum">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Max</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/StandardDeviation">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Std Dev</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$specMin">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Spec Min</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$specMax">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Spec Max</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$method">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic">Method</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$status">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Status</fo:block>
+                </fo:table-cell>
+              </xsl:if>
+            </fo:table-row>
+            <!-- Values row -->
+            <fo:table-row>
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="left" font-size="7pt">
+                  <xsl:choose>
+                    <xsl:when test="$result/../Unit">
+                      <xsl:value-of select="concat('Value [', $result/../Unit, ']')" />
+                    </xsl:when>
+                    <xsl:otherwise>Value</xsl:otherwise>
+                  </xsl:choose>
+                </fo:block>
+              </fo:table-cell>
+              <xsl:if test="$symbol">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="left" font-size="7pt">
+                    <xsl:value-of select="$symbol" />
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:for-each select="$result/Values">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="." />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+              <xsl:if test="$stats/Average">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$stats/Average" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/Minimum">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$stats/Minimum" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/Maximum">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$stats/Maximum" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$stats/StandardDeviation">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$stats/StandardDeviation" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$specMin">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$specMin" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$specMax">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="$specMax" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$method">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="left" font-size="7pt">
+                    <xsl:call-template name="AddWordWrapBreaks">
+                      <xsl:with-param name="text" select="$method" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+              <xsl:if test="$status">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="StatusIcon">
+                      <xsl:with-param name="interpretation" select="$status" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:if>
+            </fo:table-row>
+          </fo:table-body>
+        </fo:table>
       </xsl:when>
       <xsl:when test="$result/ResultType = 'array'">
         <fo:table table-layout="fixed" width="100%" margin-top="2pt">
