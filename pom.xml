@@ -16,10 +16,15 @@
     <!-- Security: Override vulnerable transitive dependency versions -->
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
-    <netty.version>4.1.133.Final</netty.version>
+    <netty.version>4.1.136.Final</netty.version>
     <!-- Tomcat 10.1.55 fixes GHSA-r29c-68gh-xp6x, GHSA-h6fc-48rj-7qqh, GHSA-5m62-pw8w-7w9f
          (Critical) plus 3 High + 1 Low. Remove once Spring Boot 3.5.15 ships with it. -->
     <tomcat.version>10.1.55</tomcat.version>
+    <jackson-bom.version>2.21.5</jackson-bom.version>
+    <micrometer.version>1.15.12</micrometer.version>
+    <httpclient5.version>5.6.3</httpclient5.version>
+    <httpcore5.version>5.4.3</httpcore5.version>
+    <spring-framework.version>6.2.19</spring-framework.version>
   </properties>
 
   <parent>
@@ -138,17 +143,17 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.25.4</version>
+      <version>2.25.5</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>2.25.4</version>
+      <version>2.25.5</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.25.4</version>
+      <version>2.25.5</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
