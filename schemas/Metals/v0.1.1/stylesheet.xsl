@@ -413,7 +413,7 @@
 
             <!-- Heat Treatment (unchanged from standard layout) -->
             <xsl:if test="$dmp/HeatTreatment">
-              <fo:block keep-together="always">
+              <fo:block>
                 <xsl:call-template name="SectionTitle">
                   <xsl:with-param name="title" select="'Heat Treatment'" />
                 </xsl:call-template>
@@ -452,7 +452,7 @@
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Atmosphere</fo:block></fo:table-cell>
                       </fo:table-row>
                       <xsl:for-each select="$dmp/HeatTreatment/Stages">
-                        <fo:table-row>
+                        <fo:table-row keep-together.within-page="always">
                           <fo:table-cell padding="2pt"><fo:block><xsl:value-of select="StageType" /></fo:block></fo:table-cell>
                           <fo:table-cell padding="2pt">
                             <fo:block>
@@ -719,7 +719,7 @@
               <xsl:variable name="physHasStatus" select="exists($dmp/PhysicalProperties[Interpretation])" as="xs:boolean" />
               <xsl:variable name="physHasSymbol" select="exists($tableItems[PropertySymbol])" as="xs:boolean" />
 
-              <fo:block keep-together="always">
+              <fo:block>
                 <xsl:call-template name="SectionTitle">
                   <xsl:with-param name="title" select="'Physical Properties'" />
                 </xsl:call-template>
