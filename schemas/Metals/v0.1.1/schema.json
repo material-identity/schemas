@@ -132,8 +132,13 @@
             "type": "object",
             "properties": {
               "Parameter": {
-                "type": "number",
+                "type": "string",
                 "description": "Parameter value for this data point"
+              },
+              "ParameterType": {
+                "type": "string",
+                "enum": ["string", "number"],
+                "description": "The semantic type of Parameter, for consumers that need to sort or format it (e.g. numerically for a distance, or as-is for a category label)"
               },
               "Value": {
                 "description": "Measured numeric value at this parameter",

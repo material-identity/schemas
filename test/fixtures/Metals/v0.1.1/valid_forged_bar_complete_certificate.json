@@ -485,119 +485,22 @@
       },
       {
         "Actual": {
-          "ResultType": "numeric",
-          "Value": 2
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 3
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity A fine",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 3
+          "ResultType": "array",
+          "ParameterName": "Inclusion type",
+          "Data": [
+            { "Parameter": "A fine", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 2 }, "Maximum": { "ResultType": "numeric", "Value": 3 } },
+            { "Parameter": "A thick", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1.5 }, "Maximum": { "ResultType": "numeric", "Value": 3 } },
+            { "Parameter": "B fine", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1.5 }, "Maximum": { "ResultType": "numeric", "Value": 2.5 } },
+            { "Parameter": "B thick", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1 }, "Maximum": { "ResultType": "numeric", "Value": 1.5 } },
+            { "Parameter": "C fine", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1 }, "Maximum": { "ResultType": "numeric", "Value": 2.5 } },
+            { "Parameter": "C thick", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 0.5 }, "Maximum": { "ResultType": "numeric", "Value": 1.5 } },
+            { "Parameter": "D fine", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1.5 }, "Maximum": { "ResultType": "numeric", "Value": 2 } },
+            { "Parameter": "D thick", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1 }, "Maximum": { "ResultType": "numeric", "Value": 1.5 } },
+            { "Parameter": "DS", "ParameterType": "string", "Value": { "ResultType": "numeric", "Value": 1 }, "Maximum": { "ResultType": "numeric", "Value": 2 } }
+          ]
         },
         "Method": "ISO 4967 method B",
-        "PropertyName": "Purity A thick",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 2.5
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity B fine",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity B thick",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 2.5
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity C fine",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 0.5
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity C thick",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 2
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity D fine",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 1.5
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity D thick",
-        "TestConditions": "Plate II, inspected area approx. 200 mm²"
-      },
-      {
-        "Actual": {
-          "ResultType": "numeric",
-          "Value": 1
-        },
-        "Maximum": {
-          "ResultType": "numeric",
-          "Value": 2
-        },
-        "Method": "ISO 4967 method B",
-        "PropertyName": "Purity DS",
+        "PropertyName": "Purity",
         "TestConditions": "Plate II, inspected area approx. 200 mm²"
       },
       {
@@ -807,11 +710,12 @@
                 "ResultType": "numeric",
                 "Value": 43
               },
-              "Parameter": 1.5,
+              "Parameter": "1.5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 46
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -822,11 +726,12 @@
                 "ResultType": "numeric",
                 "Value": 43
               },
-              "Parameter": 3,
+              "Parameter": "3",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 46
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -837,11 +742,12 @@
                 "ResultType": "numeric",
                 "Value": 42
               },
-              "Parameter": 5,
+              "Parameter": "5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 45
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -852,11 +758,12 @@
                 "ResultType": "numeric",
                 "Value": 41
               },
-              "Parameter": 7,
+              "Parameter": "7",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 44
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -867,11 +774,12 @@
                 "ResultType": "numeric",
                 "Value": 40
               },
-              "Parameter": 9,
+              "Parameter": "9",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 44
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -882,11 +790,12 @@
                 "ResultType": "numeric",
                 "Value": 40
               },
-              "Parameter": 11,
+              "Parameter": "11",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 44
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -897,11 +806,12 @@
                 "ResultType": "numeric",
                 "Value": 39
               },
-              "Parameter": 13,
+              "Parameter": "13",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 42
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -912,11 +822,12 @@
                 "ResultType": "numeric",
                 "Value": 38
               },
-              "Parameter": 15,
+              "Parameter": "15",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 42
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -927,11 +838,12 @@
                 "ResultType": "numeric",
                 "Value": 36
               },
-              "Parameter": 20,
+              "Parameter": "20",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 40
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -942,11 +854,12 @@
                 "ResultType": "numeric",
                 "Value": 35
               },
-              "Parameter": 25,
+              "Parameter": "25",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 39
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -957,11 +870,12 @@
                 "ResultType": "numeric",
                 "Value": 34
               },
-              "Parameter": 30,
+              "Parameter": "30",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 38
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -972,11 +886,12 @@
                 "ResultType": "numeric",
                 "Value": 33
               },
-              "Parameter": 35,
+              "Parameter": "35",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 37
-              }
+              },
+              "ParameterType": "number"
             },
             {
               "Maximum": {
@@ -987,25 +902,28 @@
                 "ResultType": "numeric",
                 "Value": 33
               },
-              "Parameter": 40,
+              "Parameter": "40",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 37
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 45,
+              "Parameter": "45",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 30
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 50,
+              "Parameter": "50",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 30
-              }
+              },
+              "ParameterType": "number"
             }
           ],
           "ParameterName": "Distance from quenched end",

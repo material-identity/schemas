@@ -183,7 +183,7 @@
           "ParameterUnit": "mm",
           "Data": [
             {
-              "Parameter": 1.5,
+              "Parameter": "1.5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 45
@@ -196,10 +196,11 @@
                 "ResultType": "numeric",
                 "Value": 47
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 3,
+              "Parameter": "3",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 43
@@ -212,10 +213,11 @@
                 "ResultType": "numeric",
                 "Value": 46
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 5,
+              "Parameter": "5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 40
@@ -228,10 +230,11 @@
                 "ResultType": "numeric",
                 "Value": 44
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 7,
+              "Parameter": "7",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 36
@@ -244,10 +247,11 @@
                 "ResultType": "numeric",
                 "Value": 41
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 9,
+              "Parameter": "9",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 33
@@ -260,10 +264,11 @@
                 "ResultType": "numeric",
                 "Value": 39
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 11,
+              "Parameter": "11",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 31
@@ -276,10 +281,11 @@
                 "ResultType": "numeric",
                 "Value": 37
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 15,
+              "Parameter": "15",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 27
@@ -292,10 +298,11 @@
                 "ResultType": "numeric",
                 "Value": 33
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 20,
+              "Parameter": "20",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 25
@@ -308,10 +315,11 @@
                 "ResultType": "numeric",
                 "Value": 31
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 25,
+              "Parameter": "25",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 28
@@ -321,10 +329,11 @@
                 "Value": 30,
                 "Operator": "<="
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 30,
+              "Parameter": "30",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 27
@@ -334,7 +343,8 @@
                 "Value": 29,
                 "Operator": "<="
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             }
           ]
         },
@@ -351,7 +361,7 @@
           "ParameterUnit": "mm",
           "Data": [
             {
-              "Parameter": 0,
+              "Parameter": "0",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 125
@@ -366,10 +376,11 @@
                 "Value": 130,
                 "Operator": "<="
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 50,
+              "Parameter": "50",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 115
@@ -384,10 +395,11 @@
                 "Value": 125,
                 "Operator": "<="
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             },
             {
-              "Parameter": 100,
+              "Parameter": "100",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 108
@@ -402,7 +414,8 @@
                 "Value": 120,
                 "Operator": "<="
               },
-              "Status": "Pass"
+              "Status": "Pass",
+              "ParameterType": "number"
             }
           ]
         },
