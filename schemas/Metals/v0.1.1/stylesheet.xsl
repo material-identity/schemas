@@ -516,30 +516,9 @@
 
               <xsl:if test="$dmp/ChemicalAnalysis/Elements">
                 <xsl:variable name="allElements" select="$dmp/ChemicalAnalysis/Elements" />
-                <xsl:variable name="halfCount" select="xs:integer(ceiling(count($allElements) div 2))" as="xs:integer" />
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="49%" />
-                  <fo:table-column column-width="2%" />
-                  <fo:table-column column-width="49%" />
-                  <fo:table-body>
-                    <fo:table-row>
-                      <fo:table-cell>
-                        <xsl:call-template name="RenderChemicalElementsColumn">
-                          <xsl:with-param name="elements" select="subsequence($allElements, 1, $halfCount)" />
-                        </xsl:call-template>
-                      </fo:table-cell>
-                      <fo:table-cell><fo:block /></fo:table-cell>
-                      <fo:table-cell>
-                        <xsl:if test="count($allElements) gt $halfCount">
-                          <xsl:call-template name="RenderChemicalElementsColumn">
-                            <xsl:with-param name="elements" select="subsequence($allElements, $halfCount + 1)" />
-                          </xsl:call-template>
-                        </xsl:if>
-                        <xsl:if test="count($allElements) le $halfCount"><fo:block /></xsl:if>
-                      </fo:table-cell>
-                    </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
+                <xsl:call-template name="RenderChemicalElementsTransposed">
+                  <xsl:with-param name="elements" select="$allElements" />
+                </xsl:call-template>
 
                 <!-- Formula Definitions as a footnote line -->
                 <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
@@ -1164,62 +1143,82 @@
 
   <!-- TEMPLATES -->
 
-  <!-- Renders chemical elements as rows: Symbol | Unit | Min | Max | Actual. Called once per half-column. -->
-  <xsl:template name="RenderChemicalElementsColumn">
+  <!-- Renders chemical elements transposed: one column per element, rows for
+       Symbol/Unit/Min/Max/Actual - reads like a lab report, not a database
+       dump. More than $bandSize elements wrap into additional stacked bands
+       (each a self-contained table with its own row-label column) rather
+       than shrinking columns indefinitely; a partial trailing band stays at
+       its natural (narrower) width instead of stretching to match the rest. -->
+  <xsl:template name="RenderChemicalElementsTransposed">
     <xsl:param name="elements" />
-    <fo:table table-layout="fixed" width="100%">
-      <fo:table-column column-width="20%" />
-      <fo:table-column column-width="18%" />
-      <fo:table-column column-width="20%" />
-      <fo:table-column column-width="21%" />
-      <fo:table-column column-width="21%" />
-      <fo:table-body>
-        <fo:table-row background-color="#f0f0f0">
-          <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic">Symbol</fo:block></fo:table-cell>
-          <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic">Unit</fo:block></fo:table-cell>
-          <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic">Min</fo:block></fo:table-cell>
-          <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic">Max</fo:block></fo:table-cell>
-          <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic">Actual</fo:block></fo:table-cell>
-        </fo:table-row>
-        <xsl:for-each select="$elements">
-          <fo:table-row>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-              <fo:block font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-              <fo:block><xsl:value-of select="Unit" /></fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-              <fo:block>
-                <xsl:if test="Minimum">
-                  <xsl:call-template name="FormatResult">
-                    <xsl:with-param name="result" select="Minimum" />
-                  </xsl:call-template>
-                </xsl:if>
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-              <fo:block>
-                <xsl:if test="Maximum">
-                  <xsl:call-template name="FormatResult">
-                    <xsl:with-param name="result" select="Maximum" />
-                  </xsl:call-template>
-                </xsl:if>
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-              <fo:block>
-                <xsl:if test="Actual">
-                  <xsl:call-template name="FormatResult">
-                    <xsl:with-param name="result" select="Actual" />
-                  </xsl:call-template>
-                </xsl:if>
-              </fo:block>
-            </fo:table-cell>
+    <xsl:variable name="bandSize" select="20" as="xs:integer" />
+    <xsl:variable name="numBands" select="xs:integer(ceiling(count($elements) div $bandSize))" as="xs:integer" />
+    <xsl:for-each select="1 to $numBands">
+      <xsl:variable name="bandElements" select="subsequence($elements, (. - 1) * $bandSize + 1, $bandSize)" />
+      <fo:table table-layout="fixed">
+        <xsl:if test="position() gt 1">
+          <xsl:attribute name="space-before">4pt</xsl:attribute>
+        </xsl:if>
+        <fo:table-column column-width="16mm" />
+        <fo:table-column column-width="8.5mm" number-columns-repeated="{count($bandElements)}" />
+        <fo:table-body>
+          <fo:table-row background-color="#f0f0f0">
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic" font-weight="bold">Symbol</fo:block></fo:table-cell>
+            <xsl:for-each select="$bandElements">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold" text-align="center"><xsl:value-of select="PropertySymbol" /></fo:block></fo:table-cell>
+            </xsl:for-each>
           </fo:table-row>
-        </xsl:for-each>
-      </fo:table-body>
-    </fo:table>
+          <fo:table-row>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Unit</fo:block></fo:table-cell>
+            <xsl:for-each select="$bandElements">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block text-align="center"><xsl:value-of select="Unit" /></fo:block></fo:table-cell>
+            </xsl:for-each>
+          </fo:table-row>
+          <fo:table-row>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Min</fo:block></fo:table-cell>
+            <xsl:for-each select="$bandElements">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="center">
+                  <xsl:if test="Minimum">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Minimum" />
+                    </xsl:call-template>
+                  </xsl:if>
+                </fo:block>
+              </fo:table-cell>
+            </xsl:for-each>
+          </fo:table-row>
+          <fo:table-row>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Max</fo:block></fo:table-cell>
+            <xsl:for-each select="$bandElements">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="center">
+                  <xsl:if test="Maximum">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Maximum" />
+                    </xsl:call-template>
+                  </xsl:if>
+                </fo:block>
+              </fo:table-cell>
+            </xsl:for-each>
+          </fo:table-row>
+          <fo:table-row>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Actual</fo:block></fo:table-cell>
+            <xsl:for-each select="$bandElements">
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
+                <fo:block text-align="center">
+                  <xsl:if test="Actual">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Actual" />
+                    </xsl:call-template>
+                  </xsl:if>
+                </fo:block>
+              </fo:table-cell>
+            </xsl:for-each>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template name="SectionTitle">
@@ -1286,7 +1285,12 @@
       <fo:table-column column-width="18mm" />
       <fo:table-column column-width="proportional-column-width(1)" />
       <fo:table-body>
-        <xsl:for-each select="$bt/Order | $bt/Delivery | $bt/Contract">
+        <!-- Sequence constructor (,), not union (|): union sorts to document
+             order (i.e. whatever order these keys happen to appear in the
+             source JSON), which silently reordered Order/Delivery/Contract
+             on some fixtures. The comma preserves this explicit priority
+             regardless of input order. -->
+        <xsl:for-each select="$bt/Order, $bt/Delivery, $bt/Contract">
           <xsl:variable name="label" select="name()" />
           <fo:table-row>
             <fo:table-cell padding="2pt">
