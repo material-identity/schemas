@@ -222,6 +222,66 @@
         {
           "Actual": {
             "ResultType": "numeric",
+            "Value": 0.009
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.012
+          },
+          "PropertySymbol": "N",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.0018
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.003
+          },
+          "PropertySymbol": "Ca",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.015
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.03
+          },
+          "PropertySymbol": "Nb",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.08
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.15
+          },
+          "PropertySymbol": "Co",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
+            "Value": 0.02
+          },
+          "Maximum": {
+            "ResultType": "numeric",
+            "Value": 0.05
+          },
+          "PropertySymbol": "W",
+          "Unit": "%"
+        },
+        {
+          "Actual": {
+            "ResultType": "numeric",
             "Value": 0.37
           },
           "Formula": "Cr+Ni+Mo",
@@ -362,7 +422,7 @@
         "Actual": {
           "ResultType": "multiValue",
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 34.33
             },
@@ -404,7 +464,7 @@
         "Actual": {
           "ResultType": "multiValue",
           "Statistics": {
-            "Mean": {
+            "Average": {
               "ResultType": "numeric",
               "Value": 61.67
             },

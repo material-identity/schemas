@@ -227,46 +227,52 @@
           "ParameterUnit": "N",
           "Data": [
             {
-              "Parameter": 10000,
+              "Parameter": "10000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 650
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 50000,
+              "Parameter": "50000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 635
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 100000,
+              "Parameter": "100000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 610
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 500000,
+              "Parameter": "500000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 590
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 1000000,
+              "Parameter": "1000000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 570
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 10000000,
+              "Parameter": "10000000",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 550
-              }
+              },
+              "ParameterType": "number"
             }
           ]
         },
@@ -390,60 +396,68 @@
           "ParameterUnit": "mm",
           "Data": [
             {
-              "Parameter": 0.1,
+              "Parameter": "0.1",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 345
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 0.5,
+              "Parameter": "0.5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 350
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 1,
+              "Parameter": "1",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 352
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 2,
+              "Parameter": "2",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 350
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 3,
+              "Parameter": "3",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 349
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 5,
+              "Parameter": "5",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 348
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 10,
+              "Parameter": "10",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 351
-              }
+              },
+              "ParameterType": "number"
             },
             {
-              "Parameter": 15,
+              "Parameter": "15",
               "Value": {
                 "ResultType": "numeric",
                 "Value": 347
-              }
+              },
+              "ParameterType": "number"
             }
           ]
         },
