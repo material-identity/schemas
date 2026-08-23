@@ -13,11 +13,19 @@ springdoc:
   api-docs:
     path: /api-docs
 
-spring: 
+spring:
   codec:
     max-in-memory-size: 8MB
   lifecycle:
     timeout-per-shutdown-phase: 1m
+  # Parse request-body floats as BigDecimal (not double) so small-magnitude certificate values
+  # (e.g. 0.0001) survive JsonNode -> XmlMapper rendering in plain decimal notation instead of
+  # scientific notation (Double.toString() switches below ~1e-3) — #298. Paired with
+  # config.JacksonConfig's node-factory customizer, which stops Jackson from stripping trailing
+  # zeros off the resulting BigDecimal (otherwise 250.0 -> 2.5E+2 even with this flag alone).
+  jackson:
+    deserialization:
+      use-big-decimal-for-floats: true
   cache:
     jcache:
       provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
