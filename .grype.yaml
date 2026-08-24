@@ -51,13 +51,6 @@ ignore:
   - vulnerability: GHSA-jhpw-976m-542j # @angular/common: HttpTransferCache cache-key ambiguity / response reuse
   - vulnerability: GHSA-vpx6-8pjr-4g3v # @angular/platform-server: SSR raw-content escaping fallback XSS
 
-  # nanoid 3.3.18 fixes this, but ui/.npmrc enforces min-release-age=7 (supply-chain
-  # protection against freshly-published/compromised releases) and 3.3.18 was published
-  # 2026-08-07 - not yet 7 days old. Remove this entry and bump ui/package.json's
-  # "nanoid" override to 3.3.18 once it clears that window (npm install --package-lock-only
-  # in ui/ will start succeeding again).
-  - vulnerability: GHSA-2v37-7h3g-55p8 # nanoid: predictable results with non-integer values
-
 # Registry configuration (if needed for private registries)
 # registry:
 #   auth:
