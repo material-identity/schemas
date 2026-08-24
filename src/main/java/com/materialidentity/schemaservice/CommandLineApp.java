@@ -19,8 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
 /**
@@ -145,7 +147,15 @@ public class CommandLineApp {
         }
 
         String jsonContent = Files.readString(inputPath);
-        ObjectMapper objectMapper = new ObjectMapper();
+        // Parse floats as BigDecimal (not double) so small-magnitude values (e.g. 0.0001) survive
+        // the JsonNode -> XmlMapper conversion in plain decimal notation instead of scientific
+        // notation (Double.toString() switches below ~1e-3). USE_BIG_DECIMAL_FOR_FLOATS alone is
+        // not enough: Jackson's tree-building deserializer still normalizes ("strips trailing
+        // zeros from") the resulting BigDecimal by default, turning e.g. 250.0 into 2.5E+2 -
+        // withExactBigDecimals(true) keeps the parsed value exact — material-identity/schemas#298.
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS, true)
+                .setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
         JsonNode certificate = objectMapper.readTree(jsonContent);
 
         // Extract certificate information
