@@ -17,7 +17,8 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
-  xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">
+  xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
+  xmlns:mi="urn:material-identity:metals-stylesheet">
 
   <!-- Main template to process the XML input directly -->
   <xsl:template match="/">
@@ -619,6 +620,7 @@
 
                     <xsl:for-each select="$mechItems">
                       <xsl:variable name="isSpanning" select="Actual/ResultType = ('array', 'multiValue')" as="xs:boolean" />
+                      <xsl:variable name="sharedDecimals" select="mi:shared-decimals(.)" as="xs:integer" />
                       <fo:table-row keep-together.within-page="always">
                         <xsl:if test="$isSpanning">
                           <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
@@ -665,6 +667,7 @@
                             <fo:block>
                               <xsl:call-template name="FormatResult">
                                 <xsl:with-param name="result" select="Actual" />
+                                <xsl:with-param name="decimals" select="$sharedDecimals" />
                               </xsl:call-template>
                               <xsl:if test="Unit and not(Actual/ResultType = 'multiValue')">
                                 <xsl:text> </xsl:text>
@@ -677,6 +680,7 @@
                               <xsl:if test="Minimum">
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Minimum" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
                                   <xsl:text> </xsl:text>
@@ -690,6 +694,7 @@
                               <xsl:if test="Maximum">
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Maximum" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit">
                                   <xsl:text> </xsl:text>
@@ -821,6 +826,7 @@
                       </fo:table-row>
                       <xsl:for-each select="$tableItems">
                         <xsl:variable name="isSpanning" select="Actual/ResultType = ('array', 'multiValue')" as="xs:boolean" />
+                        <xsl:variable name="sharedDecimals" select="mi:shared-decimals(.)" as="xs:integer" />
                         <fo:table-row keep-together.within-page="always">
                           <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                             <xsl:if test="$isSpanning">
@@ -853,6 +859,7 @@
                               <fo:block>
                                 <xsl:call-template name="FormatResult">
                                   <xsl:with-param name="result" select="Actual" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
                                 </xsl:call-template>
                                 <xsl:if test="Unit and not(Actual/ResultType = 'multiValue')">
                                   <xsl:text> </xsl:text>
@@ -866,12 +873,14 @@
                                   <xsl:when test="Target">
                                     <xsl:call-template name="FormatResult">
                                       <xsl:with-param name="result" select="Target" />
+                                      <xsl:with-param name="decimals" select="$sharedDecimals" />
                                     </xsl:call-template>
                                     <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                                   </xsl:when>
                                   <xsl:when test="Minimum">
                                     <xsl:call-template name="FormatResult">
                                       <xsl:with-param name="result" select="Minimum" />
+                                      <xsl:with-param name="decimals" select="$sharedDecimals" />
                                     </xsl:call-template>
                                     <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                                   </xsl:when>
@@ -883,6 +892,7 @@
                                 <xsl:if test="Maximum">
                                   <xsl:call-template name="FormatResult">
                                     <xsl:with-param name="result" select="Maximum" />
+                                    <xsl:with-param name="decimals" select="$sharedDecimals" />
                                   </xsl:call-template>
                                   <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                                 </xsl:if>
@@ -1023,6 +1033,7 @@
                         </xsl:if>
                       </fo:table-row>
                       <xsl:for-each select="$suppTableItems">
+                        <xsl:variable name="sharedDecimals" select="mi:shared-decimals(.)" as="xs:integer" />
                         <fo:table-row keep-together.within-page="always">
                           <fo:table-cell padding="2pt" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
                             <fo:block>
@@ -1052,6 +1063,7 @@
                                 <xsl:otherwise>
                                   <xsl:call-template name="FormatResult">
                                     <xsl:with-param name="result" select="Actual" />
+                                    <xsl:with-param name="decimals" select="$sharedDecimals" />
                                   </xsl:call-template>
                                   <xsl:if test="Unit and not(Actual/ResultType = 'multiValue')">
                                     <xsl:text> </xsl:text>
@@ -1061,17 +1073,26 @@
                               </xsl:choose>
                               <xsl:if test="Target">
                                 <xsl:text> - target </xsl:text>
-                                <xsl:call-template name="FormatResult"><xsl:with-param name="result" select="Target" /></xsl:call-template>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Target" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
+                                </xsl:call-template>
                                 <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                               </xsl:if>
                               <xsl:if test="Minimum">
                                 <xsl:text> - min </xsl:text>
-                                <xsl:call-template name="FormatResult"><xsl:with-param name="result" select="Minimum" /></xsl:call-template>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Minimum" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
+                                </xsl:call-template>
                                 <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                               </xsl:if>
                               <xsl:if test="Maximum">
                                 <xsl:text> - max </xsl:text>
-                                <xsl:call-template name="FormatResult"><xsl:with-param name="result" select="Maximum" /></xsl:call-template>
+                                <xsl:call-template name="FormatResult">
+                                  <xsl:with-param name="result" select="Maximum" />
+                                  <xsl:with-param name="decimals" select="$sharedDecimals" />
+                                </xsl:call-template>
                                 <xsl:if test="Unit"><xsl:text> </xsl:text><xsl:value-of select="Unit" /></xsl:if>
                               </xsl:if>
                             </fo:block>
@@ -1251,6 +1272,7 @@
                   <xsl:if test="Minimum">
                     <xsl:call-template name="FormatResult">
                       <xsl:with-param name="result" select="Minimum" />
+                      <xsl:with-param name="decimals" select="mi:shared-decimals(.)" />
                     </xsl:call-template>
                   </xsl:if>
                 </fo:block>
@@ -1265,6 +1287,7 @@
                   <xsl:if test="Maximum">
                     <xsl:call-template name="FormatResult">
                       <xsl:with-param name="result" select="Maximum" />
+                      <xsl:with-param name="decimals" select="mi:shared-decimals(.)" />
                     </xsl:call-template>
                   </xsl:if>
                 </fo:block>
@@ -1279,6 +1302,7 @@
                   <xsl:if test="Actual">
                     <xsl:call-template name="FormatResult">
                       <xsl:with-param name="result" select="Actual" />
+                      <xsl:with-param name="decimals" select="mi:shared-decimals(.)" />
                     </xsl:call-template>
                   </xsl:if>
                 </fo:block>
@@ -1437,6 +1461,41 @@
   </xsl:template>
 
   <!-- Format the result based on its type -->
+  <!-- Decimal places needed to represent one NumericResult's Value without losing precision, read
+       from its string form (post material-identity/schemas#298, plain decimal text for realistic
+       certificate magnitudes). No "." means an integer value, i.e. 0 decimals. Below ~1e-6,
+       BigDecimal's own canonical form still switches to scientific notation (e.g. "2.3E-9") -
+       handled explicitly so it doesn't crash format-number's xs:double cast in FormatResult. -->
+  <xsl:function name="mi:decimals-needed" as="xs:integer">
+    <xsl:param name="value" as="node()?" />
+    <xsl:variable name="text" select="if (exists($value)) then string($value) else ''" as="xs:string" />
+    <xsl:choose>
+      <xsl:when test="$text = ''">
+        <xsl:sequence select="0" />
+      </xsl:when>
+      <xsl:when test="matches($text, '[eE]')">
+        <xsl:variable name="mantissa" select="substring-before(upper-case($text), 'E')" as="xs:string" />
+        <xsl:variable name="exponent" select="xs:integer(substring-after(upper-case($text), 'E'))" as="xs:integer" />
+        <xsl:variable name="mantissaDecimals" select="string-length(substring-after($mantissa, '.'))" as="xs:integer" />
+        <xsl:sequence select="max((0, $mantissaDecimals - $exponent))" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="string-length(substring-after($text, '.'))" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+
+  <!-- Shared decimal-place count for one property's Minimum/Maximum/Actual/Target triplet - the
+       max of whichever are present, so all render with the same number of digits (#299). -->
+  <xsl:function name="mi:shared-decimals" as="xs:integer">
+    <xsl:param name="property" as="element()" />
+    <xsl:sequence select="max((0,
+      if ($property/Minimum/ResultType = 'numeric') then mi:decimals-needed($property/Minimum/Value) else 0,
+      if ($property/Maximum/ResultType = 'numeric') then mi:decimals-needed($property/Maximum/Value) else 0,
+      if ($property/Actual/ResultType = 'numeric') then mi:decimals-needed($property/Actual/Value) else 0,
+      if ($property/Target/ResultType = 'numeric') then mi:decimals-needed($property/Target/Value) else 0))" />
+  </xsl:function>
+
   <xsl:template name="FormatResult">
     <xsl:param name="result" />
     <!-- multiValue only: replaces the "No." corner cell with richer content (e.g. property
@@ -1444,13 +1503,24 @@
          property row/header has been dropped because the whole section is self-contained. -->
     <xsl:param name="titleContent" as="node()*" select="()" />
     <xsl:param name="showMethodStatus" as="xs:boolean" select="false()" />
+    <!-- Shared decimal-place count for a Minimum/Maximum/Actual/Target triplet (mi:shared-decimals)
+         - omitted (the default) preserves the raw value verbatim, unchanged from before. -->
+    <xsl:param name="decimals" as="xs:integer?" select="()" />
     <xsl:choose>
       <xsl:when test="$result/ResultType = 'numeric'">
         <xsl:if test="$result/Operator and $result/Operator != '='">
           <xsl:value-of select="$result/Operator" />
           <xsl:text> </xsl:text>
         </xsl:if>
-        <xsl:value-of select="$result/Value" />
+        <xsl:choose>
+          <xsl:when test="exists($decimals)">
+            <xsl:value-of select="format-number(xs:double($result/Value),
+              if ($decimals = 0) then '0' else concat('0.', string-join((for $i in 1 to $decimals return '0'), '')))" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$result/Value" />
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="$result/Uncertainty">
           <xsl:text> &#177; </xsl:text>
           <xsl:value-of select="$result/Uncertainty" />
