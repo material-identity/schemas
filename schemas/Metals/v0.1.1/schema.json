@@ -4,7 +4,7 @@
   "$id": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "title": "Digital Material Passport Schema",
   "description": "A comprehensive schema for Digital Material Passports that encapsulates information about metals",
-  "definitions": {
+  "$defs": {
     "NumericResult": {
       "title": "NumericResult",
       "description": "A numeric value with optional comparison operator",
@@ -142,19 +142,19 @@
               },
               "Value": {
                 "description": "Measured numeric value at this parameter",
-                "$ref": "#/definitions/NumericResult"
+                "$ref": "#/$defs/NumericResult"
               },
               "Minimum": {
                 "description": "Minimum specification for THIS specific parameter",
-                "$ref": "#/definitions/NumericResult"
+                "$ref": "#/$defs/NumericResult"
               },
               "Maximum": {
                 "description": "Maximum specification for THIS specific parameter",
-                "$ref": "#/definitions/NumericResult"
+                "$ref": "#/$defs/NumericResult"
               },
               "Target": {
                 "description": "Target value for THIS specific parameter",
-                "$ref": "#/definitions/NumericResult"
+                "$ref": "#/$defs/NumericResult"
               },
               "Status": {
                 "type": "string",
@@ -185,7 +185,7 @@
           "type": "array",
           "description": "Array of individual numeric test values",
           "items": {
-            "$ref": "#/definitions/NumericResult"
+            "$ref": "#/$defs/NumericResult"
           },
           "minItems": 3
         },
@@ -195,23 +195,23 @@
           "properties": {
             "Average": {
               "description": "Arithmetic average of the values",
-              "$ref": "#/definitions/NumericResult"
+              "$ref": "#/$defs/NumericResult"
             },
             "Median": {
               "description": "Median value",
-              "$ref": "#/definitions/NumericResult"
+              "$ref": "#/$defs/NumericResult"
             },
             "Minimum": {
               "description": "Minimum value from the dataset",
-              "$ref": "#/definitions/NumericResult"
+              "$ref": "#/$defs/NumericResult"
             },
             "Maximum": {
               "description": "Maximum value from the dataset",
-              "$ref": "#/definitions/NumericResult"
+              "$ref": "#/$defs/NumericResult"
             },
             "StandardDeviation": {
               "description": "Standard deviation of the values",
-              "$ref": "#/definitions/NumericResult"
+              "$ref": "#/$defs/NumericResult"
             },
             "StandardDeviationType": {
               "type": "string",
@@ -234,12 +234,12 @@
       "title": "Result",
       "description": "Union type of all possible result types",
       "oneOf": [
-        { "$ref": "#/definitions/NumericResult" },
-        { "$ref": "#/definitions/BooleanResult" },
-        { "$ref": "#/definitions/StringResult" },
-        { "$ref": "#/definitions/RangeResult" },
-        { "$ref": "#/definitions/ArrayResult" },
-        { "$ref": "#/definitions/MultiValueResult" }
+        { "$ref": "#/$defs/NumericResult" },
+        { "$ref": "#/$defs/BooleanResult" },
+        { "$ref": "#/$defs/StringResult" },
+        { "$ref": "#/$defs/RangeResult" },
+        { "$ref": "#/$defs/ArrayResult" },
+        { "$ref": "#/$defs/MultiValueResult" }
       ]
     },
 
@@ -281,23 +281,23 @@
         },
         "SpecimenSpecification": {
           "description": "Specimen location and orientation for mechanical testing per industry standards",
-          "$ref": "#/definitions/SpecimenSpecification"
+          "$ref": "#/$defs/SpecimenSpecification"
         },
         "Actual": {
           "description": "The actual measured or calculated result",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Minimum": {
           "description": "The lower specification limit",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Maximum": {
           "description": "The upper specification limit",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Target": {
           "description": "The target or nominal value",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "PropertiesStandard": {
           "description": "Reference to the standard catalog for property definitions",
@@ -365,19 +365,19 @@
         },
         "Actual": {
           "description": "The actual measured or calculated result",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Minimum": {
           "description": "The lower specification limit",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Maximum": {
           "description": "The upper specification limit",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "Target": {
           "description": "The target or nominal value",
-          "$ref": "#/definitions/Result"
+          "$ref": "#/$defs/Result"
         },
         "PropertiesStandard": {
           "description": "Reference to the standard catalog for property definitions",
@@ -434,7 +434,7 @@
       "type": "object",
       "properties": {
         "MeltingProcess": {
-          "$ref": "#/definitions/MeltingProcess"
+          "$ref": "#/$defs/MeltingProcess"
         },
         "HeatNumber": {
           "description": "The heat or melt number defining the chemical properties",
@@ -481,7 +481,7 @@
           "description": "The list of elements and their measured values",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ChemicalElement"
+            "$ref": "#/$defs/ChemicalElement"
           },
           "minItems": 1
         },
@@ -614,13 +614,13 @@
           "contentMediaType": "image/png"
         },
         "Identifiers": {
-          "$ref": "#/definitions/CompanyIdentifiers"
+          "$ref": "#/$defs/CompanyIdentifiers"
         },
         "Contacts": {
           "description": "Contact persons associated with the organization.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Person"
+            "$ref": "#/$defs/Person"
           },
           "uniqueItems": true,
           "minItems": 0
@@ -637,23 +637,23 @@
       "properties": {
         "Manufacturer": {
           "description": "The party manufacturing the goods and issuing the certificate.",
-          "$ref": "#/definitions/Party"
+          "$ref": "#/$defs/Party"
         },
         "Customer": {
           "description": "The party purchasing the goods from the manufacturer.",
-          "$ref": "#/definitions/Party"
+          "$ref": "#/$defs/Party"
         },
         "Subcustomer": {
           "description": "A secondary customer or end client for whom the Customer is purchasing the goods.",
-          "$ref": "#/definitions/Party"
+          "$ref": "#/$defs/Party"
         },
         "GoodsReceiver": {
           "description": "The party receiving the physical goods, which may differ from the Customer (e.g., a warehouse, subsidiary, or freight forwarder).",
-          "$ref": "#/definitions/Party"
+          "$ref": "#/$defs/Party"
         },
         "CertificateReceiver": {
           "description": "The party receiving the inspection certificate, which may differ from the Customer or GoodsReceiver.",
-          "$ref": "#/definitions/Party"
+          "$ref": "#/$defs/Party"
         }
       },
       "required": ["Manufacturer", "Customer"],
@@ -785,13 +785,13 @@
       "type": "object",
       "properties": {
         "Contract": {
-          "$ref": "#/definitions/Contract"
+          "$ref": "#/$defs/Contract"
         },
         "Order": {
-          "$ref": "#/definitions/Order"
+          "$ref": "#/$defs/Order"
         },
         "Delivery": {
-          "$ref": "#/definitions/Delivery"
+          "$ref": "#/$defs/Delivery"
         }
       },
       "required": ["Order", "Delivery"],
@@ -804,10 +804,10 @@
       "type": "object",
       "properties": {
         "Parties": {
-          "$ref": "#/definitions/Parties"
+          "$ref": "#/$defs/Parties"
         },
         "BusinessTransaction": {
-          "$ref": "#/definitions/BusinessTransaction"
+          "$ref": "#/$defs/BusinessTransaction"
         }
       },
       "required": ["Parties", "BusinessTransaction"],
@@ -1188,37 +1188,37 @@
           "type": "object",
           "properties": {
             "Length": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "Width": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "Thickness": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "Diameter": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "OuterDiameter": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "InnerDiameter": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "WallThickness": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "Height": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "FlangeWidth": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "FlangeThickness": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             },
             "WebThickness": {
-              "$ref": "#/definitions/DimensionTolerance"
+              "$ref": "#/$defs/DimensionTolerance"
             }
           },
           "additionalProperties": false
@@ -1240,7 +1240,7 @@
           "description": "List of product norms applicable to the product",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ProductNorm"
+            "$ref": "#/$defs/ProductNorm"
           },
           "minItems": 0
         },
@@ -1248,7 +1248,7 @@
           "description": "List of material norms applicable to the product",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/MaterialNorm"
+            "$ref": "#/$defs/MaterialNorm"
           },
           "minItems": 0
         },
@@ -1256,13 +1256,13 @@
           "description": "List of material or alloy designations for the product",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/MaterialDesignation"
+            "$ref": "#/$defs/MaterialDesignation"
           },
           "minItems": 0
         },
         "Shape": {
           "description": "Physical shape and dimensions of the product",
-          "$ref": "#/definitions/ProductShape"
+          "$ref": "#/$defs/ProductShape"
         },
         "BatchId": {
           "description": "Identification of the batch, charge, or lot",
@@ -1420,15 +1420,15 @@
         },
         "DeliveryCondition": {
           "description": "Material condition at delivery (e.g., +N normalized, +QT quenched and tempered)",
-          "$ref": "#/definitions/DeliveryCondition"
+          "$ref": "#/$defs/DeliveryCondition"
         },
         "DimensionalTolerances": {
           "description": "Dimensional tolerance specifications for flat and long/round products (e.g. EN 10029, EN 10060)",
-          "$ref": "#/definitions/DimensionalTolerances"
+          "$ref": "#/$defs/DimensionalTolerances"
         },
         "PackagingAndMarking": {
           "description": "Packaging, bundling, coloring and marking details",
-          "$ref": "#/definitions/PackagingAndMarking"
+          "$ref": "#/$defs/PackagingAndMarking"
         }
       },
       "required": ["Name", "BatchId"],
@@ -1475,7 +1475,7 @@
         },
         "Confirmed": {
           "description": "Manufacturer's confirmation of the statement",
-          "$ref": "#/definitions/BooleanResult"
+          "$ref": "#/$defs/BooleanResult"
         },
         "RegulatoryReference": {
           "description": "Optional reference to regulation or legal requirement",
@@ -1516,7 +1516,7 @@
           "description": "Individual statements requiring explicit confirmation",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/IndividualStatement"
+            "$ref": "#/$defs/IndividualStatement"
           }
         }
       },
@@ -1666,7 +1666,7 @@
       "type": "object",
       "properties": {
         "ValidationStatement": {
-          "$ref": "#/definitions/ValidationStatement"
+          "$ref": "#/$defs/ValidationStatement"
         },
         "ValidationDate": {
           "description": "Date of validation or approval",
@@ -1677,18 +1677,18 @@
           "description": "Persons who validated or approved the certificate",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ValidatingPerson"
+            "$ref": "#/$defs/ValidatingPerson"
           },
           "minItems": 1
         },
         "CEMarking": {
-          "$ref": "#/definitions/CEMarking"
+          "$ref": "#/$defs/CEMarking"
         },
         "OtherMarkings": {
           "description": "Additional regulatory or certification markings",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OtherMarkings"
+            "$ref": "#/$defs/OtherMarkings"
           }
         },
         "Disclaimer": {
@@ -2004,12 +2004,12 @@
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/definitions/HeatTreatmentStage"
+            "$ref": "#/$defs/HeatTreatmentStage"
           }
         },
         "ProcessBundling": {
           "description": "Details about how items were arranged during processing",
-          "$ref": "#/definitions/ProcessBundling"
+          "$ref": "#/$defs/ProcessBundling"
         },
         "FurnaceId": {
           "description": "Equipment identifier for the furnace",
@@ -2046,7 +2046,7 @@
           "description": "In-process quality checks performed",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/QualityCheck"
+            "$ref": "#/$defs/QualityCheck"
           }
         }
       },
@@ -2096,44 +2096,44 @@
         },
         "TransactionData": {
           "description": "Information about the business transaction and parties involved",
-          "$ref": "#/definitions/TransactionData"
+          "$ref": "#/$defs/TransactionData"
         },
         "Product": {
           "description": "Information about the product being certified",
-          "$ref": "#/definitions/Product"
+          "$ref": "#/$defs/Product"
         },
         "HeatTreatment": {
           "description": "Heat treatment process information including temperature profiles, duration, cooling methods, and process identification",
-          "$ref": "#/definitions/HeatTreatmentDetails"
+          "$ref": "#/$defs/HeatTreatmentDetails"
         },
         "ChemicalAnalysis": {
           "description": "Chemical composition of the material",
-          "$ref": "#/definitions/ChemicalAnalysis"
+          "$ref": "#/$defs/ChemicalAnalysis"
         },
         "MechanicalProperties": {
           "description": "Collection of mechanical property measurements",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Measurement"
+            "$ref": "#/$defs/Measurement"
           }
         },
         "PhysicalProperties": {
           "description": "Collection of physical property measurements",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Measurement"
+            "$ref": "#/$defs/Measurement"
           }
         },
         "SupplementaryTests": {
           "description": "Collection of supplementary tests and inspections",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Measurement"
+            "$ref": "#/$defs/Measurement"
           }
         },
         "Validation": {
           "description": "Information about the certification validation status",
-          "$ref": "#/definitions/Validation"
+          "$ref": "#/$defs/Validation"
         }
       },
       "required": [
