@@ -2069,6 +2069,7 @@
           "description": "List of languages used in the passport",
           "type": "array",
           "items": {
+            "type": "string",
             "enum": ["EN", "DE"]
           },
           "minItems": 1,
