@@ -434,15 +434,20 @@
           "type": "string"
         },
         "ScientificName": {
+          "description": "Scientific name split into certificate-friendly components. For EUDR V3, serialize as Genus, one space, then Species. The serialized value must not exceed 200 characters; JSON Schema cannot enforce that combined length across two properties.",
           "type": "object",
           "properties": {
             "Genus": {
-              "description": "The genus of the species.",
-              "type": "string"
+              "description": "The genus component. When mapped to EUDR V3, the combined 'Genus Species' value must not exceed 200 characters.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
             },
             "Species": {
-              "description": "The species of the genus.",
-              "type": "string"
+              "description": "The species component. When mapped to EUDR V3, the combined 'Genus Species' value must not exceed 200 characters.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
             }
           },
           "required": ["Genus", "Species"],
@@ -455,6 +460,7 @@
       "required": ["CommonName", "ScientificName", "Measurements"]
     },
     "Measurements": {
+      "description": "Positive quantities for one species. Each ForestrySource species maps to one EUDR V3 CommercialDescription and this object maps to its GoodsMeasure. At least one quantity is required.",
       "type": "object",
       "properties": {
         "Volume": {
@@ -463,7 +469,7 @@
             "Value": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "Volume measurement value"
+              "description": "Certificate-side volume measurement value. EUDR Operator API V3 removed volume from GoodsMeasure, so this value has no direct V3 DDS target."
             },
             "Unit": {
               "type": "string",
@@ -480,7 +486,9 @@
             "Value": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "Net weight measurement value - required for customs documentation"
+              "maximum": 9999999999.999999,
+              "multipleOf": 0.000001,
+              "description": "Net weight in kilograms. EUDR V3 allows 16 total digits and up to 6 fractional digits; net weight is mandatory for IMPORT and EXPORT activity types."
             },
             "Unit": {
               "type": "string",
@@ -497,18 +505,26 @@
             "Value": {
               "type": "number",
               "exclusiveMinimum": 0,
-              "description": "Supplementary unit measurement value - for industry-specific business operations"
+              "maximum": 9999999999.999999,
+              "multipleOf": 0.000001,
+              "description": "Supplementary quantity. EUDR V3 allows 16 total digits and up to 6 fractional digits."
             },
             "Unit": {
               "type": "string",
-              "description": "Supplementary measurement unit for business-specific needs"
+              "description": "Certificate-side supplementary measurement unit. This human-readable or business-specific value is kept separate from the EUDR V3 qualifier."
+            },
+            "Qualifier": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 4,
+              "description": "EUDR V3 supplementaryUnitQualifier. Required with a supplementary quantity and limited to 3–4 free-text characters."
             },
             "DisplayUnit": {
               "type": "string",
               "description": "Human-readable display format of the unit"
             }
           },
-          "required": ["Value", "Unit", "DisplayUnit"],
+          "required": ["Value", "Unit", "Qualifier", "DisplayUnit"],
           "additionalProperties": false
         },
         "PercentageEstimationOrDeviation": {
@@ -518,6 +534,7 @@
           "description": "Optional EUDR V3 percentage estimate or deviation for this species' GoodsMeasure. The authoritative DecimalThreePrecType defines up to 3 fractional digits and no maximum."
         }
       },
+      "minProperties": 1,
       "additionalProperties": false
     },
     "Product": {
