@@ -69,6 +69,7 @@
               "SupplementaryUnit": {
                 "Value": 150,
                 "Unit": "BDT",
+                "Qualifier": "BDT",
                 "DisplayUnit": "Bone Dry Tonnes"
               }
             }

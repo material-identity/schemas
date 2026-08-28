@@ -248,6 +248,7 @@
               "SupplementaryUnit": {
                 "Value": 1200,
                 "Unit": "MBF",
+                "Qualifier": "MBF",
                 "DisplayUnit": "Thousand Board Feet"
               }
             }
@@ -270,6 +271,7 @@
               "SupplementaryUnit": {
                 "Value": 850,
                 "Unit": "MBF",
+                "Qualifier": "MBF",
                 "DisplayUnit": "Thousand Board Feet"
               }
             }
@@ -303,6 +305,7 @@
               "SupplementaryUnit": {
                 "Value": 600,
                 "Unit": "MBF",
+                "Qualifier": "MBF",
                 "DisplayUnit": "Thousand Board Feet"
               }
             }

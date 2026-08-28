@@ -54,10 +54,7 @@
               "Species": "menziesii"
             },
             "Measurements": {
-              "Volume": {
-                "Value": 500,
-                "Unit": "m³"
-              }
+              "PercentageEstimationOrDeviation": 12.345
             }
           }
         ]
@@ -95,7 +92,7 @@
         "CBN": "123456789RT0001"
       }
     },
-    "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities:\n 1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n2. Country of Production\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n4. Genus/Species and Common name\n5. Quantity (volume)\n6. Geolocation of all harvest units / forest plots",
+    "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities:\n 1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n2. Country of Production\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n4. Genus/Species and Common name\n5. Quantity (percentage estimate or deviation)\n6. Geolocation of all harvest units / forest plots",
     "Documents": {
       "HarvestAuthorization": {
         "Hash": {

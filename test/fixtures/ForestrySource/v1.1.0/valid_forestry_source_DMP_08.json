@@ -64,6 +64,7 @@
               "SupplementaryUnit": {
                 "Value": 85.2,
                 "Unit": "BDMT",
+                "Qualifier": "BDMT",
                 "DisplayUnit": "Bone Dry Metric Tonnes"
               }
             }
@@ -86,6 +87,7 @@
               "SupplementaryUnit": {
                 "Value": 79.3,
                 "Unit": "ton (short)",
+                "Qualifier": "STN",
                 "DisplayUnit": "US Short Tons"
               }
             }
@@ -108,6 +110,7 @@
               "SupplementaryUnit": {
                 "Value": 32.1,
                 "Unit": "tonne",
+                "Qualifier": "TNE",
                 "DisplayUnit": "Metric Tonnes"
               }
             }
@@ -130,6 +133,7 @@
               "SupplementaryUnit": {
                 "Value": 67.5,
                 "Unit": "ton (long)",
+                "Qualifier": "LTN",
                 "DisplayUnit": "Imperial Long Tons"
               }
             }
@@ -163,6 +167,7 @@
               "SupplementaryUnit": {
                 "Value": 1250.75,
                 "Unit": "MFBM (thousand; Scribner)",
+                "Qualifier": "MBF",
                 "DisplayUnit": "Thousand Board Feet (Scribner Scale)"
               }
             }
@@ -185,6 +190,7 @@
               "SupplementaryUnit": {
                 "Value": 2450.5,
                 "Unit": "BDU",
+                "Qualifier": "BDU",
                 "DisplayUnit": "Bone Dry Units"
               }
             }
