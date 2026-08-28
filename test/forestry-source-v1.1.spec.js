@@ -3,6 +3,7 @@ const path = require('path');
 const { SCHEMA_TYPES, createAjvInstance } = require('../lib/validator');
 
 const schema = require('../schemas/ForestrySource/v1.1.0/schema.json');
+const translations = require('../schemas/ForestrySource/v1.1.0/translations.json');
 const baseCertificate = require('./fixtures/ForestrySource/v1.1.0/valid_forestry_source_DMP_01.json');
 const fixtureDirectory = path.resolve(
   __dirname,
@@ -46,6 +47,18 @@ describe('ForestrySource v1.1.0 registration', () => {
       expect(fixture.RefSchemaUrl).toContain(
         '/forestry-source-schemas/v1.1.0/schema.json'
       );
+    });
+  });
+
+  test('defines the percentage label for every translation bundle', () => {
+    Object.values(translations).forEach((translation) => {
+      expect(
+        translation.DigitalMaterialPassport.PercentageEstimationOrDeviation
+      ).toEqual(expect.any(String));
+      expect(
+        translation.DigitalMaterialPassport.PercentageEstimationOrDeviation
+          .length
+      ).toBeGreaterThan(0);
     });
   });
 });

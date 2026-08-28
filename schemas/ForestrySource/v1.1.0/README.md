@@ -13,6 +13,12 @@ Normative reference: _EUDR Information System — Operator API Reference_, DG EN
 
 The API describes the percentage as an estimate or deviation, so rendering uses neutral wording and does not add an automatic `±` sign.
 
+Regenerate the reference PDFs with:
+
+```sh
+node scripts/json2pdf.js --include-remote-attachments <fixture.json>
+```
+
 ## Reference stability
 
 The reference says the V3 WSDLs were not yet accessible and that contracts/documentation could change. Revalidate the published V3 contract before releasing this schema version.

@@ -301,6 +301,7 @@
                 <xsl:with-param name="Section" select="ListOfSpecies" />
                 <xsl:with-param name="CommonNameTranslation" select="$i18n/DigitalMaterialPassport/CommonName" />
                 <xsl:with-param name="ScientificNameTranslation" select="$i18n/DigitalMaterialPassport/ScientificName" />
+                <xsl:with-param name="PercentageEstimationOrDeviationTranslation" select="$i18n/DigitalMaterialPassport/PercentageEstimationOrDeviation" />
                 <xsl:with-param name="GenusTranslation" select="$i18n/DigitalMaterialPassport/Genus" />
                 <xsl:with-param name="SpeciesTranslation" select="$i18n/DigitalMaterialPassport/Species" />
                 <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
@@ -650,6 +651,7 @@
     <xsl:param name="Section" />
     <xsl:param name="CommonNameTranslation" />
     <xsl:param name="ScientificNameTranslation" />
+    <xsl:param name="PercentageEstimationOrDeviationTranslation" />
     <xsl:param name="GenusTranslation" />
     <xsl:param name="SpeciesTranslation" />
     <xsl:param name="paddingBottom" select="'6pt'" />
@@ -709,6 +711,9 @@
                       </xsl:otherwise>
                     </xsl:choose>
                   </fo:block>
+                </xsl:if>
+                <xsl:if test="Measurements/PercentageEstimationOrDeviation">
+                  <fo:block><xsl:value-of select="$PercentageEstimationOrDeviationTranslation" />: <xsl:value-of select="Measurements/PercentageEstimationOrDeviation" /> %</fo:block>
                 </xsl:if>
               </fo:block>
             </fo:table-cell>
