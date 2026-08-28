@@ -510,6 +510,12 @@
           },
           "required": ["Value", "Unit", "DisplayUnit"],
           "additionalProperties": false
+        },
+        "PercentageEstimationOrDeviation": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "multipleOf": 0.001,
+          "description": "Optional EUDR V3 percentage estimate or deviation for this species' GoodsMeasure. The authoritative DecimalThreePrecType defines up to 3 fractional digits and no maximum."
         }
       },
       "additionalProperties": false
