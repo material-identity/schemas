@@ -286,7 +286,11 @@
 
           <org>s1seven</org>
 
-          <project>new-schemas-service</project>
+          <!-- Must match the Sentry project slug exactly. sentry-cli resolves the upload
+               target by org+project slug and Sentry keeps no alias for a renamed project,
+               so a rename there breaks the build here (the runtime DSN is unaffected — it
+               addresses Sentry by numeric id). See material-identity/schemas#312. -->
+          <project>s1seven-schemas-service</project>
 
           <!-- in case you're self-hosting, provide the URL here -->
           <!--<url>http://localhost:8000/</url>-->
