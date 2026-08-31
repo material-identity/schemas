@@ -13,7 +13,7 @@ public class SchemasAndVersions {
       SchemaTypes.TKR, List.of("v0.0.4"),
       SchemaTypes.EN10168, List.of("v0.4.1", "v0.5.0"),
       SchemaTypes.Forestry, List.of("v0.0.1"),
-      SchemaTypes.ForestrySource, List.of("v0.0.1", "v1.0.0"),
+      SchemaTypes.ForestrySource, List.of("v0.0.1", "v1.0.0", "v1.1.0"),
       SchemaTypes.ForestryOutput, List.of("v1.0.0"),
       SchemaTypes.Metals, List.of("v0.0.1", "v0.1.0", "v0.1.1"),
       SchemaTypes.Bluemint, List.of("v1.0.0"),

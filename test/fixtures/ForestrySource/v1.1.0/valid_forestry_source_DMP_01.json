@@ -1,0 +1,108 @@
+{
+  "RefSchemaUrl": "https://schemas.s1seven.com/forestry-source-schemas/v1.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Languages": ["EN"],
+    "Id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "Date": "2024-09-15",
+    "GeneralInformation": {
+      "UserDefinedId": "CA-BC-2024-001",
+      "Country": "CA",
+      "State": "British Columbia",
+      "ForestConcessionNameOrNumber": "FC TA2115",
+      "CertificationNumber": "FSC-C123456",
+      "HarvestAuthorizationNameOrNumber": "TSL TA2115",
+      "HarvestingPeriod": {
+        "StartDate": "2024-09-01",
+        "EndDate": "2026-08-31"
+      }
+    },
+    "HarvestUnits": [
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "Name": "Harvest Unit 1"
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-125.3320128, 50.123282]
+            }
+          }
+        ]
+      }
+    ],
+    "Products": [
+      {
+        "ProductType": "Logs (Saw)",
+        "DescriptionOfProduct": "Douglas-fir saw logs",
+        "HSCode": "4403.24",
+        "CustomsClassification": {
+          "HTS": "4403.24.0010",
+          "CN": "4403 24 00"
+        },
+        "ProductionPeriod": {
+          "StartDate": "2024-09-01",
+          "EndDate": "2025-04-30"
+        },
+        "ListOfSpecies": [
+          {
+            "CommonName": "Douglas-fir",
+            "ScientificName": {
+              "Genus": "Pseudotsuga",
+              "Species": "menziesii"
+            },
+            "Measurements": {
+              "PercentageEstimationOrDeviation": 12.345
+            }
+          }
+        ]
+      }
+    ],
+    "Supplier": {
+      "Name": "Pacific Timber Trading Ltd",
+      "Street": ["23/F, Tower 1", "Admiralty Centre"],
+      "State": "Central",
+      "City": "Hong Kong",
+      "ZipCode": "000000",
+      "Country": "HK",
+      "Identifiers": {
+        "DUNS": "123456780"
+      }
+    },
+    "Producer": {
+      "Name": "Australian Timber Mills Pty Ltd",
+      "Street": ["45 Industrial Drive"],
+      "City": "Melbourne",
+      "State": "VIC",
+      "ZipCode": "3000",
+      "Country": "AU",
+      "Identifiers": {
+        "DUNS": "123456781"
+      }
+    },
+    "Creator": {
+      "Name": "Forest Management Services Inc.",
+      "Street": ["123 Woodland Avenue"],
+      "ZipCode": "V8P 1N5",
+      "City": "Victoria",
+      "Country": "CA",
+      "Identifiers": {
+        "CBN": "123456789RT0001"
+      }
+    },
+    "DueDiligenceStatement": "As the Creator of this Digital Material Passport (DMP), it is declared that the following information is accurate for all relevant commodities:\n 1. Applicable Parties/Business Entities (e.g., Supplier, Producer and Customer, where applicable) name and email address\n2. Country of Production\n3. Trade name and equivalent Harmonised System (or corresponding Harmonized Tariff Schedule [HTS]) code\n4. Genus/Species and Common name\n5. Quantity (percentage estimate or deviation)\n6. Geolocation of all harvest units / forest plots",
+    "Documents": {
+      "HarvestAuthorization": {
+        "Hash": {
+          "Algorithm": "SHA256",
+          "Encoding": "base64",
+          "Value": "OGM2NmJkMmUxOWJhY2I5ZDFkMWNmY2QzNjk2OWQ2ZTUxOTZiZDgwM2MwY2NhYjA5OWUwMjY4NmE5ZWE1YjgyOA=="
+        },
+        "MIME-Type": "application/pdf",
+        "URL": "https://schema-service-attachments-local.s3.eu-north-1.amazonaws.com/files/forest_concession.pdf"
+      }
+    }
+  }
+}

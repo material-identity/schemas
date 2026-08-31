@@ -30,6 +30,9 @@ const options = {
   'skip-validation': {
     type: 'boolean',
   },
+  'include-remote-attachments': {
+    type: 'boolean',
+  },
 };
 
 const { values, positionals } = parseArgs({
@@ -61,6 +64,7 @@ Options:
   -o, --output <file>            Output PDF file path (optional, defaults to input filename with .pdf extension)
   --xsltPath <file>              Custom XSLT file path for development (overrides default)
   --skip-validation              Skip JSON schema validation before PDF generation
+  --include-remote-attachments   Append PDFs referenced by DigitalMaterialPassport.Documents URLs
   -h, --help                     Show this help message
 
 Examples:
@@ -117,7 +121,7 @@ This will download and copy all required dependencies to target/dependency/.`);
   return cachedClasspath;
 }
 
-async function convertJsonToPdf(jsonFilePath, pdfFilePath, xsltPath) {
+async function convertJsonToPdf(jsonFilePath, pdfFilePath, xsltPath, includeRemoteAttachments = false) {
   console.log('Converting JSON to PDF...');
 
   return new Promise((resolve, reject) => {
@@ -139,6 +143,9 @@ async function convertJsonToPdf(jsonFilePath, pdfFilePath, xsltPath) {
     // Add xslt path if provided
     if (xsltPath) {
       javaArgs.push('--xsltPath', xsltPath);
+    }
+    if (includeRemoteAttachments) {
+      javaArgs.push('--include-remote-attachments');
     }
 
     const javaProcess = spawn('java', javaArgs, {
@@ -225,7 +232,12 @@ async function main() {
     }
 
     // Convert JSON to PDF using standalone Java application
-    await convertJsonToPdf(inputFile, outputFile, xsltPath);
+    await convertJsonToPdf(
+      inputFile,
+      outputFile,
+      xsltPath,
+      values['include-remote-attachments'] === true
+    );
     console.log(`✓ PDF successfully created: ${outputFile}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);

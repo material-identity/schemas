@@ -6,9 +6,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +22,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
+import com.materialidentity.schemaservice.service.SchemasServiceImpl;
 
 /**
  * Standalone command-line application for converting JSON certificates to PDF
@@ -56,6 +55,7 @@ public class CommandLineApp {
         String inputFile = null;
         String outputFile = null;
         String xsltPath = null;
+        boolean includeRemoteAttachments = false;
 
         // Parse command line arguments
         for (int i = 0; i < args.length; i++) {
@@ -77,6 +77,9 @@ public class CommandLineApp {
                     if (i + 1 < args.length) {
                         xsltPath = args[++i];
                     }
+                    break;
+                case "--include-remote-attachments":
+                    includeRemoteAttachments = true;
                     break;
                 case "--help":
                 case "-h":
@@ -111,7 +114,7 @@ public class CommandLineApp {
         }
 
         try {
-            convertJsonToPdf(inputFile, outputFile, xsltPath);
+            convertJsonToPdf(inputFile, outputFile, xsltPath, includeRemoteAttachments);
             System.out.println("✓ PDF successfully created: " + outputFile);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -129,6 +132,7 @@ public class CommandLineApp {
         System.out.println("  -i, --input <file>      Input JSON file path");
         System.out.println("  -o, --output <file>     Output PDF file path");
         System.out.println("  --xsltPath <file>       Custom XSLT file path (overrides default)");
+        System.out.println("  --include-remote-attachments  Append PDFs referenced by document URLs");
         System.out.println("  -h, --help              Show this help message");
         System.out.println();
         System.out.println("Examples:");
@@ -137,7 +141,8 @@ public class CommandLineApp {
         System.out.println("  java -cp target/classes:target/lib/* com.materialidentity.schemaservice.CommandLineApp cert.json --xsltPath custom.xsl");
     }
 
-    private static void convertJsonToPdf(String inputFile, String outputFile, String xsltPath) 
+    private static void convertJsonToPdf(String inputFile, String outputFile, String xsltPath,
+            boolean includeRemoteAttachments)
             throws IOException, TransformerException, SAXException, URISyntaxException {
         
         // Read JSON file
@@ -204,12 +209,28 @@ public class CommandLineApp {
                                                      Paths.get(outputFile).getFileName().toString().replace(".pdf", ""),
                                                      false));
 
+        String[] encodedData = null;
         if ("EN10168".equals(schemaType) && "v0.5.0".equals(schemaVersion)) {
-            String[] pdfAttachments = extractPdfAttachments(certificate);
-            if (pdfAttachments.length > 0) {
-                logger.info("Appending {} PDF attachment(s) to rendered output", pdfAttachments.length);
-                pdfBuilder.withEmbeddedPdf(new EmbedManager(pdfAttachments, null));
+            encodedData = SchemasServiceImpl.extractPdfData(certificate);
+            if (encodedData != null && encodedData.length == 0) {
+                encodedData = null;
             }
+        }
+
+        String[] dataFromS3 = null;
+        if (includeRemoteAttachments) {
+            dataFromS3 = SchemasServiceImpl.extractPdfDataFromS3(certificate);
+            if (dataFromS3 != null && dataFromS3.length == 0) {
+                dataFromS3 = null;
+            }
+        }
+
+        if (encodedData != null || dataFromS3 != null) {
+            int encodedCount = encodedData == null ? 0 : encodedData.length;
+            int remoteCount = dataFromS3 == null ? 0 : dataFromS3.length;
+            logger.info("Appending {} inline and {} remote PDF attachment(s) to rendered output",
+                    encodedCount, remoteCount);
+            pdfBuilder.withEmbeddedPdf(new EmbedManager(encodedData, dataFromS3));
         }
 
         byte[] pdfBytes = pdfBuilder.build();
@@ -224,21 +245,6 @@ public class CommandLineApp {
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             fos.write(pdfBytes);
         }
-    }
-
-    private static String[] extractPdfAttachments(JsonNode certificate) {
-        JsonNode attachmentsNode = certificate.path("Certificate").path("Attachments");
-        if (!attachmentsNode.isArray()) {
-            return new String[0];
-        }
-        List<String> pdfDataList = new ArrayList<>();
-        for (JsonNode attachment : attachmentsNode) {
-            String data = attachment.path("Data").asText(null);
-            if (data != null && data.startsWith("data:application/pdf;base64")) {
-                pdfDataList.add(data);
-            }
-        }
-        return pdfDataList.toArray(String[]::new);
     }
 
     private static String[] extractLanguages(JsonNode certificate) {

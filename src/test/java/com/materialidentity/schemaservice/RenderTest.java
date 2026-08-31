@@ -257,6 +257,20 @@ class RenderTest {
 	private static final String WATERMARK_EN = "PREVIEW — NOT A VALID CERTIFICATE";
 
 	@Test
+	void forestrySourceV110RendersPercentageWithoutNetWeight() throws Exception {
+		String jsonContent = Files.readString(Paths.get(
+				"test", "fixtures", "ForestrySource", "v1.1.0", "valid_forestry_source_DMP_01.json"));
+		byte[] pdf = renderWithMode(jsonContent, null);
+		try (PDDocument doc = Loader.loadPDF(pdf)) {
+			String text = new PDFTextStripper().getText(doc);
+			assertTrue(text.contains("Estimation/deviation: 12.345 %"),
+					"percentage estimate/deviation should be rendered with neutral semantics");
+			assertFalse(text.contains("Net Weight:"),
+					"the percentage-only fixture must not render a Net Weight row");
+		}
+	}
+
+	@Test
 	void testModeStampsWatermarkOnEveryPageInPrimaryLanguage() throws Exception {
 		// EN10168 valid_certificate_1 declares CertificateLanguages ["DE","EN"] — primary is DE.
 		String jsonContent = Files.readString(
