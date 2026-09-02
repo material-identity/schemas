@@ -209,6 +209,15 @@
                             </xsl:call-template>
                           </fo:table-row>
                         </xsl:if>
+                        <xsl:for-each select="$dmp/Product/ProductionIdentifiers">
+                          <fo:table-row>
+                            <xsl:call-template name="KeyValue">
+                              <xsl:with-param name="key" select="if (Type = 'Other' and CustomType) then CustomType else replace(replace(Type, '([a-z])([A-Z])', '$1 $2'), ' Id$', ' ID')" />
+                              <xsl:with-param name="value" select="Value" />
+                              <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
+                            </xsl:call-template>
+                          </fo:table-row>
+                        </xsl:for-each>
                         <xsl:if test="$dmp/Product/SurfaceCondition">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
