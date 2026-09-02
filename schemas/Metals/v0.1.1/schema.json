@@ -1227,6 +1227,53 @@
       "additionalProperties": false
     },
 
+    "ProductionIdentifier": {
+      "title": "ProductionIdentifier",
+      "description": "Production-specific identifier for traceability",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "description": "Kind of production identifier",
+          "type": "string",
+          "enum": [
+            "ForgingNumber",
+            "CoilId",
+            "SlabNumber",
+            "IngotNumber",
+            "PlateNumber",
+            "CastNumber",
+            "StrandId",
+            "BilletNumber",
+            "BloomNumber",
+            "Other"
+          ]
+        },
+        "CustomType": {
+          "description": "Custom identifier type when Type is 'Other'",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "Value": {
+          "description": "Identifier value",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": ["F-2024-0815", "C123456"]
+        }
+      },
+      "required": ["Type", "Value"],
+      "additionalProperties": false,
+      "if": {
+        "properties": { "CustomType": true },
+        "required": ["CustomType"]
+      },
+      "then": {
+        "properties": { "Type": { "const": "Other" } },
+        "required": ["Type"]
+      }
+    },
+
     "Product": {
       "title": "Product",
       "description": "Complete description of the product being certified",
@@ -1274,6 +1321,15 @@
           "minLength": 1,
           "maxLength": 50,
           "examples": ["NM520-3", "IP302-1", "HT404-1"]
+        },
+        "ProductionIdentifiers": {
+          "description": "Production-specific identifiers for traceability (e.g. forging, coil, slab numbers). Multiple identifiers of the same type are allowed; order may indicate primary vs. secondary.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProductionIdentifier"
+          },
+          "minItems": 1,
+          "maxItems": 100
         },
         "SurfaceCondition": {
           "description": "Surface condition or finish of the product",

@@ -613,6 +613,12 @@
           "Standard": "ISO 6336-5"
         }
       ],
+      "ProductionIdentifiers": [
+        {
+          "Type": "ForgingNumber",
+          "Value": "F-8842-1"
+        }
+      ],
       "Shape": {
         "Diameter": 500,
         "Form": "RoundBar",
