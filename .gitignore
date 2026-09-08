@@ -33,3 +33,7 @@ test/fixtures/HKM/*
 # SBOM files (stored in release assets, not in repo)
 sbom-*.json
 
+
+# IDE settings
+.idea/
+.vscode/
