@@ -17,9 +17,11 @@
     <commons-io.version>2.14.0</commons-io.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <netty.version>4.1.137.Final</netty.version>
-    <!-- Tomcat 10.1.55 fixes GHSA-r29c-68gh-xp6x, GHSA-h6fc-48rj-7qqh, GHSA-5m62-pw8w-7w9f
-         (Critical) plus 3 High + 1 Low. Remove once Spring Boot 3.5.15 ships with it. -->
-    <tomcat.version>10.1.55</tomcat.version>
+    <!-- Tomcat 10.1.60 fixes GHSA-9xv2-5v5q-p794, GHSA-gcx9-497g-6cp6, GHSA-h3x4-894j-xpx5
+         (all Critical, DIGEST/FORM auth bypass and access-control issues) on top of the prior
+         round (GHSA-r29c-68gh-xp6x, GHSA-h6fc-48rj-7qqh, GHSA-5m62-pw8w-7w9f). Spring Boot 3.5.16
+         still manages 10.1.55, so this override stays; remove once Spring Boot ships >= 10.1.58. -->
+    <tomcat.version>10.1.60</tomcat.version>
     <jackson-bom.version>2.21.5</jackson-bom.version>
     <micrometer.version>1.15.12</micrometer.version>
     <httpclient5.version>5.6.3</httpclient5.version>
@@ -30,7 +32,9 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.14</version>
+    <!-- 3.5.16: latest 3.5.x patch, fixes GHSA-ggg2-9786-hwc8 (spring-boot-autoconfigure:
+         predictable temp directory in Artemis auto-configuration), fixed upstream in 3.5.15. -->
+    <version>3.5.16</version>
   </parent>
 
   <dependencyManagement>
