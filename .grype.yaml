@@ -50,6 +50,10 @@ ignore:
   - vulnerability: GHSA-jj27-h5hq-8x99 # @angular/core, @angular/compiler: i18n XSS via event-handler attributes
   - vulnerability: GHSA-jhpw-976m-542j # @angular/common: HttpTransferCache cache-key ambiguity / response reuse
   - vulnerability: GHSA-vpx6-8pjr-4g3v # @angular/platform-server: SSR raw-content escaping fallback XSS
+  - vulnerability: GHSA-f6mr-pjwc-34m4 # @angular/platform-server: SSRF / cross-origin credential disclosure via SSR URL resolution
+  - vulnerability: GHSA-v3p8-whq6-r5jg # @angular/platform-server: SSR XSS via unescaped <template> content across DocumentFragment boundaries
+  - vulnerability: GHSA-hh8m-fm6v-7cvg # @angular/core, @angular/compiler: sanitization bypass via directive host bindings
+  - vulnerability: GHSA-p297-fm68-3q8c # @angular/common: HttpTransferCache info leak via withRequestsMadeViaParent bypass
 
 # Registry configuration (if needed for private registries)
 # registry:
