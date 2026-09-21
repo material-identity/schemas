@@ -263,6 +263,15 @@
                             </xsl:call-template>
                           </fo:table-row>
                         </xsl:if>
+                        <xsl:if test="$dmp/Product/CountryOfMeltAndPour">
+                          <fo:table-row>
+                            <xsl:call-template name="KeyValue">
+                              <xsl:with-param name="key" select="'Country of Melt and Pour'" />
+                              <xsl:with-param name="value" select="$dmp/Product/CountryOfMeltAndPour" />
+                              <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
+                            </xsl:call-template>
+                          </fo:table-row>
+                        </xsl:if>
                         <xsl:if test="$dmp/Product/DimensionalTolerances/Standard">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
