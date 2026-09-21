@@ -1793,28 +1793,6 @@
                 </fo:table-cell>
               </xsl:for-each>
             </fo:table-row>
-            <!-- Values row -->
-            <fo:table-row>
-              <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
-                <fo:block text-align="left" font-size="7pt">
-                  <xsl:choose>
-                    <xsl:when test="$result/../Unit">
-                      <xsl:value-of select="concat('Value [', $result/../Unit, ']')" />
-                    </xsl:when>
-                    <xsl:otherwise>Value</xsl:otherwise>
-                  </xsl:choose>
-                </fo:block>
-              </fo:table-cell>
-              <xsl:for-each select="$result/Data">
-                <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
-                  <fo:block text-align="center" font-size="7pt">
-                    <xsl:call-template name="FormatResult">
-                      <xsl:with-param name="result" select="Value" />
-                    </xsl:call-template>
-                  </fo:block>
-                </fo:table-cell>
-              </xsl:for-each>
-            </fo:table-row>
             <!-- Min row (only if any data point has Minimum; blank cells stay blank) -->
             <xsl:if test="$result/Data/Minimum">
               <fo:table-row>
@@ -1853,6 +1831,29 @@
                 </xsl:for-each>
               </fo:table-row>
             </xsl:if>
+            <!-- Values row (last, per #318: measured value reads last, same as the chemical
+                 composition table's Unit/Min/Max/Actual order) -->
+            <fo:table-row>
+              <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                <fo:block text-align="left" font-size="7pt">
+                  <xsl:choose>
+                    <xsl:when test="$result/../Unit">
+                      <xsl:value-of select="concat('Value [', $result/../Unit, ']')" />
+                    </xsl:when>
+                    <xsl:otherwise>Value</xsl:otherwise>
+                  </xsl:choose>
+                </fo:block>
+              </fo:table-cell>
+              <xsl:for-each select="$result/Data">
+                <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
+                  <fo:block text-align="center" font-size="7pt">
+                    <xsl:call-template name="FormatResult">
+                      <xsl:with-param name="result" select="Value" />
+                    </xsl:call-template>
+                  </fo:block>
+                </fo:table-cell>
+              </xsl:for-each>
+            </fo:table-row>
             <!-- Status row (only if any data point has Status) -->
             <xsl:if test="$result/Data/Status">
               <fo:table-row>
