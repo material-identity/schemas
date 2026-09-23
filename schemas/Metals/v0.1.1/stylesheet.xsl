@@ -7,6 +7,7 @@
     - MultiValue results (impact) render inline: "v1 / v2 / v3 Unit - Average a - Min x"
     - TestConditions shared by 2+ mechanical items become one footnote under the table
     - Chemical elements render as rows (Symbol|Unit|Min|Max|Actual) in two side-by-side halves
+    - Product (piece) analysis elements render as a labelled line below the chemistry table
     - Product Information / Material Designations / Shape / Packaging merge into one Product section
     - Limit-less booleans (no Method, no Min/Max, no Unit) render as a checkmark line, not table rows
     - ISO 4967 micro-purity items render as a fine/thick matrix (with fallback to normal rows)
@@ -534,15 +535,73 @@
               </fo:block>
 
               <xsl:if test="$dmp/ChemicalAnalysis/Elements">
-                <xsl:variable name="allElements" select="$dmp/ChemicalAnalysis/Elements" />
-                <xsl:call-template name="RenderChemicalElementsTransposed">
-                  <xsl:with-param name="elements" select="$allElements" />
-                </xsl:call-template>
+                <!-- A product (piece) analysis is measured on the finished product, not the melt,
+                     and is often held to wider limits than the cast analysis - as a table column it
+                     would look like a second, conflicting limit for the same element. Only elements
+                     whose SampleRef names a product analysis leave the table; any other SampleRef
+                     (e.g. "Heat analysis") labels the cast analysis and stays in it. Results that
+                     FormatResult renders as a block or table (boolean, multiValue, array) cannot sit
+                     in the running line, so those elements stay in the table as well. -->
+                <xsl:variable name="productElements" select="$dmp/ChemicalAnalysis/Elements
+                  [lower-case(normalize-space(SampleRef)) = ('piece analysis', 'product analysis')]
+                  [not((Actual, Minimum, Maximum)/ResultType = ('boolean', 'multiValue', 'array'))]" />
+                <xsl:variable name="castElements" select="$dmp/ChemicalAnalysis/Elements except $productElements" />
+                <xsl:if test="exists($castElements)">
+                  <xsl:call-template name="RenderChemicalElementsTransposed">
+                    <xsl:with-param name="elements" select="$castElements" />
+                  </xsl:call-template>
+                </xsl:if>
 
-                <!-- Formula Definitions as a footnote line -->
-                <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
+                <!-- Product analysis as a footnote line per SampleRef: "Piece analysis: C = 0.19% (max. 0.23%)" -->
+                <xsl:for-each-group select="$productElements" group-by="normalize-space(SampleRef)">
                   <fo:block space-before="2pt" font-size="6.5pt" color="#555555">
-                    <xsl:for-each select="$dmp/ChemicalAnalysis/Elements[Formula][not(PropertySymbol = preceding-sibling::*/PropertySymbol)]">
+                    <fo:inline font-style="italic">
+                      <xsl:value-of select="concat(upper-case(substring(current-grouping-key(), 1, 1)), substring(current-grouping-key(), 2))" />
+                      <xsl:text>: </xsl:text>
+                    </fo:inline>
+                    <xsl:for-each select="current-group()">
+                      <xsl:variable name="sharedDecimals" select="mi:shared-decimals(.)" as="xs:integer" />
+                      <!-- "%" follows the number directly, like the formula footnote; other units are spaced -->
+                      <xsl:variable name="unit" select="if (not(Unit) or Unit = '%') then string(Unit) else concat(' ', Unit)" />
+                      <xsl:if test="position() gt 1"><xsl:text>, </xsl:text></xsl:if>
+                      <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
+                      <xsl:text> = </xsl:text>
+                      <xsl:call-template name="FormatResult">
+                        <xsl:with-param name="result" select="Actual" />
+                        <xsl:with-param name="decimals" select="$sharedDecimals" />
+                      </xsl:call-template>
+                      <xsl:value-of select="$unit" />
+                      <xsl:if test="Minimum or Maximum">
+                        <xsl:text> (</xsl:text>
+                        <xsl:if test="Minimum">
+                          <xsl:text>min. </xsl:text>
+                          <xsl:call-template name="FormatResult">
+                            <xsl:with-param name="result" select="Minimum" />
+                            <xsl:with-param name="decimals" select="$sharedDecimals" />
+                          </xsl:call-template>
+                          <xsl:value-of select="$unit" />
+                        </xsl:if>
+                        <xsl:if test="Minimum and Maximum"><xsl:text>, </xsl:text></xsl:if>
+                        <xsl:if test="Maximum">
+                          <xsl:text>max. </xsl:text>
+                          <xsl:call-template name="FormatResult">
+                            <xsl:with-param name="result" select="Maximum" />
+                            <xsl:with-param name="decimals" select="$sharedDecimals" />
+                          </xsl:call-template>
+                          <xsl:value-of select="$unit" />
+                        </xsl:if>
+                        <xsl:text>)</xsl:text>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </fo:block>
+                </xsl:for-each-group>
+
+                <!-- Formula Definitions as a footnote line - cast elements only (a product analysis
+                     already prints on its own line), and a product element never suppresses a cast
+                     element's formula through the symbol dedup -->
+                <xsl:if test="$castElements/Formula">
+                  <fo:block space-before="2pt" font-size="6.5pt" color="#555555">
+                    <xsl:for-each select="$castElements[Formula][not(PropertySymbol = (preceding-sibling::* except $productElements)/PropertySymbol)]">
                       <xsl:if test="position() gt 1"><xsl:text>   </xsl:text></xsl:if>
                       <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
                       <xsl:text> = </xsl:text>
