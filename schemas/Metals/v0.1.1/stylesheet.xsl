@@ -539,9 +539,12 @@
                      and is often held to wider limits than the cast analysis - as a table column it
                      would look like a second, conflicting limit for the same element. Only elements
                      whose SampleRef names a product analysis leave the table; any other SampleRef
-                     (e.g. "Heat analysis") labels the cast analysis and stays in it. -->
+                     (e.g. "Heat analysis") labels the cast analysis and stays in it. Results that
+                     FormatResult renders as a block or table (boolean, multiValue, array) cannot sit
+                     in the running line, so those elements stay in the table as well. -->
                 <xsl:variable name="productElements" select="$dmp/ChemicalAnalysis/Elements
-                  [lower-case(normalize-space(SampleRef)) = ('piece analysis', 'product analysis')]" />
+                  [lower-case(normalize-space(SampleRef)) = ('piece analysis', 'product analysis')]
+                  [not((Actual, Minimum, Maximum)/ResultType = ('boolean', 'multiValue', 'array'))]" />
                 <xsl:variable name="castElements" select="$dmp/ChemicalAnalysis/Elements except $productElements" />
                 <xsl:if test="exists($castElements)">
                   <xsl:call-template name="RenderChemicalElementsTransposed">
@@ -593,10 +596,12 @@
                   </fo:block>
                 </xsl:for-each-group>
 
-                <!-- Formula Definitions as a footnote line -->
-                <xsl:if test="$dmp/ChemicalAnalysis/Elements/Formula">
+                <!-- Formula Definitions as a footnote line - cast elements only (a product analysis
+                     already prints on its own line), and a product element never suppresses a cast
+                     element's formula through the symbol dedup -->
+                <xsl:if test="$castElements/Formula">
                   <fo:block space-before="2pt" font-size="6.5pt" color="#555555">
-                    <xsl:for-each select="$dmp/ChemicalAnalysis/Elements[Formula][not(PropertySymbol = preceding-sibling::*/PropertySymbol)]">
+                    <xsl:for-each select="$castElements[Formula][not(PropertySymbol = (preceding-sibling::* except $productElements)/PropertySymbol)]">
                       <xsl:if test="position() gt 1"><xsl:text>   </xsl:text></xsl:if>
                       <fo:inline font-weight="bold"><xsl:value-of select="PropertySymbol" /></fo:inline>
                       <xsl:text> = </xsl:text>
