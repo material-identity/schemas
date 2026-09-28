@@ -31,36 +31,13 @@
         </fo:simple-page-master>
       </fo:layout-master-set>
       <fo:page-sequence master-reference="simple">
-        <!-- Footer: schema link + page number -->
+        <!-- Footer: page number -->
         <fo:static-content flow-name="xsl-region-after">
-          <fo:table table-layout="fixed" width="100%" font-size="6.5pt" color="#666666" font-family="NotoSans, NotoSansSC">
-            <fo:table-column column-width="85%" />
-            <fo:table-column column-width="15%" />
-            <fo:table-body>
-              <fo:table-row>
-                <fo:table-cell>
-                  <fo:block>Data schema maintained by
-                    <fo:basic-link external-destination="https://materialidentity.org">
-                      <fo:inline text-decoration="underline">Material Identity</fo:inline>
-                    </fo:basic-link>
-                    <xsl:text> - </xsl:text>
-                    <fo:basic-link external-destination="{/Root/RefSchemaUrl}">
-                      <fo:inline text-decoration="underline">
-                        <xsl:value-of select="/Root/RefSchemaUrl" />
-                      </fo:inline>
-                    </fo:basic-link>
-                  </fo:block>
-                </fo:table-cell>
-                <fo:table-cell>
-                  <fo:block text-align="right">
-                    <fo:page-number />
-                    <xsl:text> / </xsl:text>
-                    <fo:page-number-citation-last ref-id="last-page" />
-                  </fo:block>
-                </fo:table-cell>
-              </fo:table-row>
-            </fo:table-body>
-          </fo:table>
+          <fo:block text-align="right" font-size="6.5pt" color="#666666" font-family="NotoSans, NotoSansSC">
+            <fo:page-number />
+            <xsl:text> / </xsl:text>
+            <fo:page-number-citation-last ref-id="last-page" />
+          </fo:block>
         </fo:static-content>
 
         <!-- Body -->

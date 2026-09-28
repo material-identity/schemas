@@ -1435,7 +1435,7 @@
               }
             }
           },
-          "required": ["HSCode", "StandardDescription"],
+          "required": ["HSCode"],
           "additionalProperties": false
         },
         "SpecificationReference": {
