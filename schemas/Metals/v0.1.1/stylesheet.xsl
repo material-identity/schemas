@@ -1942,7 +1942,7 @@
   <!-- Template to add zero-width space after every blank for better word wrapping -->
   <xsl:template name="AddWordWrapBreaks">
     <xsl:param name="text" />
-    <xsl:value-of select="replace($text, '(\s)', '$1&#x00AD;')"/>
+    <xsl:value-of select="replace($text, '(\s)', '$1&#x200B;')"/>
   </xsl:template>
 
   <xsl:template name="FormatAddress">
