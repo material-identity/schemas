@@ -126,6 +126,9 @@
       "Quantity": 4,
       "Weight": 20000,
       "WeightUnit": "kg",
+      "CustomsClassification": {
+        "HSCode": "720851"
+      },
       "SupplementaryStandards": [
         "EN 10160:1999 - Class S2E2",
         "EN 10204:2004 - Type 3.1"
