@@ -1245,7 +1245,9 @@
                   <fo:table-cell padding-right="8pt">
                     <xsl:if test="$dmp/Validation/ValidationStatement/Statement">
                       <fo:block space-after="3pt">
-                        <xsl:value-of select="$dmp/Validation/ValidationStatement/Statement" />
+                        <xsl:call-template name="LinkifyText">
+                          <xsl:with-param name="text" select="$dmp/Validation/ValidationStatement/Statement" />
+                        </xsl:call-template>
                       </fo:block>
                     </xsl:if>
                     <xsl:for-each select="$dmp/Validation/ValidationStatement/IndividualStatements">
@@ -1943,6 +1945,27 @@
   <xsl:template name="AddWordWrapBreaks">
     <xsl:param name="text" />
     <xsl:value-of select="replace($text, '(\s)', '$1&#x200B;')"/>
+  </xsl:template>
+
+  <!-- Template to turn web addresses in free text into links (material-identity/schema#352): http(s)
+       URLs as written, bare host names such as app.s1seven.com as https://<host>. An address must
+       start the text or follow whitespace or an opening bracket, so e-mail domains and parts of
+       words stay text, and trailing sentence punctuation stays outside the link. -->
+  <xsl:template name="LinkifyText">
+    <xsl:param name="text" />
+    <xsl:analyze-string select="$text"
+      regex="(^|[\s(\[])(https?://[^\s]*[^\s.,;:!?)\]]|[a-z0-9][a-z0-9-]*(\.[a-z0-9][a-z0-9-]*)*\.[a-z]{{2,}}(/[^\s]*[^\s.,;:!?)\]])?)">
+      <xsl:matching-substring>
+        <xsl:variable name="address" select="regex-group(2)" />
+        <xsl:value-of select="regex-group(1)" />
+        <fo:basic-link external-destination="{if (matches($address, '^https?://')) then $address else concat('https://', $address)}">
+          <fo:inline text-decoration="underline"><xsl:value-of select="$address" /></fo:inline>
+        </fo:basic-link>
+      </xsl:matching-substring>
+      <xsl:non-matching-substring>
+        <xsl:value-of select="." />
+      </xsl:non-matching-substring>
+    </xsl:analyze-string>
   </xsl:template>
 
   <xsl:template name="FormatAddress">
