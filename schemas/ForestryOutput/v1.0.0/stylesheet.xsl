@@ -583,8 +583,7 @@
 
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
-              <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="100%" />
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
@@ -592,15 +591,6 @@
                       <fo:inline text-decoration="underline">Material Identity</fo:inline>
                     </fo:basic-link>
   . 
-                  </fo:block>
-                </fo:table-cell>
-                <fo:table-cell>
-                  <fo:block color="gray" text-align="right">
-                    <fo:basic-link external-destination="{Root/RefSchemaUrl}">
-                      <fo:inline text-decoration="underline">
-                        <xsl:value-of select="Root/RefSchemaUrl" />
-                      </fo:inline>
-                    </fo:basic-link>
                   </fo:block>
                 </fo:table-cell>
               </fo:table-row>
