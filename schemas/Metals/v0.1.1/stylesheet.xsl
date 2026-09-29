@@ -23,33 +23,22 @@
 
   <!-- Main template to process the XML input directly -->
   <xsl:template match="/">
+    <xsl:variable name="dmp" select="Root/DigitalMaterialPassport" />
+    <!-- The header repeats on every page; its region is taller when a logo sits above the title. -->
+    <xsl:variable name="headerExtent" select="if ($dmp/TransactionData/Parties/Manufacturer/Logo) then '2.3cm' else '0.95cm'" />
     <fo:root xml:lang="en">
       <fo:layout-master-set>
         <fo:simple-page-master master-name="simple" page-height="29.7cm" page-width="21cm" margin="1cm">
-          <fo:region-body margin="0.25cm" margin-bottom="1.2cm" />
+          <fo:region-body margin="0.25cm" margin-top="{$headerExtent} + 0.2cm" margin-bottom="1.2cm" />
+          <fo:region-before extent="{$headerExtent}" />
           <fo:region-after extent="1cm" />
         </fo:simple-page-master>
       </fo:layout-master-set>
       <fo:page-sequence master-reference="simple">
-        <!-- Footer: page number -->
-        <fo:static-content flow-name="xsl-region-after">
-          <fo:block text-align="right" font-size="6.5pt" color="#666666" font-family="NotoSans, NotoSansSC">
-            <fo:page-number />
-            <xsl:text> / </xsl:text>
-            <fo:page-number-citation-last ref-id="last-page" />
-          </fo:block>
-        </fo:static-content>
-
-        <!-- Body -->
-        <fo:flow flow-name="xsl-region-body" font-family="NotoSans, NotoSansSC">
-          <!-- Global variables -->
-          <xsl:variable name="kvPaddingBottom" select="'1.5pt'" />
-          <xsl:variable name="dmp" select="Root/DigitalMaterialPassport" />
-
-          <fo:block font-size="7.5pt">
-
-            <!-- Header: title left, identity right -->
-            <fo:table table-layout="fixed" width="100%">
+        <!-- Header on every page: title left, identity right -->
+        <fo:static-content flow-name="xsl-region-before">
+          <fo:block font-family="NotoSans, NotoSansSC" font-size="7.5pt" padding-top="0.25cm">
+            <fo:table table-layout="fixed" width="100%" border-bottom="0.8pt solid #2b4a6f">
               <fo:table-column column-width="45%" />
               <fo:table-column column-width="55%" />
               <fo:table-body>
@@ -83,9 +72,27 @@
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
+          </fo:block>
+        </fo:static-content>
 
-            <!-- Parties + Business Transaction band -->
-            <fo:table table-layout="fixed" width="100%" space-before="6pt" border-top="0.8pt solid #2b4a6f">
+        <!-- Footer: page number -->
+        <fo:static-content flow-name="xsl-region-after">
+          <fo:block text-align="right" font-size="6.5pt" color="#666666" font-family="NotoSans, NotoSansSC">
+            <fo:page-number />
+            <xsl:text> / </xsl:text>
+            <fo:page-number-citation-last ref-id="last-page" />
+          </fo:block>
+        </fo:static-content>
+
+        <!-- Body -->
+        <fo:flow flow-name="xsl-region-body" font-family="NotoSans, NotoSansSC">
+          <!-- Global variables -->
+          <xsl:variable name="kvPaddingBottom" select="'1.5pt'" />
+
+          <fo:block font-size="7.5pt">
+
+            <!-- Parties + Business Transaction band (the header region above already carries the rule) -->
+            <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="30%" />
               <fo:table-column column-width="30%" />
               <fo:table-column column-width="40%" />
@@ -441,7 +448,7 @@
                     <fo:table-column column-width="20%" />
                     <fo:table-column column-width="25%" />
                     <fo:table-body>
-                      <fo:table-row background-color="#f0f0f0">
+                      <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
                         <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Stage</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Temperature</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Duration</fo:block></fo:table-cell>
@@ -658,7 +665,7 @@
                     <fo:table-column column-width="5%" />
                   </xsl:if>
                   <fo:table-body>
-                    <fo:table-row background-color="#f0f0f0">
+                    <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
                       <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Property</fo:block></fo:table-cell>
                       <xsl:if test="$mechHasSymbol">
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Symbol</fo:block></fo:table-cell>
@@ -865,7 +872,7 @@
                       <fo:table-column column-width="5%" />
                     </xsl:if>
                     <fo:table-body>
-                      <fo:table-row background-color="#f0f0f0">
+                      <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
                         <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Property</fo:block></fo:table-cell>
                         <xsl:if test="$physHasSymbol">
                           <fo:table-cell padding="2pt"><fo:block font-style="italic">Symbol</fo:block></fo:table-cell>
@@ -1001,7 +1008,7 @@
                       <fo:table-column column-width="{floor(84 div count($purityTypes))}%" />
                     </xsl:for-each>
                     <fo:table-body>
-                      <fo:table-row background-color="#f0f0f0">
+                      <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
                         <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block /></fo:table-cell>
                         <xsl:for-each select="$purityTypes">
                           <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
@@ -1078,7 +1085,7 @@
                       <fo:table-column column-width="5%" />
                     </xsl:if>
                     <fo:table-body>
-                      <fo:table-row background-color="#f0f0f0">
+                      <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
                         <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Test</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Result / limits</fo:block></fo:table-cell>
                         <fo:table-cell padding="2pt"><fo:block font-style="italic">Method</fo:block></fo:table-cell>
@@ -1308,7 +1315,7 @@
         <fo:table-column column-width="16mm" />
         <fo:table-column column-width="8.5mm" number-columns-repeated="{count($bandElements)}" />
         <fo:table-body>
-          <fo:table-row background-color="#f0f0f0">
+          <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
             <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic" font-weight="bold">Symbol</fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold" text-align="center"><xsl:value-of select="PropertySymbol" /></fo:block></fo:table-cell>
@@ -1372,7 +1379,7 @@
 
   <xsl:template name="SectionTitle">
     <xsl:param name="title" />
-    <fo:block font-size="9pt" font-weight="bold" color="#2b4a6f" text-align="left" space-before="8pt" space-after="3pt" border-bottom="solid 0.5pt #bfbfbf">
+    <fo:block font-size="9pt" font-weight="bold" color="#2b4a6f" text-align="left" space-before="8pt" space-after="3pt" border-bottom="solid 0.5pt #bfbfbf" keep-with-next.within-page="always">
       <xsl:value-of select="$title" />
     </fo:block>
   </xsl:template>
