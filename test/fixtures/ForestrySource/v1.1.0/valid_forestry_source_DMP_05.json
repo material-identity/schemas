@@ -183,6 +183,7 @@
         ]
       }
     ],
+    "HarvestUnitsDownloadURL": "https://example.com/bundles/source-d290f1ee-harvest-units.zip",
     "Products": [
       {
         "ProductType": "Hardwood Logs",

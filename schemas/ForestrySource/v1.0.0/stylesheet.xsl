@@ -391,144 +391,100 @@
               </fo:table>
             </xsl:if>
 
-            <!-- HarvestUnitsDownloadURL -->
-            <xsl:if test="$HarvestUnitsDownloadURL">
-              <fo:block margin-top="8pt" margin-bottom="4pt">
-                <fo:basic-link external-destination="{$HarvestUnitsDownloadURL}">
-                  <fo:inline text-decoration="underline" color="blue">
-                    <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
-                  </fo:inline>
-                </fo:basic-link>
-              </fo:block>
-            </xsl:if>
-
-            <!-- HarvestUnits -->
-            <xsl:call-template name="SectionTitle">
-              <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/HarvestUnits" />
-            </xsl:call-template>
-            <xsl:for-each select="$HarvestUnits">
-              <xsl:variable name="index" select="." />
-              <xsl:variable name="typeValue" select="$index/type" />
-              <xsl:call-template name="SectionTitleSmall">
-                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/*[name() = $typeValue]" />
+            <!-- HarvestUnits: one row per feature across all FeatureCollections; coordinates are not rendered -->
+            <xsl:if test="exists($HarvestUnits/features)">
+              <xsl:call-template name="SectionTitle">
+                <xsl:with-param name="title" select="$i18n/DigitalMaterialPassport/HarvestUnits" />
               </xsl:call-template>
-              <xsl:for-each select="features">
-                <fo:table table-layout="fixed" width="100%">
-                  <fo:table-column column-width="15%"/>
-                  <fo:table-column column-width="50%"/>
-                  <fo:table-column column-width="35%"/>
-                  <fo:table-body>
+              <fo:table table-layout="fixed" width="100%">
+                <fo:table-column column-width="24%" />
+                <fo:table-column column-width="24%" />
+                <fo:table-column column-width="16%" />
+                <fo:table-column column-width="24%" />
+                <fo:table-column column-width="12%" />
+                <fo:table-header>
+                  <fo:table-row>
+                    <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Name" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/ProducerName" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/ProducerCountry" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/ProductionPlace" />
+                      </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                      <fo:block font-weight="bold">
+                        <xsl:value-of select="$i18n/DigitalMaterialPassport/Area" />
+                      </fo:block>
+                    </fo:table-cell>
+                  </fo:table-row>
+                </fo:table-header>
+                <fo:table-body>
+                  <xsl:for-each select="$HarvestUnits/features">
                     <fo:table-row>
-                      <fo:table-cell number-columns-spanned="3">
-                        <!-- Type line -->
-                        <fo:block padding-bottom="2pt">
-                          <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Type" />: </fo:inline>
-                          <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = current()/type]" />
+                      <fo:table-cell padding-bottom="{$cellPaddingBottom}">
+                        <fo:block font-weight="bold">
+                          <xsl:value-of select="properties/Name" />
                         </fo:block>
-
-                        <!-- Geometry line -->
-                        <fo:block padding-bottom="2pt">
-                          <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Geometry" />: </fo:inline>
-                          <xsl:value-of select="geometry/type" />
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="properties/ProducerName" />
                         </fo:block>
-
-                        <!-- Properties line -->
-                        <xsl:if test="properties/*">
-                          <fo:block padding-bottom="4pt">
-                            <fo:inline font-weight="bold"><xsl:value-of select="$i18n/DigitalMaterialPassport/Properties" />: </fo:inline>
-                            <xsl:for-each select="properties/*">
-                              <xsl:value-of select="$i18n/DigitalMaterialPassport/*[local-name() = local-name(current())]" />
-                              <xsl:text>: </xsl:text>
-                              <xsl:value-of select="." />
-                              <xsl:if test="position() != last()">
-                                <xsl:text>, </xsl:text>
-                              </xsl:if>
-                            </xsl:for-each>
-                          </fo:block>
-                        </xsl:if>
-
-                        <!-- Coordinates -->
-                        <xsl:choose>
-                          <!-- Case: Point geometry -->
-                          <xsl:when test="geometry/type = 'Point'">
-                            <xsl:call-template name="GenerateCoordinatesTable">
-                              <xsl:with-param name="headerCount" select="2" />
-                              <xsl:with-param name="Section" select="geometry/coordinates" />
-                              <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                              <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:if test="properties/ProducerCountry">
+                            <xsl:call-template name="CountryName">
+                              <xsl:with-param name="countryCode" select="properties/ProducerCountry" />
                             </xsl:call-template>
-                          </xsl:when>
-
-                          <!-- Case: Polygon geometry -->
-                          <xsl:when test="geometry/type = 'Polygon'">
-                            <xsl:call-template name="GenerateCoordinatesTable">
-                              <xsl:with-param name="headerCount" select="2" />
-                              <xsl:with-param name="Section" select="geometry/coordinates" />
-                              <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                              <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                              <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                            </xsl:call-template>
-                          </xsl:when>
-
-                          <!-- Case: GeometryCollection -->
-                          <xsl:when test="geometry/type = 'GeometryCollection'">
-                            <fo:block font-style="italic" text-decoration="underline" padding-bottom="{$cellPaddingBottom}">
-                              <xsl:value-of select="'Geometry Collection Contents'" />
-                            </fo:block>
-
-                            <!-- Loop through each geometry in the collection -->
-                            <xsl:for-each select="geometry/geometries">
-                              <fo:block font-weight="bold" padding-top="4pt" padding-bottom="2pt">
-                                <xsl:value-of select="concat('Type: ', type)" />
-                              </fo:block>
-
-                              <!-- Render each geometry based on its type -->
-                              <xsl:choose>
-                                <!-- Point within GeometryCollection -->
-                                <xsl:when test="type = 'Point'">
-                                  <xsl:call-template name="GenerateCoordinatesTable">
-                                    <xsl:with-param name="headerCount" select="2" />
-                                    <xsl:with-param name="Section" select="coordinates" />
-                                    <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                                    <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                  </xsl:call-template>
-                                </xsl:when>
-
-                                <!-- Polygon within GeometryCollection -->
-                                <xsl:when test="type = 'Polygon'">
-                                  <xsl:call-template name="GenerateCoordinatesTable">
-                                    <xsl:with-param name="headerCount" select="2" />
-                                    <xsl:with-param name="Section" select="coordinates" />
-                                    <xsl:with-param name="latitudeTranslation" select="$i18n/DigitalMaterialPassport/Latitude" />
-                                    <xsl:with-param name="longitudeTranslation" select="$i18n/DigitalMaterialPassport/Longitude" />
-                                    <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
-                                  </xsl:call-template>
-                                </xsl:when>
-                              </xsl:choose>
-
-                              <!-- Add a separator between geometries -->
-                              <xsl:if test="position() != last()">
-                                <fo:block border-bottom="dotted 0.5pt #CCCCCC" margin-top="2pt" margin-bottom="2pt"/>
-                              </xsl:if>
-                            </xsl:for-each>
-                          </xsl:when>
-                        </xsl:choose>
+                          </xsl:if>
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:value-of select="properties/ProductionPlace" />
+                        </fo:block>
+                      </fo:table-cell>
+                      <fo:table-cell>
+                        <fo:block>
+                          <xsl:if test="properties/Area">
+                            <xsl:value-of select="concat(properties/Area, ' ha')" />
+                          </xsl:if>
+                        </fo:block>
                       </fo:table-cell>
                     </fo:table-row>
-                  </fo:table-body>
-                </fo:table>
+                  </xsl:for-each>
+                </fo:table-body>
+              </fo:table>
 
-                <!-- Add separator after feature -->
-                <fo:block border-bottom="dotted 0.5pt #CCCCCC" margin-top="2pt" margin-bottom="2pt"/>
-              </xsl:for-each>
-            </xsl:for-each>
+              <!-- HarvestUnitsDownloadURL -->
+              <xsl:if test="$HarvestUnitsDownloadURL">
+                <fo:block margin-top="8pt" margin-bottom="4pt">
+                  <fo:basic-link external-destination="{$HarvestUnitsDownloadURL}">
+                    <fo:inline text-decoration="underline" color="blue">
+                      <xsl:value-of select="$i18n/DigitalMaterialPassport/HarvestUnitsDownloadURL" />
+                    </fo:inline>
+                  </fo:basic-link>
+                </fo:block>
+              </xsl:if>
+            </xsl:if>
 
             <!-- Footer -->
             <fo:table table-layout="fixed" margin-top="16pt" width="100%">
-              <fo:table-column column-width="50%" />
-              <fo:table-column column-width="50%" />
+              <fo:table-column column-width="100%" />
               <fo:table-body>
                 <fo:table-row>
                   <fo:table-cell>
@@ -537,15 +493,6 @@
                         <fo:inline text-decoration="underline">Material Identity</fo:inline>
                       </fo:basic-link>
           .
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell>
-                    <fo:block color="gray" text-align="right">
-                      <fo:basic-link external-destination="{Root/RefSchemaUrl}">
-                        <fo:inline text-decoration="underline">
-                          <xsl:value-of select="Root/RefSchemaUrl" />
-                        </fo:inline>
-                      </fo:basic-link>
                     </fo:block>
                   </fo:table-cell>
                 </fo:table-row>
@@ -611,40 +558,6 @@
         </fo:basic-link>
       </fo:block>
     </fo:table-cell>
-  </xsl:template>
-  <xsl:template name="GenerateCoordinatesTable">
-    <xsl:param name="headerCount" />
-    <xsl:param name="Section" />
-    <xsl:param name="latitudeTranslation" />
-    <xsl:param name="longitudeTranslation" />
-    <xsl:param name="paddingBottom" select="'6pt'" />
-
-    <!-- Flat list format: 5 coordinate pairs per line for performance -->
-    <!-- Process every 2nd element (latitude at odd positions) and output 5 pairs per line -->
-    <fo:block font-size="7pt">
-      <xsl:for-each select="$Section[position() mod 2 = 1]">
-        <xsl:variable name="pairIndex" select="position()" />
-        <!-- Output coordinate pair: (lat, lon) -->
-        <xsl:text>(</xsl:text>
-        <xsl:value-of select="." />
-        <xsl:text>, </xsl:text>
-        <xsl:value-of select="following-sibling::*[1]" />
-        <xsl:text>)</xsl:text>
-
-        <!-- Add comma separator or line break after 5 pairs -->
-        <xsl:choose>
-          <xsl:when test="$pairIndex mod 5 = 0 and following-sibling::*[2]">
-            <!-- After 5 pairs (and not the last), add line break -->
-            <xsl:text>,</xsl:text>
-            <fo:block/>
-          </xsl:when>
-          <xsl:when test="following-sibling::*[2]">
-            <!-- Not the last pair and not 5th pair, add comma and space -->
-            <xsl:text>, </xsl:text>
-          </xsl:when>
-        </xsl:choose>
-      </xsl:for-each>
-    </fo:block>
   </xsl:template>
   <xsl:template name="GenerateSpeciesTable">
     <xsl:param name="Section" />
