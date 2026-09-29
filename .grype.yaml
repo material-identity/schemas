@@ -41,17 +41,14 @@ ignore:
   # Angular 19.x advisories with NO fix anywhere in the 19.2.x line
   # (patched only in 20.3.25+ / 21.2.17+ / 22.0.1+ — i.e. a major upgrade).
   # We are on Angular 19 and have already taken every available 19.2.x
-  # patch (framework bumped to 19.2.25). Accepted risk until the planned
-  # Angular v20 upgrade; remove these entries once that lands.
+  # patch (framework bumped to 19.2.25). No Angular major upgrade is planned:
+  # this repo is slated for retirement, so these stay accepted risk until then.
   - vulnerability: GHSA-39pv-4j6c-2g6v # @angular/common: HttpTransferCache weak 32-bit cache-key hashing
   - vulnerability: GHSA-48r7-hpm6-gfxm # @angular/common: formatDate DoS (OOM)
   - vulnerability: GHSA-rgjc-h3x7-9mwg # @angular/core: hydration DOM clobbering / response-cache poisoning
   - vulnerability: GHSA-58w9-8g37-x9v5 # @angular/compiler: two-way binding sanitization bypass (XSS)
   - vulnerability: GHSA-jj27-h5hq-8x99 # @angular/core, @angular/compiler: i18n XSS via event-handler attributes
   - vulnerability: GHSA-jhpw-976m-542j # @angular/common: HttpTransferCache cache-key ambiguity / response reuse
-  - vulnerability: GHSA-vpx6-8pjr-4g3v # @angular/platform-server: SSR raw-content escaping fallback XSS
-  - vulnerability: GHSA-f6mr-pjwc-34m4 # @angular/platform-server: SSRF / cross-origin credential disclosure via SSR URL resolution
-  - vulnerability: GHSA-v3p8-whq6-r5jg # @angular/platform-server: SSR XSS via unescaped <template> content across DocumentFragment boundaries
   - vulnerability: GHSA-hh8m-fm6v-7cvg # @angular/core, @angular/compiler: sanitization bypass via directive host bindings
   - vulnerability: GHSA-p297-fm68-3q8c # @angular/common: HttpTransferCache info leak via withRequestsMadeViaParent bypass
 
