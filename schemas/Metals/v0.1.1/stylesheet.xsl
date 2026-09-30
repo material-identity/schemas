@@ -488,14 +488,24 @@
               </fo:block>
             </xsl:if>
 
-            <!-- Chemical Analysis: heat info inline, elements as rows in two side-by-side halves -->
+            <!-- Chemical Analysis: heat/cast info inline, elements as rows in two side-by-side halves -->
             <xsl:if test="$dmp/ChemicalAnalysis">
               <xsl:call-template name="SectionTitle">
                 <xsl:with-param name="title" select="'Chemical Analysis'" />
               </xsl:call-template>
               <fo:block space-after="3pt">
-                <fo:inline font-style="italic">Heat Number </fo:inline>
-                <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/HeatNumber" /></fo:inline>
+                <!-- The schema requires a heat number, a cast number, or both -->
+                <xsl:if test="$dmp/ChemicalAnalysis/HeatNumber">
+                  <fo:inline font-style="italic">Heat Number </fo:inline>
+                  <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/HeatNumber" /></fo:inline>
+                </xsl:if>
+                <xsl:if test="$dmp/ChemicalAnalysis/CastNumber">
+                  <xsl:if test="$dmp/ChemicalAnalysis/HeatNumber">
+                    <xsl:text> - </xsl:text>
+                  </xsl:if>
+                  <fo:inline font-style="italic">Cast Number </fo:inline>
+                  <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/CastNumber" /></fo:inline>
+                </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/MeltingProcess">
                   <xsl:text> - </xsl:text>
                   <fo:inline font-style="italic">Melting Process </fo:inline>
