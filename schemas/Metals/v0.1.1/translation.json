@@ -95,6 +95,7 @@
 
       "IngotCasting": "Ingot Casting",
       "ContinuousCasting": "Continuous Casting",
+      "DirectChillCasting": "Direct Chill (DC) Casting",
       "SandCasting": "Sand Casting",
       "DieCasting": "Die Casting",
       "InvestmentCasting": "Investment Casting",
@@ -501,6 +502,7 @@
 
       "IngotCasting": "Blockguss",
       "ContinuousCasting": "Strangguss",
+      "DirectChillCasting": "Direktgekühlter Guss (DC)",
       "SandCasting": "Sandguss",
       "DieCasting": "Druckguss",
       "InvestmentCasting": "Feinguss",

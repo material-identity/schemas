@@ -440,6 +440,12 @@
           "description": "The heat or melt number defining the chemical properties",
           "type": "string"
         },
+        "CastNumber": {
+          "description": "The cast number identifying the cast the chemical composition belongs to (e.g. a direct chill cast of aluminium billets); used instead of or alongside HeatNumber",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
         "CastingDate": {
           "description": "The date when the heat was cast",
           "type": "string",
@@ -451,6 +457,7 @@
           "enum": [
             "IngotCasting",
             "ContinuousCasting",
+            "DirectChillCasting",
             "SandCasting",
             "DieCasting",
             "InvestmentCasting",
@@ -491,7 +498,11 @@
           "examples": ["ASTM E1251", "ISO 10474", "EN 10204"]
         }
       },
-      "required": ["HeatNumber", "Elements"],
+      "required": ["Elements"],
+      "anyOf": [
+        { "required": ["HeatNumber"], "properties": { "HeatNumber": {} } },
+        { "required": ["CastNumber"], "properties": { "CastNumber": {} } }
+      ],
       "additionalProperties": false
     },
 
