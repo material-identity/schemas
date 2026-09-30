@@ -39,10 +39,16 @@ describe('Metals v0.1.1 CastNumber schema', () => {
   test('requires a heat number or a cast number, not a specific one', () => {
     expect(analysis.required).not.toContain('HeatNumber');
     expect(analysis.required).not.toContain('CastNumber');
-    expect(analysis.anyOf).toEqual([
-      { required: ['HeatNumber'], properties: { HeatNumber: {} } },
-      { required: ['CastNumber'], properties: { CastNumber: {} } },
-    ]);
+    // if/then rather than anyOf: JSONForms renders an object carrying anyOf with its combinator
+    // (tab) renderer instead of its fields, which would break the chemistry block in the editor
+    expect(analysis.anyOf).toBeUndefined();
+    expect(analysis.if).toEqual({
+      not: { properties: { CastNumber: {} }, required: ['CastNumber'] },
+    });
+    expect(analysis.then).toEqual({
+      properties: { HeatNumber: {} },
+      required: ['HeatNumber'],
+    });
   });
 
   test('offers DirectChillCasting as a casting method', () => {

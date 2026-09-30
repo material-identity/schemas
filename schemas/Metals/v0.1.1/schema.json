@@ -499,10 +499,8 @@
         }
       },
       "required": ["Elements"],
-      "anyOf": [
-        { "required": ["HeatNumber"], "properties": { "HeatNumber": {} } },
-        { "required": ["CastNumber"], "properties": { "CastNumber": {} } }
-      ],
+      "if": { "not": { "properties": { "CastNumber": {} }, "required": ["CastNumber"] } },
+      "then": { "properties": { "HeatNumber": {} }, "required": ["HeatNumber"] },
       "additionalProperties": false
     },
 
