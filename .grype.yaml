@@ -51,6 +51,7 @@ ignore:
   - vulnerability: GHSA-jhpw-976m-542j # @angular/common: HttpTransferCache cache-key ambiguity / response reuse
   - vulnerability: GHSA-hh8m-fm6v-7cvg # @angular/core, @angular/compiler: sanitization bypass via directive host bindings
   - vulnerability: GHSA-p297-fm68-3q8c # @angular/common: HttpTransferCache info leak via withRequestsMadeViaParent bypass
+  - vulnerability: GHSA-ff3f-86qr-9cv3 # @angular/router: SSR DoS via numeric URL matrix parameters; ui/ has no SSR, so not reachable (fixed only in 20.3.32+ / 21.2.24+ / 22.2.0+)
 
 # Registry configuration (if needed for private registries)
 # registry:
