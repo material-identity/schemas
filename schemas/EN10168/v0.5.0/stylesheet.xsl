@@ -250,13 +250,18 @@
                 <fo:table-body>
                   <xsl:for-each select="$ProductDescription/SupplementaryInformation/*">
                     <fo:table-row>
+                      <!-- Link and image types (url, qr-code, ...) take the bare Value so the
+                           KeyValue template can render them as a link or graphic; every other
+                           type keeps the "Value Unit" text it always rendered. -->
+                      <xsl:variable name="mediaType" select="string(./Type) = ('url', 'email', 'phone', 'qr-code', 'image')" />
                       <xsl:variable name="concatenatedValue">
-                        <xsl:value-of select="concat(./Value, ' ', ./Unit)" />
+                        <xsl:value-of select="if ($mediaType) then string(./Value) else concat(./Value, ' ', ./Unit)" />
                       </xsl:variable>
                       <xsl:call-template name="KeyValue">
                         <xsl:with-param name="number" select="concat(local-name(), ' ')" />
                         <xsl:with-param name="key" select="Key" />
                         <xsl:with-param name="value" select="$concatenatedValue" />
+                        <xsl:with-param name="type" select="if ($mediaType) then string(./Type) else 'default'" />
                         <xsl:with-param name="paddingBottom" select="$cellPaddingBottom" />
                         <xsl:with-param name="language" select="$documentLanguage" />
                       </xsl:call-template>
