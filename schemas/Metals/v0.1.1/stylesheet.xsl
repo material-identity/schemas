@@ -21,11 +21,29 @@
   xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
   xmlns:mi="urn:material-identity:metals-stylesheet">
 
+  <!-- Labels (material-identity/schemas#331): the renderer injects translation.json as
+       Root/Translations, holding only the certificate's Languages and joining several with " / ".
+       Every label reads its key and falls back to the literal English text when the key is
+       missing. Each key's EN value equals its fallback literal (test/metals-labels.spec.js), so an
+       English-only certificate renders exactly as it did before the lookups existed. -->
+  <xsl:variable name="i18n" select="/Root/Translations/DigitalMaterialPassport" />
+
+  <xsl:function name="mi:label" as="xs:string">
+    <xsl:param name="key" as="xs:string" />
+    <xsl:param name="fallback" as="xs:string" />
+    <xsl:variable name="translated" select="string(($i18n/*[name() = $key])[1])" as="xs:string" />
+    <xsl:sequence select="if ($translated != '') then $translated else $fallback" />
+  </xsl:function>
+
   <!-- Main template to process the XML input directly -->
   <xsl:template match="/">
     <xsl:variable name="dmp" select="Root/DigitalMaterialPassport" />
-    <!-- The header repeats on every page; its region is taller when a logo sits above the title. -->
-    <xsl:variable name="headerExtent" select="if ($dmp/TransactionData/Parties/Manufacturer/Logo) then '2.3cm' else '0.95cm'" />
+    <!-- The header repeats on every page; its region is taller when a logo sits above the title,
+         and again when several languages join the title and header labels (" / "), which then
+         wrap onto a second line. -->
+    <xsl:variable name="headerExtent" select="concat(
+      (if ($dmp/TransactionData/Parties/Manufacturer/Logo) then 2.3 else 0.95) + (if (count($dmp/Languages) gt 1) then 0.7 else 0),
+      'cm')" />
     <fo:root xml:lang="en">
       <fo:layout-master-set>
         <fo:simple-page-master master-name="simple" page-height="29.7cm" page-width="21cm" margin="1cm">
@@ -49,21 +67,21 @@
                         <fo:external-graphic fox:alt-text="Company Logo" src="{$dmp/TransactionData/Parties/Manufacturer/Logo}" content-height="36px" height="36px" />
                       </fo:block>
                     </xsl:if>
-                    <fo:block font-size="13pt" font-weight="bold">Digital Material Passport</fo:block>
+                    <fo:block font-size="13pt" font-weight="bold"><xsl:value-of select="mi:label('DigitalMaterialPassport', 'Digital Material Passport')" /></fo:block>
                   </fo:table-cell>
                   <fo:table-cell display-align="after">
                     <fo:block text-align="right">
-                      <fo:inline font-style="italic">ID </fo:inline>
+                      <fo:inline font-style="italic"><xsl:value-of select="mi:label('Id', 'ID')" /><xsl:text> </xsl:text></fo:inline>
                       <fo:inline font-weight="bold"><xsl:value-of select="$dmp/Id" /></fo:inline>
                       <xsl:text> - </xsl:text>
-                      <fo:inline font-style="italic">Version </fo:inline>
+                      <fo:inline font-style="italic"><xsl:value-of select="mi:label('Version', 'Version')" /><xsl:text> </xsl:text></fo:inline>
                       <fo:inline font-weight="bold"><xsl:value-of select="$dmp/Version" /></fo:inline>
                     </fo:block>
                     <fo:block text-align="right">
-                      <fo:inline font-style="italic">Issue Date </fo:inline>
+                      <fo:inline font-style="italic"><xsl:value-of select="mi:label('IssueDate', 'Issue Date')" /><xsl:text> </xsl:text></fo:inline>
                       <fo:inline font-weight="bold"><xsl:value-of select="$dmp/IssueDate" /></fo:inline>
                       <xsl:text> - </xsl:text>
-                      <fo:inline font-style="italic">Certificate Type </fo:inline>
+                      <fo:inline font-style="italic"><xsl:value-of select="mi:label('CertificateType', 'Certificate Type')" /><xsl:text> </xsl:text></fo:inline>
                       <fo:inline font-weight="bold">
                         <xsl:value-of select="concat($dmp/Validation/CertificateType/Standard, ' ', $dmp/Validation/CertificateType/Type)" />
                       </fo:inline>
@@ -99,13 +117,13 @@
               <fo:table-body>
                 <fo:table-row border-bottom="0.4pt solid #bfbfbf">
                   <fo:table-cell padding="2pt">
-                    <fo:block font-weight="bold" font-size="7pt" color="#555555">Manufacturer</fo:block>
+                    <fo:block font-weight="bold" font-size="7pt" color="#555555"><xsl:value-of select="mi:label('Manufacturer', 'Manufacturer')" /></fo:block>
                   </fo:table-cell>
                   <fo:table-cell padding="2pt">
-                    <fo:block font-weight="bold" font-size="7pt" color="#555555">Customer</fo:block>
+                    <fo:block font-weight="bold" font-size="7pt" color="#555555"><xsl:value-of select="mi:label('Customer', 'Customer')" /></fo:block>
                   </fo:table-cell>
                   <fo:table-cell padding="2pt">
-                    <fo:block font-weight="bold" font-size="7pt" color="#555555">Business Transaction</fo:block>
+                    <fo:block font-weight="bold" font-size="7pt" color="#555555"><xsl:value-of select="mi:label('BusinessTransaction', 'Business Transaction')" /></fo:block>
                   </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
@@ -128,9 +146,9 @@
                       <fo:table-cell padding="2pt" padding-top="4pt">
                         <fo:block font-weight="bold" font-size="7pt" color="#555555">
                           <xsl:choose>
-                            <xsl:when test="name() = 'Subcustomer'">Subcustomer</xsl:when>
-                            <xsl:when test="name() = 'GoodsReceiver'">Goods Receiver</xsl:when>
-                            <xsl:otherwise>Certificate Receiver</xsl:otherwise>
+                            <xsl:when test="name() = 'Subcustomer'"><xsl:value-of select="mi:label('Subcustomer', 'Subcustomer')" /></xsl:when>
+                            <xsl:when test="name() = 'GoodsReceiver'"><xsl:value-of select="mi:label('GoodsReceiver', 'Goods Receiver')" /></xsl:when>
+                            <xsl:otherwise><xsl:value-of select="mi:label('CertificateReceiver', 'Certificate Receiver')" /></xsl:otherwise>
                           </xsl:choose>
                         </fo:block>
                         <fo:block font-weight="bold"><xsl:value-of select="Name" /></fo:block>
@@ -158,7 +176,7 @@
 
             <!-- Product (merged: Product Information + Material Designations + Shape + Packaging and Marking) -->
             <xsl:call-template name="SectionTitle">
-              <xsl:with-param name="title" select="'Product'" />
+              <xsl:with-param name="title" select="mi:label('Product', 'Product')" />
             </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="52%" />
@@ -173,14 +191,14 @@
                       <fo:table-body>
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Product Name'" />
+                            <xsl:with-param name="key" select="mi:label('ProductName', 'Product Name')" />
                             <xsl:with-param name="value" select="$dmp/Product/Name" />
                             <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                           </xsl:call-template>
                         </fo:table-row>
                         <fo:table-row>
                           <xsl:call-template name="KeyValue">
-                            <xsl:with-param name="key" select="'Batch ID'" />
+                            <xsl:with-param name="key" select="mi:label('BatchId', 'Batch ID')" />
                             <xsl:with-param name="value" select="$dmp/Product/BatchId" />
                             <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                           </xsl:call-template>
@@ -188,7 +206,7 @@
                         <xsl:if test="$dmp/Product/ToolingId">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Tooling ID'" />
+                              <xsl:with-param name="key" select="mi:label('ToolingId', 'Tooling ID')" />
                               <xsl:with-param name="value" select="$dmp/Product/ToolingId" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -197,7 +215,7 @@
                         <xsl:for-each select="$dmp/Product/ProductionIdentifiers">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="if (Type = 'Other' and CustomType) then CustomType else replace(replace(Type, '([a-z])([A-Z])', '$1 $2'), ' Id$', ' ID')" />
+                              <xsl:with-param name="key" select="if (Type = 'Other' and CustomType) then CustomType else mi:label(Type, replace(replace(Type, '([a-z])([A-Z])', '$1 $2'), ' Id$', ' ID'))" />
                               <xsl:with-param name="value" select="Value" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -206,7 +224,7 @@
                         <xsl:if test="$dmp/Product/SurfaceCondition">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Surface Condition'" />
+                              <xsl:with-param name="key" select="mi:label('SurfaceCondition', 'Surface Condition')" />
                               <xsl:with-param name="value" select="$dmp/Product/SurfaceCondition" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -215,7 +233,7 @@
                         <xsl:if test="$dmp/Product/DeliveryCondition/Code">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Delivery Condition'" />
+                              <xsl:with-param name="key" select="mi:label('DeliveryCondition', 'Delivery Condition')" />
                               <xsl:with-param name="value" select="concat($dmp/Product/DeliveryCondition/Code, if($dmp/Product/DeliveryCondition/Description) then concat(' - ', $dmp/Product/DeliveryCondition/Description) else '')" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -224,7 +242,7 @@
                         <xsl:if test="$dmp/Product/Weight">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Weight'" />
+                              <xsl:with-param name="key" select="mi:label('Weight', 'Weight')" />
                               <xsl:with-param name="value" select="concat($dmp/Product/Weight, ' ', if ($dmp/Product/WeightUnit) then $dmp/Product/WeightUnit else 'kg')" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -233,7 +251,7 @@
                         <xsl:if test="$dmp/Product/ProductionDate">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Production Date'" />
+                              <xsl:with-param name="key" select="mi:label('ProductionDate', 'Production Date')" />
                               <xsl:with-param name="value" select="$dmp/Product/ProductionDate" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -242,7 +260,7 @@
                         <xsl:if test="$dmp/Product/CountryOfOrigin">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Country of Origin'" />
+                              <xsl:with-param name="key" select="mi:label('CountryOfOrigin', 'Country of Origin')" />
                               <xsl:with-param name="value" select="$dmp/Product/CountryOfOrigin" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -251,7 +269,7 @@
                         <xsl:if test="$dmp/Product/CountryOfMeltAndPour">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Country of Melt and Pour'" />
+                              <xsl:with-param name="key" select="mi:label('CountryOfMeltAndPour', 'Country of Melt and Pour')" />
                               <xsl:with-param name="value" select="$dmp/Product/CountryOfMeltAndPour" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -260,7 +278,7 @@
                         <xsl:if test="$dmp/Product/DimensionalTolerances/Standard">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Tolerance Standard'" />
+                              <xsl:with-param name="key" select="mi:label('ToleranceStandard', 'Tolerance Standard')" />
                               <xsl:with-param name="value" select="$dmp/Product/DimensionalTolerances/Standard" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -269,7 +287,7 @@
                         <xsl:for-each select="$dmp/Product/DimensionalTolerances/Tolerances/*">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="concat(replace(name(), '([a-z])([A-Z])', '$1 $2'), ' Tolerance')" />
+                              <xsl:with-param name="key" select="mi:label(concat(name(), 'Tolerance'), concat(replace(name(), '([a-z])([A-Z])', '$1 $2'), ' Tolerance'))" />
                               <xsl:with-param name="value" select="string-join((
                                 if (UpperDeviation) then concat(
                                   if (number(UpperDeviation) &gt;= 0) then concat('+', UpperDeviation) else string(UpperDeviation),
@@ -289,7 +307,7 @@
                         <xsl:if test="$dmp/Product/SpecificationReference">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Specification'" />
+                              <xsl:with-param name="key" select="mi:label('Specification', 'Specification')" />
                               <xsl:with-param name="value" select="string-join((
                                 $dmp/Product/SpecificationReference/Name,
                                 if ($dmp/Product/SpecificationReference/Revision) then concat('Rev ', $dmp/Product/SpecificationReference/Revision) else (),
@@ -312,7 +330,7 @@
                           <xsl:if test="Name">
                             <fo:table-row>
                               <xsl:call-template name="KeyValue">
-                                <xsl:with-param name="key" select="concat('Name', if(Name/System) then concat(' (', Name/System, ')') else '')" />
+                                <xsl:with-param name="key" select="concat(mi:label('Name', 'Name'), if(Name/System) then concat(' (', Name/System, ')') else '')" />
                                 <xsl:with-param name="value" select="Name/Value" />
                                 <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                               </xsl:call-template>
@@ -321,7 +339,7 @@
                           <xsl:if test="Number">
                             <fo:table-row>
                               <xsl:call-template name="KeyValue">
-                                <xsl:with-param name="key" select="concat('Number', if(Number/System) then concat(' (', Number/System, ')') else '')" />
+                                <xsl:with-param name="key" select="concat(mi:label('Number', 'Number'), if(Number/System) then concat(' (', Number/System, ')') else '')" />
                                 <xsl:with-param name="value" select="Number/Value" />
                                 <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                               </xsl:call-template>
@@ -331,7 +349,7 @@
                         <xsl:if test="$dmp/Product/Shape">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Shape'" />
+                              <xsl:with-param name="key" select="mi:label('Shape', 'Shape')" />
                               <xsl:with-param name="value" select="string-join((
                                 $dmp/Product/Shape/Form,
                                 if ($dmp/Product/Shape/Diameter) then concat('D ', $dmp/Product/Shape/Diameter, ' ', $dmp/Product/Shape/Unit) else (),
@@ -348,7 +366,7 @@
                         <xsl:if test="$dmp/Product/PackagingAndMarking/Marking">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Marking'" />
+                              <xsl:with-param name="key" select="mi:label('Marking', 'Marking')" />
                               <xsl:with-param name="value" select="$dmp/Product/PackagingAndMarking/Marking" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -357,7 +375,7 @@
                         <xsl:if test="$dmp/Product/PackagingAndMarking/Packaging">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Packaging'" />
+                              <xsl:with-param name="key" select="mi:label('Packaging', 'Packaging')" />
                               <xsl:with-param name="value" select="$dmp/Product/PackagingAndMarking/Packaging" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -366,7 +384,7 @@
                         <xsl:if test="$dmp/Product/PackagingAndMarking/Coloring">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Coloring'" />
+                              <xsl:with-param name="key" select="mi:label('Coloring', 'Coloring')" />
                               <xsl:with-param name="value" select="$dmp/Product/PackagingAndMarking/Coloring" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -375,7 +393,7 @@
                         <xsl:if test="$dmp/Product/PackagingAndMarking/SpecialInstructions">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Special Instructions'" />
+                              <xsl:with-param name="key" select="mi:label('SpecialInstructions', 'Special Instructions')" />
                               <xsl:with-param name="value" select="$dmp/Product/PackagingAndMarking/SpecialInstructions" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -384,7 +402,7 @@
                         <xsl:for-each select="$dmp/Product/ProductNorms">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'Product Norm'" />
+                              <xsl:with-param name="key" select="mi:label('ProductNorm', 'Product Norm')" />
                               <xsl:with-param name="value" select="concat(Standard, if(Year) then concat(' (', Year, ')') else '', if(ToleranceClass) then concat(', class ', ToleranceClass) else '')" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -393,7 +411,7 @@
                         <xsl:if test="$dmp/Product/CustomsClassification">
                           <fo:table-row>
                             <xsl:call-template name="KeyValue">
-                              <xsl:with-param name="key" select="'HS Code'" />
+                              <xsl:with-param name="key" select="mi:label('HSCode', 'HS Code')" />
                               <xsl:with-param name="value" select="concat($dmp/Product/CustomsClassification/HSCode, if($dmp/Product/CustomsClassification/StandardDescription) then concat(' - ', $dmp/Product/CustomsClassification/StandardDescription) else '')" />
                               <xsl:with-param name="paddingBottom" select="$kvPaddingBottom" />
                             </xsl:call-template>
@@ -419,24 +437,24 @@
             <xsl:if test="$dmp/HeatTreatment">
               <fo:block>
                 <xsl:call-template name="SectionTitle">
-                  <xsl:with-param name="title" select="'Heat Treatment'" />
+                  <xsl:with-param name="title" select="mi:label('HeatTreatment', 'Heat Treatment')" />
                 </xsl:call-template>
                 <fo:block>
-                  <fo:inline font-style="italic">Process: </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('Process', 'Process')" /><xsl:text>: </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/HeatTreatment/Process" /></fo:inline>
                   <xsl:if test="$dmp/HeatTreatment/HeatTreatmentLot">
                     <xsl:text> - </xsl:text>
-                    <fo:inline font-style="italic">Lot: </fo:inline>
+                    <fo:inline font-style="italic"><xsl:value-of select="mi:label('Lot', 'Lot')" /><xsl:text>: </xsl:text></fo:inline>
                     <xsl:value-of select="$dmp/HeatTreatment/HeatTreatmentLot" />
                   </xsl:if>
                   <xsl:if test="$dmp/HeatTreatment/FurnaceId">
                     <xsl:text> - </xsl:text>
-                    <fo:inline font-style="italic">Furnace: </fo:inline>
+                    <fo:inline font-style="italic"><xsl:value-of select="mi:label('Furnace', 'Furnace')" /><xsl:text>: </xsl:text></fo:inline>
                     <xsl:value-of select="$dmp/HeatTreatment/FurnaceId" />
                   </xsl:if>
                   <xsl:if test="$dmp/HeatTreatment/ProcessDate">
                     <xsl:text> - </xsl:text>
-                    <fo:inline font-style="italic">Date: </fo:inline>
+                    <fo:inline font-style="italic"><xsl:value-of select="mi:label('Date', 'Date')" /><xsl:text>: </xsl:text></fo:inline>
                     <xsl:value-of select="$dmp/HeatTreatment/ProcessDate" />
                   </xsl:if>
                 </fo:block>
@@ -449,11 +467,11 @@
                     <fo:table-column column-width="25%" />
                     <fo:table-body>
                       <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Stage</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Temperature</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Duration</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Cooling</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Atmosphere</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold"><xsl:value-of select="mi:label('Stage', 'Stage')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Temperature', 'Temperature')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Duration', 'Duration')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Cooling', 'Cooling')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Atmosphere', 'Atmosphere')" /></fo:block></fo:table-cell>
                       </fo:table-row>
                       <xsl:for-each select="$dmp/HeatTreatment/Stages">
                         <fo:table-row keep-together.within-page="always">
@@ -491,39 +509,39 @@
             <!-- Chemical Analysis: heat/cast info inline, elements as rows in two side-by-side halves -->
             <xsl:if test="$dmp/ChemicalAnalysis">
               <xsl:call-template name="SectionTitle">
-                <xsl:with-param name="title" select="'Chemical Analysis'" />
+                <xsl:with-param name="title" select="mi:label('ChemicalAnalysis', 'Chemical Analysis')" />
               </xsl:call-template>
               <fo:block space-after="3pt">
                 <!-- The schema requires a heat number, a cast number, or both -->
                 <xsl:if test="$dmp/ChemicalAnalysis/HeatNumber">
-                  <fo:inline font-style="italic">Heat Number </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('HeatNumber', 'Heat Number')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/HeatNumber" /></fo:inline>
                 </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/CastNumber">
                   <xsl:if test="$dmp/ChemicalAnalysis/HeatNumber">
                     <xsl:text> - </xsl:text>
                   </xsl:if>
-                  <fo:inline font-style="italic">Cast Number </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('CastNumber', 'Cast Number')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/CastNumber" /></fo:inline>
                 </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/MeltingProcess">
                   <xsl:text> - </xsl:text>
-                  <fo:inline font-style="italic">Melting Process </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('MeltingProcess', 'Melting Process')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/MeltingProcess" /></fo:inline>
                 </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/CastingMethod">
                   <xsl:text> - </xsl:text>
-                  <fo:inline font-style="italic">Casting Method </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('CastingMethod', 'Casting Method')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/CastingMethod" /></fo:inline>
                 </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/CastingDate">
                   <xsl:text> - </xsl:text>
-                  <fo:inline font-style="italic">Casting Date </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('CastingDate', 'Casting Date')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/CastingDate" /></fo:inline>
                 </xsl:if>
                 <xsl:if test="$dmp/ChemicalAnalysis/SampleLocation">
                   <xsl:text> - </xsl:text>
-                  <fo:inline font-style="italic">Sample Location </fo:inline>
+                  <fo:inline font-style="italic"><xsl:value-of select="mi:label('SampleLocation', 'Sample Location')" /><xsl:text> </xsl:text></fo:inline>
                   <fo:inline font-weight="bold"><xsl:value-of select="$dmp/ChemicalAnalysis/SampleLocation" /></fo:inline>
                 </xsl:if>
               </fo:block>
@@ -622,7 +640,7 @@
                 select="distinct-values(for $t in distinct-values($allTC) return if (count($allTC[. eq $t]) ge 2) then $t else ())" />
               <fo:block>
                 <xsl:call-template name="SectionTitle">
-                  <xsl:with-param name="title" select="'Mechanical Properties'" />
+                  <xsl:with-param name="title" select="mi:label('MechanicalProperties', 'Mechanical Properties')" />
                 </xsl:call-template>
                 <xsl:if test="$mechAllMultiValue">
                   <!-- Every property here is a multiValue result: the generic Property/Actual/
@@ -676,16 +694,16 @@
                   </xsl:if>
                   <fo:table-body>
                     <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
-                      <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Property</fo:block></fo:table-cell>
+                      <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold"><xsl:value-of select="mi:label('Property', 'Property')" /></fo:block></fo:table-cell>
                       <xsl:if test="$mechHasSymbol">
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Symbol</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Symbol', 'Symbol')" /></fo:block></fo:table-cell>
                       </xsl:if>
-                      <fo:table-cell padding="2pt"><fo:block font-style="italic">Actual</fo:block></fo:table-cell>
-                      <fo:table-cell padding="2pt"><fo:block font-style="italic">Minimum</fo:block></fo:table-cell>
-                      <fo:table-cell padding="2pt"><fo:block font-style="italic">Maximum</fo:block></fo:table-cell>
-                      <fo:table-cell padding="2pt"><fo:block font-style="italic">Method</fo:block></fo:table-cell>
+                      <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Actual', 'Actual')" /></fo:block></fo:table-cell>
+                      <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Minimum', 'Minimum')" /></fo:block></fo:table-cell>
+                      <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Maximum', 'Maximum')" /></fo:block></fo:table-cell>
+                      <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Method', 'Method')" /></fo:block></fo:table-cell>
                       <xsl:if test="$mechHasStatus">
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center">Status</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center"><xsl:value-of select="mi:label('Status', 'Status')" /></fo:block></fo:table-cell>
                       </xsl:if>
                     </fo:table-row>
 
@@ -838,7 +856,7 @@
 
               <fo:block>
                 <xsl:call-template name="SectionTitle">
-                  <xsl:with-param name="title" select="'Physical Properties'" />
+                  <xsl:with-param name="title" select="mi:label('PhysicalProperties', 'Physical Properties')" />
                 </xsl:call-template>
 
                 <xsl:if test="$physAllMultiValue">
@@ -883,16 +901,16 @@
                     </xsl:if>
                     <fo:table-body>
                       <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Property</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold"><xsl:value-of select="mi:label('Property', 'Property')" /></fo:block></fo:table-cell>
                         <xsl:if test="$physHasSymbol">
-                          <fo:table-cell padding="2pt"><fo:block font-style="italic">Symbol</fo:block></fo:table-cell>
+                          <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Symbol', 'Symbol')" /></fo:block></fo:table-cell>
                         </xsl:if>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Actual</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Target/Min</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Maximum</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Method</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Actual', 'Actual')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('TargetOrMinimum', 'Target/Min')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Maximum', 'Maximum')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Method', 'Method')" /></fo:block></fo:table-cell>
                         <xsl:if test="$physHasStatus">
-                          <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center">Status</fo:block></fo:table-cell>
+                          <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center"><xsl:value-of select="mi:label('Status', 'Status')" /></fo:block></fo:table-cell>
                         </xsl:if>
                       </fo:table-row>
                       <xsl:for-each select="$tableItems">
@@ -1010,7 +1028,7 @@
                     select="for $t in ('A','B','C','D','DS') return
                             if (exists($purityItems[PropertyName = concat($t, ' (fine)') or PropertyName = concat($t, ' (thick)') or PropertyName = $t])) then $t else ()" />
                   <fo:block space-before="4pt" space-after="2pt">
-                    <xsl:text>Micro-purity acc. ISO 4967 - actual (max) per type:</xsl:text>
+                    <xsl:value-of select="mi:label('MicroPurityIso4967', 'Micro-purity acc. ISO 4967 - actual (max) per type')" /><xsl:text>:</xsl:text>
                   </fo:block>
                   <fo:table table-layout="fixed" width="60%">
                     <fo:table-column column-width="16%" />
@@ -1083,7 +1101,7 @@
 
               <fo:block>
                 <xsl:call-template name="SectionTitle">
-                  <xsl:with-param name="title" select="'Supplementary Tests'" />
+                  <xsl:with-param name="title" select="mi:label('SupplementaryTests', 'Supplementary Tests')" />
                 </xsl:call-template>
 
                 <xsl:if test="exists($suppTableItems)">
@@ -1096,11 +1114,11 @@
                     </xsl:if>
                     <fo:table-body>
                       <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold">Test</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Result / limits</fo:block></fo:table-cell>
-                        <fo:table-cell padding="2pt"><fo:block font-style="italic">Method</fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic" font-weight="bold"><xsl:value-of select="mi:label('Test', 'Test')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('ResultAndLimits', 'Result / limits')" /></fo:block></fo:table-cell>
+                        <fo:table-cell padding="2pt"><fo:block font-style="italic"><xsl:value-of select="mi:label('Method', 'Method')" /></fo:block></fo:table-cell>
                         <xsl:if test="$suppHasStatus">
-                          <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center">Status</fo:block></fo:table-cell>
+                          <fo:table-cell padding="2pt"><fo:block font-style="italic" text-align="center"><xsl:value-of select="mi:label('Status', 'Status')" /></fo:block></fo:table-cell>
                         </xsl:if>
                       </fo:table-row>
                       <xsl:for-each select="$suppTableItems">
@@ -1229,7 +1247,7 @@
 
             <!-- Validation -->
             <xsl:call-template name="SectionTitle">
-              <xsl:with-param name="title" select="'Validation'" />
+              <xsl:with-param name="title" select="mi:label('Validation', 'Validation')" />
             </xsl:call-template>
             <fo:table table-layout="fixed" width="100%">
               <fo:table-column column-width="62%" />
@@ -1276,7 +1294,7 @@
                             </fo:block>
                           </xsl:if>
                           <fo:block>
-                            <xsl:text>Validated by </xsl:text>
+                            <xsl:value-of select="mi:label('ValidatedBy', 'Validated by')" /><xsl:text> </xsl:text>
                             <fo:inline font-weight="bold"><xsl:value-of select="Name" /></fo:inline>
                             <xsl:if test="Title">
                               <xsl:text>, </xsl:text><xsl:value-of select="Title" />
@@ -1326,19 +1344,19 @@
         <fo:table-column column-width="8.5mm" number-columns-repeated="{count($bandElements)}" />
         <fo:table-body>
           <fo:table-row background-color="#f0f0f0" keep-with-next.within-page="always">
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic" font-weight="bold">Symbol</fo:block></fo:table-cell>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-style="italic" font-weight="bold"><xsl:value-of select="mi:label('Symbol', 'Symbol')" /></fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold" text-align="center"><xsl:value-of select="PropertySymbol" /></fo:block></fo:table-cell>
             </xsl:for-each>
           </fo:table-row>
           <fo:table-row>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Unit</fo:block></fo:table-cell>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold"><xsl:value-of select="mi:label('Unit', 'Unit')" /></fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block text-align="center"><xsl:value-of select="Unit" /></fo:block></fo:table-cell>
             </xsl:for-each>
           </fo:table-row>
           <fo:table-row>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Min</fo:block></fo:table-cell>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold"><xsl:value-of select="mi:label('Min', 'Min')" /></fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
                 <fo:block text-align="center">
@@ -1353,7 +1371,7 @@
             </xsl:for-each>
           </fo:table-row>
           <fo:table-row>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Max</fo:block></fo:table-cell>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold"><xsl:value-of select="mi:label('Max', 'Max')" /></fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
                 <fo:block text-align="center">
@@ -1368,7 +1386,7 @@
             </xsl:for-each>
           </fo:table-row>
           <fo:table-row>
-            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold">Actual</fo:block></fo:table-cell>
+            <fo:table-cell padding="2pt" border="0.5pt solid #ddd"><fo:block font-weight="bold"><xsl:value-of select="mi:label('Actual', 'Actual')" /></fo:block></fo:table-cell>
             <xsl:for-each select="$bandElements">
               <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
                 <fo:block text-align="center">
@@ -1457,7 +1475,7 @@
              on some fixtures. The comma preserves this explicit priority
              regardless of input order. -->
         <xsl:for-each select="$bt/Order, $bt/Delivery, $bt/Contract">
-          <xsl:variable name="label" select="name()" />
+          <xsl:variable name="label" select="mi:label(name(), name())" />
           <fo:table-row>
             <fo:table-cell padding="2pt">
               <fo:block font-weight="bold"><xsl:value-of select="$label" /></fo:block>
@@ -1476,7 +1494,7 @@
               <xsl:if test="Position or Date">
                 <fo:block font-size="6.5pt" color="#4A4A4A">
                   <xsl:if test="Position">
-                    <xsl:text>Pos. </xsl:text><xsl:value-of select="Position" />
+                    <xsl:value-of select="mi:label('PositionShort', 'Pos.')" /><xsl:text> </xsl:text><xsl:value-of select="Position" />
                   </xsl:if>
                   <xsl:if test="Position and Date"><xsl:text> &#183; </xsl:text></xsl:if>
                   <xsl:if test="Date"><xsl:value-of select="Date" /></xsl:if>
@@ -1651,13 +1669,13 @@
                     <xsl:sequence select="$titleContent" />
                   </xsl:when>
                   <xsl:otherwise>
-                    <fo:block text-align="left" font-size="7pt">No.</fo:block>
+                    <fo:block text-align="left" font-size="7pt"><xsl:value-of select="mi:label('SequenceNumber', 'No.')" /></fo:block>
                   </xsl:otherwise>
                 </xsl:choose>
               </fo:table-cell>
               <xsl:if test="$symbol">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic">Symbol</fo:block>
+                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Symbol', 'Symbol')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:for-each select="$result/Values">
@@ -1669,42 +1687,42 @@
               </xsl:for-each>
               <xsl:if test="$stats/Average">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Average</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Average', 'Average')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$stats/Minimum">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Min</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Min', 'Min')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$stats/Maximum">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Max</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Max', 'Max')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$stats/StandardDeviation">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Std Dev</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('StdDev', 'Std Dev')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$specMin">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Spec Min</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('SpecMin', 'Spec Min')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$specMax">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Spec Max</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('SpecMax', 'Spec Max')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$method">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic">Method</fo:block>
+                  <fo:block text-align="left" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Method', 'Method')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
               <xsl:if test="$status">
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd">
-                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic">Status</fo:block>
+                  <fo:block text-align="center" font-size="7pt" font-weight="bold" font-style="italic"><xsl:value-of select="mi:label('Status', 'Status')" /></fo:block>
                 </fo:table-cell>
               </xsl:if>
             </fo:table-row>
@@ -1714,9 +1732,9 @@
                 <fo:block text-align="left" font-size="7pt">
                   <xsl:choose>
                     <xsl:when test="$result/../Unit">
-                      <xsl:value-of select="concat('Value [', $result/../Unit, ']')" />
+                      <xsl:value-of select="concat(mi:label('Value', 'Value'), ' [', $result/../Unit, ']')" />
                     </xsl:when>
-                    <xsl:otherwise>Value</xsl:otherwise>
+                    <xsl:otherwise><xsl:value-of select="mi:label('Value', 'Value')" /></xsl:otherwise>
                   </xsl:choose>
                 </fo:block>
               </fo:table-cell>
@@ -1836,7 +1854,7 @@
                         <xsl:text>)</xsl:text>
                       </xsl:if>
                     </xsl:when>
-                    <xsl:otherwise>Parameter</xsl:otherwise>
+                    <xsl:otherwise><xsl:value-of select="mi:label('Parameter', 'Parameter')" /></xsl:otherwise>
                   </xsl:choose>
                 </fo:block>
               </fo:table-cell>
@@ -1852,7 +1870,7 @@
             <xsl:if test="$result/Data/Minimum">
               <fo:table-row>
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
-                  <fo:block text-align="left" font-size="7pt">Min</fo:block>
+                  <fo:block text-align="left" font-size="7pt"><xsl:value-of select="mi:label('Min', 'Min')" /></fo:block>
                 </fo:table-cell>
                 <xsl:for-each select="$result/Data">
                   <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
@@ -1871,7 +1889,7 @@
             <xsl:if test="$result/Data/Maximum">
               <fo:table-row>
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
-                  <fo:block text-align="left" font-size="7pt">Max</fo:block>
+                  <fo:block text-align="left" font-size="7pt"><xsl:value-of select="mi:label('Max', 'Max')" /></fo:block>
                 </fo:table-cell>
                 <xsl:for-each select="$result/Data">
                   <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
@@ -1893,9 +1911,9 @@
                 <fo:block text-align="left" font-size="7pt">
                   <xsl:choose>
                     <xsl:when test="$result/../Unit">
-                      <xsl:value-of select="concat('Value [', $result/../Unit, ']')" />
+                      <xsl:value-of select="concat(mi:label('Value', 'Value'), ' [', $result/../Unit, ']')" />
                     </xsl:when>
-                    <xsl:otherwise>Value</xsl:otherwise>
+                    <xsl:otherwise><xsl:value-of select="mi:label('Value', 'Value')" /></xsl:otherwise>
                   </xsl:choose>
                 </fo:block>
               </fo:table-cell>
@@ -1913,7 +1931,7 @@
             <xsl:if test="$result/Data/Status">
               <fo:table-row>
                 <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
-                  <fo:block text-align="left" font-size="7pt">Status</fo:block>
+                  <fo:block text-align="left" font-size="7pt"><xsl:value-of select="mi:label('Status', 'Status')" /></fo:block>
                 </fo:table-cell>
                 <xsl:for-each select="$result/Data">
                   <fo:table-cell padding="2pt" border="0.5pt solid #ddd" wrap-option="wrap" hyphenate="true" keep-together.within-line="auto">
@@ -2380,7 +2398,7 @@
     <xsl:param name="specimen" />
     <xsl:if test="$specimen/Location or $specimen/Orientation or $specimen/Identifier">
       <fo:block font-size="6pt" color="#4A4A4A">
-        <xsl:text>Specimen: </xsl:text>
+        <xsl:value-of select="mi:label('Specimen', 'Specimen')" /><xsl:text>: </xsl:text>
         <xsl:if test="$specimen/Location">
           <xsl:value-of select="$specimen/Location" />
           <xsl:if test="$specimen/Location = 'Custom' and $specimen/CustomLocation">
@@ -2399,7 +2417,7 @@
           <xsl:if test="$specimen/Location or $specimen/Orientation">
             <xsl:text> - </xsl:text>
           </xsl:if>
-          <xsl:text>ID: </xsl:text>
+          <xsl:value-of select="mi:label('Id', 'ID')" /><xsl:text>: </xsl:text>
           <xsl:value-of select="$specimen/Identifier" />
         </xsl:if>
       </fo:block>
