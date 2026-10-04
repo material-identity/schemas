@@ -23,7 +23,8 @@
           {
             "type": "Feature",
             "properties": {
-              "Name": "Harvest Unit 1"
+              "Name": "Harvest Unit 1",
+              "Area": 3.5
             },
             "geometry": {
               "type": "Point",

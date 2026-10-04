@@ -1,0 +1,209 @@
+{
+  "Coordinates": {
+    "type": "array",
+    "items": [
+      {
+        "type": "number",
+        "minimum": -180,
+        "maximum": 180,
+        "description": "Longitude"
+      },
+      {
+        "type": "number",
+        "minimum": -90,
+        "maximum": 90,
+        "description": "Latitude"
+      }
+    ],
+    "minItems": 2,
+    "maxItems": 2,
+    "additionalItems": false
+  },
+  "PolygonCoordinates": {
+    "type": "array",
+    "description": "Array of linear rings (RFC 7946 §3.1.6): the first ring is the exterior boundary, any further rings are holes. Each ring has at least 4 positions and must be closed (first position equal to the last); closure is not enforced by this schema.",
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Coordinates"
+      },
+      "minItems": 4
+    },
+    "minItems": 1
+  },
+  "Point": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["Point"]
+      },
+      "coordinates": {
+        "$ref": "#/definitions/Coordinates"
+      }
+    },
+    "required": ["type", "coordinates"],
+    "additionalProperties": false
+  },
+  "Polygon": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["Polygon"]
+      },
+      "coordinates": {
+        "$ref": "#/definitions/PolygonCoordinates"
+      }
+    },
+    "required": ["type", "coordinates"]
+  },
+  "MultiPolygon": {
+    "type": "object",
+    "description": "A MultiPolygon geometry (RFC 7946 §3.1.7): one plot made of several polygons, as GIS exports of tenures and cutting permits commonly produce.",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["MultiPolygon"]
+      },
+      "coordinates": {
+        "type": "array",
+        "description": "One PolygonCoordinates entry per member polygon.",
+        "items": {
+          "$ref": "#/definitions/PolygonCoordinates"
+        },
+        "minItems": 1
+      }
+    },
+    "required": ["type", "coordinates"],
+    "additionalProperties": false
+  },
+  "GeometryCollection": {
+    "type": "object",
+    "description": "A collection of geometry objects",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["GeometryCollection"]
+      },
+      "geometries": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Point"
+            },
+            {
+              "$ref": "#/definitions/Polygon"
+            },
+            {
+              "$ref": "#/definitions/MultiPolygon"
+            }
+          ]
+        },
+        "minItems": 1
+      }
+    },
+    "required": ["type", "geometries"]
+  },
+  "Feature": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["Feature"]
+      },
+      "properties": {
+        "type": "object",
+        "properties": {
+          "ProducerName": {
+            "type": "string"
+          },
+          "ProducerCountry": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "ProductionPlace": {
+            "type": "string"
+          },
+          "Area": {
+            "type": "number",
+            "description": "Plot area in hectares. Required when the geometry is a Point: the EUDR Information System accepts a Point only for plots of at most 4 ha (minimum 0.0001 ha); larger plots must be described by a Polygon or MultiPolygon.",
+            "minimum": 0
+          },
+          "Name": {
+            "type": "string"
+          }
+        }
+      },
+      "geometry": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/Point"
+          },
+          {
+            "$ref": "#/definitions/Polygon"
+          },
+          {
+            "$ref": "#/definitions/MultiPolygon"
+          },
+          {
+            "$ref": "#/definitions/GeometryCollection"
+          }
+        ]
+      }
+    },
+    "required": ["type", "geometry"],
+    "if": {
+      "type": "object",
+      "properties": {
+        "geometry": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "Point"
+            }
+          },
+          "required": ["type"]
+        }
+      },
+      "required": ["geometry"]
+    },
+    "then": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "Area": {
+              "type": "number",
+              "minimum": 0.0001,
+              "maximum": 4
+            }
+          },
+          "required": ["Area"]
+        }
+      },
+      "required": ["properties"]
+    }
+  },
+  "Location": {
+    "type": "object",
+    "description": "A harvesting location defined using GeoJSON FeatureCollection",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["FeatureCollection"]
+      },
+      "features": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Feature"
+        },
+        "minItems": 1
+      }
+    },
+    "required": ["type", "features"]
+  }
+}
