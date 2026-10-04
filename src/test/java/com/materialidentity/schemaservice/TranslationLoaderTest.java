@@ -89,7 +89,9 @@ class TranslationLoaderTest {
                 { "a b": "x", "a_b": "y", "list": [ { "1st": 1 } ], "keep": "v a l / u e" }
                 """));
         assertEquals(4, out.size());
-        assertTrue(out.has("a_b") && out.has("_a_b"));
+        // "a_b" is already legal and keeps its name and value; the rewritten "a b" moves aside.
+        assertEquals("y", out.get("a_b").asText());
+        assertEquals("x", out.get("_a_b").asText());
         assertEquals(1, out.at("/list/0/_1st").asInt());
         assertEquals("v a l / u e", out.get("keep").asText());
     }
