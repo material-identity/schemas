@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Rewrites JSON object keys so the document survives the XmlMapper JSON → XML conversion in
@@ -22,13 +24,25 @@ public final class XmlKeySanitizer {
     /** A deep copy of {@code node} with every object key rewritten to a legal XML element name. */
     public static JsonNode sanitize(JsonNode node) {
         if (node.isObject()) {
+            // A key that is already legal owns its name; a rewritten key that lands on a taken
+            // name moves aside with a "_" prefix. Otherwise "a b" before "a_b" would take "a_b"
+            // and a lookup of a_b would read the wrong value. Key order is preserved.
+            Set<String> taken = new HashSet<>();
+            node.fieldNames().forEachRemaining(key -> {
+                if (sanitizeKey(key).equals(key)) {
+                    taken.add(key);
+                }
+            });
             ObjectNode out = JsonNodeFactory.instance.objectNode();
             var fields = node.fields();
             while (fields.hasNext()) {
                 var entry = fields.next();
                 String key = sanitizeKey(entry.getKey());
-                while (out.has(key)) {
-                    key = "_" + key; // two keys sanitized to the same name — keep both
+                if (!key.equals(entry.getKey())) {
+                    while (taken.contains(key)) {
+                        key = "_" + key;
+                    }
+                    taken.add(key);
                 }
                 out.set(key, sanitize(entry.getValue()));
             }
