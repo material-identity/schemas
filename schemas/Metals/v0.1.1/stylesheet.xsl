@@ -1502,14 +1502,14 @@
               </xsl:if>
               <!-- The customer's own wording for the product (Order) and the
                    supplier's internal order number (Delivery), each on its own
-                   line and only when present, so a certificate without them
+                   line and only when non-empty, so a certificate without them
                    renders exactly as before (material-identity/schema#426). -->
-              <xsl:if test="CustomerProductName">
+              <xsl:if test="normalize-space(CustomerProductName)">
                 <fo:block font-size="6.5pt" color="#4A4A4A">
                   <xsl:value-of select="mi:label('CustomerProductName', 'Customer Product Name')" /><xsl:text>: </xsl:text><xsl:value-of select="CustomerProductName" />
                 </fo:block>
               </xsl:if>
-              <xsl:if test="InternalOrderId">
+              <xsl:if test="normalize-space(InternalOrderId)">
                 <fo:block font-size="6.5pt" color="#4A4A4A">
                   <xsl:value-of select="mi:label('InternalOrderId', 'Internal Order ID')" /><xsl:text>: </xsl:text><xsl:value-of select="InternalOrderId" />
                 </fo:block>
