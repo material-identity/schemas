@@ -24,8 +24,11 @@
     <tomcat.version>10.1.60</tomcat.version>
     <!-- Jackson 2.21.6 fixes GHSA-q4xh-88c3-wmh7 (High, Duration/XMLGregorianCalendar parse DoS),
          GHSA-gx83-3vf8-gh7j and GHSA-wjgm-6hv5-3cvf (Medium, polymorphic-type denylist gap and Path
-         deserialization scheme allowlist) in jackson-databind. -->
-    <jackson-bom.version>2.21.6</jackson-bom.version>
+         deserialization scheme allowlist) in jackson-databind.
+         2.21.7 additionally fixes GHSA-p6pp-m3f8-5c89 and GHSA-7hhh-6rmp-j9qf (High, ReDoS in
+         jackson-core number parsing) and GHSA-cxp5-3px4-pw24 / GHSA-wv8q-qhhj-9h54 (High, quadratic
+         forward-reference and buffer handling in jackson-databind). -->
+    <jackson-bom.version>2.21.7</jackson-bom.version>
     <micrometer.version>1.15.12</micrometer.version>
     <httpclient5.version>5.6.3</httpclient5.version>
     <httpcore5.version>5.4.3</httpcore5.version>
