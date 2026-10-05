@@ -42,7 +42,8 @@
           "Date": "2025-04-14",
           "Quantity": 2400,
           "QuantityUnit": "m",
-          "CustomerProductId": "WS-Z-6060-T66"
+          "CustomerProductId": "WS-Z-6060-T66",
+          "CustomerProductName": "Z-profile 40 x 30 x 2, window sash, drawing WS-114 rev C"
         },
         "Delivery": {
           "Id": "DN-2025-0466",
