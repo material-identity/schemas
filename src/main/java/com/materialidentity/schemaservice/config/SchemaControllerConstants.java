@@ -3,7 +3,9 @@ package com.materialidentity.schemaservice.config;
 public final class SchemaControllerConstants {
     // render endpoint constants
     public static final String SCHEMAS_FOLDER_NAME = "schemas";
-    public static final String JSON_TRANSLATIONS_FILE_NAME_PATTERN = "translations*.json";
+    // Singular prefix so Metals' translation.json matches alongside every other family's
+    // translations.json (material-identity/schemas#331).
+    public static final String JSON_TRANSLATIONS_FILE_NAME_PATTERN = "translation*.json";
     public static final String XSLT_FILE_NAME = "stylesheet.xsl";
     public static final String DEFAULT_PDF_ATTACHMENT_CERT_FILE_NAME = "dmp.json";
     public static final String DEFAULT_PDF_ATTACHMENT_CERT_FILE_EXTENSION = ".json";
