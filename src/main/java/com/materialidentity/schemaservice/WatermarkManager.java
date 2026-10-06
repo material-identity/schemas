@@ -51,12 +51,9 @@ public class WatermarkManager {
      */
     public static String resolveText(String translationFilePattern, String primaryLanguage) {
         String lang = primaryLanguage.toUpperCase(Locale.ROOT);
-        // Broaden "translations*.json" to "translation*.json" so Metals' singular
-        // translation.json (unmatched by the render pipeline's pattern) is found too.
-        String pattern = translationFilePattern.replace("translations*", "translation*");
         try {
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-            for (Resource resource : resolver.getResources("classpath*:" + pattern)) {
+            for (Resource resource : resolver.getResources("classpath*:" + translationFilePattern)) {
                 JsonNode tree;
                 try (InputStream is = resource.getInputStream()) {
                     tree = objectMapper.readTree(is);

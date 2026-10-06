@@ -1,7 +1,7 @@
 {
   "RefSchemaUrl": "https://schemas.materialidentity.org/metals-schemas/v0.1.1/schema.json",
   "DigitalMaterialPassport": {
-    "Languages": ["EN", "DE"],
+    "Languages": ["EN"],
     "Id": "DMP-METAL-002",
     "Version": "1.0.0",
     "IssueDate": "2025-05-14",
