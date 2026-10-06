@@ -29,7 +29,9 @@ public class TranslationLoader {
             ObjectNode resourceTranslations = loadTranslationsFromResource(resource);
             JsonMerger.deepMerge(resourceTranslations, translations, null);
         }
-        return translations;
+        // Translation keys become XML element names under Root/Translations; Metals' keys include
+        // enum values such as "1/4T" that are not legal names (material-identity/schemas#331).
+        return XmlKeySanitizer.sanitize(translations);
     }
 
     private ObjectNode loadTranslationsFromResource(Resource resource) throws IOException {
