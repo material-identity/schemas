@@ -60,6 +60,14 @@ ignore:
   # Remove this entry as soon as a patched braces is published and picked up by the lockfiles.
   - vulnerability: GHSA-vfj7-8cjw-p6xm
 
+  # source-map-js 1.2.1 (GHSA-68fv-2mgg-jv7q, High, published 2026-09-18): event-loop DoS through
+  # indexed source-map section offsets in untrusted source maps. Reached only through postcss and
+  # sass inside the Angular CLI build (ui/), which parses our own sources at build time; nothing of
+  # it is deployed. The fix, 1.2.2, exists (published 2026-09-30) but the repo's .npmrc
+  # (min-release-age=7) quarantines it until 2026-10-07. Accepted until then — bump and remove this
+  # entry per #348.
+  - vulnerability: GHSA-68fv-2mgg-jv7q
+
 # Registry configuration (if needed for private registries)
 # registry:
 #   auth:

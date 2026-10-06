@@ -155,6 +155,124 @@ describe('ForestrySource v1.1.0 supplementary quantities', () => {
   );
 });
 
+describe('ForestrySource v1.1.0 harvest-unit geometry', () => {
+  const geometryBlock = require('./shared/forestry-geometry-block.json');
+  const square = (lon, lat, half) => [
+    [lon - half, lat - half],
+    [lon + half, lat - half],
+    [lon + half, lat + half],
+    [lon - half, lat + half],
+    [lon - half, lat - half],
+  ];
+
+  function certificateWithFeature(geometry, properties = { Name: 'Plot' }) {
+    const certificate = structuredClone(baseCertificate);
+    certificate.DigitalMaterialPassport.HarvestUnits = [
+      {
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', properties, geometry }],
+      },
+    ];
+    return certificate;
+  }
+
+  test('matches the shared geometry block definition for definition', () => {
+    Object.entries(geometryBlock).forEach(([name, definition]) => {
+      expect(schema.definitions[name]).toEqual(definition);
+    });
+  });
+
+  test('accepts a MultiPolygon feature', () => {
+    expectValidation(
+      certificateWithFeature({
+        type: 'MultiPolygon',
+        coordinates: [[square(10, 50, 0.01)], [square(10.05, 50, 0.01)]],
+      }),
+      true
+    );
+  });
+
+  test('accepts a MultiPolygon inside a GeometryCollection', () => {
+    expectValidation(
+      certificateWithFeature({
+        type: 'GeometryCollection',
+        geometries: [
+          { type: 'Point', coordinates: [10, 50] },
+          { type: 'MultiPolygon', coordinates: [[square(10, 50, 0.01)]] },
+        ],
+      }),
+      true
+    );
+  });
+
+  test('rejects a MultiPolygon with empty coordinates', () => {
+    expectValidation(
+      certificateWithFeature({ type: 'MultiPolygon', coordinates: [] }),
+      false
+    );
+  });
+
+  test.each(['Polygon', 'MultiPolygon'])(
+    'rejects a %s ring with only 3 positions',
+    (type) => {
+      const ring = square(10, 50, 0.01).slice(0, 3);
+      const coordinates = type === 'Polygon' ? [ring] : [[ring]];
+      expectValidation(certificateWithFeature({ type, coordinates }), false);
+    }
+  );
+
+  test.each([0.0001, 3.5, 4])(
+    'accepts a Point plot with Area %s ha',
+    (Area) => {
+      expectValidation(
+        certificateWithFeature(
+          { type: 'Point', coordinates: [10, 50] },
+          { Name: 'Small plot', Area }
+        ),
+        true
+      );
+    }
+  );
+
+  test('rejects a Point plot without Area', () => {
+    expectValidation(
+      certificateWithFeature({ type: 'Point', coordinates: [10, 50] }),
+      false
+    );
+  });
+
+  test.each([0, 4.0001, 29.3])(
+    'rejects a Point plot with Area %s ha',
+    (Area) => {
+      expectValidation(
+        certificateWithFeature(
+          { type: 'Point', coordinates: [10, 50] },
+          { Name: 'Too large for a point', Area }
+        ),
+        false
+      );
+    }
+  );
+
+  test('does not require Area for a Polygon', () => {
+    expectValidation(
+      certificateWithFeature({
+        type: 'Polygon',
+        coordinates: [square(10, 50, 0.01)],
+      }),
+      true
+    );
+  });
+
+  test('keeps ProducerCountry optional', () => {
+    const certificate = certificateWithFeature(
+      { type: 'Polygon', coordinates: [square(10, 50, 0.01)] },
+      { Name: 'No producer country' }
+    );
+    expectValidation(certificate, true);
+  });
+});
+
 describe('ForestrySource v1.1.0 scientific-name components', () => {
   test('accepts a 200-character serialized boundary without a 100/100 split', () => {
     const atLimit = structuredClone(baseCertificate);

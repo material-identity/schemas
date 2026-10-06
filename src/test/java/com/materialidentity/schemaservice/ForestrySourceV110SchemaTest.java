@@ -78,6 +78,48 @@ class ForestrySourceV110SchemaTest {
     assertInvalid(withMeasurements("{}"));
   }
 
+  private static final String RING =
+      "[[10.0,50.0],[10.02,50.0],[10.02,50.02],[10.0,50.02],[10.0,50.0]]";
+
+  @Test
+  void acceptsMultiPolygonAsFeatureGeometryAndAsCollectionMember() throws Exception {
+    assertValid(withFeature("{\"type\":\"MultiPolygon\",\"coordinates\":[[" + RING + "],[" + RING + "]]}",
+        "{\"Name\":\"Plot\"}"));
+    assertValid(withFeature(
+        "{\"type\":\"GeometryCollection\",\"geometries\":[{\"type\":\"Point\",\"coordinates\":[10.0,50.0]},"
+            + "{\"type\":\"MultiPolygon\",\"coordinates\":[[" + RING + "]]}]}",
+        "{\"Name\":\"Plot\"}"));
+    assertInvalid(withFeature("{\"type\":\"MultiPolygon\",\"coordinates\":[]}", "{\"Name\":\"Plot\"}"));
+  }
+
+  @Test
+  void requiresAtLeastFourPositionsPerRing() throws Exception {
+    String threePositions = "[[10.0,50.0],[10.02,50.0],[10.0,50.0]]";
+    assertInvalid(withFeature("{\"type\":\"Polygon\",\"coordinates\":[" + threePositions + "]}",
+        "{\"Name\":\"Plot\"}"));
+    assertInvalid(withFeature("{\"type\":\"MultiPolygon\",\"coordinates\":[[" + threePositions + "]]}",
+        "{\"Name\":\"Plot\"}"));
+  }
+
+  @Test
+  void requiresAreaOfAtMostFourHectaresForPointPlots() throws Exception {
+    String point = "{\"type\":\"Point\",\"coordinates\":[10.0,50.0]}";
+    assertValid(withFeature(point, "{\"Name\":\"Plot\",\"Area\":3.5}"));
+    assertValid(withFeature(point, "{\"Name\":\"Plot\",\"Area\":4}"));
+    assertInvalid(withFeature(point, "{\"Name\":\"Plot\"}"));
+    assertInvalid(withFeature(point, "{\"Name\":\"Plot\",\"Area\":0}"));
+    assertInvalid(withFeature(point, "{\"Name\":\"Plot\",\"Area\":4.5}"));
+    assertValid(withFeature("{\"type\":\"Polygon\",\"coordinates\":[" + RING + "]}", "{\"Name\":\"Plot\"}"));
+  }
+
+  private static JsonNode withFeature(String geometryJson, String propertiesJson) throws Exception {
+    JsonNode certificate = baseCertificate.deepCopy();
+    ObjectNode feature = (ObjectNode) certificate.at("/DigitalMaterialPassport/HarvestUnits/0/features/0");
+    feature.set("geometry", OBJECT_MAPPER.readTree(geometryJson));
+    feature.set("properties", OBJECT_MAPPER.readTree(propertiesJson));
+    return certificate;
+  }
+
   private static JsonNode withMeasurements(String measurementsJson) throws Exception {
     JsonNode certificate = baseCertificate.deepCopy();
     ObjectNode species = (ObjectNode) certificate.at("/DigitalMaterialPassport/Products/0/ListOfSpecies/0");
