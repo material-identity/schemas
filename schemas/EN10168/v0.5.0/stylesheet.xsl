@@ -1588,7 +1588,9 @@
           </fo:basic-link>
         </xsl:when>
         <xsl:when test="$type = 'qr-code'">
-          <!-- QR code generation typically requires an external library or pre-generated image -->
+          <!-- The symbol is generated before the stylesheet runs (QrCodeValues, #447): Value arrives as
+               the SVG data URI of the symbol encoding the certificate's text (its URL), or as the ready
+               image a certificate issued under the earlier reading embedded. -->
           <fo:external-graphic fox:alt-text="QR Code" src="{$value}" content-width="80px" width="80px" scaling="uniform" />
         </xsl:when>
         <xsl:when test="$type = 'image'">

@@ -35,6 +35,7 @@ import com.materialidentity.schemaservice.EmbedManager;
 import com.materialidentity.schemaservice.PDFBuilder;
 import com.materialidentity.schemaservice.TranslationLoader;
 import com.materialidentity.schemaservice.WatermarkManager;
+import com.materialidentity.schemaservice.QrCodeValues;
 import com.materialidentity.schemaservice.XsltTransformer;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 import com.materialidentity.schemaservice.config.SchemasAndVersions;
@@ -206,8 +207,10 @@ public class SchemasServiceImpl implements SchemasService {
         // Derive classpath root URI so json-doc() can resolve relative paths
         String baseUri = deriveClasspathRootUri(xsltResource, xsltPath);
 
+        // The stylesheet renders a copy with every qr-code symbol generated (#346); the JSON attached
+        // below (certificateJson) is the certificate as issued.
         PDFBuilder pdfBuilder = new PDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, certificate, baseUri))
+                .withXsltTransformer(new XsltTransformer(xsltSource, QrCodeValues.embedSymbols(certificate), baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(
                         new AttachmentManager(certificateJson,

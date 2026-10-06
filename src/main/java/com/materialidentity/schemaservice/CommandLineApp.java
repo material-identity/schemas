@@ -202,8 +202,10 @@ public class CommandLineApp {
         }
 
         // Build PDF using the command-line builder pattern (with font loading fixes)
+        // The stylesheet renders a copy with every qr-code symbol generated (#346); the attached
+        // jsonContent is the certificate as issued.
         CommandLinePDFBuilder pdfBuilder = new CommandLinePDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, certificate, baseUri))
+                .withXsltTransformer(new XsltTransformer(xsltSource, QrCodeValues.embedSymbols(certificate), baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(new AttachmentManager(jsonContent,
                                                      Paths.get(outputFile).getFileName().toString().replace(".pdf", ""),

@@ -134,6 +134,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!-- QR encoding for EN10168 v0.5.0 qr-code entries (#346): the symbol is emitted as SVG path
+         data, so only core is needed (javase would pull in image I/O). Same version as schema's :shared. -->
+    <dependency>
+      <groupId>com.google.zxing</groupId>
+      <artifactId>core</artifactId>
+      <version>3.5.3</version>
+    </dependency>
     <dependency>
       <groupId>com.networknt</groupId>
       <artifactId>json-schema-validator</artifactId>
