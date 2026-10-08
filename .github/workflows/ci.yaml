@@ -25,7 +25,7 @@ on:
 
 jobs:
   setup-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
 
     steps:
@@ -50,7 +50,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
 
   setup-and-test-node:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +70,7 @@ jobs:
         run: npm test -- --testPathIgnorePatterns="json2pdf.spec.js"
 
   test-json2pdf:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     # Tests the standalone json2pdf command-line tool with Maven dependencies
 
