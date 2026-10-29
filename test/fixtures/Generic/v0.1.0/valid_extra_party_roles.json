@@ -1,0 +1,53 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Fasteners AB",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        },
+        "Customer": {
+          "Name": "Hansa Maschinenbau GmbH",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          }
+        },
+        "Subcustomer": {
+          "Name": "Baltic Rail Systems OU",
+          "Email": "orders@balticrail.example",
+          "Identifiers": {
+            "VAT": "EE101234567"
+          }
+        },
+        "GoodsReceiver": {
+          "Name": "Hansa Logistik GmbH",
+          "Email": "wareneingang@hansa-logistik.example",
+          "Identifiers": {
+            "EORI": "DE1234567890123"
+          }
+        },
+        "CertificateReceiver": {
+          "Name": "Hansa QA Office",
+          "Email": "qa@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          }
+        },
+        "Distributor": {
+          "Name": "Nordic Trade Partners AS",
+          "Email": "sales@nordictrade.example",
+          "Identifiers": {
+            "VAT": "NO912345678MVA"
+          },
+          "Region": "Nordics"
+        }
+      }
+    },
+    "Id": "NF-2026-000602"
+  }
+}

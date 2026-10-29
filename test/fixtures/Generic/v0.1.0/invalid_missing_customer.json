@@ -1,0 +1,16 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Fasteners AB",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        }
+      }
+    }
+  }
+}

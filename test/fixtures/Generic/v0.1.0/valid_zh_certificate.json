@@ -1,0 +1,59 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Id": "NF-2026-000605",
+    "Title": "符合性证书",
+    "IssueDate": "2026-05-06",
+    "Languages": [
+      "ZH"
+    ],
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "北欧紧固件有限公司",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          },
+          "Street": [
+            "工业路12号"
+          ],
+          "City": "马尔默",
+          "Country": "SE"
+        },
+        "Customer": {
+          "Name": "汉莎机械制造有限公司",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          },
+          "City": "汉堡",
+          "Country": "DE"
+        }
+      },
+      "BusinessTransaction": {
+        "Order": {
+          "Id": "PO-88400",
+          "Quantity": 800,
+          "QuantityUnit": "件"
+        }
+      }
+    },
+    "Product": {
+      "Name": "六角螺栓 M12 x 80, 8.8级",
+      "Description": "镀锌六角头螺栓"
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "我们在此证明所交付的产品符合订单要求。"
+      },
+      "ValidationDate": "2026-05-06",
+      "Validators": [
+        {
+          "Name": "李华",
+          "Title": "质量经理"
+        }
+      ]
+    }
+  }
+}

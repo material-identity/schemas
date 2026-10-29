@@ -28,6 +28,8 @@ import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.materialidentity.schemaservice.XmlKeySanitizer;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.materialidentity.schemaservice.AttachmentManager;
 import com.materialidentity.schemaservice.CustomerLayouts;
@@ -58,6 +60,45 @@ public class SchemasServiceImpl implements SchemasService {
         certificateTypeMap.put("metals", "Metals");
         certificateTypeMap.put("bluemint", "Bluemint");
         certificateTypeMap.put("hkm", "HKM");
+        certificateTypeMap.put("generic", "Generic");
+    }
+
+    /**
+     * The document the stylesheet sees; the attached JSON stays the certificate as issued. Every
+     * family but Generic gets the certificate with each qr-code symbol generated. The Generic
+     * stylesheet draws no symbols, so a qr-code value prints as written, and a Generic certificate
+     * accepts any property name: its keys are rewritten to legal XML names and it travels under
+     * {@code Certificate}, next to the original text of the rewritten keys ({@code Labels}) and the
+     * element name holding an array inside an array ({@code ArrayItem}). Nested one level down, no
+     * key of the certificate can collide with those or with the {@code Translations} the PDF builder
+     * adds beside them.
+     */
+    public static JsonNode stylesheetSource(JsonNode certificate, String schemaType) {
+        if (!SchemasAndVersions.SchemaTypes.Generic.name().equals(schemaType)) {
+            return QrCodeValues.embedSymbols(certificate);
+        }
+        XmlKeySanitizer.StylesheetDocument generic = XmlKeySanitizer.forStylesheet(certificate);
+        ObjectNode source = new ObjectMapper().createObjectNode();
+        source.set("Certificate", generic.document());
+        source.set("Labels", generic.labels());
+        source.put("ArrayItem", generic.arrayItem());
+        return source;
+    }
+
+    /**
+     * The Generic family makes Languages optional and renders in English when they are absent. It
+     * reads them from DigitalMaterialPassport only: a Generic certificate may carry any other root
+     * property, including a {@code Certificate} that {@link #extractLanguages} would otherwise prefer.
+     */
+    public static String[] extractLanguagesOrDefault(JsonNode jsonContent, String schemaType) {
+        if (!SchemasAndVersions.SchemaTypes.Generic.name().equals(schemaType)) {
+            return extractLanguages(jsonContent);
+        }
+        JsonNode passport = jsonContent.path("DigitalMaterialPassport");
+        if (!passport.has("Languages")) {
+            return new String[] {"EN"};
+        }
+        return extractLanguages(new ObjectMapper().createObjectNode().set("DigitalMaterialPassport", passport));
     }
 
     public static String[] extractLanguages(JsonNode jsonContent) {
@@ -180,11 +221,11 @@ public class SchemasServiceImpl implements SchemasService {
     public ResponseEntity<byte[]> renderPdf(Boolean attachJson, JsonNode certificate, String filename, String mode)
             throws IOException, TransformerException, SAXException {
         boolean testMode = parseTestMode(mode);
-        String[] languages = extractLanguages(certificate);
-        String[] encodedData = extractPdfData(certificate);
-        String[] dataFromS3 = extractPdfDataFromS3(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
+        String[] languages = extractLanguagesOrDefault(certificate, schemaType);
+        String[] encodedData = extractPdfData(certificate);
+        String[] dataFromS3 = extractPdfDataFromS3(certificate);
         logger.info("Rendering certificate type: {}, version: {}, languages: {}, attachJson: {}, filename: {}, mode: {}", schemaType,
                 schemaVersion, languages, attachJson, filename, mode);
 
@@ -210,7 +251,7 @@ public class SchemasServiceImpl implements SchemasService {
         // The stylesheet renders a copy with every qr-code symbol generated (#346); the JSON attached
         // below (certificateJson) is the certificate as issued.
         PDFBuilder pdfBuilder = new PDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, QrCodeValues.embedSymbols(certificate), baseUri))
+                .withXsltTransformer(new XsltTransformer(xsltSource, stylesheetSource(certificate, schemaType), baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(
                         new AttachmentManager(certificateJson,

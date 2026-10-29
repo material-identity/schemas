@@ -1,0 +1,55 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "Certificate": {
+    "CertificateLanguages": []
+  },
+  "DigitalMaterialPassport": {
+    "Languages": ["EN", "DE"],
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Fasteners AB",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        },
+        "Customer": {
+          "Name": "Hansa Maschinenbau GmbH",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          }
+        },
+        "Auditor": {
+          "Name": "Baltic Inspection OÜ",
+          "Email": ["audit@baltic-inspection.example", "lab@baltic-inspection.example"],
+          "Identifiers": {
+            "VAT": "EE102030405"
+          }
+        }
+      }
+    },
+    "Id": "NF-2026-000911",
+    "Product": {
+      "Name": "Hex bolt M12 x 80"
+    },
+    "Readings": [[], [null, 2], [3, 4]],
+    "Checks": [
+      { "Name": "Torque", "Result": { "Value": null, "Unit": "Nm" } },
+      { "Name": "Visual", "Result": { "Value": "ok", "Unit": [] } }
+    ],
+    "Attachments": [
+      {
+        "FileName": "inspection-report.pdf",
+        "Encoding": "base64",
+        "Data": "data:application/pdf;base64,JVBERi0xLjQKJcfsj6IKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoK"
+      },
+      {
+        "FileName": "drawing.png",
+        "Encoding": "base64",
+        "Data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+      }
+    ]
+  }
+}

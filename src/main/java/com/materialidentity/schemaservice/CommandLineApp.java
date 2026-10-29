@@ -44,6 +44,7 @@ public class CommandLineApp {
         certificateTypeMap.put("forestry-source", "ForestrySource");
         certificateTypeMap.put("e-coc", "E-CoC");
         certificateTypeMap.put("hkm", "HKM");
+        certificateTypeMap.put("generic", "Generic");
     }
 
     public static void main(String[] args) {
@@ -164,9 +165,11 @@ public class CommandLineApp {
         JsonNode certificate = objectMapper.readTree(jsonContent);
 
         // Extract certificate information
-        String[] languages = extractLanguages(certificate);
         String schemaType = extractCertificateType(certificate);
         String schemaVersion = extractCertificateVersion(certificate);
+        String[] languages = "Generic".equals(schemaType)
+                ? com.materialidentity.schemaservice.service.SchemasServiceImpl.extractLanguagesOrDefault(certificate, schemaType)
+                : extractLanguages(certificate);
 
         logger.info("Processing certificate type: {}, version: {}, languages: {}", 
                    schemaType, schemaVersion, String.join(",", languages));
@@ -205,7 +208,8 @@ public class CommandLineApp {
         // The stylesheet renders a copy with every qr-code symbol generated (#346); the attached
         // jsonContent is the certificate as issued.
         CommandLinePDFBuilder pdfBuilder = new CommandLinePDFBuilder()
-                .withXsltTransformer(new XsltTransformer(xsltSource, QrCodeValues.embedSymbols(certificate), baseUri))
+                .withXsltTransformer(new XsltTransformer(xsltSource,
+                        com.materialidentity.schemaservice.service.SchemasServiceImpl.stylesheetSource(certificate, schemaType), baseUri))
                 .withTranslations(new TranslationLoader(translationsPattern, languages))
                 .withAttachment(new AttachmentManager(jsonContent,
                                                      Paths.get(outputFile).getFileName().toString().replace(".pdf", ""),

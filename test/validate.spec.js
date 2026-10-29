@@ -89,7 +89,8 @@ describe('Validate valid certificates against schema files', function() {
       return;
     }
     
-    const regex = /valid_.+\.json/
+    // Anchored, so invalid_*.json fixtures are not picked up as valid ones
+    const regex = /^valid_.+\.json$/
     const validCerts = fs.readdirSync(fullDirPath).filter((file) => regex.test(file));
     const localSchema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
 
@@ -106,6 +107,36 @@ describe('Validate valid certificates against schema files', function() {
         expect(isValid).toBe(true);
         expect(validator.errors).toBeNull();
       });
+    });
+  });
+});
+
+describe('Generic v0.1.0 rejects certificates without the required parties', function() {
+  const fixturesDir = resolve(__dirname, './fixtures/Generic/v0.1.0');
+  const schemaPath = resolve(__dirname, '../schemas/Generic/v0.1.0/schema.json');
+  const parties = '/DigitalMaterialPassport/TransactionData/Parties';
+
+  // fixture → the error that must be among the validator's errors
+  const expectedErrors = {
+    'invalid_missing_customer.json': { instancePath: parties, message: "must have required property 'Customer'" },
+    'invalid_party_without_email.json': { instancePath: `${parties}/Manufacturer`, message: "must have required property 'Email'" },
+    'invalid_party_without_identifier.json': { instancePath: `${parties}/Customer/Identifiers`, message: 'must NOT have fewer than 1 properties' },
+    'invalid_identifier_empty.json': { instancePath: `${parties}/Customer/Identifiers/EORI`, message: 'must NOT have fewer than 1 characters' },
+    'invalid_identifier_unknown_empty.json': { instancePath: `${parties}/Customer/Identifiers/OtherId`, message: 'must NOT have fewer than 1 characters' },
+    'invalid_identifier_unknown_null.json': { instancePath: `${parties}/Customer/Identifiers/Custom`, message: 'must be string' },
+  };
+
+  it('has an expected error for every invalid fixture', () => {
+    const invalidCerts = fs.readdirSync(fixturesDir).filter((file) => /^invalid_.+\.json$/.test(file));
+    expect(invalidCerts.sort()).toEqual(Object.keys(expectedErrors).sort());
+  });
+
+  Object.entries(expectedErrors).forEach(([certificateName, expected]) => {
+    it(`Generic/v0.1.0 - ${certificateName} should be rejected`, async () => {
+      const certificate = JSON.parse(fs.readFileSync(join(fixturesDir, certificateName), 'utf8'));
+      const validator = await createAjvInstance().compileAsync(JSON.parse(fs.readFileSync(schemaPath, 'utf-8')));
+      expect(validator(certificate)).toBe(false);
+      expect(validator.errors).toEqual(expect.arrayContaining([expect.objectContaining(expected)]));
     });
   });
 });

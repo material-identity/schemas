@@ -1,0 +1,169 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Weird Co",
+          "Email": "q@weird.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        },
+        "Customer": {
+          "Name": "Buyer GmbH",
+          "Email": "b@buyer.example",
+          "Identifiers": {
+            "VAT": "DE812345678"
+          }
+        }
+      }
+    },
+    "Id": "NF-2026-000820",
+    "Product": {
+      "Name": "Stress test"
+    },
+    "ArrayOfArrays": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "ArrayOfArraysOfObjects": [
+      [
+        {
+          "A": 1
+        },
+        {
+          "A": 2
+        }
+      ],
+      [
+        {
+          "A": 3
+        }
+      ]
+    ],
+    "Empties": {
+      "EmptyArray": [],
+      "EmptyObject": {},
+      "Null": null,
+      "Flag": true,
+      "Zero": 0
+    },
+    "Deep": {
+      "L1": {
+        "L2": {
+          "L3": {
+            "L4": {
+              "L5": {
+                "L6": "bottom"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Groups": [
+      {
+        "Group": "A",
+        "Items": [
+          {
+            "Id": 1,
+            "Specs": [
+              {
+                "K": "x",
+                "V": 1
+              },
+              {
+                "K": "y",
+                "V": 2
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "Specs": [
+              {
+                "K": "z",
+                "V": 3
+              },
+              {
+                "K": "w",
+                "V": 4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Group": "B",
+        "Items": [
+          {
+            "Id": 3
+          },
+          {
+            "Id": 4
+          }
+        ]
+      }
+    ],
+    "Mixed": {
+      "Values": [
+        1,
+        [
+          2,
+          3
+        ],
+        "x"
+      ],
+      "Single": [
+        [
+          7,
+          8,
+          9
+        ]
+      ],
+      "Ragged": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4
+        ]
+      ]
+    },
+    "Grid": [
+      {
+        "Name": "a",
+        "Pairs": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      {
+        "Name": "b",
+        "Pairs": [
+          [
+            5,
+            6
+          ]
+        ]
+      }
+    ]
+  }
+}

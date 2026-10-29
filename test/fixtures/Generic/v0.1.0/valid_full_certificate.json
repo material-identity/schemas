@@ -1,0 +1,138 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "Id": "NF-2026-000417",
+    "Title": "Certificate of Conformity",
+    "IssueDate": "2026-04-25",
+    "Languages": [
+      "EN",
+      "DE"
+    ],
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Fasteners AB",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901",
+            "DUNS": "123456789"
+          },
+          "Street": [
+            "Industrivägen 12"
+          ],
+          "ZipCode": "21120",
+          "City": "Malmö",
+          "Country": "SE",
+          "Phone": "+46 40 123 456"
+        },
+        "Customer": {
+          "Name": "Hansa Maschinenbau GmbH",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "VAT": "DE812345678"
+          },
+          "Street": [
+            "Werkstraße 4"
+          ],
+          "ZipCode": "20457",
+          "City": "Hamburg",
+          "Country": "DE"
+        },
+        "GoodsReceiver": {
+          "Name": "Hansa Logistik GmbH",
+          "Email": "wareneingang@hansa-logistik.example",
+          "Identifiers": {
+            "EORI": "DE1234567890123"
+          },
+          "Street": [
+            "Hafenstraße 9"
+          ],
+          "ZipCode": "20457",
+          "City": "Hamburg",
+          "Country": "DE"
+        }
+      },
+      "BusinessTransaction": {
+        "Contract": {
+          "Id": "FC-2025-11",
+          "Date": "2025-11-03",
+          "Description": "Framework contract fasteners 2026"
+        },
+        "Order": {
+          "Id": "PO-88213",
+          "Position": "10",
+          "Date": "2026-03-02",
+          "Quantity": 12000,
+          "QuantityUnit": "pieces",
+          "CustomerProductId": "HM-FS-M12-80"
+        },
+        "Delivery": {
+          "Id": "DN-55120",
+          "Position": "1",
+          "Date": "2026-04-24",
+          "Quantity": 12000,
+          "QuantityUnit": "pieces"
+        }
+      }
+    },
+    "Product": {
+      "Name": "Hex bolt M12 x 80, grade 8.8, zinc flake coated",
+      "Description": "Hexagon head bolt ISO 4017, property class 8.8, zinc flake coating per ISO 10683.",
+      "Standard": "ISO 4017",
+      "PropertyClass": "8.8",
+      "Coating": {
+        "Type": "Zinc flake",
+        "Standard": "ISO 10683",
+        "ThicknessMicrometre": 8
+      },
+      "BatchNumbers": [
+        "B26-0917",
+        "B26-0918"
+      ]
+    },
+    "Validation": {
+      "ValidationStatement": {
+        "Statement": "We hereby certify that the products delivered conform to the order and the referenced standards.",
+        "Standards": [
+          "ISO 4017",
+          "ISO 898-1",
+          "ISO 10683"
+        ],
+        "ComplianceType": "Certificate of Compliance"
+      },
+      "ValidationDate": "2026-04-25",
+      "ValidationPlace": "Malmö",
+      "Validators": [
+        {
+          "Name": "Anna Lindqvist",
+          "Title": "Quality Manager",
+          "Department": "Quality Assurance"
+        }
+      ],
+      "CertificateType": {
+        "Standard": "EN 10204",
+        "Type": "2.1"
+      },
+      "Disclaimer": "Values stated are based on production records of the batches listed."
+    },
+    "Inspection": {
+      "SaltSprayTest": {
+        "Standard": "ISO 9227",
+        "DurationHours": 720,
+        "Result": "No red rust"
+      },
+      "TorqueTest": {
+        "SampleSize": 5,
+        "Unit": "Nm",
+        "Values": [
+          84.2,
+          85.0,
+          83.7,
+          84.9,
+          84.4
+        ]
+      }
+    },
+    "Remarks": "Packed in 12 cartons of 1000 pieces."
+  }
+}
