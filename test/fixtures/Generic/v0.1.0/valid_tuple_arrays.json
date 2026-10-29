@@ -1,0 +1,142 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "DigitalMaterialPassport": {
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Steel AB",
+          "Email": "quality@nordicsteel.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        },
+        "Customer": {
+          "Name": "Hansa Maschinenbau GmbH",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          }
+        }
+      }
+    },
+    "Id": "NS-2026-000711",
+    "Product": {
+      "Name": "Round bar 42CrMo4, Ø 80 mm",
+      "ProductNorms": [
+        {
+          "Norm": "EN 10083-3",
+          "Grade": "42CrMo4"
+        },
+        {
+          "Norm": "EN 10060",
+          "Tolerance": "± 0.8 mm"
+        }
+      ]
+    },
+    "ChemicalAnalysis": {
+      "HeatNumber": "H26-4471",
+      "Elements": [
+        {
+          "Unit": "%",
+          "Actual": 0.41,
+          "Maximum": 0.45,
+          "Minimum": 0.38,
+          "PropertySymbol": "C"
+        },
+        {
+          "Unit": "%",
+          "Actual": 0.24,
+          "Maximum": 0.4,
+          "PropertySymbol": "Si"
+        },
+        {
+          "Unit": "%",
+          "Actual": 0.78,
+          "Maximum": 0.9,
+          "Minimum": 0.6,
+          "PropertySymbol": "Mn"
+        },
+        {
+          "Unit": "%",
+          "Actual": 0.011,
+          "Maximum": 0.025,
+          "PropertySymbol": "P"
+        },
+        {
+          "Unit": "%",
+          "Actual": 1.02,
+          "Maximum": 1.2,
+          "Minimum": 0.9,
+          "PropertySymbol": "Cr"
+        },
+        {
+          "Unit": "ppm",
+          "Actual": 1.4,
+          "Maximum": 2,
+          "PropertySymbol": "H"
+        }
+      ]
+    },
+    "MechanicalProperties": [
+      {
+        "PropertyName": "Tensile strength",
+        "PropertySymbol": "Rm",
+        "Unit": "MPa",
+        "Actual": 1012,
+        "Minimum": 900,
+        "TestConditions": {
+          "Temperature": "20 °C",
+          "Direction": "longitudinal"
+        }
+      },
+      {
+        "PropertyName": "Yield strength",
+        "PropertySymbol": "Rp0.2",
+        "Unit": "MPa",
+        "Actual": 812,
+        "Minimum": 650
+      },
+      {
+        "PropertyName": "Impact energy",
+        "PropertySymbol": "KV",
+        "Unit": "J",
+        "Actual": [48, 52, 50],
+        "Minimum": 35,
+        "TestConditions": {
+          "Temperature": "-20 °C"
+        }
+      }
+    ],
+    "SupplementaryTests": [
+      {
+        "PropertyName": "Ultrasonic test",
+        "Method": "EN 10308",
+        "Actual": "Class 4, passed"
+      },
+      {
+        "PropertyName": "Hardenability - Jominy",
+        "Method": "EN ISO 642",
+        "Data": [
+          {
+            "Parameter": "J1.5",
+            "Value": 57,
+            "Minimum": 53,
+            "Maximum": 61
+          },
+          {
+            "Parameter": "J5",
+            "Value": 55,
+            "Minimum": 51,
+            "Maximum": 60
+          },
+          {
+            "Parameter": "J15",
+            "Value": 44,
+            "Minimum": 37,
+            "Maximum": 51
+          }
+        ]
+      }
+    ]
+  }
+}

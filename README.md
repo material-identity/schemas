@@ -24,6 +24,7 @@ rendered as a human-readable document when someone needs to look at it.
 | ForestryOutput | Digital Material Passport for forestry and wood products | `v1.0.0` | `https://schemas.materialidentity.org/forestry-output-schemas/v1.0.0/schema.json` |
 | Forestry | Earlier combined forestry passport, predecessor of ForestrySource and ForestryOutput | `v0.0.1` | `https://schemas.s1seven.com/forestry-schemas/v0.0.1/schema.json` |
 | E-CoC | Electronic Certificate of Conformity (schema only, no PDF rendering) | `v1.0.0` | `https://schemas.s1seven.com/e-coc-schemas/v1.0.0/schema.json` |
+| Generic | Minimal base schema for company-specific certificates: parties with identifiers required, everything else optional | `v0.1.0` | `https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json` |
 
 Newer versions publish their `$id` under `https://schemas.materialidentity.org/`;
 older versions still declare `https://schemas.s1seven.com/`. Both hosts serve

@@ -1,0 +1,604 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "title": "Generic Certificate",
+  "description": "Minimal base schema for certificates issued from company-specific specifications. It fixes only what notarization needs: the schema reference and the parties of the transaction, each with name, email and at least one identifier. Business transaction, product and validation data are optional, and every object accepts additional properties; a company specification closes what it needs.",
+  "type": "object",
+  "properties": {
+    "RefSchemaUrl": {
+      "description": "URL of this base schema. A company specification pins it with a const.",
+      "type": "string",
+      "pattern": "(https?://[a-z0-9/\\.\\-]+[\\.a-z+])/([a-z0-9\\-]+)/(v\\d+\\.\\d+\\.\\d+(-\\d+)?)/([a-z\\./\\-]+.json)"
+    },
+    "DigitalMaterialPassport": {
+      "$ref": "#/$defs/DigitalMaterialPassport"
+    }
+  },
+  "required": [
+    "RefSchemaUrl",
+    "DigitalMaterialPassport"
+  ],
+  "$defs": {
+    "DigitalMaterialPassport": {
+      "title": "DigitalMaterialPassport",
+      "description": "The certificate content. Parties are required; everything else is optional and additional properties are allowed.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Unique identifier of the certificate, the certificate number.",
+          "type": "string"
+        },
+        "Title": {
+          "description": "Document title shown on the rendered certificate.",
+          "type": "string"
+        },
+        "IssueDate": {
+          "description": "The date the certificate was issued.",
+          "type": "string",
+          "format": "date",
+          "examples": [
+            "2026-04-25"
+          ]
+        },
+        "Languages": {
+          "description": "Languages of the certificate. Defaults to English when absent.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "EN",
+              "DE",
+              "ZH"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "default": [
+            "EN"
+          ]
+        },
+        "TransactionData": {
+          "$ref": "#/$defs/TransactionData"
+        },
+        "Product": {
+          "$ref": "#/$defs/Product"
+        },
+        "Validation": {
+          "$ref": "#/$defs/Validation"
+        }
+      },
+      "required": [
+        "TransactionData"
+      ],
+      "additionalProperties": true
+    },
+    "TransactionData": {
+      "title": "TransactionData",
+      "description": "The parties of the transaction and, optionally, the business transaction data.",
+      "type": "object",
+      "properties": {
+        "Parties": {
+          "$ref": "#/$defs/Parties"
+        },
+        "BusinessTransaction": {
+          "$ref": "#/$defs/BusinessTransaction"
+        }
+      },
+      "required": [
+        "Parties"
+      ],
+      "additionalProperties": true
+    },
+    "Parties": {
+      "title": "Parties",
+      "description": "The parties and their roles in the business transaction. The Manufacturer issues the certificate; further roles may be added.",
+      "type": "object",
+      "properties": {
+        "Manufacturer": {
+          "description": "The party manufacturing the goods and issuing the certificate.",
+          "$ref": "#/$defs/Party"
+        },
+        "Customer": {
+          "description": "The party purchasing the goods from the manufacturer.",
+          "$ref": "#/$defs/Party"
+        },
+        "Subcustomer": {
+          "description": "A secondary customer or end client for whom the Customer is purchasing the goods.",
+          "$ref": "#/$defs/Party"
+        },
+        "GoodsReceiver": {
+          "description": "The party receiving the physical goods, which may differ from the Customer.",
+          "$ref": "#/$defs/Party"
+        },
+        "CertificateReceiver": {
+          "description": "The party receiving the certificate, which may differ from the Customer or GoodsReceiver.",
+          "$ref": "#/$defs/Party"
+        }
+      },
+      "required": [
+        "Manufacturer",
+        "Customer"
+      ],
+      "additionalProperties": true
+    },
+    "Party": {
+      "title": "Party",
+      "description": "An organization involved in the certified transaction. Name, Email and at least one identifier are required; the address is optional.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "The legal name of the organization.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "Email": {
+          "description": "The organization's email address for communications related to this certificate.",
+          "type": "string",
+          "format": "email"
+        },
+        "Identifiers": {
+          "$ref": "#/$defs/CompanyIdentifiers"
+        },
+        "Street": {
+          "description": "The street address lines of the organization.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "District": {
+          "description": "The district, borough, or sub-city administrative division.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "City": {
+          "description": "The city name.",
+          "type": "string"
+        },
+        "StateProvince": {
+          "description": "The state, province, region, or primary administrative division.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "ZipCode": {
+          "description": "The postal or ZIP code.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "The two-letter ISO country code according to ISO 3166-1 alpha-2.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "examples": [
+            "DE",
+            "FR",
+            "US",
+            "GB",
+            "CN"
+          ]
+        },
+        "Phone": {
+          "description": "The organization's phone number.",
+          "type": "string"
+        },
+        "Logo": {
+          "description": "The organization's logo as a base64-encoded PNG image.",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        }
+      },
+      "required": [
+        "Name",
+        "Email",
+        "Identifiers"
+      ],
+      "additionalProperties": true
+    },
+    "CompanyIdentifiers": {
+      "title": "CompanyIdentifiers",
+      "description": "Unique identifiers of the organization. At least one of the known identifiers is required so the issuer can be matched to a registered company; further identifiers are allowed, and every value must be a non-empty string.",
+      "type": "object",
+      "properties": {
+        "VAT": {
+          "description": "Value Added Tax identification number",
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 15,
+          "pattern": "\\S"
+        },
+        "DUNS": {
+          "description": "Data Universal Numbering System identifier",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "pattern": "\\S"
+        },
+        "CageCode": {
+          "description": "Commercial and Government Entity Code",
+          "type": "string",
+          "examples": [
+            "N1950#"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "EORI": {
+          "description": "Economic Operators Registration and Identification number (EU customs)",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "MID": {
+          "description": "Manufacturer Identification Code (US customs)",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "CNPJ": {
+          "description": "Cadastro Nacional da Pessoa Juridica (Brazil)",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "RUT": {
+          "description": "Rol Unico Tributario (Chile)",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "CBN": {
+          "description": "Company Business Number",
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": {
+        "description": "Any further identifier; the value must be a non-empty, non-blank string.",
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "VAT": true
+          },
+          "required": [
+            "VAT"
+          ]
+        },
+        {
+          "properties": {
+            "DUNS": true
+          },
+          "required": [
+            "DUNS"
+          ]
+        },
+        {
+          "properties": {
+            "CageCode": true
+          },
+          "required": [
+            "CageCode"
+          ]
+        },
+        {
+          "properties": {
+            "EORI": true
+          },
+          "required": [
+            "EORI"
+          ]
+        },
+        {
+          "properties": {
+            "MID": true
+          },
+          "required": [
+            "MID"
+          ]
+        },
+        {
+          "properties": {
+            "CNPJ": true
+          },
+          "required": [
+            "CNPJ"
+          ]
+        },
+        {
+          "properties": {
+            "RUT": true
+          },
+          "required": [
+            "RUT"
+          ]
+        },
+        {
+          "properties": {
+            "CBN": true
+          },
+          "required": [
+            "CBN"
+          ]
+        }
+      ]
+    },
+    "BusinessTransaction": {
+      "title": "BusinessTransaction",
+      "description": "Information about the underlying commercial transaction: contract, order and delivery. All optional.",
+      "type": "object",
+      "properties": {
+        "Contract": {
+          "$ref": "#/$defs/Contract"
+        },
+        "Order": {
+          "$ref": "#/$defs/Order"
+        },
+        "Delivery": {
+          "$ref": "#/$defs/Delivery"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Contract": {
+      "title": "Contract",
+      "description": "Reference to the framework contract between Customer and Manufacturer governing the order.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The contract number.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of the contract.",
+          "type": "string",
+          "format": "date",
+          "examples": [
+            "2026-04-15"
+          ]
+        },
+        "Description": {
+          "description": "Human-readable description of the contract.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Information about the order submitted by the customer to the manufacturer.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The order number.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position or line item on the order.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of the order.",
+          "type": "string",
+          "format": "date",
+          "examples": [
+            "2026-04-15"
+          ]
+        },
+        "Quantity": {
+          "description": "The quantity.",
+          "type": "number"
+        },
+        "QuantityUnit": {
+          "description": "The unit of the quantity.",
+          "type": "string",
+          "examples": [
+            "kg",
+            "t",
+            "m",
+            "m²",
+            "m³",
+            "pieces"
+          ]
+        },
+        "CustomerProductId": {
+          "description": "The customer's internal product identifier.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Delivery": {
+      "title": "Delivery",
+      "description": "Information from the delivery note associated with the shipment.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "The delivery number.",
+          "type": "string"
+        },
+        "Position": {
+          "description": "The position or line item on the delivery.",
+          "type": "string"
+        },
+        "Date": {
+          "description": "The date of the delivery.",
+          "type": "string",
+          "format": "date",
+          "examples": [
+            "2026-04-15"
+          ]
+        },
+        "Quantity": {
+          "description": "The quantity.",
+          "type": "number"
+        },
+        "QuantityUnit": {
+          "description": "The unit of the quantity.",
+          "type": "string",
+          "examples": [
+            "kg",
+            "t",
+            "m",
+            "m²",
+            "m³",
+            "pieces"
+          ]
+        },
+        "InternalOrderId": {
+          "description": "The manufacturer's internal order identifier.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Description of the certified product. Only Name and Description are defined; any further properties are allowed and rendered as they are.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Product name.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Product description.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Validation": {
+      "title": "Validation",
+      "description": "Validation information and declarations of conformity for the certificate. All optional.",
+      "type": "object",
+      "properties": {
+        "ValidationStatement": {
+          "$ref": "#/$defs/ValidationStatement"
+        },
+        "ValidationDate": {
+          "description": "Date of validation or approval",
+          "type": "string",
+          "format": "date"
+        },
+        "ValidationPlace": {
+          "description": "Location where the validation was performed",
+          "type": "string"
+        },
+        "Validators": {
+          "description": "Persons who validated or approved the certificate",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ValidatingPerson"
+          },
+          "minItems": 1
+        },
+        "CertificateType": {
+          "description": "The type of certificate according to relevant standards",
+          "type": "object",
+          "properties": {
+            "Standard": {
+              "description": "The standard defining the certificate type",
+              "type": "string",
+              "examples": [
+                "EN 10204",
+                "ISO 10474"
+              ]
+            },
+            "Type": {
+              "description": "The specific certificate type according to the standard",
+              "type": "string",
+              "examples": [
+                "3.1",
+                "3.2",
+                "2.2"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "Disclaimer": {
+          "description": "Legal disclaimer text",
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ValidationStatement": {
+      "title": "ValidationStatement",
+      "description": "Statement of compliance or declaration of conformity",
+      "type": "object",
+      "properties": {
+        "Statement": {
+          "description": "The full text of the declaration of conformity or compliance statement",
+          "type": "string"
+        },
+        "Standards": {
+          "description": "List of standards to which conformity is declared",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ComplianceType": {
+          "description": "The type of compliance being declared",
+          "type": "string",
+          "enum": [
+            "Declaration of Conformity",
+            "Certificate of Compliance",
+            "Statement of Compliance",
+            "Type Approval"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "ValidatingPerson": {
+      "title": "ValidatingPerson",
+      "description": "Person responsible for validation and approval",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Name of the person validating the certificate",
+          "type": "string"
+        },
+        "Title": {
+          "description": "Job title or position of the validator",
+          "type": "string",
+          "examples": [
+            "Quality Inspector",
+            "Acceptance Officer"
+          ]
+        },
+        "Department": {
+          "description": "Department of the validator",
+          "type": "string",
+          "examples": [
+            "Quality Assurance"
+          ]
+        },
+        "StampImage": {
+          "description": "Base64 encoded image of the signature or stamp",
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,43 @@
+{
+  "RefSchemaUrl": "https://schemas.materialidentity.org/generic-schemas/v0.1.0/schema.json",
+  "Labels": {
+    "Readings": "Overridden label"
+  },
+  "ArrayItem": "Readings",
+  "Translations": {
+    "Parties": "Overridden translation"
+  },
+  "DigitalMaterialPassport": {
+    "Languages": ["DE"],
+    "Id": "NF-2026-000912",
+    "TransactionData": {
+      "Parties": {
+        "Manufacturer": {
+          "Name": "Nordic Fasteners AB",
+          "Email": "quality@nordicfasteners.example",
+          "Identifiers": {
+            "VAT": "SE556677889901"
+          }
+        },
+        "Customer": {
+          "Name": "Hansa Maschinenbau GmbH",
+          "Email": "einkauf@hansa-maschinenbau.example",
+          "Identifiers": {
+            "DUNS": "987654321"
+          }
+        }
+      }
+    },
+    "Product": {
+      "Name": "Hex bolt M12 x 80"
+    },
+    "Links": [
+      { "Type": "qr-code", "Value": "https://passport.example/NF-2026-000912" }
+    ],
+    "Readings": [[1, 2], [3, 4]],
+    "Profile": [
+      [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112],
+      [201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212]
+    ]
+  }
+}

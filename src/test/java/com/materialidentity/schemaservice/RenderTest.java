@@ -37,6 +37,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.pdfbox.text.PDFTextStripper;
 import com.materialidentity.schemaservice.config.SchemaControllerConstants;
 
@@ -297,6 +298,92 @@ class RenderTest {
 			assertTrue(containsWatermark(new PDFTextStripper().getText(doc), WATERMARK_EN),
 					"English fallback watermark expected");
 		}
+	}
+
+	@Test
+	void genericWithoutLanguagesRendersInEnglishInLiveAndTestMode() throws Exception {
+		// Generic makes Languages optional: the render and the watermark both fall back to EN.
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "Generic", "v0.1.0", "valid_minimal_parties.json"));
+		byte[] livePdf = renderWithMode(jsonContent, "live");
+		byte[] testPdf = renderWithMode(jsonContent, "test");
+		try (PDDocument liveDoc = Loader.loadPDF(livePdf);
+				PDDocument testDoc = Loader.loadPDF(testPdf)) {
+			PDFTextStripper stripper = new PDFTextStripper();
+			String liveText = stripper.getText(liveDoc);
+			assertTrue(liveText.contains("Nordic Fasteners AB"), "live render shows the certificate");
+			assertFalse(containsWatermark(liveText, WATERMARK_EN), "live render must not be watermarked");
+			assertTrue(containsWatermark(stripper.getText(testDoc), WATERMARK_EN),
+					"test-mode watermark resolves without a Languages key");
+		}
+	}
+
+	@Test
+	void genericWithNullOrEmptyLanguagesIsRejected() throws Exception {
+		// Only an absent key falls back to EN; an explicit null or empty value is still an error.
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode certificate = (ObjectNode) mapper.readTree(Files.readString(
+				Paths.get("test", "fixtures", "Generic", "v0.1.0", "valid_minimal_parties.json")));
+		ObjectNode passport = (ObjectNode) certificate.get("DigitalMaterialPassport");
+
+		passport.putNull("Languages");
+		expectRenderRejected(mapper.writeValueAsString(certificate), "No languages property found in the certificate");
+		passport.putArray("Languages");
+		expectRenderRejected(mapper.writeValueAsString(certificate), "CertificateLanguages array is empty");
+	}
+
+	@Test
+	void genericPrintsQrValuesAsWrittenAndListsWideRowsInsteadOfAGrid() throws Exception {
+		String jsonContent = Files.readString(
+				Paths.get("test", "fixtures", "Generic", "v0.1.0", "valid_render_limits.json"));
+		try (PDDocument doc = Loader.loadPDF(renderWithMode(jsonContent, "live"))) {
+			String text = new PDFTextStripper().getText(doc).replaceAll("\\s+", " ");
+			assertTrue(text.contains("https://passport.example/NF-2026-000912"), "the qr-code value prints as written");
+			assertFalse(text.contains("data:image"), "no generated symbol replaces it");
+			assertTrue(text.contains("101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112"),
+					"a 12-wide inner array is one row of text, not a 12-column grid");
+			assertFalse(text.contains("Overridden"),
+					"the certificate's own root Labels, ArrayItem and Translations do not reach the stylesheet's");
+		}
+	}
+
+	@Test
+	void genericDeclaresTheCertificateLanguage() throws Exception {
+		assertEquals("de", renderedLanguage("valid_render_limits.json"));
+		assertEquals("zh", renderedLanguage("valid_zh_certificate.json"));
+		assertEquals("en", renderedLanguage("valid_minimal_parties.json"), "no Languages: English");
+	}
+
+	@Test
+	void genericStylesheetSourceNestsTheCertificateBesideTheRendererKeys() throws Exception {
+		JsonNode certificate = new ObjectMapper().readTree(Files.readString(
+				Paths.get("test", "fixtures", "Generic", "v0.1.0", "valid_render_limits.json")));
+		JsonNode source = com.materialidentity.schemaservice.service.SchemasServiceImpl.stylesheetSource(certificate, "Generic");
+		JsonNode nested = source.get("Certificate");
+		assertEquals(certificate.get("Labels"), nested.get("Labels"));
+		assertEquals("Readings", nested.get("ArrayItem").asText());
+		assertEquals(certificate.get("Translations"), nested.get("Translations"));
+		assertEquals("https://passport.example/NF-2026-000912",
+				nested.at("/DigitalMaterialPassport/Links/0/Value").asText(), "no QR symbol for Generic");
+		assertTrue(source.get("Labels").isEmpty(), "no key of this certificate needed rewriting");
+		assertEquals("Item", source.get("ArrayItem").asText());
+	}
+
+	private String renderedLanguage(String fixture) throws Exception {
+		String jsonContent = Files.readString(Paths.get("test", "fixtures", "Generic", "v0.1.0", fixture));
+		try (PDDocument doc = Loader.loadPDF(renderWithMode(jsonContent, "live"))) {
+			return doc.getDocumentCatalog().getLanguage();
+		}
+	}
+
+	private void expectRenderRejected(String jsonContent, String message) {
+		webClient
+				.post().uri("/api/render")
+				.contentType(MediaType.APPLICATION_JSON)
+				.bodyValue(jsonContent).exchange()
+				.expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+				.expectBody()
+				.jsonPath("$.message").isEqualTo(message);
 	}
 
 	@Test
